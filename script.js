@@ -34,6 +34,21 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  'OUR WORLD, ONE STOP AT A TIME': 'NUESTRO MUNDO, PARADA A PARADA',
+  'Show whole world': 'Ver todo el mundo',
+  'Click a flag to zoom in. Select another stop or return to the whole world.': 'Haz clic en una bandera para acercarte. Elige otra parada o vuelve al mapa mundial.',
+
+  "POSTCARDS FROM THE ROAD": "POSTALES DEL CAMINO",
+  "Pick a pin. Come along.": "Elige una parada. Acompáñanos.",
+  "Tap a stop to explore our route. This is where our trip photos and stories will land.": "Toca una parada para explorar nuestra ruta. Aquí llegarán las fotos e historias del viaje.",
+  "Photos to come": "Próximamente: fotos",
+  "The trip is still ahead. Check back for photos, favorite finds, and stories from this stop.": "El viaje está por comenzar. Vuelve para ver fotos, descubrimientos e historias de esta parada.",
+  "An illustrated route, with room for detours.": "Una ruta ilustrada, con espacio para desvíos.",
+  "A little lost. A lot to discover.": "Un poco perdidos. Mucho por descubrir.",
+  "South America": "Sudamérica",
+  "Pacific Ocean": "Océano Pacífico",
+  "Atlantic Ocean": "Océano Atlántico",
+
   'Skip to content': 'Saltar al contenido',
   'ENGLISH + ESPAÑOL': 'ENGLISH + ESPAÑOL',
   'Menu': 'Menú',
@@ -99,6 +114,15 @@ const spanish = {
   'Perdido': 'Perdido',
   'TWO PERSPECTIVES · ONE ROAD': 'DOS PERSPECTIVAS · UN CAMINO',
   '02 / NICE TO MEET YOU · MUCHO GUSTO': '02 / MUCHO GUSTO · NICE TO MEET YOU',
+  'Meet your hosts': 'Conoce a tus anfitriones',
+  'Born and raised in New York, NY.': 'Nacido y criado en Nueva York, NY.',
+  'Born and raised in La Paz, Bolivia.': 'Nacido y criado en La Paz, Bolivia.',
+  'Languages spoken': 'Idiomas',
+  'English (native), Spanish (fluent), Portuguese (no sabo).': 'Inglés (nativo), español (fluido), portugués (no sabo).',
+  'Spanish (native), English (fluent), Portuguese (proficient).': 'Español (nativo), inglés (fluido), portugués (competente).',
+  'Ethnicity': 'Origen étnico',
+  'Dominican and Antiguan': 'Dominicano y antiguano',
+  'Bolivian': 'Boliviano',
   'Same place.': 'El mismo lugar.',
   'Dos perspectivas.': 'Dos perspectivas.',
   'We’re two travel companions, one Latino-American English speaker who learned Spanish later in life, and one Bolivian born native Spanish speaker who learned English later in life, experiencing Latin America together. Sometimes we see things differently. Sometimes we get lost along the way. Usually, that’s where the good story starts.': 'Somos dos compañeros de viaje: una persona latinoamericana angloparlante que aprendió español más adelante en la vida y una persona boliviana, hablante nativa de español, que aprendió inglés más adelante. Estamos viviendo Latinoamérica juntos. A veces vemos las cosas de manera distinta. A veces nos perdemos en el camino. Y normalmente ahí empieza la buena historia.',
@@ -149,9 +173,16 @@ const spanish = {
 };
 
 const spanishAttributes = {
+  'Illustrated world trip map': 'Mapa mundial ilustrado del viaje',
   'Lost and Perdido home': 'Inicio de Lost & Perdido',
   'Main navigation': 'Navegación principal',
   'Language': 'Idioma',
+  'Dominican Republic flag': 'Bandera de la República Dominicana',
+  'Antigua and Barbuda flag': 'Bandera de Antigua y Barbuda',
+  'Statue of Liberty': 'Estatua de la Libertad',
+  'Bolivia flag': 'Bandera de Bolivia',
+  'John E. riding a horse on a beach': 'John E. montando a caballo en una playa',
+  'Mateo L. standing in front of the mountains': 'Mateo L. frente a las montañas',
   'Rows of vines below snowy mountains in Mendoza, Argentina': 'Hileras de viñedos bajo montañas nevadas en Mendoza, Argentina',
   'Santiago Metropolitan Cathedral and historic buildings beside Plaza de Armas in daylight': 'Catedral Metropolitana de Santiago y edificios históricos junto a la Plaza de Armas durante el día',
   'Snow-covered Illimani in the Bolivian Andes': 'Illimani cubierto de nieve en los Andes bolivianos',
@@ -311,3 +342,60 @@ setInterval(updateCountdowns, 1000);
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateCountdowns();
 });
+
+// Project every flag from the same coordinates as the map artwork.
+const worldMap = document.querySelector('.world-map');
+const worldArt = document.querySelector('.world-map-art');
+const mapPins = [...document.querySelectorAll('.world-pin')];
+let mapView = { scale: 1, x: 0, y: 0 };
+let mapAnimation;
+function drawWorldMap() {
+  const { width, height } = worldMap.getBoundingClientRect();
+  worldArt.style.transform = `translate(${mapView.x * width}px, ${mapView.y * height}px) scale(${mapView.scale})`;
+  const lines = [];
+  mapPins.forEach((pin) => {
+    const x = (Number(pin.dataset.x) / 100 * mapView.scale + mapView.x) * width;
+    const y = (Number(pin.dataset.y) / 100 * mapView.scale + mapView.y) * height;
+    const dx = Number(pin.dataset.dx) * Math.min(1, width / 550);
+    const dy = Number(pin.dataset.dy);
+    pin.style.left = `${x}px`;
+    pin.style.top = `${y}px`;
+    pin.style.setProperty('--label-x', `${dx}px`);
+    pin.style.setProperty('--label-y', `${dy}px`);
+    lines.push(`<line x1="${x}" y1="${y}" x2="${x + dx}" y2="${y + dy}" stroke="#8b7158" stroke-width="1"/>`);
+  });
+  document.querySelector('.map-connectors').innerHTML = lines.join('');
+}
+function animateMap(target) {
+  cancelAnimationFrame(mapAnimation);
+  const from = { ...mapView };
+  const start = performance.now();
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 700;
+  function frame(now) {
+    const progress = duration ? Math.min(1, (now - start) / duration) : 1;
+    const eased = 1 - Math.pow(1 - progress, 3);
+    for (const key of ['scale', 'x', 'y']) mapView[key] = from[key] + (target[key] - from[key]) * eased;
+    drawWorldMap();
+    if (progress < 1) mapAnimation = requestAnimationFrame(frame);
+  }
+  mapAnimation = requestAnimationFrame(frame);
+}
+mapPins.forEach((pin) => {
+  pin.addEventListener('click', () => {
+    document.getElementById('map-welcome').hidden = true;
+    mapPins.forEach((other) => other.setAttribute('aria-pressed', String(other === pin)));
+    document.querySelectorAll('.map-stop').forEach((panel) => {
+      panel.hidden = panel.id !== `stop-${pin.dataset.stop}`;
+    });
+    const scale = 4;
+    animateMap({ scale, x: .5 - Number(pin.dataset.x) / 100 * scale, y: .5 - Number(pin.dataset.y) / 100 * scale });
+  });
+});
+document.querySelector('.map-reset').addEventListener('click', () => {
+  animateMap({ scale: 1, x: 0, y: 0 });
+  mapPins.forEach((pin) => pin.setAttribute('aria-pressed', 'false'));
+  document.querySelectorAll('.map-stop').forEach((panel) => { panel.hidden = true; });
+  document.getElementById('map-welcome').hidden = false;
+});
+new ResizeObserver(drawWorldMap).observe(worldMap);
+drawWorldMap();
