@@ -18,3 +18,15 @@ The hero uses externally hosted Unsplash photography as mood imagery, not origin
 
 ## Verification
 HTML IDs and internal anchor targets checked with Python. JavaScript runtime and visual browser checks require a browser (or Node for isolated logic checks); neither was available in the editing session.
+
+### City popup photos
+
+Each city pin opens a card with local facts and a photo diary. Add photos to the matching stop in `city-photos.js`, for example:
+
+```js
+"mendoza": [
+  { src: "assets/photos/mendoza-01.jpg", alt: "Vineyards below the Andes", caption: "Our first afternoon in Mendoza", altEs: "Viñedos al pie de los Andes", captionEs: "Nuestra primera tarde en Mendoza" }
+]
+```
+
+Place the image files at the specified paths. Multiple photos form a horizontally scrollable gallery. Empty arrays show “We must be lost right now.” Descriptive `alt` text is required; captions and Spanish versions are optional. Facts and their source links are in each `map-stop` article in `index.html`.

@@ -34,6 +34,83 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  "06 / LEARN WITH US": "06 / APRENDE CON NOSOTROS",
+  "No one learns": "Nadie aprende",
+  "alone.": "a solas.",
+  "Coming soon · school.com": "Próximamente · school.com",
+  "We’re committed to learning, then sharing what we learn. We’re building an English and Spanish community where we can practice, teach, and grow together.": "Nos comprometemos a aprender y compartir lo aprendido. Estamos creando una comunidad de inglés y español donde podamos practicar, enseñar y crecer juntos.",
+  "Lost on your own? Maybe. With someone to practice with, you’ll always have a way forward.": "¿Perdido a solas? Tal vez. Con alguien con quien practicar, siempre encontrarás cómo seguir adelante.",
+  "Our learning modules are a work in progress. We’re putting them together, one lesson at a time. Nos vemos pronto.": "Nuestros módulos de aprendizaje están en construcción. Los estamos preparando, una lección a la vez. Nos vemos pronto.",
+
+  "Socials": "Redes",
+  "Learn with us": "Aprende con nosotros",
+  "Your story": "Tu historia",
+  "1,284 likes": "1.284 Me gusta",
+  "View all 32 comments": "Ver los 32 comentarios",
+  "All": "Todo",
+  "Travel": "Viajes",
+  "Music": "Música",
+  "Live": "En vivo",
+  "We got lost in Santiago 🇨🇱": "Nos perdimos en Santiago 🇨🇱",
+  "Lost & Perdido · 24K views · 2 days ago": "Lost & Perdido · 24 mil vistas · hace 2 días",
+  "This view was worth the wrong turn": "Esta vista valió el desvío",
+  "One more stop in Mendoza 🍇": "Una parada más en Mendoza 🍇",
+  "Subscriptions": "Suscripciones",
+  "You": "Tú",
+
+  'Following': 'Siguiendo',
+  'For You': 'Para ti',
+  'Share': 'Compartir',
+  'Home': 'Inicio',
+  'Friends': 'Amigos',
+  'Inbox': 'Bandeja',
+  'Profile': 'Perfil',
+  'Wrong turn. Right view. 🏔️': 'Desvío con vistas. 🏔️',
+  '♫ original sound · Lost & Perdido': '♫ sonido original · Lost & Perdido',
+  "Notes from this stop": "Notas de esta parada",
+  "Close city details": "Cerrar detalles de la ciudad",
+  "About this place ↗": "Sobre este lugar ↗",
+  "Our photo diary": "Nuestro diario de fotos",
+  "We must be lost right now.": "Debemos estar perdidos ahora mismo.",
+  "Photos will find their way here after we do.": "Las fotos llegarán aquí después de nosotros.",
+  "A wine-growing city at the foot of the Andes.": "Una ciudad vitivinícola al pie de los Andes.",
+  "The surrounding vineyards are especially known for Malbec.": "Los viñedos de sus alrededores son conocidos por el Malbec.",
+  "Chile’s capital combines historic neighborhoods with mountain views.": "La capital de Chile combina barrios históricos con vistas a las montañas.",
+  "Cerro San Cristóbal is part of the city’s Metropolitan Park.": "El cerro San Cristóbal forma parte del Parque Metropolitano.",
+  "Known as Chile’s Garden City.": "Conocida como la Ciudad Jardín de Chile.",
+  "Its Flower Clock and seaside promenade are local landmarks.": "El Reloj de Flores y su paseo costero son símbolos de la ciudad.",
+  "La Paz is Bolivia’s seat of government.": "La Paz es la sede de gobierno de Bolivia.",
+  "Cable cars connect neighborhoods across the city and El Alto.": "Los teleféricos conectan barrios de la ciudad y El Alto.",
+  "Its historic center is a UNESCO World Heritage Site.": "Su centro histórico es Patrimonio Mundial de la UNESCO.",
+  "The city is known for its white colonial buildings.": "La ciudad es conocida por sus edificios coloniales blancos.",
+  "An Andean canyon southeast of Santiago.": "Un cajón andino al sureste de Santiago.",
+  "San José de Maipo is its main gateway town.": "San José de Maipo es su principal localidad de acceso.",
+  "Cerro Rico’s silver mines shaped the city’s history.": "Las minas de plata del Cerro Rico marcaron su historia.",
+  "Its UNESCO-listed heritage includes the historic mint, Casa de la Moneda.": "Su patrimonio reconocido por la UNESCO incluye la Casa de la Moneda.",
+  "Plaza 24 de Septiembre is the heart of the historic center.": "La Plaza 24 de Septiembre es el corazón del centro histórico.",
+  "The Metropolitan Cathedral overlooks the main square.": "La Catedral Metropolitana se encuentra frente a la plaza principal.",
+  "A gateway to the vast Salar de Uyuni salt flats.": "Una puerta de entrada al inmenso Salar de Uyuni.",
+  "A train cemetery sits just outside the city.": "Un cementerio de trenes se encuentra a las afueras de la ciudad.",
+  "A hillside town in Bolivia’s green Yungas region.": "Un pueblo entre las laderas verdes de los Yungas bolivianos.",
+  "The Yungas form a transition between the Altiplano and the Amazon.": "Los Yungas forman una transición entre el Altiplano y la Amazonía.",
+  "Cristo de la Concordia overlooks the city.": "El Cristo de la Concordia domina las vistas de la ciudad.",
+  "Plaza 14 de Septiembre anchors its historic center.": "La Plaza 14 de Septiembre es el corazón de su centro histórico.",
+  "A port city and gateway to Chilean Patagonia.": "Una ciudad portuaria y puerta de entrada a la Patagonia chilena.",
+  "Nearby Lake Llanquihue and Osorno Volcano shape the region’s landscape.": "El cercano lago Llanquihue y el volcán Osorno marcan el paisaje regional.",
+  "Sits on the shores of Lake Llanquihue.": "Se encuentra a orillas del lago Llanquihue.",
+  "The lakeside Teatro del Lago is one of its cultural landmarks.": "El Teatro del Lago es uno de sus principales símbolos culturales.",
+  "A lakeside city on Lake Llanquihue.": "Una ciudad a orillas del lago Llanquihue.",
+  "Its heritage architecture reflects German immigration.": "Su arquitectura patrimonial refleja la inmigración alemana.",
+  "An iconic volcano beside Lake Llanquihue.": "Un volcán emblemático junto al lago Llanquihue.",
+  "Its slopes offer views toward the lake and surrounding mountains.": "Sus laderas ofrecen vistas al lago y a las montañas cercanas.",
+
+  'Osorno Volcano': 'Volcán Osorno',
+  'Show globe': 'Ver globo',
+  'Select a country to zoom in and reveal its cities. Select a city for notes from that stop.': 'Elige un país para acercarte y ver sus ciudades. Elige una ciudad para leer las notas de esa parada.',
+  'On our route': 'En nuestra ruta',
+  'For another adventure': 'Para otra aventura',
+  'Start with Argentina, Chile or Bolivia on the globe, then pick a city to explore our route. This is where our trip photos and stories will land.': 'Empieza por Argentina, Chile o Bolivia en el globo y elige una ciudad para explorar nuestra ruta. Aquí llegarán las fotos e historias del viaje.',
+  'Three countries. A world of stories ahead.': 'Tres países. Un mundo de historias por descubrir.',
   'OUR WORLD, ONE STOP AT A TIME': 'NUESTRO MUNDO, PARADA A PARADA',
   'Show whole world': 'Ver todo el mundo',
   'Click a flag to zoom in. Select another stop or return to the whole world.': 'Haz clic en una bandera para acercarte. Elige otra parada o vuelve al mapa mundial.',
@@ -173,6 +250,14 @@ const spanish = {
 };
 
 const spanishAttributes = {
+  "Close city details": "Cerrar detalles de la ciudad",
+  "Notes from this stop": "Notas de esta parada",
+  'Osorno Volcano': 'Volcán Osorno',
+  'Globe showing our route through Argentina, Chile and Bolivia': 'Globo con nuestra ruta por Argentina, Chile y Bolivia',
+  'Globe centered on South America, with Argentina, Chile and Bolivia outlined and filled with their flags.': 'Globo centrado en Sudamérica, con Argentina, Chile y Bolivia delineados y rellenos con sus banderas.',
+  'Explore Argentina': 'Explorar Argentina',
+  'Explore Chile': 'Explorar Chile',
+  'Explore Bolivia': 'Explorar Bolivia',
   'Illustrated world trip map': 'Mapa mundial ilustrado del viaje',
   'Lost and Perdido home': 'Inicio de Lost & Perdido',
   'Main navigation': 'Navegación principal',
@@ -343,10 +428,13 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateCountdowns();
 });
 
-// Project every flag from the same coordinates as the map artwork.
+// Globe artwork and pins share the same orthographic projection.
 const worldMap = document.querySelector('.world-map');
 const worldArt = document.querySelector('.world-map-art');
 const mapPins = [...document.querySelectorAll('.world-pin')];
+const countryPins = mapPins.filter(pin => pin.classList.contains('country-pin'));
+const cityPins = mapPins.filter(pin => pin.classList.contains('city-pin'));
+const mapReset = document.querySelector('.map-reset');
 let mapView = { scale: 1, x: 0, y: 0 };
 let mapAnimation;
 function drawWorldMap() {
@@ -354,15 +442,24 @@ function drawWorldMap() {
   worldArt.style.transform = `translate(${mapView.x * width}px, ${mapView.y * height}px) scale(${mapView.scale})`;
   const lines = [];
   mapPins.forEach((pin) => {
+    if (pin.hidden) return;
     const x = (Number(pin.dataset.x) / 100 * mapView.scale + mapView.x) * width;
     const y = (Number(pin.dataset.y) / 100 * mapView.scale + mapView.y) * height;
-    const dx = Number(pin.dataset.dx) * Math.min(1, width / 550);
+    // Keep country names and city labels inside narrow mobile viewports.
+    const dx = Number(pin.dataset.dx) * Math.min(1, width / 450);
     const dy = Number(pin.dataset.dy);
+    const labelWidth = pin.querySelector('.world-pin-badge').offsetWidth;
+    const inset = labelWidth / 2 + 8;
+    const column = pin.dataset.labelSide;
+    const preferredX = column ? (Number(column) < 0 ? inset : width - inset) : x + dx;
+    const preferredY = pin.dataset.labelRow ? Number(pin.dataset.labelRow) * height : y + dy;
+    const labelX = Math.max(inset, Math.min(width - inset, preferredX));
+    const labelY = Math.max(20, Math.min(height - 20, preferredY));
     pin.style.left = `${x}px`;
     pin.style.top = `${y}px`;
-    pin.style.setProperty('--label-x', `${dx}px`);
-    pin.style.setProperty('--label-y', `${dy}px`);
-    lines.push(`<line x1="${x}" y1="${y}" x2="${x + dx}" y2="${y + dy}" stroke="#8b7158" stroke-width="1"/>`);
+    pin.style.setProperty('--label-x', `${labelX - x}px`);
+    pin.style.setProperty('--label-y', `${labelY - y}px`);
+    lines.push(`<line x1="${x}" y1="${y}" x2="${labelX}" y2="${labelY}" stroke="#ffe6a1" stroke-width="1"/>`);
   });
   document.querySelector('.map-connectors').innerHTML = lines.join('');
 }
@@ -370,7 +467,7 @@ function animateMap(target) {
   cancelAnimationFrame(mapAnimation);
   const from = { ...mapView };
   const start = performance.now();
-  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 700;
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 850;
   function frame(now) {
     const progress = duration ? Math.min(1, (now - start) / duration) : 1;
     const eased = 1 - Math.pow(1 - progress, 3);
@@ -380,22 +477,126 @@ function animateMap(target) {
   }
   mapAnimation = requestAnimationFrame(frame);
 }
-mapPins.forEach((pin) => {
-  pin.addEventListener('click', () => {
-    document.getElementById('map-welcome').hidden = true;
-    mapPins.forEach((other) => other.setAttribute('aria-pressed', String(other === pin)));
-    document.querySelectorAll('.map-stop').forEach((panel) => {
-      panel.hidden = panel.id !== `stop-${pin.dataset.stop}`;
-    });
-    const scale = 4;
-    animateMap({ scale, x: .5 - Number(pin.dataset.x) / 100 * scale, y: .5 - Number(pin.dataset.y) / 100 * scale });
+countryPins.forEach(pin => pin.addEventListener('click', () => {
+  const stops = cityPins.filter(city => city.dataset.country === pin.dataset.country);
+  countryPins.forEach(country => { country.hidden = true; });
+  cityPins.forEach(city => { city.hidden = !stops.includes(city); });
+  const x = stops.reduce((sum, city) => sum + Number(city.dataset.x), 0) / stops.length / 100;
+  const y = stops.reduce((sum, city) => sum + Number(city.dataset.y), 0) / stops.length / 100;
+  const scale = 3.4;
+  animateMap({ scale, x: .5 - x * scale, y: .5 - y * scale });
+  stops[0].focus({ preventScroll: true });
+}));
+const cityPopup = document.getElementById('city-popup');
+let activeCityPin;
+function renderCityGallery(stop) {
+  const gallery = document.querySelector(`[data-gallery="${stop}"]`);
+  const photos = cityPhotos[stop] || [];
+  gallery.replaceChildren();
+  gallery.hidden = photos.length === 0;
+  gallery.nextElementSibling.hidden = photos.length > 0;
+  photos.forEach(photo => {
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    image.src = photo.src;
+    image.alt = currentLanguage === 'es' ? (photo.altEs || photo.alt) : photo.alt;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    figure.append(image);
+    const caption = currentLanguage === 'es' ? (photo.captionEs || photo.caption) : photo.caption;
+    if (caption) {
+      const text = document.createElement('figcaption');
+      text.textContent = caption;
+      figure.append(text);
+    }
+    gallery.append(figure);
   });
+  gallery.tabIndex = photos.length ? 0 : -1;
+}
+cityPins.forEach(pin => pin.addEventListener('click', () => {
+  activeCityPin = pin;
+  cityPins.forEach(other => other.setAttribute('aria-pressed', String(other === pin)));
+  document.querySelectorAll('.map-stop').forEach(panel => {
+    panel.hidden = panel.id !== `stop-${pin.dataset.stop}`;
+  });
+  renderCityGallery(pin.dataset.stop);
+  cityPopup.setAttribute('aria-labelledby', `city-title-${pin.dataset.stop}`);
+  cityPopup.showModal();
+  cityPopup.scrollTop = 0;
+}));
+cityPopup.querySelector('.city-popup-close').addEventListener('click', () => cityPopup.close());
+cityPopup.addEventListener('click', event => {
+  const box = cityPopup.getBoundingClientRect();
+  if (event.target === cityPopup && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) cityPopup.close();
 });
-document.querySelector('.map-reset').addEventListener('click', () => {
+cityPopup.addEventListener('close', () => {
+  cityPins.forEach(pin => pin.setAttribute('aria-pressed', 'false'));
+  if (activeCityPin && !activeCityPin.hidden) activeCityPin.focus({ preventScroll: true });
+});
+mapReset.addEventListener('click', () => {
+  if (cityPopup.open) cityPopup.close();
+  countryPins.forEach(pin => { pin.hidden = false; });
+  cityPins.forEach(pin => { pin.hidden = true; pin.setAttribute('aria-pressed', 'false'); });
   animateMap({ scale: 1, x: 0, y: 0 });
-  mapPins.forEach((pin) => pin.setAttribute('aria-pressed', 'false'));
-  document.querySelectorAll('.map-stop').forEach((panel) => { panel.hidden = true; });
+  document.querySelectorAll('.map-stop').forEach(panel => { panel.hidden = true; });
   document.getElementById('map-welcome').hidden = false;
 });
 new ResizeObserver(drawWorldMap).observe(worldMap);
 drawWorldMap();
+
+// Continuous depth and tangent-based steering keep both loops seamless.
+const socialsSection = document.querySelector('.watch-section');
+const socialsStage = document.querySelector('.socials-showcase');
+const orbitPhones = [...document.querySelectorAll('.social-card')];
+const spacePlane = document.querySelector('.space-plane');
+const socialsMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let socialsVisible = false;
+let socialsFrame;
+let socialsElapsed = 0;
+let socialsLastTime;
+let socialsSize = { width: 0, height: 0, stage: 0 };
+function paintSocialsMotion() {
+  const phase = socialsElapsed / 24000 * Math.PI * 2;
+  const radius = Math.max(0, (socialsSize.stage - (orbitPhones[0]?.offsetWidth || 140)) / 2 - 12);
+  orbitPhones.forEach((card, index) => {
+    const angle = phase + (index - 1) * Math.PI * 2 / 3;
+    const depth = Math.cos(angle);
+    const scale = .83 + depth * .17;
+    card.style.transform = `translate(-50%, -50%) translate(${Math.sin(angle) * radius}px, ${depth * 30}px) scale(${scale})`;
+    card.style.zIndex = String(Math.round((depth + 1) * 100));
+    card.style.setProperty('--phone-tilt', `${-Math.sin(angle) * 15}deg`);
+    card.style.setProperty('--phone-roll', `${Math.sin(angle) * 2}deg`);
+  });
+  // A broad figure eight traverses the full star field behind the phones.
+  const flight = socialsElapsed / 30000 * Math.PI * 2 - Math.PI / 2;
+  // Leave room for the larger aircraft at every heading.
+  const planeMargin = spacePlane.clientWidth * .61 + 12;
+  const rx = Math.max(0, socialsSize.width / 2 - planeMargin);
+  const ry = Math.max(0, socialsSize.height / 2 - planeMargin);
+  const x = socialsSize.width / 2 + Math.sin(flight) * rx;
+  const y = socialsSize.height / 2 + Math.sin(flight * 2) * ry;
+  const heading = Math.atan2(2 * ry * Math.cos(flight * 2), rx * Math.cos(flight)) * 180 / Math.PI;
+  spacePlane.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${heading}deg)`;
+}
+function tickSocials(now) {
+  if (socialsLastTime !== undefined) socialsElapsed += Math.min(now - socialsLastTime, 64);
+  socialsLastTime = now;
+  paintSocialsMotion();
+  socialsFrame = requestAnimationFrame(tickSocials);
+}
+function syncSocialsMotion() {
+  cancelAnimationFrame(socialsFrame);
+  socialsLastTime = undefined;
+  if (socialsVisible && !document.hidden && !socialsMotion.matches) socialsFrame = requestAnimationFrame(tickSocials);
+  else paintSocialsMotion();
+}
+new ResizeObserver(() => {
+  socialsSize = { width: socialsSection.clientWidth, height: socialsSection.clientHeight, stage: socialsStage.clientWidth };
+  paintSocialsMotion();
+}).observe(socialsSection);
+new IntersectionObserver(([entry]) => {
+  socialsVisible = entry.isIntersecting;
+  syncSocialsMotion();
+}).observe(socialsSection);
+socialsMotion.addEventListener('change', syncSocialsMotion);
+document.addEventListener('visibilitychange', syncSocialsMotion);
