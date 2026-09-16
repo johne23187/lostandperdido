@@ -1,9 +1,11 @@
 """Build the orthographic globe from Natural Earth's public-domain country GeoJSON.
 Usage: python3 scripts/build-globe.py /path/to/ne_110m_admin_0_countries.geojson
 """
+from html import escape
 import base64
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -44,7 +46,8 @@ parts = ['''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
 <circle cx="400" cy="400" r="386" fill="url(#halo)"/>
 <circle cx="400" cy="400" r="350" fill="url(#ocean)"/>
 ''']
-visited = []
+unvisited = []
+flagged = []
 for f in features:
     geom = f['geometry']
     polygons = geom['coordinates'] if geom['type'] == 'MultiPolygon' else [geom['coordinates']]
@@ -60,8 +63,16 @@ for f in features:
     d = ' '.join(paths)
     name = f['properties']['ADMIN']
     parts.append(f'<path d="{d}" fill="url(#land)" stroke="#b1c9bd" stroke-opacity=".32" stroke-width=".65" stroke-linejoin="round"/>')
-    if name in ['Argentina', 'Chile', 'Bolivia']:
-        visited.append((name, d, pts, rings))
+    if name in ['Argentina', 'Chile', 'Bolivia', 'United States of America']:
+        flagged.append((name, d, pts, rings))
+    else:
+        x, y, z = project(f['properties']['LABEL_X'], f['properties']['LABEL_Y'])
+        if z > 0:
+            # Measure the largest visible landmass, excluding distant islands.
+            mainland = max(rings, key=lambda ring: abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(ring, ring[1:] + ring[:1]))))
+            visible = [point for point in mainland if point[2] >= 0]
+            size = max(max(p[0] for p in visible) - min(p[0] for p in visible), max(p[1] for p in visible) - min(p[1] for p in visible)) if visible else 0
+            unvisited.append((name, x, y, size))
 # Subtle meridians and parallels convey the globe's curvature.
 for axis in ['lon', 'lat']:
     for fixed in (range(-180,180,30) if axis == 'lon' else range(-60,90,30)):
@@ -75,8 +86,12 @@ for axis in ['lon', 'lat']:
             else:
                 drawing = False
         parts.append(f'<path d="{" ".join(commands)}" fill="none" stroke="#c3e7eb" stroke-opacity=".09" stroke-width=".7"/>')
-for name,d,pts,rings in visited:
-    code = {'Argentina':'ar','Chile':'cl','Bolivia':'bo'}[name]
+for name,d,pts,rings in flagged:
+    code = {'Argentina':'ar','Chile':'cl','Bolivia':'bo','United States of America':'us'}[name]
+    if code == 'us':
+        mainland = max(rings, key=lambda ring: abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(ring, ring[1:] + ring[:1]))))
+        pts = mainland
+        rings = [mainland]
     x0,x1 = min(p[0] for p in pts),max(p[0] for p in pts)
     y0,y1 = min(p[1] for p in pts),max(p[1] for p in pts)
     # Center the design on the country's silhouette at the flag's middle band.
@@ -106,7 +121,8 @@ for name,d,pts,rings in visited:
     # flag-filled even with the slightly inset artwork.
     colors = {'ar': ['#74acdf', '#fff', '#74acdf'],
               'cl': ['#fff', '#d52b1e'],
-              'bo': ['#d52b1e', '#f9e300', '#007934']}[code]
+              'bo': ['#d52b1e', '#f9e300', '#007934'],
+              'us': ['#b22234' if i % 2 == 0 else '#fff' for i in range(13)]}[code]
     stops = []
     for index, color in enumerate(colors):
         start = 0 if index == 0 else (flag_y + flag_height * index / len(colors) - y0) / (y1 - y0)
@@ -117,4 +133,18 @@ for name,d,pts,rings in visited:
     parts.append(f'<image x="{flag_x}" y="{flag_y}" width="{flag_width}" height="{flag_height}" preserveAspectRatio="none" href="data:image/svg+xml;base64,{flag}" clip-path="url(#country-{code})"/>')
     parts.append(f'<path d="{d}" fill="none" stroke="#ffe6a1" stroke-width="1.8" stroke-linejoin="round"/>')
 parts.append('<circle cx="400" cy="400" r="350" fill="url(#shade)"/><circle cx="400" cy="400" r="350" fill="none" stroke="#9fd9f1" stroke-opacity=".5" stroke-width="1.5"/></svg>')
+parts[-1] = parts[-1].replace('</svg>', '')
+# Inline overlay allows marks to respond to the rendered map size and zoom.
+marks = []
+for name, x, y, size in unvisited:
+    marks.append(f'<text x="{x:.2f}" y="{y:.2f}" data-country-size="{size:.2f}" text-anchor="middle" dominant-baseline="central" fill="#fff0c8" stroke="#153c46" stroke-width="2" paint-order="stroke" font-family="Arial, sans-serif" font-size="11" font-weight="700"><title>{escape(name)} — not visited yet</title>?</text>')
+index = ROOT / 'index.html'
+html = index.read_text()
+overlay = '<svg class="country-questions" viewBox="0 0 800 800" aria-hidden="true">' + ''.join(marks) + '</svg>'
+if 'class="country-questions"' in html:
+    html = re.sub(r'<svg class="country-questions".*?</svg>', lambda match: overlay, html, flags=re.S)
+else:
+    html = html.replace('<svg class="map-connectors"', overlay + '\n          <svg class="map-connectors"', 1)
+index.write_text(html)
+parts.append('</svg>')
 (ROOT / 'assets/travel-globe.svg').write_text(''.join(parts))

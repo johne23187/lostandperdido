@@ -615,8 +615,8 @@ h3 { margin: 0; font-size: 1.65rem; line-height: 1.15; }
 .contact-section { padding: 100px 5vw; background: var(--cream); display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 60px; }
 .contact-section .eyebrow { color: var(--orange); }
 .contact-copy > p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; }
-.services { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 32px; }
-.services span { padding: 8px 12px; border: 1px solid var(--line); font-size: .75rem; }
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 10px; margin: 24px 0 32px; }
+.services span { display: flex; align-items: center; justify-content: center; min-height: 64px; padding: 14px 12px; border: 1px solid var(--line); border-radius: 8px; background: #ffffff38; font-size: .75rem; line-height: 1.5; text-align: center; text-wrap: balance; }
 .contact-section .button { background: var(--ink); color: white; }
 .contact-section .button:hover { background: #393939; }
 .email-link { display: block; margin-top: 24px; font-size: clamp(1rem, 2vw, 1.7rem); font-family: "Playfair Display", Georgia, serif; text-underline-offset: 7px; overflow-wrap: anywhere; }
@@ -1098,7 +1098,7 @@ footer .brand { color: white; }
 
 
 /* A quiet coming-soon invitation to learn together. */
-.learn-section { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 60px; padding: 100px 5vw; border-top: 1px solid var(--line); background: var(--cream); }
+.learn-section { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 60px; padding: 100px 5vw; border-top: 1px solid var(--line); background: #fff; }
 .learn-copy { max-width: 540px; }
 .learn-status { display: inline-block; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--orange); font-size: .68rem; letter-spacing: .06em; }
 .learn-copy p { margin: 20px 0 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
@@ -1129,3 +1129,126 @@ footer .brand { color: white; }
 @media (prefers-reduced-motion: reduce) {
   .site-header .brand > .brand-cross { animation: none; filter: drop-shadow(0 2px 2px #0008) drop-shadow(0 0 3px #ffffffc0) drop-shadow(-1px 0 6px #ffe9a68c) drop-shadow(1px 0 10px #b8dcff70); }
 }
+
+/* A tiny drifting satellite, with a close-up of its instrument bay. */
+.globe-gps-footer { align-items: center; gap: clamp(28px, 6vw, 88px); }
+.satellite { flex: 0 0 61px; width: 61px; height: 54px; padding: 0; border: 0; background: transparent; cursor: zoom-in; animation: satellite-drift 8s ease-in-out infinite; filter: drop-shadow(0 0 9px #81bcdb44); }
+.satellite svg { display: block; width: 100%; }
+.satellite:hover { filter: drop-shadow(0 0 9px #ffcc87aa); }
+.satellite:focus-visible { outline: 2px solid #ffcc87; outline-offset: 6px; border-radius: 4px; }
+@keyframes satellite-drift { 0%, 100% { transform: translate(-6px, 5px) rotate(-15deg); } 50% { transform: translate(6px, -9px) rotate(8deg); } }
+.satellite-stats { width: min(690px, calc(100vw - 28px)); max-height: calc(100dvh - 32px); padding: 10px; border: 1px solid #c4b58f; border-radius: 24px; color: #f1e9d7; background: linear-gradient(125deg, #c1b18a, #524d43 25%, #9c9179 50%, #393d3d); box-shadow: 0 30px 120px #000b, inset 0 0 0 4px #222a2c; overscroll-behavior: contain; }
+.satellite-stats::backdrop { background: #020710dc; backdrop-filter: blur(9px); }
+.satellite-interior { position: relative; padding: clamp(20px, 4vw, 38px); border: 1px solid #ffffff20; border-radius: 16px; background: radial-gradient(circle at 12px 12px, #b1a48a 0 2px, #151b1d 3px 5px, transparent 6px) 0 0 / calc(100% - 24px) calc(100% - 24px), linear-gradient(135deg, #283235, #101719); }
+.satellite-close { position: absolute; right: 10px; top: 10px; width: 36px; height: 36px; border: 1px solid #9c917966; border-radius: 50%; background: #151d20; color: #eee3ce; font-size: 25px; cursor: pointer; }
+.satellite-kicker { margin: 0 32px 17px 0; color: #c6b48c; font: 10px monospace; letter-spacing: .18em; }
+.satellite-stats h2 { font-size: clamp(26px, 5vw, 40px); line-height: 1.1; letter-spacing: -.04em; }
+.satellite-subtitle { margin: 12px 0 26px; color: #a6b1ae; font-size: 12px; line-height: 1.5; }
+.satellite-readouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.satellite-readouts > div { display: flex; flex-direction: column; padding: 15px 18px; border: 1px solid #7a8b8033; border-radius: 7px; background: repeating-linear-gradient(0deg, #0000 0 3px, #ffffff02 3px 4px), #080e10; box-shadow: inset 0 2px 8px #0009, 0 1px 0 #ffffff0c; }
+.satellite-readouts dt { order: 2; margin-top: 10px; color: #b0b9b3; text-transform: uppercase; font-size: 10px; letter-spacing: .1em; }
+.satellite-readouts dd { margin: 0; color: #ffb65e; }
+.shot-clock { display: inline-flex; gap: 4px; height: 42px; filter: drop-shadow(0 0 5px #ff9d3640); }
+.shot-clock svg { width: 25px; height: 100%; }
+.satellite-status { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 24px; color: #8b9b95; font: 8px monospace; letter-spacing: .08em; }
+.satellite-status i, .lost-meter-light { display: inline-block; width: 5px; height: 5px; margin-right: 5px; border-radius: 50%; background: #b9d99b; box-shadow: 0 0 7px #b9d99b77; }
+body:has(.satellite-stats[open]) { overflow: hidden; }
+.lost-meter { position: absolute; z-index: 3; right: 5vw; bottom: 8vh; width: min(164px, 2in); padding: 13px 15px; border: 1px solid #e2d5b63d; border-radius: 10px; background: #101c22bf; backdrop-filter: blur(12px); color: #f6dfb9; box-shadow: 0 6px 24px #0002; }
+.lost-meter-top { display: flex; align-items: center; justify-content: space-between; font: 9px monospace; letter-spacing: .12em; }
+.lost-meter-value { display: flex; align-items: baseline; gap: 5px; margin: 10px 0 5px; color: #ffbd73; }
+.lost-meter-value .shot-clock { height: 28px; }
+.lost-meter-value .shot-clock svg { width: 17px; }
+.lost-meter-value small { font: 14px monospace; }
+.lost-meter meter { display: block; width: 100%; height: 5px; margin: 8px 0; border: 0; background: #ffffff20; border-radius: 3px; }
+.lost-meter meter::-webkit-meter-bar { background: #ffffff20; border: 0; }
+.lost-meter meter::-webkit-meter-optimum-value { background: #ffbd73; }
+.lost-meter meter::-moz-meter-bar { background: #ffbd73; }
+.lost-meter > small { color: #c4c9c5; font-size: 9px; }
+@media (max-width: 700px) { .hero-content { padding-bottom: 240px; } .lost-meter { right: 6vw; bottom: 95px; } .globe-gps-footer { gap: 24px; padding-inline: 16px; } .location-gps { flex-shrink: 1; min-width: 0; } }
+@media (prefers-reduced-motion: reduce) { .satellite { animation: none; } }
+
+/* Daily reading: a shallow, two-line instrument strip. */
+.lost-meter { height: 42px; padding: 5px 9px; border-radius: 6px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 13px 12px 2px; gap: 2px 5px; }
+.lost-meter-top { font-size: 8px; letter-spacing: .06em; }
+.lost-meter-light { display: none; }
+.lost-meter-value { grid-column: 2; grid-row: 1 / 3; align-items: center; gap: 2px; margin: 0; }
+.lost-meter-value .shot-clock { height: 18px; gap: 1px; }
+.lost-meter-value .shot-clock svg { width: 10px; }
+.lost-meter-value small { font-size: 9px; }
+.lost-meter > small { grid-column: 1; grid-row: 2; font-size: 8px; line-height: 12px; white-space: nowrap; letter-spacing: -.2px; }
+.lost-meter meter { grid-column: 1 / -1; grid-row: 3; margin: 0; height: 2px; }
+.globe-gps-footer { justify-content: space-between; }
+.satellite { flex-basis: 91.5px; width: 91.5px; height: 68.625px; margin-left: clamp(12px, 8vw, 110px); }
+/* The camera fills the viewport with the satellite's actual hull and screen. */
+.satellite-stats { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; border-radius: 0; background: #05070c; box-shadow: none; overflow: hidden; }
+.satellite-stats[open] { display: grid; place-items: center; }
+.satellite-stats::backdrop { background: #05070c; backdrop-filter: none; }
+.satellite-closeup { position: absolute; pointer-events: none; max-width: none; }
+.satellite-interior { width: min(690px, calc(100vw - 40px)); max-height: calc(100dvh - 48px); overflow-y: auto; border: 0; border-radius: 3px; background: #172327; box-shadow: inset 0 0 35px #0005; }
+@media (max-width: 700px) { .satellite { margin-left: 0; } .globe-gps-footer { gap: 26px; } .hero-content { padding-bottom: 180px; } }
+@media (max-width: 420px), (max-height: 650px) {
+  .satellite-interior { padding: 18px; }
+  .satellite-readouts { gap: 7px; }
+  .satellite-readouts > div { padding: 9px 12px; }
+  .satellite-readouts .shot-clock { height: 28px; }
+  .satellite-readouts dt { font-size: 8px; margin-top: 6px; }
+  .satellite-subtitle { margin-bottom: 14px; }
+  .satellite-status { margin-top: 14px; }
+}
+
+.learn-platform { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.learn-skool { display: inline-flex; align-items: center; border-radius: 4px; }
+.learn-skool img { display: block; width: 88px; height: auto; }
+.learn-skool:focus-visible { outline: 2px solid var(--orange); outline-offset: 6px; }
+.closing { min-height: 75svh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 6vw; color: #fff; background: linear-gradient(180deg, #07172040, #07172080 50%, #071720a6), url("assets/patagonia-closing.jpg") center / cover no-repeat; text-shadow: 0 2px 20px #0005; }
+.closing > p { color: #fffffff0; }
+.closing h2 { max-width: 850px; }
+.closing a { color: #fff; }
+@media (max-width: 700px) { .closing { min-height: 65svh; padding: 90px 6vw; } }
+
+.social-profile-link { color: inherit; text-decoration: none; cursor: pointer; border-radius: 30px; }
+.social-profile-link:focus-visible { outline: 3px solid #ffe3a9; outline-offset: 8px; }
+.social-profile-link:hover .phone { box-shadow: 0 0 24px #ffffff24; }
+.socials-click-hint { position: absolute; z-index: 20; bottom: 20%; left: 0; right: 0; width: fit-content; max-width: 90%; margin: 0 auto; padding: 7px 12px; border: 1px solid #ffffff40; border-radius: 999px; color: #fff; background: #18232bd9; backdrop-filter: blur(8px); box-shadow: 0 3px 12px #0002; font-size: clamp(9px, 1vw, 12px); letter-spacing: .04em; pointer-events: none; opacity: 0; animation: socials-soft-prompt 7s ease-in-out 7s infinite; }
+.socials-click-hint > span { margin-left: 3px; }
+@keyframes socials-soft-prompt { 0%, 55%, 100% { opacity: 0; transform: translateY(3px) scale(.98); } 12%, 40% { opacity: .8; transform: translateY(0) scale(1); } 26% { opacity: .55; transform: translateY(0) scale(1.025); } }
+.contact-section { position: relative; padding-top: 145px; }
+.contact-followers { position: absolute; top: 30px; right: 5vw; display: flex; gap: 12px; }
+.contact-followers a { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); text-decoration: none; background: #ffffff40; }
+.contact-followers a:hover { background: #ffffff90; }
+.contact-followers a:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+.contact-followers svg { width: 23px; height: 23px; flex-shrink: 0; }
+.contact-followers strong { display: block; font-size: 17px; line-height: 1.2; }
+.contact-followers small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; }
+.follower-arrow { color: var(--muted); font-size: 12px; }
+@media (max-width: 700px) { .contact-section { padding-top: 135px; } .contact-followers { right: 6vw; left: 6vw; justify-content: flex-end; gap: 8px; } .contact-followers a { padding: 9px 10px; gap: 7px; } }
+@media (prefers-reduced-motion: reduce) { .socials-click-hint { animation: none; opacity: .7; } }
+
+.world-map .visited-pin { cursor: default; pointer-events: none; }
+.visited-pin .world-pin-badge { color: #fff0c8; border: 1px solid #d6b96c80; background: #343021e8; }
+@media (min-width: 701px) and (max-width: 1250px) { .site-header { flex-wrap: wrap; gap: 14px; } .site-header nav { flex-wrap: wrap; gap: 14px; } }
+
+.country-questions { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 0 0; pointer-events: none; }
+.country-questions text { display: none; }
+.js-ready .country-questions text { display: inline; }
+
+.how-we-met-link { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; margin-top: 20px; padding: 15px 4px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--orange); font-family: "Playfair Display", Georgia, serif; font-size: 1.2rem; cursor: pointer; text-align: left; }
+.how-we-met-link:hover { color: var(--ink); }
+.how-we-met-link:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
+.meeting-story { width: min(720px, calc(100vw - 28px)); max-height: calc(100dvh - 40px); padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); color: var(--ink); box-shadow: 0 24px 90px #0006; overflow-y: auto; overscroll-behavior: contain; }
+.meeting-story::backdrop { background: #101b20b8; backdrop-filter: blur(6px); }
+.meeting-close-form { position: sticky; top: 12px; height: 0; z-index: 2; display: flex; justify-content: flex-end; padding-right: 12px; }
+.meeting-close { width: 38px; height: 38px; border: 1px solid #ffffff60; border-radius: 50%; background: #17242cdb; color: white; font-size: 25px; cursor: pointer; }
+.meeting-photo { margin: 0; }
+.meeting-photo img { display: block; width: 100%; height: auto; max-height: 290px; object-fit: cover; object-position: center top; }
+.meeting-photo figcaption { padding: 9px 20px; color: var(--muted); font-size: 9px; line-height: 1.5; border-bottom: 1px solid var(--line); }
+.meeting-copy { padding: clamp(24px, 5vw, 44px); }
+.meeting-copy h2 { font-size: clamp(2.4rem, 6vw, 3.5rem); }
+.meeting-copy > p:not(.eyebrow) { margin: 22px 0 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+.meeting-copy > p:last-of-type { color: var(--ink); }
+.meeting-learn { display: inline-block; margin-top: 24px; color: var(--orange); }
+body:has(.meeting-story[open]) { overflow: hidden; }
+
+/* Read the invitation before exploring the globe, at every screen size. */
+.discover-section .travel-map-layout { grid-template-columns: minmax(0, 1fr); max-width: 900px; margin-inline: auto; align-items: start; }
+.discover-section .map-journal { width: 100%; }

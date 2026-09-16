@@ -34,12 +34,38 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  "We met at Camp Chipinaw, a Jewish summer camp in New York. We came from different worlds: John, a New Yorker struggling with Spanish, and Mateo, a Bolivian struggling with English. We each wanted to learn the other’s language. Neither of us knew that we were about to find the person who would help us find our way.": "Nos conocimos en Camp Chipinaw, un campamento de verano judío en Nueva York. Veníamos de mundos distintos: John, un neoyorquino que batallaba con el español, y Mateo, un boliviano que batallaba con el inglés. Cada uno quería aprender el idioma del otro. No sabíamos que estábamos a punto de encontrar a la persona que nos ayudaría a encontrar nuestro camino.",
+  "Soon after we met, we started challenging each other every day. We practiced, made mistakes, and counted on each other to catch them. We learned to ask questions, accept corrections, and keep the conversation going, even when we couldn’t find the right words.": "Poco después de conocernos, empezamos a retarnos todos los días. Practicábamos, cometíamos errores y contábamos el uno con el otro para corregirlos. Aprendimos a hacer preguntas, aceptar correcciones y seguir conversando, incluso cuando no encontrábamos las palabras.",
+  "When camp ended, we kept showing up for each other. We built a habit and a system around working together: phone calls, daily practice, and honest feedback. We still make time to speak, listen, and help each other improve every day.": "Cuando terminó el campamento, seguimos apoyándonos. Creamos un hábito y un sistema de trabajo juntos: llamadas, práctica diaria y comentarios sinceros. Seguimos haciendo tiempo para hablar, escuchar y ayudarnos a mejorar cada día.",
+  "When we found each other, we were both lost in the language-learning process. We helped each other find our way. Now we want to help you find yours, drawing on everything we’ve learned together and the experience and expertise we bring in English and Spanish.": "Cuando nos encontramos, los dos estábamos perdidos en el proceso de aprender un idioma. Nos ayudamos a encontrar nuestro camino. Ahora queremos ayudarte a encontrar el tuyo, compartiendo todo lo que hemos aprendido juntos y nuestra experiencia y conocimientos de inglés y español.",
+  "How we met": "Cómo nos conocimos",
+  "Close our story": "Cerrar nuestra historia",
+  "TWO LANGUAGES. ONE FRIENDSHIP.": "DOS IDIOMAS. UNA AMISTAD.",
+  'Discover with us': 'Descubre con nosotros',
+  'DISCOVER WITH US': 'DESCUBRE CON NOSOTROS',
+  '04 / POSTCARDS FROM THE ROAD': '04 / POSTALES DEL CAMINO',
+  'Unlock the world': 'Descubre el mundo',
+  'with us.': 'con nosotros.',
+  'Click a pin.': 'Haz clic en un pin.',
+  'Let the adventure begin.': 'Que comience la aventura.',
+  'New York · Visited': 'Nueva York · Visitado',
+  'Visited · New York, USA': 'Visitado · Nueva York, EE. UU.',
+  'Not visited yet': 'Aún por visitar',
+  'UGC & brand content': 'UGC y contenido de marca',
+  'Experiences and destinations': 'Experiencias y destinos',
+  'Long-term partnerships': 'Colaboraciones a largo plazo',
+  'Social media features': 'Menciones en redes sociales',
+  'Photography': 'Fotografía',
+  'Media packages': 'Paquetes de medios',
+  'Instagram followers': 'Seguidores en Instagram',
+  'TikTok followers': 'Seguidores en TikTok',
+  'click me!': '¡haz clic!',
   "06 / LEARN WITH US": "06 / APRENDE CON NOSOTROS",
   "No one learns": "Nadie aprende",
   "alone.": "a solas.",
-  "Coming soon · school.com": "Próximamente · school.com",
+  "Coming soon · skool.com": "Próximamente · skool.com",
   "We’re committed to learning, then sharing what we learn. We’re building an English and Spanish community where we can practice, teach, and grow together.": "Nos comprometemos a aprender y compartir lo aprendido. Estamos creando una comunidad de inglés y español donde podamos practicar, enseñar y crecer juntos.",
-  "Lost on your own? Maybe. With someone to practice with, you’ll always have a way forward.": "¿Perdido a solas? Tal vez. Con alguien con quien practicar, siempre encontrarás cómo seguir adelante.",
+  "Lost on your own? Maybe. With someone to practice with, you’ll always find your way.": "¿Perdido a solas? Tal vez. Con alguien con quien practicar, siempre encontrarás tu camino.",
   "Our learning modules are a work in progress. We’re putting them together, one lesson at a time. Nos vemos pronto.": "Nuestros módulos de aprendizaje están en construcción. Los estamos preparando, una lección a la vez. Nos vemos pronto.",
 
   "Socials": "Redes",
@@ -105,6 +131,22 @@ const spanish = {
   "Its slopes offer views toward the lake and surrounding mountains.": "Sus laderas ofrecen vistas al lago y a las montañas cercanas.",
 
   'Osorno Volcano': 'Volcán Osorno',
+  'Miles traveled': 'Millas recorridas',
+  'Cities visited': 'Ciudades visitadas',
+  'Flights taken': 'Vuelos tomados',
+  'Buses taken': 'Buses tomados',
+  'Wrong turns': 'Vueltas equivocadas',
+  'Empanadas eaten': 'Empanadas comidas',
+  'Beds slept in': 'Camas dormidas',
+  'Hours filmed': 'Horas filmadas',
+  'The journey, in numbers.': 'El viaje, en números.',
+  'Every mile. Every detour. Every empanada.': 'Cada milla. Cada desvío. Cada empanada.',
+  'LOST METER': 'NIVEL DE PERDIDOS',
+  'A little off course.': 'Un poco fuera de rumbo.',
+  'SIGNAL CONNECTED': 'SEÑAL CONECTADA',
+  'THE ADVENTURE STARTS AT ZERO.': 'LA AVENTURA EMPIEZA EN CERO.',
+  'Return to globe': 'Volver al globo',
+  'Explore satellite travel stats': 'Explorar estadísticas del viaje',
   'Show globe': 'Ver globo',
   'Select a country to zoom in and reveal its cities. Select a city for notes from that stop.': 'Elige un país para acercarte y ver sus ciudades. Elige una ciudad para leer las notas de esa parada.',
   'On our route': 'En nuestra ruta',
@@ -440,9 +482,18 @@ let mapAnimation;
 function drawWorldMap() {
   const { width, height } = worldMap.getBoundingClientRect();
   worldArt.style.transform = `translate(${mapView.x * width}px, ${mapView.y * height}px) scale(${mapView.scale})`;
+  const questions = worldMap.querySelector('.country-questions');
+  questions.style.transform = worldArt.style.transform;
+  // CSS defines 1 cm as 96 / 2.54 pixels. Show a mark only when the
+  // country's largest visible dimension reaches that size on this display.
+  questions.querySelectorAll('[data-country-size]').forEach(mark => {
+    const displayedSize = Number(mark.dataset.countrySize) / 800 * width * mapView.scale;
+    mark.style.display = displayedSize >= 96 / 2.54 ? '' : 'none';
+  });
   const lines = [];
   mapPins.forEach((pin) => {
-    if (pin.hidden) return;
+    if (pin.classList.contains('visited-pin')) pin.style.visibility = mapView.scale > 1.05 ? 'hidden' : '';
+    if (pin.hidden || pin.style.visibility === 'hidden') return;
     const x = (Number(pin.dataset.x) / 100 * mapView.scale + mapView.x) * width;
     const y = (Number(pin.dataset.y) / 100 * mapView.scale + mapView.y) * height;
     // Keep country names and city labels inside narrow mobile viewports.
@@ -600,3 +651,94 @@ new IntersectionObserver(([entry]) => {
 }).observe(socialsSection);
 socialsMotion.addEventListener('change', syncSocialsMotion);
 document.addEventListener('visibilitychange', syncSocialsMotion);
+
+// Seven-segment shot-clock numerals, drawn locally so they need no font download.
+const clockSegments = ['0,1 3,0 15,0 18,1 15,4 3,4', '19,2 20,5 20,17 18,20 16,17 16,5', '18,22 20,25 20,37 19,40 16,37 16,25', '0,41 3,38 15,38 18,41 15,42 3,42', '0,22 3,25 3,37 0,40 -1,37 -1,25', '0,2 3,5 3,17 0,20 -1,17 -1,5', '1,21 4,19 14,19 17,21 14,23 4,23'];
+const clockDigits = ['1111110', '0110000', '1101101', '1111001', '0110011', '1011011', '1011111', '1110000', '1111111', '1111011'];
+function renderShotClock(element, value) {
+  element.classList.add('shot-clock');
+  element.setAttribute('role', 'img');
+  element.setAttribute('aria-label', String(value));
+  element.innerHTML = String(value).split('').map(digit => `<svg viewBox="-2 -1 24 44" aria-hidden="true">${clockSegments.map((points, i) => `<polygon points="${points}" fill="currentColor" opacity="${clockDigits[Number(digit)][i] === '1' ? 1 : .07}"/>`).join('')}</svg>`).join('');
+}
+document.querySelectorAll('[data-digits]').forEach(element => renderShotClock(element, element.dataset.digits));
+const satelliteButton = document.querySelector('.satellite');
+const satelliteDialog = document.getElementById('satellite-stats');
+let satelliteZoomAnimations = [];
+satelliteButton.addEventListener('click', () => {
+  // Freeze the actual spacecraft so the camera starts precisely at its screen.
+  satelliteButton.style.animationPlayState = 'paused';
+  const source = satelliteButton.getBoundingClientRect();
+  satelliteDialog.showModal();
+  const panel = satelliteDialog.querySelector('.satellite-interior');
+  let craft = satelliteDialog.querySelector('.satellite-closeup');
+  if (!craft) {
+    craft = satelliteButton.querySelector('svg').cloneNode(true);
+    craft.classList.add('satellite-closeup');
+    craft.setAttribute('preserveAspectRatio', 'none');
+    satelliteDialog.prepend(craft);
+  }
+  const destination = panel.getBoundingClientRect();
+  // The enlarged hull uses the same SVG as the floating satellite. Its small
+  // 22 × 22 screen becomes the entire readout, leaving the wings off camera.
+  const craftWidth = destination.width * 120 / 22;
+  const craftHeight = destination.height * 90 / 22;
+  Object.assign(craft.style, {
+    width: `${craftWidth}px`, height: `${craftHeight}px`,
+    left: `${destination.left - destination.width * 49 / 22}px`,
+    top: `${destination.top - destination.height * 38 / 22}px`
+  });
+  const dx = source.left + source.width / 2 - (destination.left + destination.width / 2);
+  const dy = source.top + source.height * 49 / 90 - (destination.top + destination.height / 2);
+  const start = `translate(${dx}px, ${dy}px) scale(${source.width * 22 / 120 / destination.width}, ${source.height * 22 / 90 / destination.height})`;
+  craft.style.transformOrigin = '50% 54.444444%';
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    satelliteZoomAnimations = [craft, panel].map(element => element.animate([
+      { transform: start }, { transform: 'translate(0, 0) scale(1)' }
+    ], { duration: 1200, easing: 'cubic-bezier(.65, 0, .2, 1)' }));
+  }
+});
+satelliteDialog.addEventListener('close', () => { satelliteZoomAnimations.forEach(animation => animation.cancel()); satelliteButton.style.animationPlayState = ''; satelliteButton.focus({ preventScroll: true }); });
+// One deterministic reading per local calendar day, stable across reloads.
+function dailyLostValue(date) {
+  const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  let hash = 2166136261;
+  for (const character of day) hash = Math.imul(hash ^ character.charCodeAt(0), 16777619);
+  return (hash >>> 0) % 101;
+}
+function lostDescription(value) {
+  if (value < 20) return 'we have a plan';
+  if (value < 40) return 'mas o menos';
+  if (value < 60) return 'we are figuring it out';
+  if (value < 80) return 'perdido';
+  return 'lost and perdido';
+}
+let lostMeterTimeout;
+function updateLostMeter() {
+  clearTimeout(lostMeterTimeout);
+  const now = new Date();
+  const value = dailyLostValue(now);
+  renderShotClock(document.getElementById('lost-percentage'), value);
+  const gauge = document.getElementById('lost-gauge');
+  gauge.value = value;
+  gauge.textContent = `${value}%`;
+  const description = document.getElementById('lost-description');
+  description.textContent = lostDescription(value);
+  originalText.set(description.firstChild, description.textContent);
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  lostMeterTimeout = setTimeout(updateLostMeter, midnight - now + 50);
+}
+updateLostMeter();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) updateLostMeter(); });
+
+const meetingLink = document.querySelector('.how-we-met-link');
+const meetingStory = document.getElementById('how-we-met');
+let meetingNavigate = false;
+meetingLink.addEventListener('click', () => { meetingNavigate = false; meetingStory.showModal(); meetingStory.scrollTop = 0; });
+meetingStory.addEventListener('click', event => {
+  if (event.target !== meetingStory) return;
+  const rect = meetingStory.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) meetingStory.close();
+});
+meetingStory.addEventListener('close', () => { if (!meetingNavigate) meetingLink.focus({ preventScroll: true }); });
+meetingStory.querySelector('.meeting-learn').addEventListener('click', () => { meetingNavigate = true; meetingStory.close(); });
