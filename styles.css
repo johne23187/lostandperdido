@@ -1224,8 +1224,6 @@ body:has(.satellite-stats[open]) { overflow: hidden; }
 @media (max-width: 700px) { .contact-section { padding-top: 135px; } .contact-followers { right: 6vw; left: 6vw; justify-content: flex-end; gap: 8px; } .contact-followers a { padding: 9px 10px; gap: 7px; } }
 @media (prefers-reduced-motion: reduce) { .socials-click-hint { animation: none; opacity: .7; } }
 
-.world-map .visited-pin { cursor: default; pointer-events: none; }
-.visited-pin .world-pin-badge { color: #fff0c8; border: 1px solid #d6b96c80; background: #343021e8; }
 @media (min-width: 701px) and (max-width: 1250px) { .site-header { flex-wrap: wrap; gap: 14px; } .site-header nav { flex-wrap: wrap; gap: 14px; } }
 
 .country-questions { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 0 0; pointer-events: none; }
@@ -1252,3 +1250,22 @@ body:has(.meeting-story[open]) { overflow: hidden; }
 /* Read the invitation before exploring the globe, at every screen size. */
 .discover-section .travel-map-layout { grid-template-columns: minmax(0, 1fr); max-width: 900px; margin-inline: auto; align-items: start; }
 .discover-section .map-journal { width: 100%; }
+
+/* A small album of Polaroids; replace placeholder panels with real photos. */
+.meeting-album { padding: 42px 28px 20px; background: #e9e4d9; }
+.polaroid-stack { position: relative; max-width: 480px; margin: 0 auto; isolation: isolate; }
+.polaroid-stack::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #faf8f3; transform: rotate(3deg); box-shadow: 0 3px 12px #30281820; }
+.memory-slide { margin: 0; padding: 12px 12px 0; background: #fffefa; box-shadow: 0 5px 22px #30281825; transform: rotate(-2deg); }
+.memory-slide[hidden] { display: none; }
+.memory-slide > img, .memory-placeholder { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: 4 / 3; object-fit: cover; object-position: center top; }
+.memory-placeholder { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 20px; background: linear-gradient(140deg, #e5e9df, #d5ded8); color: #607269; text-align: center; }
+.memory-placeholder > span { font-size: 36px; font-weight: 400; opacity: .6; }
+.memory-placeholder strong { font-family: "Playfair Display", Georgia, serif; font-size: clamp(18px, 4vw, 26px); font-weight: 600; }
+.memory-placeholder small { font-size: 11px; }
+.memory-slide figcaption { display: grid; place-content: center; min-height: 65px; padding: 14px 10px; border: 0; text-align: center; color: #655d51; font-family: "Playfair Display", Georgia, serif; font-size: 15px; line-height: 1.5; }
+.memory-slide figcaption a { font-family: "DM Sans", Arial, sans-serif; font-size: 9px; }
+.memory-controls { display: flex; justify-content: center; align-items: center; gap: 22px; margin-top: 26px; }
+.memory-controls button { width: 40px; height: 40px; border: 1px solid #bfb7a7; border-radius: 50%; background: #fffefa; color: var(--ink); cursor: pointer; }
+.memory-controls button:hover { background: #f4eddc; }
+.memory-controls button:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.memory-counter { font-size: 11px; color: #655d51; font-variant-numeric: tabular-nums; }

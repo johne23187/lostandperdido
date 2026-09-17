@@ -34,6 +34,17 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  "USA, New York — how we met": "EE. UU., Nueva York — cómo nos conocimos",
+  "Our photo memories": "Nuestros recuerdos en fotos",
+  "Previous photo": "Foto anterior",
+  "Next photo": "Foto siguiente",
+  "Our first summer": "Nuestro primer verano",
+  "Where our story began.": "Donde comenzó nuestra historia.",
+  "Learning together": "Aprendiendo juntos",
+  "A little practice, every day.": "Un poco de práctica, cada día.",
+  "More adventures ahead": "Más aventuras por delante",
+  "Still finding our way, together.": "Seguimos encontrando nuestro camino, juntos.",
+  "Our photo is coming soon.": "Nuestra foto llegará pronto.",
   "We met at Camp Chipinaw, a Jewish summer camp in New York. We came from different worlds: John, a New Yorker struggling with Spanish, and Mateo, a Bolivian struggling with English. We each wanted to learn the other’s language. Neither of us knew that we were about to find the person who would help us find our way.": "Nos conocimos en Camp Chipinaw, un campamento de verano judío en Nueva York. Veníamos de mundos distintos: John, un neoyorquino que batallaba con el español, y Mateo, un boliviano que batallaba con el inglés. Cada uno quería aprender el idioma del otro. No sabíamos que estábamos a punto de encontrar a la persona que nos ayudaría a encontrar nuestro camino.",
   "Soon after we met, we started challenging each other every day. We practiced, made mistakes, and counted on each other to catch them. We learned to ask questions, accept corrections, and keep the conversation going, even when we couldn’t find the right words.": "Poco después de conocernos, empezamos a retarnos todos los días. Practicábamos, cometíamos errores y contábamos el uno con el otro para corregirlos. Aprendimos a hacer preguntas, aceptar correcciones y seguir conversando, incluso cuando no encontrábamos las palabras.",
   "When camp ended, we kept showing up for each other. We built a habit and a system around working together: phone calls, daily practice, and honest feedback. We still make time to speak, listen, and help each other improve every day.": "Cuando terminó el campamento, seguimos apoyándonos. Creamos un hábito y un sistema de trabajo juntos: llamadas, práctica diaria y comentarios sinceros. Seguimos haciendo tiempo para hablar, escuchar y ayudarnos a mejorar cada día.",
@@ -42,8 +53,8 @@ const spanish = {
   "Close our story": "Cerrar nuestra historia",
   "TWO LANGUAGES. ONE FRIENDSHIP.": "DOS IDIOMAS. UNA AMISTAD.",
   'Discover with us': 'Descubre con nosotros',
-  'DISCOVER WITH US': 'DESCUBRE CON NOSOTROS',
-  '04 / POSTCARDS FROM THE ROAD': '04 / POSTALES DEL CAMINO',
+  'STORIES ALONG THE WAY': 'HISTORIAS EN EL CAMINO',
+  '04 / DISCOVER WITH US': '04 / DESCUBRE CON NOSOTROS',
   'Unlock the world': 'Descubre el mundo',
   'with us.': 'con nosotros.',
   'Click a pin.': 'Haz clic en un pin.',
@@ -194,7 +205,7 @@ const spanish = {
   'Argentina': 'Argentina',
   'Chile': 'Chile',
   'Bolivia ↗': 'Bolivia ↗',
-  '01 / THE FIRST CHAPTER': '01 / EL PRIMER CAPÍTULO',
+  '01 / THE ITINERARY': '01 / EL ITINERARIO',
   'Three countries.': 'Tres países.',
   'No perfect itinerary.': 'Sin itinerario perfecto.',
   'About a month on the road. From Mendoza to coastal Chile, then deeper into Bolivia. This is the starting plan. The people we meet will help write the rest.': 'Cerca de un mes en el camino. De Mendoza a la costa de Chile y después más adentro de Bolivia. Este es el plan inicial. La gente que conozcamos ayudará a escribir el resto.',
@@ -248,7 +259,7 @@ const spanish = {
   'English and Spanish live side by side here: in conversations with locals, over food, on bus rides and in the moments we couldn’t have planned.': 'Aquí el inglés y el español conviven: en conversaciones con gente local, alrededor de la comida, durante viajes en bus y en esos momentos que nunca podríamos haber planeado.',
   'You don’t need to speak both languages.': 'No necesitas hablar los dos idiomas.',
   'You just need a little curiosity.': 'Solo necesitas un poco de curiosidad.',
-  '03 / FROM THE ROAD': '03 / DESDE EL CAMINO',
+  '03 / FOLLOW US': '03 / SÍGUENOS',
   'The good stuff': 'Lo mejor',
   'is rarely planned.': 'casi nunca se planea.',
   'FIRST SEASON · COMING SOON': 'PRIMERA TEMPORADA · PRÓXIMAMENTE',
@@ -274,7 +285,7 @@ const spanish = {
   'After the trip': 'Después del viaje',
   'Language & local connections': 'Idioma y conexiones locales',
   'What actually earned its place in our bags': 'Lo que realmente se ganó un lugar en nuestras mochilas',
-  '05 / LET’S MAKE SOMETHING REAL': '05 / HAGAMOS ALGO REAL',
+  '05 / JOIN THE FAMILY': '05 / ÚNETE A LA FAMILIA',
   'Your place.': 'Tu lugar.',
   'Our perspective.': 'Nuestra perspectiva.',
   'A shared story.': 'Una historia compartida.',
@@ -492,7 +503,6 @@ function drawWorldMap() {
   });
   const lines = [];
   mapPins.forEach((pin) => {
-    if (pin.classList.contains('visited-pin')) pin.style.visibility = mapView.scale > 1.05 ? 'hidden' : '';
     if (pin.hidden || pin.style.visibility === 'hidden') return;
     const x = (Number(pin.dataset.x) / 100 * mapView.scale + mapView.x) * width;
     const y = (Number(pin.dataset.y) / 100 * mapView.scale + mapView.y) * height;
@@ -529,6 +539,7 @@ function animateMap(target) {
   mapAnimation = requestAnimationFrame(frame);
 }
 countryPins.forEach(pin => pin.addEventListener('click', () => {
+  if (pin.dataset.country === 'usa') { openMeetingStory(pin); return; }
   const stops = cityPins.filter(city => city.dataset.country === pin.dataset.country);
   countryPins.forEach(country => { country.hidden = true; });
   cityPins.forEach(city => { city.hidden = !stops.includes(city); });
@@ -734,11 +745,35 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) upda
 const meetingLink = document.querySelector('.how-we-met-link');
 const meetingStory = document.getElementById('how-we-met');
 let meetingNavigate = false;
-meetingLink.addEventListener('click', () => { meetingNavigate = false; meetingStory.showModal(); meetingStory.scrollTop = 0; });
+let meetingOpener = meetingLink;
+function openMeetingStory(opener) {
+  meetingOpener = opener;
+  meetingNavigate = false;
+  meetingStory.showModal();
+  meetingStory.scrollTop = 0;
+}
+meetingLink.addEventListener('click', () => openMeetingStory(meetingLink));
 meetingStory.addEventListener('click', event => {
   if (event.target !== meetingStory) return;
   const rect = meetingStory.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) meetingStory.close();
 });
-meetingStory.addEventListener('close', () => { if (!meetingNavigate) meetingLink.focus({ preventScroll: true }); });
+meetingStory.addEventListener('close', () => { if (!meetingNavigate) meetingOpener.focus({ preventScroll: true }); });
 meetingStory.querySelector('.meeting-learn').addEventListener('click', () => { meetingNavigate = true; meetingStory.close(); });
+
+const memoryAlbum = document.querySelector('.meeting-album');
+const memorySlides = [...memoryAlbum.querySelectorAll('.memory-slide')];
+let memoryIndex = 0;
+function showMemory(offset) {
+  memoryIndex = (memoryIndex + offset + memorySlides.length) % memorySlides.length;
+  memorySlides.forEach((slide, index) => { slide.hidden = index !== memoryIndex; });
+  memoryAlbum.querySelector('.memory-counter').textContent = `${memoryIndex + 1} / ${memorySlides.length}`;
+}
+memoryAlbum.querySelector('.memory-prev').addEventListener('click', () => showMemory(-1));
+memoryAlbum.querySelector('.memory-next').addEventListener('click', () => showMemory(1));
+memoryAlbum.addEventListener('keydown', event => {
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault();
+    showMemory(event.key === 'ArrowLeft' ? -1 : 1);
+  }
+});
