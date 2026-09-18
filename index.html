@@ -251,7 +251,7 @@
               <path d="M113 12L104 34 113 30 122 34Z" fill="white"/>
               <text x="181" y="17" fill="white" font-size="9" font-family="monospace">N</text>
             </svg>
-            <p class="gps-readout">WHERE ARE WE NOW? : <strong>LOST</strong></p>
+            <p class="gps-readout">WHERE ARE WE NOW? : <button type="button" class="gps-lost" aria-haspopup="dialog" aria-controls="gps-tracker" aria-label="Open our location map">LOST</button></p>
           </div>
           <div class="gps-controls" aria-hidden="true"><span></span><i></i><span></span></div>
         </div>
@@ -467,6 +467,34 @@
   </main>
   <footer><a class="brand" href="#home">Lost <span>&</span> Perdido</a><p>© <span id="year">2026</span> Lost & Perdido</p><p>Two languages. One shared adventure.</p></footer>
 
+  <dialog class="gps-tracker" id="gps-tracker" aria-labelledby="gps-tracker-title">
+    <div class="gps-expanded-device">
+      <div class="gps-expanded-top"><span>L&amp;P / GPS</span><span>SEARCHING FOR A PLAN…</span></div>
+      <div class="gps-expanded-screen">
+        <form method="dialog"><button class="gps-map-close" aria-label="Return to globe" autofocus>×</button></form>
+        <header class="gps-map-heading"><p>WHERE ARE WE NOW?</p><h2 id="gps-tracker-title">A little lost. Together.</h2></header>
+        <div class="gps-world">
+          <img src="assets/gps-world-map.svg" alt="World map showing all seven continents, with countries unlabeled" width="1200" height="600">
+          <div class="gps-travelers" role="img" aria-label="Two frowning stick figures in New York saying we are lost">
+            <span class="gps-speech">We are lost</span>
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <ellipse cx="50" cy="91" rx="37" ry="5" fill="#376e5a" opacity=".15"/>
+              <g fill="none" stroke="#243d43" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="28" cy="25" r="13" fill="#fff9eb"/><path d="M28 39V65M28 45L12 56 7 48M28 45L44 56M28 65L17 86M28 65L38 86"/>
+                <circle cx="72" cy="25" r="13" fill="#fff9eb"/><path d="M72 39V65M72 45L56 56M72 45L88 56 93 48M72 65L61 86M72 65L83 86"/>
+                <path d="M23 30Q28 24 33 30M67 30Q72 24 77 30" stroke-width="2"/>
+              </g>
+              <g fill="#243d43"><circle cx="24" cy="22" r="1.5"/><circle cx="32" cy="22" r="1.5"/><circle cx="68" cy="22" r="1.5"/><circle cx="76" cy="22" r="1.5"/></g>
+              <circle cx="50" cy="95" r="4" fill="#cf433d" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <footer class="gps-map-status"><span><i></i> STATUS: LOST</span><span class="gps-location-name">NEW YORK · USA</span></footer>
+      </div>
+      <div class="gps-expanded-controls" aria-hidden="true"><span></span><i></i><span></span></div>
+    </div>
+  </dialog>
+
   <dialog class="satellite-stats" id="satellite-stats" aria-labelledby="satellite-title">
     <div class="satellite-interior">
       <form method="dialog"><button class="satellite-close" aria-label="Return to globe" autofocus>×</button></form>
@@ -487,6 +515,7 @@
   </dialog>
   <dialog class="meeting-story" id="how-we-met" aria-labelledby="meeting-title">
     <form method="dialog" class="meeting-close-form"><button class="meeting-close" aria-label="Close our story" autofocus>×</button></form>
+    <div class="meeting-music-start"><button type="button" class="meeting-music-action">♫ Play music</button><span class="meeting-music-notice" role="status"></span></div>
     <section class="meeting-album paper-album" aria-label="Our photo memories" aria-roledescription="carousel">
       <div class="paper-stage">
         <svg class="album-doodles" viewBox="0 0 700 480" aria-hidden="true"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M34 122q28-42 50 0q-15 30-33 1q2-24 38-9" stroke="#b9c9db" stroke-width="2" stroke-dasharray="4 7"/><path d="m591 87 6-19 7 19 20 6-20 7-7 20-6-20-20-7Z" stroke="#e7b866" stroke-width="2.5"/><path d="M45 353q17-21 34 0t34 0M573 361q18-38 37-12t35-6" stroke="#d6a79d" stroke-width="2.5"/><path d="m121 57 7 9m5-22 1 10m11-3-5 7" stroke="#c8b6ce" stroke-width="3"/></g></svg>
@@ -503,7 +532,30 @@
 <p>Soon after we met, we started challenging each other every day. We practiced, made mistakes, and counted on each other to catch them. We learned to ask questions, accept corrections, and keep the conversation going, even when we couldn’t find the right words.</p>
 <p>When camp ended, we kept showing up for each other. We built a habit and a system around working together: phone calls, daily practice, and honest feedback. We still make time to speak, listen, and help each other improve every day.</p>
 <p>When we found each other, we were both lost in the language-learning process. We helped each other find our way. Now we want to help you find yours, drawing on everything we’ve learned together and the experience and expertise we bring in English and Spanish.</p>
+<div class="meeting-soundtrack"><p class="eyebrow accent">OUR SOUNDTRACK</p><p class="soundtrack-title">mi buena suerte. · feel trip.</p><div class="soundtrack-media"><div id="meeting-music"></div><button class="memory-van" type="button" aria-haspopup="dialog" aria-controls="van-cinema" aria-label="Enter our beat-up midnight-blue 2003 Ford Windstar and watch our videos"><span class="van-click">click me!</span><img src="assets/windstar-minivan.svg" width="420" height="240" alt="Rusty midnight-blue 2003 Ford Windstar minivan"><span class="van-caption">Our trusty rust bucket</span></button></div><a class="soundtrack-fallback" href="https://www.youtube.com/watch?v=DckpfFeSfyc" target="_blank" rel="noopener noreferrer">Listen on YouTube ↗</a></div>
 <a class="text-link meeting-learn" href="#learn">Learn with us <span aria-hidden="true">↗</span></a></div>
+  </dialog>
+  <dialog class="van-cinema" id="van-cinema" aria-labelledby="van-cinema-title">
+    <div class="van-cabin">
+      <div class="van-windshield" aria-hidden="true"><div class="van-road"></div></div>
+      <div class="van-roof" aria-hidden="true"><span></span></div>
+      <div class="van-dashboard" aria-hidden="true"><div class="van-steering"></div><div class="van-radio">L&amp;P FM</div></div>
+      <header class="van-cinema-heading"><p>THE MIDNIGHT CINEMA</p><h2 id="van-cinema-title">Bumps along the road</h2></header>
+      <form method="dialog"><button class="van-close" aria-label="Back to our story" autofocus>×</button></form>
+      <div class="van-front-seats">
+        <div class="van-seat van-driver-seat" aria-hidden="true"><div class="van-headrest"></div><div class="van-seat-back"><div class="van-seat-pocket"></div></div></div>
+        <div class="van-seat van-passenger-seat"><div class="van-headrest">
+          <div class="van-tv"><div class="van-tv-display">
+            <div class="van-video-placeholder"><span class="van-tv-play" aria-hidden="true">▷</span><p>Our backseat tapes</p><span>Videos coming soon</span></div>
+            <video class="van-video" controls autoplay playsinline preload="auto" hidden aria-label="Our backseat videos"></video>
+            <canvas class="van-static" width="240" height="135" hidden aria-hidden="true"></canvas>
+            <div class="van-tv-brand" lang="en" translate="no"><span>LOST</span> AND PERDIDO TV</div>
+          </div><div class="van-tv-bezel"><span>WINDSTAR / REAR ENTERTAINMENT</span><i></i></div></div>
+        </div><div class="van-seat-back"><div class="van-seat-pocket"><span>Lost &amp; Perdido<br>Road trip collection</span></div></div></div>
+      </div>
+      <nav class="van-video-controls" aria-label="Choose a road trip video" hidden><button type="button" class="van-video-prev" aria-label="Previous video">←</button><span class="van-video-title" aria-live="polite"></span><button type="button" class="van-video-next" aria-label="Next video">→</button></nav>
+      <p class="van-backseat-note">Two friends. One old van. A whole lot of stories.</p>
+    </div>
   </dialog>
 </body>
 </html>

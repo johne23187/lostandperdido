@@ -34,6 +34,8 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  'OUR SOUNDTRACK': 'NUESTRA BANDA SONORA',
+  'Listen on YouTube ↗': 'Escuchar en YouTube ↗',
   "A summer to remember.": "Un verano para recordar.",
   "Friends from camp.": "Amigos del campamento.",
   "Along for the ride.": "Compartiendo el viaje.",
@@ -735,6 +737,42 @@ satelliteButton.addEventListener('click', () => {
   }
 });
 satelliteDialog.addEventListener('close', () => { satelliteZoomAnimations.forEach(animation => animation.cancel()); satelliteButton.style.animationPlayState = ''; satelliteButton.focus({ preventScroll: true }); });
+// Edit these coordinates when our location changes; never use the visitor's location.
+const gpsLocation = { latitude: 40.7128, longitude: -74.0060, label: 'NEW YORK · USA' };
+const gpsButton = document.querySelector('.gps-lost');
+const gpsDialog = document.getElementById('gps-tracker');
+const gpsDevice = gpsDialog.querySelector('.gps-expanded-device');
+const gpsTravelers = gpsDialog.querySelector('.gps-travelers');
+gpsTravelers.style.left = `${(gpsLocation.longitude + 180) / 360 * 100}%`;
+gpsTravelers.style.top = `${(90 - gpsLocation.latitude) / 180 * 100}%`;
+gpsDialog.querySelector('.gps-location-name').textContent = gpsLocation.label;
+let gpsZoomAnimation;
+gpsButton.addEventListener('click', () => {
+  const source = document.querySelector('.location-gps .gps-screen').getBoundingClientRect();
+  gpsDialog.showModal();
+  gpsDialog.scrollTop = 0;
+  const screen = gpsDialog.querySelector('.gps-expanded-screen').getBoundingClientRect();
+  const device = gpsDevice.getBoundingClientRect();
+  // Anchor both the housing and the map to the physical GPS screen while zooming.
+  gpsDevice.style.transformOrigin = `${screen.left + screen.width / 2 - device.left}px ${screen.top + screen.height / 2 - device.top}px`;
+  const dx = source.left + source.width / 2 - screen.left - screen.width / 2;
+  const dy = source.top + source.height / 2 - screen.top - screen.height / 2;
+  gpsZoomAnimation?.cancel();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gpsZoomAnimation = gpsDevice.animate([
+      { transform: `translate(${dx}px, ${dy}px) scale(${source.width / screen.width}, ${source.height / screen.height})` },
+      { transform: 'translate(0, 0) scale(1)' }
+    ], { duration: 1200, easing: 'cubic-bezier(.65, 0, .2, 1)' });
+  }
+});
+gpsDialog.addEventListener('click', event => {
+  if (event.target === gpsDialog) gpsDialog.close();
+});
+gpsDialog.addEventListener('close', () => {
+  gpsZoomAnimation?.cancel();
+  gpsButton.focus({ preventScroll: true });
+});
+
 // One deterministic reading per local calendar day, stable across reloads.
 function dailyLostValue(date) {
   const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -776,6 +814,96 @@ function openMeetingStory(opener) {
   meetingNavigate = false;
   meetingStory.showModal();
   meetingStory.scrollTop = 0;
+  startMeetingMusic();
+}
+// Load the player in the open dialog; failed players can be rebuilt on retry.
+let meetingMusicPlayer;
+let meetingMusicReady = false;
+let meetingMusicWanted = false;
+let meetingMusicFailure = '';
+let meetingMusicTimeout;
+const musicAction = document.querySelector('.meeting-music-action');
+const musicNotice = document.querySelector('.meeting-music-notice');
+function setMusicNotice(message) { musicNotice.textContent = message; }
+function startMeetingMusic() {
+  meetingMusicWanted = true;
+  if (location.protocol === 'file:') {
+    setMusicNotice('Music needs the website preview: open this page with VS Code Live Server, then try again.');
+    musicAction.hidden = true;
+    return;
+  }
+  if (meetingMusicFailure) {
+    meetingMusicReady = false;
+    meetingMusicPlayer?.destroy();
+    meetingMusicPlayer = undefined;
+    meetingMusicFailure = '';
+  }
+  prepareMeetingMusic();
+  musicAction.hidden = false;
+  clearTimeout(meetingMusicTimeout);
+  meetingMusicTimeout = setTimeout(() => {
+    if (!meetingStory.open || !meetingMusicWanted) return;
+    musicAction.hidden = false;
+    setMusicNotice(meetingMusicReady ? 'Sound has not started. Tap Play on the YouTube player below.' : 'YouTube has not loaded. Check your connection or content blocker, or use Listen on YouTube below.');
+  }, 7000);
+  if (meetingMusicReady) {
+    meetingMusicPlayer.unMute();
+    meetingMusicPlayer.setVolume(55);
+    meetingMusicPlayer.playVideo();
+    setMusicNotice('Starting music…');
+  } else { setMusicNotice('Loading music…'); }
+}
+function prepareMeetingMusic() {
+  if (!meetingStory.open || !meetingMusicWanted || meetingMusicPlayer || !window.YT?.Player) return;
+  if (location.protocol === 'file:') return;
+  const holder = document.createElement('iframe'); holder.id = 'meeting-youtube-player';
+  holder.title = 'mi buena suerte. — feel trip.';
+  holder.allow = 'autoplay; encrypted-media; picture-in-picture';
+  holder.referrerPolicy = 'strict-origin-when-cross-origin';
+  holder.src = 'https://www.youtube.com/embed/DckpfFeSfyc?enablejsapi=1&playsinline=1&autoplay=1&rel=0&origin=' + encodeURIComponent(location.origin);
+  document.getElementById('meeting-music').replaceChildren(holder);
+  meetingMusicPlayer = new YT.Player(holder, {
+    host: 'https://www.youtube.com',
+    width: 360, height: 203, videoId: 'DckpfFeSfyc',
+    playerVars: { autoplay: 1, playsinline: 1, rel: 0, ...(location.protocol.startsWith('http') ? { origin: location.origin } : {}) },
+    events: {
+      onReady: event => {
+        meetingMusicReady = true;
+        event.target.getIframe().setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+        if (meetingMusicWanted && meetingStory.open) startMeetingMusic();
+      },
+      onStateChange: event => {
+        if (event.data === 1) {
+          if (!meetingStory.open || !meetingMusicWanted) { event.target.pauseVideo(); return; }
+          clearTimeout(meetingMusicTimeout);
+          musicAction.hidden = true; setMusicNotice('');
+        }
+      },
+      onAutoplayBlocked: () => {
+        if (!meetingStory.open) return;
+        clearTimeout(meetingMusicTimeout);
+        musicAction.hidden = false;
+        setMusicNotice('Tap Play music to start the song.');
+      },
+      onError: event => {
+        clearTimeout(meetingMusicTimeout);
+        meetingMusicFailure = event.data === 153
+          ? 'YouTube rejected this preview (153). Open the site with Live Server or on its published address.'
+          : `YouTube could not play the song (error ${event.data}). Tap Play music to retry, or use Listen on YouTube below.`;
+        meetingMusicReady = false;
+        musicAction.hidden = false;
+        setMusicNotice(meetingMusicFailure);
+      }
+    }
+  });
+}
+musicAction.addEventListener('click', startMeetingMusic);
+window.onYouTubeIframeAPIReady = prepareMeetingMusic;
+if (window.YT?.Player) prepareMeetingMusic();
+else {
+  const api = document.createElement('script'); api.src = 'https://www.youtube.com/iframe_api'; api.async = true;
+  api.onerror = () => { meetingMusicFailure = 'YouTube is blocked or unavailable. Use Listen on YouTube below.'; musicAction.hidden = true; setMusicNotice(meetingMusicFailure); };
+  document.head.append(api);
 }
 meetingLink.addEventListener('click', () => openMeetingStory(meetingLink));
 meetingStory.addEventListener('click', event => {
@@ -783,7 +911,12 @@ meetingStory.addEventListener('click', event => {
   const rect = meetingStory.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) meetingStory.close();
 });
-meetingStory.addEventListener('close', () => { if (!meetingNavigate) meetingOpener.focus({ preventScroll: true }); });
+meetingStory.addEventListener('close', () => {
+  meetingMusicWanted = false;
+  clearTimeout(meetingMusicTimeout);
+  if (meetingMusicReady) meetingMusicPlayer.pauseVideo();
+  if (!meetingNavigate) meetingOpener.focus({ preventScroll: true });
+});
 meetingStory.querySelector('.meeting-learn').addEventListener('click', () => { meetingNavigate = true; meetingStory.close(); });
 
 // Paper album: fold into a plane → take off → next plane arrives → unfold → 3-second hold.
@@ -1003,8 +1136,8 @@ async function transitionMemory(direction) {
       {transform:'translate(0,1px) rotate(-2deg)',offset:.5},
       {transform:'translate(0,-2px) rotate(1deg)',offset:.75},
       {transform:'translate(0,-5px) rotate(-4deg)'}
-    ],880,generation);
-    if (!await foldPaper(mesh,0,1,880,generation) || !await foldMovement) return;
+    ],440,generation);
+    if (!await foldPaper(mesh,0,1,440,generation) || !await foldMovement) return;
     const distance = paperStage.clientWidth/2+paperCard.offsetWidth;
     const departureAngle = Math.atan2(-160 + 30, distance - 80) * 180 / Math.PI;
     if (!await paperAnimate(paperCard,[
@@ -1012,7 +1145,7 @@ async function transitionMemory(direction) {
       {transform:'translate(-20px,2px) rotate(2deg)',offset:.22},
       {transform:'translate(80px,-30px) rotate(-14deg)',offset:.52},
       {transform:`translate(${distance}px,-160px) rotate(${departureAngle}deg)`}
-    ],1000,generation,'cubic-bezier(.42,0,.65,1)')) return;
+    ],1000 / 3,generation,'cubic-bezier(.42,0,.65,1)')) return;
     // Exchange the photograph only while the sheet is completely offstage.
     mesh.svg.remove(); foldingPaper = null;
     memoryIndex = nextIndex; renderMemory();
@@ -1022,14 +1155,14 @@ async function transitionMemory(direction) {
       {transform:'translate(-120px,-32px) rotate(-16deg)',offset:.52},
       {transform:'translate(18px,-19px) rotate(8deg)',offset:.82},
       {transform:'translate(0,-5px) rotate(-4deg)'}
-    ],1350,generation,'cubic-bezier(.25,.5,.4,1)')) return;
+    ],450,generation,'cubic-bezier(.25,.5,.4,1)')) return;
     const landing = paperAnimate(paperCard,[
       {transform:'translate(0,-5px) rotate(-4deg)'},
       {transform:'translate(0,-15px) rotate(2deg)',offset:.56},
       {transform:'translate(0,3px) rotate(-3deg)',offset:.86},
       {transform:'translate(0,0) rotate(-2deg)'}
-    ],1200,generation);
-    if (!await foldPaper(incoming,1,0,1200,generation) || !await landing) return;
+    ],600,generation);
+    if (!await foldPaper(incoming,1,0,600,generation) || !await landing) return;
   } else { memoryIndex = nextIndex; renderMemory(); }
   if (generation !== memoryGeneration) return;
   resetPaper(); memoryBusy = false; scheduleMemory();
@@ -1139,3 +1272,150 @@ const seasoningObserver = new IntersectionObserver(entries => {
 if (!seasoningMotion.matches) { learnMotto.classList.add('seasoning-ready'); seasoningObserver.observe(learnMotto); }
 seasoningMotion.addEventListener('change', event => { if (event.matches) { seasoningObserver.disconnect(); finishSeasoning(); } });
 window.addEventListener('resize', () => { if (seasoningCanvas) finishSeasoning(); });
+
+// The backseat collection. Add more local clips here.
+// Example: { src: 'assets/videos/camp.mp4', title: 'Camp days', poster: 'assets/videos/camp.jpg' }
+const vanVideos = [
+  { src: 'assets/videos/backseat-01.mp4', title: 'Backseat tape 01' },
+  { src: 'assets/videos/backseat-02.mp4', title: 'Backseat tape 02' },
+  { src: 'assets/videos/backseat-03.mp4', title: 'Backseat tape 03' },
+  { src: 'assets/videos/backseat-04.mp4', title: 'Backseat tape 04' },
+  { src: 'assets/videos/backseat-05.mp4', title: 'Backseat tape 05' }
+];
+const vanButton = document.querySelector('.memory-van');
+const vanCinema = document.getElementById('van-cinema');
+const vanCabin = vanCinema.querySelector('.van-cabin');
+const vanVideo = vanCinema.querySelector('.van-video');
+const vanPlaceholder = vanCinema.querySelector('.van-video-placeholder');
+const vanControls = vanCinema.querySelector('.van-video-controls');
+let vanVideoIndex = 0;
+let vanAnimations = [];
+let vanZoomShell;
+let resumeVanSoundtrack = false;
+const vanStatic = vanCinema.querySelector('.van-static');
+const vanNoiseContext = vanStatic.getContext('2d');
+let vanNoiseTimer;
+let vanRevealTimer;
+let vanStaticUntil = 0;
+let vanPlaybackGeneration = 0;
+function stopVanStatic() {
+  clearInterval(vanNoiseTimer);
+  clearTimeout(vanRevealTimer);
+  vanStatic.hidden = true;
+}
+function startVanStatic() {
+  stopVanStatic();
+  vanStatic.hidden = false;
+  vanStaticUntil = performance.now() + 500;
+  function drawNoise() {
+    if (!vanNoiseContext) return;
+    const frame = vanNoiseContext.createImageData(240, 135);
+    for (let i = 0; i < frame.data.length; i += 4) {
+      const shade = 65 + Math.floor(Math.random() * 145);
+      frame.data[i] = frame.data[i + 1] = frame.data[i + 2] = shade;
+      frame.data[i + 3] = 255;
+    }
+    vanNoiseContext.putImageData(frame, 0, 0);
+  }
+  drawNoise();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) vanNoiseTimer = setInterval(drawNoise, 90);
+}
+function vanPlaybackError(error) {
+  stopVanStatic();
+  vanPlaceholder.hidden = false;
+  vanPlaceholder.querySelector('p').textContent = 'This tape could not play';
+  const code = vanVideo.error?.code;
+  vanPlaceholder.querySelector('span:last-child').textContent = code === 2
+    ? 'The video could not load. Check your connection and reload.'
+    : code === 3 || code === 4 || error?.name === 'NotSupportedError'
+      ? 'This preview cannot decode the video. Open the site in Safari or Chrome.'
+      : 'Playback was interrupted. Reopen the van to try again.';
+  console.warn('Backseat video playback failed', { source: vanVideo.currentSrc, code, message: vanVideo.error?.message || error?.message });
+}
+function showVanVideo(index) {
+  if (!vanVideos.length || !vanCinema.open) return;
+  const generation = ++vanPlaybackGeneration;
+  vanVideoIndex = (index + vanVideos.length) % vanVideos.length;
+  const clip = vanVideos[vanVideoIndex];
+  vanVideo.pause();
+  startVanStatic();
+  vanVideo.src = clip.src;
+  if (clip.poster) vanVideo.poster = clip.poster;
+  else vanVideo.removeAttribute('poster');
+  vanVideo.hidden = false;
+  vanPlaceholder.hidden = true;
+  vanControls.hidden = vanVideos.length < 2;
+  vanCinema.querySelector('.van-video-title').textContent = clip.title;
+  vanVideo.setAttribute('aria-label', clip.title);
+  vanVideo.load();
+  // Start directly in the van/arrow click gesture so sound is allowed where supported.
+  vanVideo.play().catch(async error => {
+    if (generation !== vanPlaybackGeneration || !vanCinema.open || error.name === 'AbortError') return;
+    if (error.name === 'NotAllowedError') {
+      vanVideo.muted = true;
+      try { await vanVideo.play(); }
+      catch { if (generation === vanPlaybackGeneration && vanCinema.open) vanPlaybackError(); }
+    } else vanPlaybackError(error);
+  });
+}
+vanVideo.addEventListener('playing', () => {
+  if (!vanCinema.open) { vanVideo.pause(); return; }
+  clearTimeout(vanRevealTimer);
+  vanRevealTimer = setTimeout(stopVanStatic, Math.max(0, vanStaticUntil - performance.now()));
+});
+vanVideo.addEventListener('ended', () => showVanVideo(vanVideoIndex + 1));
+vanVideo.addEventListener('error', () => { if (vanCinema.open) vanPlaybackError(); });
+function clearVanZoom() {
+  vanAnimations.forEach(animation => animation.cancel());
+  vanAnimations = [];
+  vanZoomShell?.remove();
+  vanZoomShell = undefined;
+}
+vanButton.addEventListener('click', () => {
+  const source = vanButton.querySelector('img').getBoundingClientRect();
+  resumeVanSoundtrack = meetingMusicReady && meetingMusicPlayer?.getPlayerState() === 1;
+  if (meetingMusicReady) meetingMusicPlayer.pauseVideo();
+  meetingMusicWanted = false;
+  clearTimeout(meetingMusicTimeout);
+  stopMemory();
+  clearVanZoom();
+  vanCinema.showModal();
+  vanCinema.scrollTop = 0;
+  showVanVideo(vanVideoIndex);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Approach the passenger window, then continue through to the backseat.
+  vanZoomShell = vanButton.querySelector('img').cloneNode(true);
+  vanZoomShell.className = 'van-zoom-shell';
+  vanZoomShell.alt = '';
+  Object.assign(vanZoomShell.style, { left: `${source.left}px`, top: `${source.top}px`, width: `${source.width}px`, height: `${source.height}px` });
+  vanCinema.append(vanZoomShell);
+  const dx = window.innerWidth / 2 - (source.left + source.width * .64);
+  const dy = window.innerHeight / 2 - (source.top + source.height * .48);
+  const scale = Math.max(window.innerWidth / source.width, window.innerHeight / source.height) * 2.4;
+  const shellFlight = vanZoomShell.animate([
+    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+    { transform: `translate(${dx}px, ${dy}px) scale(${scale * .7})`, opacity: 1, offset: .72 },
+    { transform: `translate(${dx}px, ${dy}px) scale(${scale})`, opacity: 0 }
+  ], { duration: 1250, easing: 'cubic-bezier(.65, 0, .2, 1)', fill: 'both' });
+  const cabinArrival = vanCabin.animate([
+    { transform: 'scale(.86)', opacity: 0 },
+    { transform: 'scale(.92)', opacity: 0, offset: .48 },
+    { transform: 'scale(1)', opacity: 1 }
+  ], { duration: 1450, easing: 'cubic-bezier(.2, .65, .2, 1)', fill: 'both' });
+  vanAnimations = [shellFlight, cabinArrival];
+  cabinArrival.finished.then(clearVanZoom).catch(() => {});
+});
+vanCinema.querySelector('.van-video-prev').addEventListener('click', () => showVanVideo(vanVideoIndex - 1));
+vanCinema.querySelector('.van-video-next').addEventListener('click', () => showVanVideo(vanVideoIndex + 1));
+vanCinema.addEventListener('close', () => {
+  ++vanPlaybackGeneration;
+  stopVanStatic();
+  clearVanZoom();
+  vanVideo.pause();
+  if (meetingStory.open) {
+    vanButton.focus({ preventScroll: true });
+    if (resumeVanSoundtrack) startMeetingMusic();
+  }
+  resumeVanSoundtrack = false;
+});
+meetingStory.addEventListener('close', () => { if (vanCinema.open) vanCinema.close(); });

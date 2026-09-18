@@ -9,3 +9,5 @@ Country flag artwork: https://flagcdn.com/ar.svg, https://flagcdn.com/cl.svg, ht
 Globe visit status: unvisited visible countries have question marks; USA is highlighted and the HTML overlay marks New York as visited. Route countries retain interactive question-mark buttons. Flag fills are no longer used for planned stops.
 
 Current globe treatment: Argentina, Chile, Bolivia and the USA are flag-filled; all other visible countries have question marks. New York retains its visited marker. USA flag source: https://flagcdn.com/us.svg
+
+gps-world-map.svg: simplified colors and no graticule, derived from world-map.svg using the same public-domain Natural Earth geometry.

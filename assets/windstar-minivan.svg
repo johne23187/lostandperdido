@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 240" fill="none">
+<defs>
+ <linearGradient id="paint" x1="160" y1="60" x2="205" y2="202" gradientUnits="userSpaceOnUse"><stop stop-color="#314768"/><stop offset=".45" stop-color="#172944"/><stop offset="1" stop-color="#0b172d"/></linearGradient>
+ <linearGradient id="glass" x1="80" y1="75" x2="255" y2="136" gradientUnits="userSpaceOnUse"><stop stop-color="#a5bec7"/><stop offset="1" stop-color="#4b6776"/></linearGradient>
+ <radialGradient id="tire"><stop stop-color="#899397"/><stop offset=".4" stop-color="#555f67"/><stop offset=".44" stop-color="#151c25"/><stop offset="1" stop-color="#090e16"/></radialGradient>
+</defs>
+<ellipse cx="212" cy="212" rx="181" ry="15" fill="#142235" opacity=".13"/>
+<path d="M29 162 40 95Q44 69 74 64L237 52Q269 50 292 78L324 117 376 141Q391 149 391 172L388 191 337 204 47 202Q24 198 29 162Z" fill="url(#paint)" stroke="#101b2e" stroke-width="3"/>
+<path d="m45 91 24-14 164-12q28-1 46 20l23 32-245 14Z" fill="url(#glass)" stroke="#0c192b" stroke-width="5"/>
+<path d="m238 66 7 58M168 72l3 56M97 77l-5 54" stroke="#17263b" stroke-width="9"/>
+<path d="m250 71 31 15 29 36 44 17-95-8Z" fill="#a8c1ca" stroke="#17263b" stroke-width="4"/>
+<path d="m268 82 31 38 25 8M62 100l20-13m35 21 34-26m42 21 33-24" stroke="#e0edf0" stroke-width="5" opacity=".25"/>
+<path d="m308 124 48 16 27 17-99-10Z" fill="#354660"/>
+<path d="m51 138 230-10 5 63M176 132l1 62M87 137l-5 58" stroke="#071225" stroke-width="2"/>
+<path d="m45 169 225-7" stroke="#657282" stroke-width="6"/>
+<path d="m44 173 222-7" stroke="#111b2b" stroke-width="3"/>
+<path d="m44 192 226-6 58 9 59-17 1 13-50 17-284 0Z" fill="#74808b" stroke="#273243" stroke-width="2"/>
+<path d="m291 159 88-6-3 26-76 9Z" fill="#131e2b" stroke="#64717f" stroke-width="3"/>
+<path d="m306 165 62-5m-60 12 58-5m-56 12 53-5" stroke="#8b939b" stroke-width="2"/>
+<ellipse cx="336" cy="171" rx="10" ry="5" fill="#284c75" stroke="#c0cbd1"/>
+<path d="m276 150 25 4-4 15-22-3Z" fill="#e9dfb3" stroke="#96a1ac" stroke-width="2"/>
+<path d="m373 145 13 7 1 13-14 1Z" fill="#e9dfb3"/>
+<path d="m30 142 11-4-3 22-10 4Z" fill="#b9473a"/>
+<path d="m301 189 24-2 1 13-25 1Z" fill="#d9cfb1" transform="rotate(-6 310 195)"/>
+<path d="M59 202c-7-48 58-64 67-4M244 205c-5-49 54-61 65-9" fill="#0b121f" stroke="#3c4b5b" stroke-width="4"/>
+<ellipse cx="93" cy="190" rx="27" ry="32" fill="url(#tire)" stroke="#111a27" stroke-width="3"/>
+<ellipse cx="279" cy="189" rx="26" ry="31" fill="url(#tire)" stroke="#111a27" stroke-width="3"/>
+<g stroke="#a3abb0" stroke-width="3"><path d="M93 177v26m-10-21 20 16m-20 0 20-16M279 176v26m-10-21 20 16m-20 0 20-16"/></g>
+<path d="m201 145 17-1m-76 6 17-1" stroke="#9ba4af" stroke-width="4" stroke-linecap="round"/>
+<path d="m253 119-9 9 2 10 16-2 2-10Z" fill="#0b172a" stroke="#657383" stroke-width="2"/>
+<!-- Flaking paint, rusty sills, a dent, and a taped bumper. -->
+<g fill="#a65d37" stroke="#713e2e" stroke-width="1"><path d="m132 181 10-3 5 5 13-4 8 9-28 4-13-6Z"/><path d="m48 178 8-5 8 6-3 9-16 1Z"/><path d="m220 181 10-5 12 4-5 10-21 2Z"/><path d="m70 147 8-5 5 9-11 5Z"/><path d="m331 140 6-2 8 5-9 4Z"/></g>
+<path d="m184 150 10 8 18-4-8 7-16 1-11-9" stroke="#627082" stroke-width="2"/>
+<path d="m117 141 15-2m-4 25 22-2m45 9 13-2" stroke="#89949e" stroke-width="1.5" opacity=".7"/>
+<path d="m355 182 7-2 8 19-8 3Z" fill="#b0b4ad" opacity=".9"/>
+<path d="m67 66 4-8 136-9 8 6" stroke="#253448" stroke-width="4"/>
+</svg>
