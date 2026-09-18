@@ -34,6 +34,31 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  "A summer to remember.": "Un verano para recordar.",
+  "Friends from camp.": "Amigos del campamento.",
+  "Along for the ride.": "Compartiendo el viaje.",
+  "Camp nights.": "Noches de campamento.",
+  "Our first chapter.": "Nuestro primer capítulo.",
+  "On the road together.": "Juntos en el camino.",
+  "Showing up together.": "Siempre juntos.",
+  "A night in New York.": "Una noche en Nueva York.",
+  "Back where it began.": "Donde todo comenzó.",
+  "Two friends. One team.": "Dos amigos. Un equipo.",
+  "Camp memories.": "Recuerdos del campamento.",
+  "Exploring together.": "Explorando juntos.",
+  "More summer memories.": "Más recuerdos de verano.",
+  "Click here ↗": "Haz clic aquí ↗",
+  "Play": "Reproducir",
+  "Pause": "Pausar",
+  "Add photos": "Añadir fotos",
+  "Selected photos stay in this preview until you reload.": "Las fotos seleccionadas quedan en esta vista previa hasta que recargues.",
+  "Camp Chipinaw. Where it all began.": "Camp Chipinaw. Donde todo comenzó.",
+  "Your photo goes here": "Tu foto va aquí",
+  "Our first summer.": "Nuestro primer verano.",
+  "Learning together.": "Aprendiendo juntos.",
+  "Still finding our way.": "Seguimos encontrando nuestro camino.",
+  "Our memories": "Nuestros recuerdos",
+  "Start our photo story": "Iniciar nuestra historia en fotos",
   "USA, New York — how we met": "EE. UU., Nueva York — cómo nos conocimos",
   "Our photo memories": "Nuestros recuerdos en fotos",
   "Previous photo": "Foto anterior",
@@ -761,19 +786,356 @@ meetingStory.addEventListener('click', event => {
 meetingStory.addEventListener('close', () => { if (!meetingNavigate) meetingOpener.focus({ preventScroll: true }); });
 meetingStory.querySelector('.meeting-learn').addEventListener('click', () => { meetingNavigate = true; meetingStory.close(); });
 
+// Paper album: fold into a plane → take off → next plane arrives → unfold → 3-second hold.
 const memoryAlbum = document.querySelector('.meeting-album');
-const memorySlides = [...memoryAlbum.querySelectorAll('.memory-slide')];
-let memoryIndex = 0;
-function showMemory(offset) {
-  memoryIndex = (memoryIndex + offset + memorySlides.length) % memorySlides.length;
-  memorySlides.forEach((slide, index) => { slide.hidden = index !== memoryIndex; });
-  memoryAlbum.querySelector('.memory-counter').textContent = `${memoryIndex + 1} / ${memorySlides.length}`;
-}
-memoryAlbum.querySelector('.memory-prev').addEventListener('click', () => showMemory(-1));
-memoryAlbum.querySelector('.memory-next').addEventListener('click', () => showMemory(1));
-memoryAlbum.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-    event.preventDefault();
-    showMemory(event.key === 'ArrowLeft' ? -1 : 1);
+const paperStage = memoryAlbum.querySelector('.paper-stage');
+const paperCard = memoryAlbum.querySelector('.paper-card-wrap');
+const paperFigure = paperCard.querySelector('.paper-card');
+let foldingPaper = null;
+const memoryImage = memoryAlbum.querySelector('.memory-image');
+const memoryCaption = memoryAlbum.querySelector('.memory-caption');
+const memoryLaunch = memoryAlbum.querySelector('.memory-launch');
+const memoryPlay = memoryAlbum.querySelector('.memory-play');
+const albumMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const campMemory = { src: 'assets/camp-chipinaw.jpg', caption: 'Camp Chipinaw. Where it all began.', alt: 'Camp Chipinaw and its wooded lakeshore' };
+// Permanent album photos, in display order after the opening camp photo.
+const savedMemories = [
+  {
+    "src": "assets/D87CB6EE-A606-434C-B191-C475EC1F3969_1_105_c.jpeg",
+    "caption": "A summer to remember.",
+    "alt": "John and Mateo sitting on a car beneath a cloudy sky"
+  },
+  {
+    "src": "assets/2A6FD356-B01C-4972-BC30-FDA74F58107A_1_201_a.jpeg",
+    "caption": "Friends from camp.",
+    "alt": "John and Mateo with a friend beside a school bus at Chipinaw"
+  },
+  {
+    "src": "assets/4D54E296-E8F1-4E7F-9DED-13E406162A0A_1_105_c.jpeg",
+    "caption": "Along for the ride.",
+    "alt": "John and Mateo wearing sunglasses on a bus"
+  },
+  {
+    "src": "assets/F557E415-A007-4845-95BF-87EAEF1DC592.jpeg",
+    "caption": "Camp nights.",
+    "alt": "John and Mateo wearing Chipinaw bucket hats at camp"
+  },
+  {
+    "src": "assets/4ABC8EFE-33F6-4674-A40A-26C3844D70F1.jpeg",
+    "caption": "Our first chapter.",
+    "alt": "John and Mateo together outside in white shirts"
+  },
+  {
+    "src": "assets/8D206D47-FDB5-4350-A402-10051D3B6033_1_105_c.jpeg",
+    "caption": "On the road together.",
+    "alt": "John and Mateo taking a selfie on a bus"
+  },
+  {
+    "src": "assets/EC9924B8-672A-46FD-9E09-8DB541DFB97F.jpeg",
+    "caption": "Showing up together.",
+    "alt": "John and Mateo posing for a gym mirror photo"
+  },
+  {
+    "src": "assets/EF9AF2F0-F921-4A7E-A9BD-80163E380A82_1_105_c.jpeg",
+    "caption": "A night in New York.",
+    "alt": "John and Mateo together on a city sidewalk at night"
+  },
+  {
+    "src": "assets/C1DEEB30-69E8-4744-AEDD-044695368520_1_105_c.jpeg",
+    "caption": "Back where it began.",
+    "alt": "John and Mateo outside the Chipinaw building beside a yellow bus"
+  },
+  {
+    "src": "assets/2EA6D4BC-C72D-4AC1-BC61-01DF255EEA1E_1_105_c.jpeg",
+    "caption": "Two friends. One team.",
+    "alt": "John and Mateo wearing football jerseys on a patio"
+  },
+  {
+    "src": "assets/05DDC0FE-9F90-48FB-AB59-7E927331B0D5_1_105_c.jpeg",
+    "caption": "Camp memories.",
+    "alt": "John and Mateo posing beside a white fence and school bus at Chipinaw"
+  },
+  {
+    "src": "assets/0B82DD12-3C58-43C5-A4EC-3F8658E93327_1_105_c.jpeg",
+    "caption": "Exploring together.",
+    "alt": "John and Mateo exploring a New York street beneath American flags"
+  },
+  {
+    "src": "assets/CEF4F7A2-8BED-44F7-A9A2-0A6336BB2458_1_105_c.jpeg",
+    "caption": "More summer memories.",
+    "alt": "John and Mateo posing on a car in a grassy field"
   }
+];
+const memories = [campMemory, ...savedMemories];
+let memoryIndex = 0;
+let memoryPlaying = false;
+let memoryBusy = false;
+let memoryTimer;
+let memoryGeneration = 0;
+const paperAnimations = new Set();
+function albumText(text) { return currentLanguage === 'es' ? (spanish[text] || text) : text; }
+function memoryButtonLabel() { memoryPlay.textContent = albumText(memoryPlaying ? 'Pause' : 'Play'); }
+function renderMemory() {
+  const photo = memories[memoryIndex];
+  memoryImage.hidden = !!photo.placeholder;
+  if (photo.src) { memoryImage.src = photo.src; memoryImage.alt = photo.alt; }
+  memoryLaunch.classList.toggle('is-placeholder', !!photo.placeholder);
+  memoryLaunch.dataset.placeholder = albumText('Your photo goes here');
+  memoryCaption.textContent = albumText(photo.caption);
+  memoryAlbum.querySelector('.memory-counter').textContent = `${memoryIndex + 1} / ${memories.length}`;
+  memoryAlbum.querySelector('.memory-click').hidden = memoryPlaying || memoryIndex !== 0;
+  memoryButtonLabel();
+  const nextPhoto = new Image();
+  nextPhoto.src = memories[(memoryIndex + 1) % memories.length].src;
+}
+function resetPaper() {
+  paperAnimations.forEach(animation => animation.cancel());
+  paperAnimations.clear();
+  paperCard.style.opacity = '1'; paperCard.style.visibility = 'visible';
+  if (foldingPaper) { foldingPaper.remove(); foldingPaper = null; }
+  paperFigure.style.visibility = '';
+  paperStage.classList.remove('is-folding', 'is-flying');
+}
+function stopMemory() {
+  memoryPlaying = false; memoryGeneration++; memoryBusy = false;
+  clearTimeout(memoryTimer); resetPaper(); renderMemory();
+}
+async function paperAnimate(element, frames, duration, generation, easing = 'ease-in-out') {
+  const animation = element.animate(frames, { duration, easing, fill: 'forwards' });
+  paperAnimations.add(animation);
+  try { await animation.finished; } catch { return false; }
+  return generation === memoryGeneration;
+}
+function scheduleMemory() {
+  clearTimeout(memoryTimer);
+  if (memoryPlaying && meetingStory.open && !document.hidden) memoryTimer = setTimeout(() => transitionMemory(1), 3000);
+}
+// One paper surface throughout: eight photo-textured facets become the wings.
+function makeFoldingPaper(photo) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const width = paperCard.offsetWidth, height = paperCard.offsetHeight;
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('aria-hidden', 'true'); svg.classList.add('folding-paper');
+  const nodes = [[0,0],[width/2,0],[width,0],[0,height/2],[width/2,height/2],[width,height/2],[0,height],[width/2,height],[width,height]];
+  const faces = [[0,1,4],[0,4,3],[1,2,5],[1,5,4],[3,4,7],[3,7,6],[4,5,8],[4,8,7]];
+  const defs = document.createElementNS(ns, 'defs'); svg.append(defs);
+  const facets = faces.map((ids, index) => {
+    const clip = document.createElementNS(ns, 'clipPath'); clip.id = `memory-facet-${index}`;
+    const polygon = document.createElementNS(ns, 'polygon'); polygon.setAttribute('points', ids.map(i=>nodes[i].join(',')).join(' ')); clip.append(polygon); defs.append(clip);
+    const group = document.createElementNS(ns, 'g');
+    const surface = document.createElementNS(ns, 'g'); surface.setAttribute('clip-path', `url(#${clip.id})`);
+    const paper = document.createElementNS(ns, 'rect');
+    Object.entries({width,height,fill:'#fffdf6'}).forEach(([key,value])=>paper.setAttribute(key,value)); surface.append(paper);
+    const image = document.createElementNS(ns, 'image');
+    Object.entries({href:photo.src,x:12,y:12,width:width-24,height:width-24,preserveAspectRatio:'xMidYMid meet'}).forEach(([key,value])=>image.setAttribute(key,value)); surface.append(image);
+    const caption = document.createElementNS(ns, 'text');
+    Object.entries({x:width/2,y:width+24,'text-anchor':'middle',fill:'#655d51','font-size':13,'font-family':'Georgia, serif'}).forEach(([key,value])=>caption.setAttribute(key,value)); caption.textContent = albumText(photo.caption); surface.append(caption);
+    const shade = document.createElementNS(ns, 'rect');
+    Object.entries({width,height,fill:['#ffffff','#ffffff','#b5b5b5','#b5b5b5','#b5b5b5','#dedede','#ffffff','#ffffff'][index],opacity:0}).forEach(([key,value])=>shade.setAttribute(key,value)); surface.append(shade);
+    group.append(surface); svg.append(group); return {ids,group,shade};
+  });
+  paperCard.append(svg); paperFigure.style.visibility = 'hidden'; foldingPaper = svg;
+  // Reference silhouette: two white triangular wings, gray center, small
+  // underside. Rotate its up-right nose to face along the flight path.
+  const reference = { a:[392,203], b:[493,250], n:[750,60], d:[547,275], c:[526,345], e:[675,333] };
+  const angle = 42 * Math.PI / 180;
+  const target = ['a','b','n','b','n','d','c','d','e'].map(key => {
+    const [x,y] = reference[key], dx=x-571, dy=y-203;
+    return [width*.5+(dx*Math.cos(angle)-dy*Math.sin(angle))*width/490,
+      height*.5+(dx*Math.sin(angle)+dy*Math.cos(angle))*width/490];
+  });
+  // Each pose represents a separate hand fold, with a brief crease press.
+  const corners = nodes.map(p=>[...p]);
+  corners[0]=[width*.43,height*.20]; corners[2]=[width*.57,height*.20];
+  const center = corners.map(p=>[...p]);
+  [0,3,6].forEach(i=>{ center[i]=[width-center[i][0],center[i][1]]; });
+  const firstWing = center.map(p=>[...p]);
+  [0,1,3,4,6,7].forEach(i=>{ firstWing[i]=[...target[i]]; });
+  return { svg, width, height, nodes, target, facets, poses:[nodes,corners,center,firstWing,target] };
+}
+function paintPaperFold(mesh, amount) {
+  const step = Math.min(3, Math.floor(amount * 4));
+  const progress = amount === 1 ? 1 : amount * 4 - step;
+  // Fast movement followed by a hold reads as folding and pressing a crease.
+  const move = Math.min(1, progress / .72);
+  const ease = move * move * (3 - 2 * move);
+  const vertices = mesh.poses[step].map((point,index)=>point.map((v,axis)=>v+(mesh.poses[step+1][index][axis]-v)*ease));
+  mesh.facets.forEach(({ids,group,shade})=>{
+    const [p,q,r] = ids.map(i=>mesh.nodes[i]); const [u,v,w] = ids.map(i=>vertices[i]);
+    const det=(q[0]-p[0])*(r[1]-p[1])-(r[0]-p[0])*(q[1]-p[1]);
+    const a=((v[0]-u[0])*(r[1]-p[1])-(w[0]-u[0])*(q[1]-p[1]))/det;
+    const c=((w[0]-u[0])*(q[0]-p[0])-(v[0]-u[0])*(r[0]-p[0]))/det;
+    const b=((v[1]-u[1])*(r[1]-p[1])-(w[1]-u[1])*(q[1]-p[1]))/det;
+    const d=((w[1]-u[1])*(q[0]-p[0])-(v[1]-u[1])*(r[0]-p[0]))/det;
+    group.setAttribute('transform', `matrix(${a} ${b} ${c} ${d} ${u[0]-a*p[0]-c*p[1]} ${u[1]-b*p[0]-d*p[1]})`);
+    // Let the photographic face turn into the clean reverse of the paper.
+    shade.setAttribute('opacity', Math.min(1, amount * 1.2));
+  });
+
+}
+function foldPaper(mesh, from, to, duration, generation) {
+  return new Promise(resolve=>{
+    const start=performance.now();
+    function frame(now) {
+      if (generation !== memoryGeneration) { resolve(false); return; }
+      const t=Math.min(1,(now-start)/duration);
+      paintPaperFold(mesh,from+(to-from)*t);
+      if(t<1) requestAnimationFrame(frame); else resolve(true);
+    }
+    requestAnimationFrame(frame);
+  });
+}
+async function transitionMemory(direction) {
+  if (memoryBusy) return;
+  clearTimeout(memoryTimer); memoryBusy = true;
+  const generation = ++memoryGeneration;
+  const nextIndex = (memoryIndex + direction + memories.length) % memories.length;
+  // Decode before starting so every landing opens onto a fully loaded photo.
+  const ready = new Image(); ready.src = memories[nextIndex].src;
+  try { await ready.decode(); } catch { /* A failed image must not lock controls. */ }
+  if (generation !== memoryGeneration) return;
+  if (!albumMotion.matches) {
+    const mesh = makeFoldingPaper(memories[memoryIndex]);
+    const foldMovement = paperAnimate(paperCard,[
+      {transform:'translate(0,0) rotate(-2deg)'},
+      {transform:'translate(0,-3px) rotate(0deg)',offset:.25},
+      {transform:'translate(0,1px) rotate(-2deg)',offset:.5},
+      {transform:'translate(0,-2px) rotate(1deg)',offset:.75},
+      {transform:'translate(0,-5px) rotate(-4deg)'}
+    ],880,generation);
+    if (!await foldPaper(mesh,0,1,880,generation) || !await foldMovement) return;
+    const distance = paperStage.clientWidth/2+paperCard.offsetWidth;
+    const departureAngle = Math.atan2(-160 + 30, distance - 80) * 180 / Math.PI;
+    if (!await paperAnimate(paperCard,[
+      {transform:'translate(0,-5px) rotate(-4deg)'},
+      {transform:'translate(-20px,2px) rotate(2deg)',offset:.22},
+      {transform:'translate(80px,-30px) rotate(-14deg)',offset:.52},
+      {transform:`translate(${distance}px,-160px) rotate(${departureAngle}deg)`}
+    ],1000,generation,'cubic-bezier(.42,0,.65,1)')) return;
+    // Exchange the photograph only while the sheet is completely offstage.
+    mesh.svg.remove(); foldingPaper = null;
+    memoryIndex = nextIndex; renderMemory();
+    const incoming = makeFoldingPaper(memories[memoryIndex]); paintPaperFold(incoming,1);
+    if (!await paperAnimate(paperCard,[
+      {transform:`translate(${-distance}px,95px) rotate(-14deg)`},
+      {transform:'translate(-120px,-32px) rotate(-16deg)',offset:.52},
+      {transform:'translate(18px,-19px) rotate(8deg)',offset:.82},
+      {transform:'translate(0,-5px) rotate(-4deg)'}
+    ],1350,generation,'cubic-bezier(.25,.5,.4,1)')) return;
+    const landing = paperAnimate(paperCard,[
+      {transform:'translate(0,-5px) rotate(-4deg)'},
+      {transform:'translate(0,-15px) rotate(2deg)',offset:.56},
+      {transform:'translate(0,3px) rotate(-3deg)',offset:.86},
+      {transform:'translate(0,0) rotate(-2deg)'}
+    ],1200,generation);
+    if (!await foldPaper(incoming,1,0,1200,generation) || !await landing) return;
+  } else { memoryIndex = nextIndex; renderMemory(); }
+  if (generation !== memoryGeneration) return;
+  resetPaper(); memoryBusy = false; scheduleMemory();
+}
+function startMemory() {
+  if (memoryBusy || memoryPlaying) return;
+  memoryPlaying = true; renderMemory(); transitionMemory(1);
+}
+memoryLaunch.addEventListener('click', startMemory);
+memoryPlay.addEventListener('click', () => memoryPlaying ? stopMemory() : startMemory());
+for (const [selector, direction] of [['.memory-prev', -1], ['.memory-next', 1]]) {
+  memoryAlbum.querySelector(selector).addEventListener('click', () => { stopMemory(); transitionMemory(direction); });
+}
+memoryAlbum.addEventListener('keydown', event => {
+  if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || event.target.matches('input')) return;
+  event.preventDefault(); stopMemory(); transitionMemory(event.key === 'ArrowLeft' ? -1 : 1);
 });
+meetingStory.addEventListener('close', () => { stopMemory(); memoryIndex = 0; renderMemory(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopMemory(); });
+albumMotion.addEventListener('change', stopMemory);
+renderMemory();
+
+// Dust follows the actual glyph positions, so the final text never moves.
+const learnMotto = document.querySelector('.learn-motto');
+const seasoningMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let seasoningFrame;
+let seasoningCanvas;
+function finishSeasoning() {
+  cancelAnimationFrame(seasoningFrame);
+  seasoningCanvas?.remove(); seasoningCanvas = null;
+  learnMotto.classList.remove('seasoning-ready', 'is-seasoning');
+  learnMotto.querySelectorAll('.learn-motto-from, .learn-motto-to').forEach(line => line.style.opacity = '');
+}
+function pourWordDust() {
+  if (seasoningMotion.matches) { finishSeasoning(); return; }
+  const bounds = learnMotto.getBoundingClientRect();
+  const canvas = document.createElement('canvas');
+  canvas.className = 'seasoning-dust'; canvas.setAttribute('aria-hidden', 'true');
+  const paddingX = 80, paddingY = 170;
+  const width = bounds.width + paddingX * 2, height = bounds.height + paddingY + 90;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.ceil(width * ratio); canvas.height = Math.ceil(height * ratio);
+  Object.assign(canvas.style, { width: `${width}px`, height: `${height}px`, left: `${-paddingX}px`, top: `${-paddingY}px` });
+  const ctx = canvas.getContext('2d');
+  if (!ctx) { finishSeasoning(); return; }
+  ctx.scale(ratio, ratio); learnMotto.append(canvas); seasoningCanvas = canvas;
+  const shaker = learnMotto.querySelector('.adobo-shaker');
+  const lines = [...learnMotto.querySelectorAll('.learn-motto-from, .learn-motto-to')];
+  const particles = [];
+  lines.forEach((line, index) => {
+    const mask = document.createElement('canvas'); mask.width = Math.ceil(width); mask.height = Math.ceil(height);
+    const ink = mask.getContext('2d'), style = getComputedStyle(line);
+    ink.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    ink.textBaseline = 'top'; ink.fillStyle = '#fff';
+    // Measure each character independently to preserve the existing tracking
+    // and any responsive line wrapping rather than approximating a new layout.
+    const node = line.firstChild;
+    for (let i = 0; i < node.textContent.length; i++) {
+      const range = document.createRange(); range.setStart(node, i); range.setEnd(node, i + 1);
+      const rect = range.getBoundingClientRect();
+      ink.fillText(node.textContent[i], rect.left - bounds.left + paddingX, rect.top - bounds.top + paddingY);
+    }
+    const pixels = ink.getImageData(0, 0, mask.width, mask.height).data;
+    const spacing = bounds.width < 400 ? 2 : 3;
+    for (let y = 0; y < mask.height; y += spacing) for (let x = 0; x < mask.width; x += spacing) {
+      if (pixels[(y * mask.width + x) * 4 + 3] < 100) continue;
+      particles.push({ x, y, color: style.color, birth: (index ? 3190 : 2380) + Math.random() * 330,
+        duration: 680 + Math.random() * 340, bend: (Math.random() - .5) * 100,
+        size: .65 + Math.random() * .65, origin: null, line: index });
+    }
+  });
+  function capPosition() {
+    const style = getComputedStyle(shaker), origin = style.transformOrigin.split(' ').map(parseFloat);
+    const matrix = new DOMMatrix(style.transform);
+    const point = new DOMPoint(shaker.offsetWidth * .5 - origin[0], shaker.offsetHeight * .07 - origin[1]).matrixTransform(matrix);
+    return { x: shaker.offsetLeft + origin[0] + point.x + paddingX, y: shaker.offsetTop + origin[1] + point.y + paddingY };
+  }
+  learnMotto.classList.add('is-seasoning');
+  const start = performance.now();
+  function frame(now) {
+    // Run the shared shake-and-dust timeline 25% faster.
+    const elapsed = (now - start) / .75;
+    ctx.clearRect(0, 0, width, height);
+    const source = capPosition();
+    const fades = [Math.max(0, Math.min(1, (elapsed - 3730) / 300)), Math.max(0, Math.min(1, (elapsed - 4540) / 300))];
+    lines.forEach((line, i) => { line.style.opacity = fades[i]; });
+    particles.forEach(p => {
+      if (elapsed < p.birth) return;
+      if (!p.origin) p.origin = { x: source.x + (Math.random() - .5) * 5, y: source.y };
+      const t = Math.min(1, (elapsed - p.birth) / p.duration), ease = 1 - Math.pow(1 - t, 2);
+      const x = p.origin.x + (p.x - p.origin.x) * ease + Math.sin(t * Math.PI) * (1 - t) * p.bend;
+      const y = p.origin.y + (p.y - p.origin.y) * ease + Math.sin(t * Math.PI) * (1 - t) * 55;
+      ctx.globalAlpha = Math.min(1, t * 8) * (1 - fades[p.line]);
+      ctx.fillStyle = t < .3 ? '#cfb47a' : p.color;
+      ctx.beginPath(); ctx.arc(x, y, p.size, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    if (elapsed < 4900) seasoningFrame = requestAnimationFrame(frame); else finishSeasoning();
+  }
+  seasoningFrame = requestAnimationFrame(frame);
+}
+const seasoningObserver = new IntersectionObserver(entries => {
+  if (!entries.some(entry => entry.isIntersecting)) return;
+  seasoningObserver.disconnect();
+  document.fonts.ready.then(pourWordDust).catch(finishSeasoning);
+}, { threshold: .6 });
+if (!seasoningMotion.matches) { learnMotto.classList.add('seasoning-ready'); seasoningObserver.observe(learnMotto); }
+seasoningMotion.addEventListener('change', event => { if (event.matches) { seasoningObserver.disconnect(); finishSeasoning(); } });
+window.addEventListener('resize', () => { if (seasoningCanvas) finishSeasoning(); });

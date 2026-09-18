@@ -1269,3 +1269,59 @@ body:has(.meeting-story[open]) { overflow: hidden; }
 .memory-controls button:hover { background: #f4eddc; }
 .memory-controls button:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 .memory-counter { font-size: 11px; color: #655d51; font-variant-numeric: tabular-nums; }
+
+.paper-album { overflow: hidden; padding: 26px 16px 18px; }
+.paper-stage { position: relative; display: grid; place-items: center; height: clamp(310px, 64vw, 480px); isolation: isolate; perspective: 900px; }
+.paper-card-wrap { position: relative; width: min(340px, 83%); transform: rotate(-2deg); transform-origin: center; }
+.paper-card { margin: 0; padding: 11px 11px 0; background: #fffdf6; box-shadow: 0 8px 22px #29231530; }
+.memory-launch { position: relative; display: block; width: 100%; padding: 0; border: 0; background: #e0e5da; cursor: pointer; aspect-ratio: 1; }
+.memory-image { display: block; width: 100%; height: 100%; object-fit: contain; background: #edf0e9; }
+.memory-image[hidden] { display: none; }
+.memory-click { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); border: 1px solid #ffffff90; border-radius: 99px; padding: 9px 16px; background: #fffdf4ed; color: #394838; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 10px #0002; }
+.memory-click[hidden] { display: none; }
+.memory-caption { display: grid; place-items: center; min-height: 60px; padding: 12px 8px; font: 16px/1.5 "Playfair Display", Georgia, serif; color: #655d51; text-align: center; }
+.memory-launch.is-placeholder::before { content: attr(data-placeholder); color: #607269; font: italic 22px Georgia, serif; }
+.memory-plane { position: absolute; width: 184px; height: 101px; visibility: hidden; filter: drop-shadow(0 4px 2px #25302740); transform-origin: 50% 50%; }
+.paper-album .memory-controls { margin-top: 10px; gap: 14px; }
+.paper-album .memory-play { width: auto; min-width: 64px; padding-inline: 12px; border-radius: 99px; font-size: 11px; }
+.memory-upload { display: block; width: fit-content; margin: 16px auto 0; font-size: 11px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.memory-files { display: block; max-width: 220px; margin-top: 8px; font-size: 10px; }
+.memory-upload-note, .memory-credit { display: block; margin: 9px 0 0; text-align: center; font-size: 9px; line-height: 1.5; color: #655d51; }
+.memory-launch:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+/* A scrapbook stage with one continuously folding paper surface. */
+.paper-album { background: #f7f1e5; border-bottom: 1px solid #ded5c3; }
+.paper-stage { overflow: hidden; }
+.album-doodles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.paper-card { border: 0; border-radius: 1px; box-shadow: 0 2px 3px #50442e12, 0 12px 22px -12px #50442e50; }
+.folding-paper { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; filter: drop-shadow(0 6px 4px #50442e20); }
+.memory-click { background: #f7d88d; color: #57462e; border: 1px solid #d4b36d; box-shadow: 2px 3px 0 #57462e18; transform: translateX(-50%) rotate(3deg); font-family: Georgia, serif; font-style: italic; }
+.paper-album .memory-controls button { border-color: #d4c8b2; background: #fffaf0; box-shadow: 0 2px 0 #d4c8b260; }
+.paper-album .memory-controls button:hover { background: #f6dfb3; transform: translateY(-1px); }
+
+/* Four small shakes reveal the existing motto without moving its layout. */
+.learn-motto { position: relative; }
+.adobo-shaker { position: absolute; left: min(52%, 245px); right: auto; top: -145px; width: 114px; height: 216px; pointer-events: none; opacity: 0; transform: rotate(-135deg); transform-origin: 50% 55%; filter: drop-shadow(0 3px 2px #0002); z-index: 2; }
+.seasoning-ready .learn-motto-from, .seasoning-ready .learn-motto-to { opacity: 0; }
+.is-seasoning .adobo-shaker { animation: season-shaker 3.15s both; }
+
+
+.adobo-sprinkle { position: absolute; right: 43px; top: 0; width: 3px; height: 3px; border-radius: 50%; background: #cfb371; box-shadow: -7px 9px #baa16e, -14px 4px #e2c58d, -18px 19px #b5a16f, -4px 22px #dfc792; opacity: 0; pointer-events: none; }
+.is-seasoning .adobo-sprinkle { animation: season-grains 4.2s both; }
+@keyframes season-shaker {
+  0% { opacity: 0; transform: translate(14px,-18px) rotate(-122deg); }
+  8% { opacity: 1; transform: translate(0,0) rotate(-135deg); }
+  12%, 31%, 50%, 69% { opacity: 1; transform: translate(9px,-10px) rotate(-120deg); animation-timing-function: cubic-bezier(.55,.02,.75,.5); }
+  18%, 37%, 57%, 76% { opacity: 1; transform: translate(-19px,22px) rotate(-155deg); animation-timing-function: cubic-bezier(.12,.6,.3,1); }
+  23%, 42%, 62%, 81% { opacity: 1; transform: translate(8px,-8px) rotate(-123deg); animation-timing-function: cubic-bezier(.25,.1,.25,1); }
+  27%, 46%, 66%, 85% { opacity: 1; transform: translate(-3px,4px) rotate(-140deg); }
+  90% { opacity: 1; transform: translate(0,0) rotate(-135deg); }
+  100% { opacity: 0; transform: translate(14px,-20px) rotate(-122deg); }
+}
+@keyframes season-words { from { opacity: 0; transform: translate(12px,-14px); } to { opacity: 1; transform: translate(0,0); } }
+@keyframes season-grains { 0%, 55%, 74% { opacity: 0; transform: translate(0,0); } 58%, 77% { opacity: .8; } 69%, 88%, 100% { opacity: 0; transform: translate(-20px,35px); } }
+@media (prefers-reduced-motion: reduce) { .adobo-shaker, .adobo-sprinkle { display: none; } .seasoning-ready .learn-motto-from, .seasoning-ready .learn-motto-to { opacity: 1; animation: none; } }
+
+.seasoning-dust { position: absolute; pointer-events: none; z-index: 3; }
+.adobo-sprinkle { display: none; }
+@media (max-width: 480px) { .adobo-shaker { left: 50%; width: 96px; height: 182px; top: -125px; } }

@@ -9,3 +9,5 @@ Downloaded at 2200px wide.
 Camp Chipinaw aerial: Cove Creek Productions
 https://covecreekproductions.com/summer-camp-virtual-tours
 https://covecreekproductions.com/images/summer-camps/chipinaw.jpg
+
+How we met album: 13 personal photos supplied by the user, stored under their original JPEG filenames in assets and listed in savedMemories in script.js.
