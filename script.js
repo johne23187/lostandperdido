@@ -1616,3 +1616,46 @@ async function loadCityWeather(stop) {
 setInterval(() => {
   if (cityPopup.open && !document.hidden && activeCityPin) loadCityWeather(activeCityPin.dataset.stop);
 }, 600000);
+
+
+// A little flight from one mountain friend to the other.
+(() => {
+  const flyer = document.querySelector('.mountain-paraglider');
+  const friend = document.querySelector('.mountain-sitter');
+  if (!flyer || !friend) return;
+  let started = false;
+  flyer.addEventListener('click', () => {
+    if (started) return;
+    started = true;
+    flyer.setAttribute('aria-disabled', 'true');
+    flyer.classList.add('is-flying');
+    const seated = friend.querySelector('svg').cloneNode(true);
+    seated.setAttribute('aria-label', 'Smiling stick figure sitting beside his friend');
+    const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 2800;
+    const start = performance.now();
+    function frame(now) {
+      const progress = duration ? Math.min((now - start) / duration, 1) : 1;
+      const ease = progress * progress * (3 - 2 * progress);
+      // Read the untransformed position so resizing during flight stays accurate.
+      flyer.style.transform = 'none';
+      const origin = flyer.getBoundingClientRect();
+      const target = friend.getBoundingClientRect();
+      const x = (target.left - 38 - origin.left) * ease;
+      const y = (target.top - origin.top) * ease - Math.sin(Math.PI * progress) * 65;
+      const bank = Math.sin(progress * Math.PI * 2) * 12;
+      flyer.style.transform = `translate(${x}px, ${y}px) rotate(${bank}deg)`;
+      if (progress > .84) flyer.classList.add('is-landing');
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        flyer.querySelector('svg:not(.paraglider-canopy)').replaceWith(seated);
+        flyer.querySelector('.paraglider-canopy').remove();
+        flyer.classList.remove('is-flying');
+        flyer.classList.add('has-landed');
+        flyer.style.transform = '';
+        flyer.setAttribute('aria-label', 'Together at last, sitting beside our friend');
+      }
+    }
+    requestAnimationFrame(frame);
+  });
+})();
