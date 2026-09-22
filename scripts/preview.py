@@ -4,6 +4,8 @@ Run: python3 scripts/preview.py [port] (default 8766).
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import re
+import json
+import sqlite3
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,6 +13,42 @@ ROOT = Path(__file__).resolve().parents[1]
 class PreviewHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
+
+    def poll_response(self, vote=None):
+        data_dir = ROOT / '.local-data'
+        data_dir.mkdir(exist_ok=True)
+        with sqlite3.connect(data_dir / 'poll.sqlite3') as db:
+            db.execute('CREATE TABLE IF NOT EXISTS votes (voter TEXT PRIMARY KEY, choice TEXT NOT NULL)')
+            if vote:
+                db.execute('INSERT INTO votes VALUES (?, ?) ON CONFLICT(voter) DO UPDATE SET choice=excluded.choice', vote)
+            counts = {'lost': 0, 'perdido': 0}
+            counts.update(dict(db.execute('SELECT choice, COUNT(*) FROM votes GROUP BY choice')))
+        payload = json.dumps(counts).encode()
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Content-Length', str(len(payload)))
+        self.end_headers()
+        self.wfile.write(payload)
+
+    def do_GET(self):
+        if self.path == '/api/poll':
+            return self.poll_response()
+        return super().do_GET()
+
+    def do_POST(self):
+        if self.path != '/api/poll':
+            return self.send_error(404)
+        try:
+            length = int(self.headers.get('Content-Length', '0'))
+            if not 0 < length <= 1024:
+                raise ValueError()
+            payload = json.loads(self.rfile.read(length))
+            voter, choice = payload['voter'], payload['choice']
+            if not isinstance(voter, str) or not re.fullmatch(r'[a-zA-Z0-9-]{16,80}', voter) or choice not in ('lost', 'perdido'):
+                raise ValueError()
+        except (ValueError, KeyError, TypeError):
+            return self.send_error(400, 'Invalid vote')
+        self.poll_response((voter, choice))
 
     def end_headers(self):
         self.send_header('Cache-Control', 'no-cache')

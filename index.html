@@ -53,7 +53,7 @@
       <p class="route-footnote">Countdowns run to midnight at each destination. The unexpected is still the point. <span lang="es">Vamos a ver qué pasa.</span></p>
     </section>
 
-    <section class="about-section" id="about"><div class="about-mark" aria-hidden="true"><span>Lost</span><i>&</i><span>Perdido</span><small>TWO PERSPECTIVES · ONE ROAD</small></div><div class="about-copy"><p class="eyebrow accent">02 / NICE TO MEET YOU · MUCHO GUSTO</p><h2>Same place.<br><em>Dos perspectivas.</em></h2><p>We’re two travel companions, one Latino-American English speaker who learned Spanish later in life, and one Bolivian born native Spanish speaker who learned English later in life, experiencing Latin America together. Sometimes we see things differently. Sometimes we get lost along the way. Usually, that’s where the good story starts.</p><p>English and Spanish live side by side here: in conversations with locals, over food, on bus rides and in the moments we couldn’t have planned.</p><p class="about-promise">You don’t need to speak both languages.<br>You just need a little curiosity.</p></div>
+    <section class="about-section" id="about"><div class="about-mark" aria-hidden="true"><span>Lost</span><i>&</i><span>Perdido</span><small>TWO PERSPECTIVES · ONE ROAD</small></div><div class="about-copy"><p class="eyebrow accent">02 / NICE TO MEET YOU · MUCHO GUSTO</p><h2 class="perspective-heading">Same place.<br><em>Dos <span class="perspective-p">p</span>erspectivas.</em></h2><p>We’re two travel companions, one Latino-American English speaker who learned Spanish later in life, and one Bolivian born native Spanish speaker who learned English later in life, experiencing Latin America together. Sometimes we see things differently. Sometimes we get lost along the way. Usually, that’s where the good story starts.</p><p>English and Spanish live side by side here: in conversations with locals, over food, on bus rides and in the moments we couldn’t have planned.</p><p class="about-promise">You don’t need to speak both languages.<br>You just need a little curiosity.</p></div>
       <aside class="hosts" aria-labelledby="hosts-heading">
         <h3 class="hosts-sign" id="hosts-heading">Meet your hosts</h3>
         <figure class="host-card">
@@ -242,8 +242,9 @@
             </g>
           </svg>
         </button>
+        <span class="satellite-cue" aria-hidden="true">↖</span>
         <div class="location-gps" lang="en" translate="no">
-          <div class="gps-topline" aria-hidden="true"><span>GPS</span><span class="gps-signal"><i></i><i></i><i></i></span></div>
+          <div class="gps-topline" aria-hidden="true"><span>GPS</span><span class="gps-live"><i></i> LIVE</span><span class="gps-signal"><i></i><i></i><i></i></span></div>
           <div class="gps-screen">
             <svg class="gps-map" viewBox="0 0 200 65" aria-hidden="true" focusable="false">
               <path d="M0 18L62 25 105 5 155 14 200 0M0 53L45 38 100 58 160 37 200 46M38 0L45 38 33 65M150 0L160 37 182 65" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"/>
@@ -265,7 +266,7 @@
         <button class="city-popup-close" type="button" aria-label="Close city details" autofocus>×</button>
         <article class="map-stop" id="stop-mendoza" hidden>
           <p class="eyebrow accent">Argentina</p><h3 id="city-title-mendoza">Mendoza</h3>
-          <ul class="city-facts"><li>A wine-growing city at the foot of the Andes.</li><li>The surrounding vineyards are especially known for Malbec.</li></ul>
+          <p class="city-synopsis">Wine country at the foot of the Andes.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/argentina/mendoza/50007__capital/" target="_blank" rel="noopener noreferrer">123,516</a><small>2022 · city, private households</small></dd></div><div><dt>Coordinates</dt><dd>32.89° S, 68.85° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Malbec</li><li>Vineyards</li><li>Andes</li></ul><p class="city-overview">A wine-growing city at the foot of the Andes. The surrounding vineyards are especially known for Malbec.</p>
           <a class="city-fact-source" href="https://www.argentina.travel/en/destination/mendoza" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="mendoza" hidden></div>
@@ -277,7 +278,7 @@
         </article>
         <article class="map-stop" id="stop-santiago" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-santiago">Santiago</h3>
-          <ul class="city-facts"><li>Chile’s capital combines historic neighborhoods with mountain views.</li><li>Cerro San Cristóbal is part of the city’s Metropolitan Park.</li></ul>
+          <p class="city-synopsis">Chile’s capital, framed by the Andes.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.bcn.cl/siit/reportescomunales/comunas_v.html?idcom=13101" target="_blank" rel="noopener noreferrer">438,856</a><small>2024 · Santiago commune, not metro area</small></dd></div><div><dt>Coordinates</dt><dd>33.45° S, 70.67° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Historic center</li><li>Mountain views</li><li>City life</li></ul><p class="city-overview">Chile’s capital combines historic neighborhoods with mountain views. Cerro San Cristóbal is part of the city’s Metropolitan Park.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/santiago-capital/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="santiago" hidden></div>
@@ -289,7 +290,7 @@
         </article>
         <article class="map-stop" id="stop-vina" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-vina">Viña del Mar</h3>
-          <ul class="city-facts"><li>Known as Chile’s Garden City.</li><li>Its Flower Clock and seaside promenade are local landmarks.</li></ul>
+          <p class="city-synopsis">A seaside stop with a garden-city spirit.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.bcn.cl/siit/reportescomunales/comunas_v.html?idcom=5109" target="_blank" rel="noopener noreferrer">334,871</a><small>2024 · commune</small></dd></div><div><dt>Coordinates</dt><dd>33.02° S, 71.55° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Pacific coast</li><li>Flower Clock</li><li>Gardens</li></ul><p class="city-overview">Known as Chile’s Garden City. Its Flower Clock and seaside promenade are local landmarks.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/vina-del-mar-and-renaca/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="vina" hidden></div>
@@ -301,7 +302,7 @@
         </article>
         <article class="map-stop" id="stop-lapaz" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-lapaz">La Paz</h3>
-          <ul class="city-facts"><li>La Paz is Bolivia’s seat of government.</li><li>Cable cars connect neighborhoods across the city and El Alto.</li></ul>
+          <p class="city-synopsis">A city best seen from above.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">757,431</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>16.49° S, 68.12° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Cable cars</li><li>Andean culture</li><li>City views</li></ul><p class="city-overview">La Paz is Bolivia’s seat of government. Cable cars connect neighborhoods across the city and El Alto.</p>
           <a class="city-fact-source" href="https://www.boliviaturismo.com.bo/la-paz.html" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="lapaz" hidden></div>
@@ -313,7 +314,7 @@
         </article>
         <article class="map-stop" id="stop-sucre" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-sucre">Sucre</h3>
-          <ul class="city-facts"><li>Its historic center is a UNESCO World Heritage Site.</li><li>The city is known for its white colonial buildings.</li></ul>
+          <p class="city-synopsis">Whitewashed streets and layers of history.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">296,746</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>19.02° S, 65.26° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>White architecture</li><li>UNESCO heritage</li><li>History</li></ul><p class="city-overview">Its historic center is a UNESCO World Heritage Site. The city is known for its white colonial buildings.</p>
           <a class="city-fact-source" href="https://whc.unesco.org/en/list/566/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="sucre" hidden></div>
@@ -325,7 +326,7 @@
         </article>
         <article class="map-stop" id="stop-maipo" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-maipo">Cajón del Maipo</h3>
-          <ul class="city-facts"><li>An Andean canyon southeast of Santiago.</li><li>San José de Maipo is its main gateway town.</li></ul>
+          <p class="city-synopsis">An Andean escape beyond Santiago.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://sanjosedemaipo.cl/comuna/datos-comunales/" target="_blank" rel="noopener noreferrer">17,441</a><small>2024 · San José de Maipo commune</small></dd></div><div><dt>Coordinates</dt><dd>33.64° S, 70.35° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Andes</li><li>Canyon</li><li>Mountain escapes</li></ul><p class="city-overview">An Andean canyon southeast of Santiago. San José de Maipo is its main gateway town.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/cajon-del-maipo/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="maipo" hidden></div>
@@ -337,7 +338,7 @@
         </article>
         <article class="map-stop" id="stop-potosi" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-potosi">Potosí</h3>
-          <ul class="city-facts"><li>Cerro Rico’s silver mines shaped the city’s history.</li><li>Its UNESCO-listed heritage includes the historic mint, Casa de la Moneda.</li></ul>
+          <p class="city-synopsis">A silver-mining city with a complex past.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">218,702</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>19.58° S, 65.75° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Silver history</li><li>Cerro Rico</li><li>Historic mint</li></ul><p class="city-overview">Cerro Rico’s silver mines shaped the city’s history. Its UNESCO-listed heritage includes the historic mint, Casa de la Moneda.</p>
           <a class="city-fact-source" href="https://whc.unesco.org/en/list/420/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="potosi" hidden></div>
@@ -349,7 +350,7 @@
         </article>
         <article class="map-stop" id="stop-santacruz" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-santacruz">Santa Cruz</h3>
-          <ul class="city-facts"><li>Plaza 24 de Septiembre is the heart of the historic center.</li><li>The Metropolitan Cathedral overlooks the main square.</li></ul>
+          <p class="city-synopsis">A different rhythm in Bolivia’s east.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">1,610,982</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>17.78° S, 63.18° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Main square</li><li>Cathedral</li><li>City life</li></ul><p class="city-overview">Plaza 24 de Septiembre is the heart of the historic center. The Metropolitan Cathedral overlooks the main square.</p>
           <a class="city-fact-source" href="https://santacruzturismo.com/planifica-tu-viaje/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="santacruz" hidden></div>
@@ -361,7 +362,7 @@
         </article>
         <article class="map-stop" id="stop-uyuni" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-uyuni">Uyuni</h3>
-          <ul class="city-facts"><li>A gateway to the vast Salar de Uyuni salt flats.</li><li>A train cemetery sits just outside the city.</li></ul>
+          <p class="city-synopsis">The jumping-off point for a vast salt-flat landscape.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">35,318</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>20.46° S, 66.83° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Salt flats</li><li>Train cemetery</li><li>Open horizons</li></ul><p class="city-overview">A gateway to the vast Salar de Uyuni salt flats. A train cemetery sits just outside the city.</p>
           <a class="city-fact-source" href="https://www.boliviaturismo.com.bo/salar-de-uyuni.html" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="uyuni" hidden></div>
@@ -373,7 +374,7 @@
         </article>
         <article class="map-stop" id="stop-coroico" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-coroico">Coroico</h3>
-          <ul class="city-facts"><li>A hillside town in Bolivia’s green Yungas region.</li><li>The Yungas form a transition between the Altiplano and the Amazon.</li></ul>
+          <p class="city-synopsis">Green hills between the highlands and Amazon.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">27,711</a><small>2024 · municipality, not town alone</small></dd></div><div><dt>Coordinates</dt><dd>16.19° S, 67.73° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Yungas</li><li>Green hills</li><li>Valley views</li></ul><p class="city-overview">A hillside town in Bolivia’s green Yungas region. The Yungas form a transition between the Altiplano and the Amazon.</p>
           <a class="city-fact-source" href="https://www.boliviaturismo.com.bo/coroico.html" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="coroico" hidden></div>
@@ -385,7 +386,7 @@
         </article>
         <article class="map-stop" id="stop-cochabamba" hidden>
           <p class="eyebrow accent">Bolivia</p><h3 id="city-title-cochabamba">Cochabamba</h3>
-          <ul class="city-facts"><li>Cristo de la Concordia overlooks the city.</li><li>Plaza 14 de Septiembre anchors its historic center.</li></ul>
+          <p class="city-synopsis">A city of plazas and hillside views.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.citypopulation.de/en/bolivia/admin/" target="_blank" rel="noopener noreferrer">665,505</a><small>2024 · municipality</small></dd></div><div><dt>Coordinates</dt><dd>17.39° S, 66.16° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Cristo statue</li><li>Historic plaza</li><li>City views</li></ul><p class="city-overview">Cristo de la Concordia overlooks the city. Plaza 14 de Septiembre anchors its historic center.</p>
           <a class="city-fact-source" href="https://www.boliviaturismo.com.bo/cochabamba.html" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="cochabamba" hidden></div>
@@ -397,7 +398,7 @@
         </article>
         <article class="map-stop" id="stop-puertomontt" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-puertomontt">Puerto Montt</h3>
-          <ul class="city-facts"><li>A port city and gateway to Chilean Patagonia.</li><li>Nearby Lake Llanquihue and Osorno Volcano shape the region’s landscape.</li></ul>
+          <p class="city-synopsis">A port at the doorstep of southern adventures.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.bcn.cl/siit/reportescomunales/comunas_v.html?idcom=10101" target="_blank" rel="noopener noreferrer">277,040</a><small>2024 · commune</small></dd></div><div><dt>Coordinates</dt><dd>41.47° S, 72.94° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Harbor</li><li>Patagonia gateway</li><li>Lake region</li></ul><p class="city-overview">A port city and gateway to Chilean Patagonia. Nearby Lake Llanquihue and Osorno Volcano shape the region’s landscape.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/puerto-montt/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="puertomontt" hidden></div>
@@ -409,7 +410,7 @@
         </article>
         <article class="map-stop" id="stop-frutillar" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-frutillar">Frutillar</h3>
-          <ul class="city-facts"><li>Sits on the shores of Lake Llanquihue.</li><li>The lakeside Teatro del Lago is one of its cultural landmarks.</li></ul>
+          <p class="city-synopsis">A lakeside town with a cultural heart.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.bcn.cl/siit/reportescomunales/comunas_v.html?idcom=10105" target="_blank" rel="noopener noreferrer">22,554</a><small>2024 · commune</small></dd></div><div><dt>Coordinates</dt><dd>41.12° S, 73.06° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Lakeside</li><li>Teatro del Lago</li><li>Music</li></ul><p class="city-overview">Sits on the shores of Lake Llanquihue. The lakeside Teatro del Lago is one of its cultural landmarks.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/puerto-varas-and-frutillar/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="frutillar" hidden></div>
@@ -421,7 +422,7 @@
         </article>
         <article class="map-stop" id="stop-puertovaras" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-puertovaras">Puerto Varas</h3>
-          <ul class="city-facts"><li>A lakeside city on Lake Llanquihue.</li><li>Its heritage architecture reflects German immigration.</li></ul>
+          <p class="city-synopsis">Lake views and heritage architecture.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd><a href="https://www.bcn.cl/siit/reportescomunales/comunas_v.html?idcom=10109" target="_blank" rel="noopener noreferrer">52,942</a><small>2024 · commune</small></dd></div><div><dt>Coordinates</dt><dd>41.32° S, 72.99° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Lake Llanquihue</li><li>Heritage houses</li><li>Lake views</li></ul><p class="city-overview">A lakeside city on Lake Llanquihue. Its heritage architecture reflects German immigration.</p>
           <a class="city-fact-source" href="https://chile.travel/en/destinations/puerto-varas-and-frutillar/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="puertovaras" hidden></div>
@@ -433,7 +434,7 @@
         </article>
         <article class="map-stop" id="stop-osorno" hidden>
           <p class="eyebrow accent">Chile</p><h3 id="city-title-osorno">Osorno Volcano</h3>
-          <ul class="city-facts"><li>An iconic volcano beside Lake Llanquihue.</li><li>Its slopes offer views toward the lake and surrounding mountains.</li></ul>
+          <p class="city-synopsis">An iconic cone above the lake country.</p><dl class="city-quick-facts"><div><dt>Population</dt><dd>Not applicable<small>Natural attraction, not a city</small></dd></div><div><dt>Coordinates</dt><dd>41.11° S, 72.50° W<small>Approximate map location</small></dd></div></dl><ul class="city-highlights" aria-label="Highlights"><li>Volcano</li><li>Lake views</li><li>Mountain scenery</li></ul><p class="city-overview">An iconic volcano beside Lake Llanquihue. Its slopes offer views toward the lake and surrounding mountains.</p>
           <a class="city-fact-source" href="https://chile.travel/en/blog/visit-osorno-volcano-and-discover-the-magical-surroundings-of-southern-chile/" target="_blank" rel="noopener noreferrer">About this place ↗</a>
           <h4 class="city-gallery-title">Our photo diary</h4>
           <div class="city-gallery" data-gallery="osorno" hidden></div>
@@ -448,7 +449,7 @@
 
     </section>
 
-    <section class="contact-section" id="contact"><aside class="contact-followers" aria-label="Our social community"><a href="https://www.instagram.com/lostandperdido/" target="_blank" rel="noopener noreferrer" aria-label="Lost and Perdido on Instagram, 16.8K followers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span><strong>16.8K</strong><small>Instagram followers</small></span><span class="follower-arrow" aria-hidden="true">↗</span></a><a href="https://www.tiktok.com/@lostandperdido" target="_blank" rel="noopener noreferrer" aria-label="Lost and Perdido on TikTok, 15.2K followers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M15 2h3c.3 2.7 1.8 4.4 4 4.7v3.2a9 9 0 0 1-4-1.3v7.7a6.3 6.3 0 1 1-5.5-6.2v3.3a3.1 3.1 0 1 0 2.5 3Z"/></svg><span><strong>15.2K</strong><small>TikTok followers</small></span><span class="follower-arrow" aria-hidden="true">↗</span></a></aside><div><p class="eyebrow">05 / JOIN THE FAMILY</p><h2>Your place.<br>Our perspective.<br><em>A shared story.</em></h2></div><div class="contact-copy"><p>We partner with stays, restaurants, local experiences and travel brands to create human, culturally curious content in English and Spanish.</p><div class="services"><span>UGC &amp; brand content</span><span>Experiences and destinations</span><span>Long-term partnerships</span><span>Social media features</span><span>Photography</span><span>Media packages</span></div><a class="button" href="mailto:hola@lostandperdido.com?subject=Let%E2%80%99s%20collaborate%20%E2%80%94%20Lost%20%26%20Perdido">Let’s talk <span aria-hidden="true">↗</span></a><a class="email-link" href="mailto:hola@lostandperdido.com">hola@lostandperdido.com</a></div></section>
+    <section class="contact-section" id="contact"><aside class="contact-followers" aria-label="Our social community"><a href="https://www.instagram.com/lostandperdido/" target="_blank" rel="noopener noreferrer" aria-label="Lost and Perdido on Instagram, 16.8K followers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span><strong>16.8K</strong><small>Instagram followers</small></span><span class="follower-arrow" aria-hidden="true">↗</span></a><a href="https://www.tiktok.com/@lostandperdido" target="_blank" rel="noopener noreferrer" aria-label="Lost and Perdido on TikTok, 15.2K followers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M15 2h3c.3 2.7 1.8 4.4 4 4.7v3.2a9 9 0 0 1-4-1.3v7.7a6.3 6.3 0 1 1-5.5-6.2v3.3a3.1 3.1 0 1 0 2.5 3Z"/></svg><span><strong>15.2K</strong><small>TikTok followers</small></span><span class="follower-arrow" aria-hidden="true">↗</span></a></aside><div><p class="eyebrow">05 / JOIN THE FAMILY</p><h2>Your place.<br>Our perspective.<br><em>A shared story.</em></h2></div><div class="contact-copy"><p>We partner with stays, restaurants, local experiences and travel brands to create human, culturally curious content in English and Spanish.</p><div class="services"><button type="button" data-service="0" aria-haspopup="dialog" aria-controls="service-details">UGC &amp; brand content</button><button type="button" data-service="1" aria-haspopup="dialog" aria-controls="service-details">Experiences and destinations</button><button type="button" data-service="2" aria-haspopup="dialog" aria-controls="service-details">Long-term partnerships</button><button type="button" data-service="3" aria-haspopup="dialog" aria-controls="service-details">Social media features</button><button type="button" data-service="4" aria-haspopup="dialog" aria-controls="service-details">Photography</button><button type="button" data-service="5" aria-haspopup="dialog" aria-controls="service-details">Media packages</button></div><a class="button" href="mailto:hola@lostandperdido.com?subject=Let%E2%80%99s%20collaborate%20%E2%80%94%20Lost%20%26%20Perdido">Let’s talk <span aria-hidden="true">↗</span></a><a class="email-link" href="mailto:hola@lostandperdido.com">hola@lostandperdido.com</a></div></section>
 
     <section class="learn-section" id="learn" aria-labelledby="learn-title">
       <div class="learn-intro">
@@ -463,13 +464,13 @@
         <p class="learn-progress">Our learning modules are a work in progress. We’re putting them together, one lesson at a time. Nos vemos pronto.</p>
       </div>
     </section>
-    <section class="closing"><p>We’re not just showing you where we’re going.</p><h2>We’re taking you <em>with us.</em></h2><a href="#home">See you out there. <span lang="es">Nos vemos allá.</span> ↑</a></section>
+    <section class="closing"><div class="mountain-friend mountain-paraglider"><span>No, I’m just perdido.</span><svg class="paraglider-canopy" viewBox="0 0 110 85" aria-hidden="true"><path d="M5 32Q55-20 105 32Q55 8 5 32Z" fill="#edb65c" stroke="#fff8e5" stroke-width="2"/><g stroke="#fff8e5" stroke-width="1.2" fill="none"><path d="M5 32 43 82M27 22 43 82M83 22 67 82M105 32 67 82M27 22Q36 1 42 8M55 17V5M83 22Q74 1 68 8"/></g></svg><svg viewBox="0 0 60 80" role="img" aria-label="Simple smiling, dot-eyed stick figure paragliding over the left mountain"><g stroke="#fff8e5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="30" cy="21" r="9"/><path d="M26 24Q30 29 34 24" stroke-width="1.4"/><path d="M30 30V49L19 59 25 72M30 49 43 58 46 71M30 36 17 30 13 15M30 36 43 30 47 15"/></g><g fill="#fff8e5"><circle cx="27" cy="20" r="1.3"/><circle cx="33" cy="20" r="1.3"/></g></svg></div><div class="mountain-friend mountain-sitter"><span>Are you lost yet?</span><svg viewBox="0 0 60 80" role="img" aria-label="Simple smiling, dot-eyed stick figure sitting on the grass"><g stroke="#fff8e5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="26" cy="22" r="9"/><path d="M22 25Q26 30 30 25" stroke-width="1.4"/><path d="M26 31 24 53 40 53 49 67M24 53 16 64 33 67M25 37 36 45 40 53M25 37 13 47 9 61"/></g><g fill="#fff8e5"><circle cx="23" cy="21" r="1.3"/><circle cx="29" cy="21" r="1.3"/></g></svg></div><p>We’re not just showing you where we’re going.</p><h2>We’re taking you <em>with us.</em></h2><a href="#home">See you out there. <span lang="es">Nos vemos allá.</span> ↑</a></section>
   </main>
   <footer><a class="brand" href="#home">Lost <span>&</span> Perdido</a><p>© <span id="year">2026</span> Lost & Perdido</p><p>Two languages. One shared adventure.</p></footer>
 
   <dialog class="gps-tracker" id="gps-tracker" aria-labelledby="gps-tracker-title">
     <div class="gps-expanded-device">
-      <div class="gps-expanded-top"><span>L&amp;P / GPS</span><span>SEARCHING FOR A PLAN…</span></div>
+      <div class="gps-expanded-top"><span>L&amp;P / GPS</span><span class="gps-live"><i></i> LIVE</span><span>SEARCHING FOR A PLAN…</span></div>
       <div class="gps-expanded-screen">
         <form method="dialog"><button class="gps-map-close" aria-label="Return to globe" autofocus>×</button></form>
         <header class="gps-map-heading"><p>WHERE ARE WE NOW?</p><h2 id="gps-tracker-title">A little lost. Together.</h2></header>
@@ -489,7 +490,7 @@
             </svg>
           </div>
         </div>
-        <footer class="gps-map-status"><span><i></i> STATUS: LOST</span><span class="gps-location-name">NEW YORK · USA</span></footer>
+        <section class="gps-poll" aria-labelledby="gps-poll-title"><p id="gps-poll-title">Are you lost or perdido?</p><div class="gps-poll-options"><button type="button" data-poll="lost" aria-pressed="false">Lost <strong>—</strong></button><button type="button" data-poll="perdido" aria-pressed="false">Perdido <strong>—</strong></button></div><p class="gps-poll-status" role="status">Pick your side.</p></section><footer class="gps-map-status"><span><i></i> STATUS: LOST</span><span class="gps-location-name">NEW YORK · USA</span></footer>
       </div>
       <div class="gps-expanded-controls" aria-hidden="true"><span></span><i></i><span></span></div>
     </div>
@@ -557,5 +558,12 @@
       <p class="van-backseat-note">Two friends. One old van. A whole lot of stories.</p>
     </div>
   </dialog>
+<dialog id="service-details" class="service-dialog" aria-labelledby="service-title"><form method="dialog"><button class="service-close" aria-label="Close collaboration details" autofocus>×</button></form><p class="eyebrow accent">LET’S CREATE TOGETHER</p><h2 id="service-title"></h2><div class="service-body"></div><a class="button service-inquiry" href="mailto:hola@lostandperdido.com">Let’s talk ↗</a></dialog>
+<template id="service-content-0" data-title="UGC &amp; brand content"><p class="service-intro">John and Mateo bring your brand into the story, with content that feels like a real recommendation.</p><ul><li>1 reel starring John and Mateo</li><li>1 story post</li><li>1 natural integration into our website</li></ul><p>We work with you on the idea, setting, and message so the content fits your brand and our audience.</p></template>
+<template id="service-content-1" data-title="Experiences and destinations"><p class="service-intro">Let John and Mateo introduce your destination through the places, people, and experiences that make it worth visiting.</p><p>We’re planning future guided group tours led by us, with opportunities to partner with restaurants, hotels, and experience providers for our guests.</p><p>We’d love to explore how your business could become part of that journey. Group tours are coming in the future; dates and itineraries are not yet announced.</p></template>
+<template id="service-content-2" data-title="Long-term partnerships"><p class="service-intro">A relationship that grows with the journey.</p><p>John and Mateo are open to partnerships of all kinds, across a wide range of industries. Let’s build something that makes sense for your brand and our community.</p><p>For more information, reach out to <a href="mailto:hola@lostandperdido.com">hola@lostandperdido.com</a>.</p></template>
+<template id="service-content-3" data-title="Social media features"><p class="service-intro">Stay part of the story with recurring features from John and Mateo.</p><p>We offer ongoing partnerships that can include social media features or advertisements for an agreed recurring fee.</p><p>Format, frequency, and pricing are agreed together. Partnerships and placements are selected at our discretion to ensure a good fit for our audience.</p></template>
+<template id="service-content-4" data-title="Photography"><p class="service-intro">A closer look at the moments that make your place special.</p><ul><li>10 professional photos ready for your agreed marketing use</li><li>Scenic views and destination photography</li><li>Standout experiences, dishes, and details</li><li>Lifestyle moments featuring John and Mateo, where appropriate</li></ul><p>We’ll agree on the shot list, delivery, and usage with you before the shoot.</p></template>
+<template id="service-content-5" data-title="Media packages"><p class="service-intro">A starting point for telling a bigger story with John and Mateo.</p><p>These customizable package concepts help start the conversation. Final scope, platforms, usage, and pricing are agreed before booking.</p><div class="service-tiers"><article><h3>Silver</h3><ul><li>1 long-form video</li><li>3 reels</li><li>2 photos</li><li>1 story post</li><li>1 natural YouTube integration</li></ul></article><article><h3>Gold</h3><ul><li>2 long-form videos</li><li>5 reels</li><li>5 photos</li><li>3 story posts</li><li>2 natural YouTube integrations</li></ul></article><article><h3>Platinum</h3><ul><li>3 long-form videos</li><li>8 reels</li><li>10 photos</li><li>5 story posts</li><li>3 natural YouTube integrations</li></ul></article></div><p>YouTube integrations can be included within the long-form videos; we’ll confirm the format together.</p></template>
 </body>
 </html>

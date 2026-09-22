@@ -1264,13 +1264,24 @@ function pourWordDust() {
   }
   seasoningFrame = requestAnimationFrame(frame);
 }
+let seasoningRepeatTimer;
+let seasoningRuns = 0;
+function runSeasoningCycle() {
+  if (seasoningMotion.matches || seasoningRuns >= 5) return;
+  finishSeasoning();
+  learnMotto.classList.add('seasoning-ready');
+  seasoningRuns += 1;
+  pourWordDust();
+  // Start at 0, 5, 10, 15, and 20 seconds; leave the words visible after run five.
+  if (seasoningRuns < 5) seasoningRepeatTimer = setTimeout(runSeasoningCycle, 5000);
+}
 const seasoningObserver = new IntersectionObserver(entries => {
   if (!entries.some(entry => entry.isIntersecting)) return;
   seasoningObserver.disconnect();
-  document.fonts.ready.then(pourWordDust).catch(finishSeasoning);
+  document.fonts.ready.then(runSeasoningCycle).catch(finishSeasoning);
 }, { threshold: .6 });
 if (!seasoningMotion.matches) { learnMotto.classList.add('seasoning-ready'); seasoningObserver.observe(learnMotto); }
-seasoningMotion.addEventListener('change', event => { if (event.matches) { seasoningObserver.disconnect(); finishSeasoning(); } });
+seasoningMotion.addEventListener('change', event => { if (event.matches) { clearTimeout(seasoningRepeatTimer); seasoningObserver.disconnect(); finishSeasoning(); } });
 window.addEventListener('resize', () => { if (seasoningCanvas) finishSeasoning(); });
 
 // The backseat collection. Add more local clips here.
@@ -1419,3 +1430,133 @@ vanCinema.addEventListener('close', () => {
   resumeVanSoundtrack = false;
 });
 meetingStory.addEventListener('close', () => { if (vanCinema.open) vanCinema.close(); });
+
+const serviceDialog = document.getElementById('service-details');
+let serviceOpener;
+document.querySelectorAll('[data-service]').forEach(button => {
+  button.addEventListener('click', () => {
+    serviceOpener = button;
+    const content = document.getElementById(`service-content-${button.dataset.service}`);
+    serviceDialog.querySelector('h2').textContent = content.dataset.title;
+    serviceDialog.querySelector('.service-body').replaceChildren(content.content.cloneNode(true));
+    serviceDialog.querySelector('.service-inquiry').href = `mailto:hola@lostandperdido.com?subject=${encodeURIComponent(content.dataset.title + ' — John & Mateo')}`;
+    serviceDialog.showModal();
+    serviceDialog.scrollTop = 0;
+  });
+});
+serviceDialog.addEventListener('click', event => {
+  if (event.target !== serviceDialog) return;
+  const r = serviceDialog.getBoundingClientRect();
+  if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) serviceDialog.close();
+});
+serviceDialog.addEventListener('close', () => serviceOpener?.focus({ preventScroll: true }));
+
+// A p-shaped magnifier lifts out of the heading and enlarges the actual lettering.
+const perspectiveHeading = document.querySelector('.perspective-heading');
+const perspectiveP = perspectiveHeading.querySelector('.perspective-p');
+const perspectiveMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let perspectiveFrame;
+let perspectiveLens;
+let perspectiveFinished = false;
+function finishPerspective() {
+  cancelAnimationFrame(perspectiveFrame);
+  perspectiveLens?.remove();
+  perspectiveP.style.opacity = '';
+  perspectiveFinished = true;
+}
+function preparePerspective() {
+  if (perspectiveMotion.matches || perspectiveFinished) return;
+  const r = perspectiveHeading.getBoundingClientRect();
+  const p = perspectiveP.getBoundingClientRect();
+  const startX = p.left - r.left + p.width / 2;
+  const startY = p.top - r.top + p.height * .46;
+  const size = Math.max(14, p.width * .95);
+  const copy = perspectiveHeading.cloneNode(true);
+  copy.className = 'perspective-copy';
+  copy.querySelector('.perspective-p').style.opacity = '1';
+  copy.style.width = `${r.width}px`;
+  perspectiveLens = document.createElement('span');
+  perspectiveLens.className = 'perspective-lens';
+  perspectiveLens.setAttribute('aria-hidden', 'true');
+  const glass = document.createElement('span'); glass.className = 'perspective-glass';
+  glass.append(copy); perspectiveLens.append(glass); perspectiveHeading.append(perspectiveLens);
+  perspectiveP.style.opacity = '0';
+  function draw(x, y, diameter, opacity) {
+    const scale = diameter / 100;
+    Object.assign(perspectiveLens.style, { left: `${x - 50}px`, top: `${y - 50}px`, transform: `scale(${scale})`, opacity });
+    // Cancel the lens's scale for the text, then magnify 1.8x inside its clipping circle.
+    const zoom = 1.8 / scale;
+    copy.style.transformOrigin = '0 0';
+    copy.style.transform = `translate(${45 - x * zoom}px, ${45 - y * zoom}px) scale(${zoom})`;
+  }
+  draw(startX, startY, size, 1);
+  const observer = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    observer.disconnect();
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min(1, (now - start) / 3400);
+      if (t === 1 || perspectiveMotion.matches) { finishPerspective(); return; }
+      const lift = Math.min(1, t / .25);
+      const eased = 1 - Math.pow(1 - lift, 3);
+      perspectiveP.style.opacity = String(Math.min(1, lift * 2));
+      const sweep = Math.max(0, (t - .25) / .75);
+      const targetX = r.width * (.12 + .76 * sweep);
+      const targetY = r.height * (.22 + .56 * sweep);
+      draw(startX + (targetX - startX) * eased, startY + (targetY - startY) * eased,
+        size + (Math.min(145, r.width * .38) - size) * eased, Math.min(1, (1 - t) / .17));
+      perspectiveFrame = requestAnimationFrame(frame);
+    }
+    perspectiveFrame = requestAnimationFrame(frame);
+  }, { threshold: .8 });
+  observer.observe(perspectiveHeading);
+  window.addEventListener('resize', () => { observer.disconnect(); finishPerspective(); }, { once: true });
+}
+document.fonts.ready.then(preparePerspective);
+perspectiveMotion.addEventListener('change', event => { if (event.matches) finishPerspective(); });
+
+// Shared totals come from the preview's poll API; never invent fallback percentages.
+const pollButtons = [...document.querySelectorAll('[data-poll]')];
+const pollStatus = document.querySelector('.gps-poll-status');
+let pollVoter = '';
+let pollChoice = '';
+try {
+  pollVoter = localStorage.getItem('lp-poll-voter') || '';
+  pollChoice = localStorage.getItem('lp-poll-choice') || '';
+} catch {}
+if (!pollVoter) pollVoter = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+try { localStorage.setItem('lp-poll-voter', pollVoter); } catch {}
+function renderPoll(counts) {
+  const total = counts.lost + counts.perdido;
+  const lost = total ? Math.round(counts.lost / total * 100) : 0;
+  pollButtons.forEach(button => {
+    const choice = button.dataset.poll;
+    button.querySelector('strong').textContent = total ? `${choice === 'lost' ? lost : 100 - lost}%` : '—';
+    button.setAttribute('aria-pressed', String(choice === pollChoice));
+  });
+  pollStatus.textContent = total ? `${total} ${total === 1 ? 'vote' : 'votes'} · ${pollChoice ? 'Your vote is in!' : 'Pick your side.'}` : 'Be the first to pick a side.';
+}
+async function fetchPoll(choice) {
+  const response = await fetch('/api/poll', choice ? {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ voter: pollVoter, choice })
+  } : { cache: 'no-store' });
+  if (!response.ok) throw new Error('Poll unavailable');
+  const counts = await response.json();
+  if (![counts.lost, counts.perdido].every(n => Number.isInteger(n) && n >= 0)) throw new Error('Invalid totals');
+  if (choice) {
+    pollChoice = choice;
+    try { localStorage.setItem('lp-poll-choice', choice); } catch {}
+  }
+  renderPoll(counts);
+}
+pollButtons.forEach(button => button.addEventListener('click', async () => {
+  pollButtons.forEach(item => { item.disabled = true; });
+  pollStatus.textContent = 'Counting your vote…';
+  try { await fetchPoll(button.dataset.poll); }
+  catch { pollStatus.textContent = 'Voting is unavailable right now. Please try again later.'; }
+  finally { pollButtons.forEach(item => { item.disabled = false; }); }
+}));
+gpsButton.addEventListener('click', () => {
+  fetchPoll().catch(() => { pollStatus.textContent = 'Voting is unavailable right now. Please try again later.'; });
+});
