@@ -176,7 +176,7 @@ const spanish = {
   'Wrong turns': 'Vueltas equivocadas',
   'Empanadas eaten': 'Empanadas comidas',
   'Beds slept in': 'Camas dormidas',
-  'Hours filmed': 'Horas filmadas',
+  'Videos published': 'Videos publicados',
   'The journey, in numbers.': 'El viaje, en números.',
   'Every mile. Every detour. Every empanada.': 'Cada milla. Cada desvío. Cada empanada.',
   'LOST METER': 'NIVEL DE PERDIDOS',
@@ -609,6 +609,7 @@ cityPins.forEach(pin => pin.addEventListener('click', () => {
     panel.hidden = panel.id !== `stop-${pin.dataset.stop}`;
   });
   renderCityGallery(pin.dataset.stop);
+  loadCityWeather(pin.dataset.stop);
   cityPopup.setAttribute('aria-labelledby', `city-title-${pin.dataset.stop}`);
   cityPopup.showModal();
   cityPopup.scrollTop = 0;
@@ -1436,10 +1437,13 @@ let serviceOpener;
 document.querySelectorAll('[data-service]').forEach(button => {
   button.addEventListener('click', () => {
     serviceOpener = button;
+    serviceDialog.classList.add('service-dialog-ugc');
+    serviceDialog.dataset.service = button.dataset.service;
     const content = document.getElementById(`service-content-${button.dataset.service}`);
     serviceDialog.querySelector('h2').textContent = content.dataset.title;
     serviceDialog.querySelector('.service-body').replaceChildren(content.content.cloneNode(true));
-    serviceDialog.querySelector('.service-inquiry').href = `mailto:hola@lostandperdido.com?subject=${encodeURIComponent(content.dataset.title + ' — John & Mateo')}`;
+    serviceDialog.querySelector('.service-inquiry').textContent = ['Create with us ↗', 'Explore a destination partnership ↗', 'Build a partnership ↗', 'Plan your recurring feature ↗', 'Plan your shoot ↗', 'Build your media package ↗'][Number(button.dataset.service)];
+    serviceDialog.querySelector('.service-inquiry').href = `mailto:hola@lostandperdido.com?subject=${encodeURIComponent(content.dataset.title + ' — Lost & Perdido')}`;
     serviceDialog.showModal();
     serviceDialog.scrollTop = 0;
   });
@@ -1560,3 +1564,55 @@ pollButtons.forEach(button => button.addEventListener('click', async () => {
 gpsButton.addEventListener('click', () => {
   fetchPoll().catch(() => { pollStatus.textContent = 'Voting is unavailable right now. Please try again later.'; });
 });
+
+// Current conditions refresh on entry and every ten minutes while a city is open.
+const cityWeatherCache = new Map();
+const cityWeatherPending = new Set();
+function describeCityWeather(code) {
+  const es = currentLanguage === 'es';
+  if (code === 0) return es ? 'Despejado' : 'Clear sky';
+  if (code <= 2) return es ? 'Parcialmente nublado' : 'Partly cloudy';
+  if (code === 3) return es ? 'Nublado' : 'Overcast';
+  if ([45,48].includes(code)) return es ? 'Niebla' : 'Fog';
+  if ([51,53,55,56,57].includes(code)) return es ? 'Llovizna' : 'Drizzle';
+  if ([61,63,65,66,67,80,81,82].includes(code)) return es ? 'Lluvia' : 'Rain';
+  if ([71,73,75,77,85,86].includes(code)) return es ? 'Nieve' : 'Snow';
+  if ([95,96,99].includes(code)) return es ? 'Tormenta' : 'Thunderstorm';
+  return es ? 'Condiciones actuales' : 'Current conditions';
+}
+async function loadCityWeather(stop) {
+  const box = document.querySelector(`#stop-${stop} .city-weather`);
+  if (!box || cityWeatherPending.has(stop)) return;
+  const value = box.querySelector('.city-weather-value');
+  const condition = box.querySelector('.city-weather-condition');
+  const cached = cityWeatherCache.get(stop);
+  function render(data) {
+    value.textContent = `${Math.round(data.temperature_2m)}°C`;
+    condition.textContent = `${describeCityWeather(data.weather_code)} · ${data.time.slice(11,16)}`;
+  }
+  if (cached && Date.now() - cached.fetched < 600000) { render(cached.current); return; }
+  value.textContent = currentLanguage === 'es' ? 'Cargando…' : 'Loading…';
+  condition.textContent = '';
+  cityWeatherPending.add(stop);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const params = new URLSearchParams({ latitude: box.dataset.lat, longitude: box.dataset.lon,
+      current: 'temperature_2m,weather_code', timezone: 'auto', forecast_days: '1' });
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`, { signal: controller.signal });
+    if (!response.ok) throw new Error('Weather unavailable');
+    const data = await response.json();
+    if (!Number.isFinite(data.current?.temperature_2m) || !Number.isInteger(data.current?.weather_code) || typeof data.current?.time !== 'string') throw new Error('Invalid weather');
+    cityWeatherCache.set(stop, { current: data.current, fetched: Date.now() });
+    render(data.current);
+  } catch {
+    value.textContent = currentLanguage === 'es' ? 'No disponible' : 'Unavailable';
+    condition.textContent = currentLanguage === 'es' ? 'Inténtalo más tarde' : 'Check again soon';
+  } finally {
+    clearTimeout(timeout);
+    cityWeatherPending.delete(stop);
+  }
+}
+setInterval(() => {
+  if (cityPopup.open && !document.hidden && activeCityPin) loadCityWeather(activeCityPin.dataset.stop);
+}, 600000);

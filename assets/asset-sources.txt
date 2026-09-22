@@ -11,3 +11,11 @@ https://covecreekproductions.com/summer-camp-virtual-tours
 https://covecreekproductions.com/images/summer-camps/chipinaw.jpg
 
 How we met album: 13 personal photos supplied by the user, stored under their original JPEG filenames in assets and listed in savedMemories in script.js.
+
+ugc-hotel-concept.png — AI-generated illustrative hotel/influencer image for the Ritz-Carlton UGC concept mockup; not an actual property or partnership photograph.
+
+insta360-selfie-stick.jpg — Insta360 promotional reference image for concept mockup. Source: https://res.insta360.com/static/infr_base/8051b67479936ce4a3d12d7f31ac2a99/EN01%402x.jpg
+hostel-community-concept.png — AI-generated illustrative hostel community scene, not a photograph of an actual partner.
+
+Restaurant feature concept: assets/restaurant-feature-concept.png — AI-generated illustrative restaurant campaign image; not an actual client campaign.
+Camera illustrations: canon-rebel-t6-illustration.svg, insta360-x5-illustration.svg, dji-pocket-3-illustration.svg, gopro-illustration.svg — original vector depictions created for this website.
