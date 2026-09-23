@@ -19,3 +19,13 @@ hostel-community-concept.png — AI-generated illustrative hostel community scen
 
 Restaurant feature concept: assets/restaurant-feature-concept.png — AI-generated illustrative restaurant campaign image; not an actual client campaign.
 Camera illustrations: canon-rebel-t6-illustration.svg, insta360-x5-illustration.svg, dji-pocket-3-illustration.svg, gopro-illustration.svg — original vector depictions created for this website.
+
+feature-zipline.svg and feature-kayak.svg: original vector activity illustrations for social feature concepts. Partnership slides are illustrative concepts, not claims of existing sponsorships.
+
+latin-campaigns.png: AI-generated photographic campaign concepts depicting Argentine food, Costa Rican ziplining, Colombian paddleboarding, and Mendoza wine tourism.
+partner-campaigns.png: AI-generated product and travel campaign concepts for illustrative partnership slides; not actual sponsored campaigns or official product photographs.
+
+Interactive footprint globe:
+assets/vendor/d3.min.js — D3 v7.9.0, ISC license, https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js
+assets/footprint-countries.js — Natural Earth 1:110m country boundaries, public domain, https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson
+Travel history supplied by John and Mateo via the site owner. England, Antigua and Puerto Rico retain the supplied place names; marker locations are representative destinations, not exact trip tracks.

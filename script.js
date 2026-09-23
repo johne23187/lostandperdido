@@ -529,10 +529,28 @@ function drawWorldMap() {
     mark.style.display = displayedSize >= 96 / 2.54 ? '' : 'none';
   });
   const lines = [];
+  const cityLabels = [];
   mapPins.forEach((pin) => {
     if (pin.hidden || pin.style.visibility === 'hidden') return;
     const x = (Number(pin.dataset.x) / 100 * mapView.scale + mapView.x) * width;
     const y = (Number(pin.dataset.y) / 100 * mapView.scale + mapView.y) * height;
+    if (pin.classList.contains('city-pin')) {
+      pin.style.left = `${x}px`;
+      pin.style.top = `${y}px`;
+      const badge = pin.querySelector('.world-pin-badge');
+      const w = badge.offsetWidth || 100;
+      let lx = x + 18;
+      if (lx + w > width - 6) lx = x - w - 18;
+      let ly = y - 12;
+      for (let n=0;n<20;n++) {
+        if (!cityLabels.some(p => lx < p.x+p.w+6 && lx+w+6 > p.x && Math.abs(ly-p.y)<25)) break;
+        ly += 25;
+      }
+      cityLabels.push({x:lx,y:ly,w});
+      pin.style.setProperty('--city-label-x', `${lx-x+12}px`);
+      pin.style.setProperty('--city-label-y', `${ly-y+12}px`);
+      return;
+    }
     // Keep country names and city labels inside narrow mobile viewports.
     const dx = Number(pin.dataset.dx) * Math.min(1, width / 450);
     const dy = Number(pin.dataset.dy);
@@ -570,10 +588,14 @@ countryPins.forEach(pin => pin.addEventListener('click', () => {
   const stops = cityPins.filter(city => city.dataset.country === pin.dataset.country);
   countryPins.forEach(country => { country.hidden = true; });
   cityPins.forEach(city => { city.hidden = !stops.includes(city); });
-  const x = stops.reduce((sum, city) => sum + Number(city.dataset.x), 0) / stops.length / 100;
-  const y = stops.reduce((sum, city) => sum + Number(city.dataset.y), 0) / stops.length / 100;
-  const scale = 3.4;
-  animateMap({ scale, x: .5 - x * scale, y: .5 - y * scale });
+  const xs = stops.map(city => Number(city.dataset.x)/100);
+  const ys = stops.map(city => Number(city.dataset.y)/100);
+  const x = (Math.min(...xs)+Math.max(...xs))/2;
+  const y = (Math.min(...ys)+Math.max(...ys))/2;
+  const scale = Math.min(14, .62 / Math.max(Math.max(...xs)-Math.min(...xs), Math.max(...ys)-Math.min(...ys), .045));
+  worldArt.src = `assets/map-${pin.dataset.country}.svg`;
+  worldMap.classList.add('country-focused');
+  animateMap({ scale, x: .46 - x * scale, y: .44 - y * scale });
   stops[0].focus({ preventScroll: true });
 }));
 const cityPopup = document.getElementById('city-popup');
@@ -624,6 +646,8 @@ cityPopup.addEventListener('close', () => {
   if (activeCityPin && !activeCityPin.hidden) activeCityPin.focus({ preventScroll: true });
 });
 mapReset.addEventListener('click', () => {
+  worldArt.src = 'assets/travel-globe.svg';
+  worldMap.classList.remove('country-focused');
   if (cityPopup.open) cityPopup.close();
   countryPins.forEach(pin => { pin.hidden = false; });
   cityPins.forEach(pin => { pin.hidden = true; pin.setAttribute('aria-pressed', 'false'); });
@@ -1659,3 +1683,140 @@ setInterval(() => {
     requestAnimationFrame(frame);
   });
 })();
+
+// Once reunited, either traveler can open the little Bible scene.
+(() => {
+  const left = document.querySelector('.mountain-paraglider');
+  const right = document.querySelector('.mountain-sitter');
+  if (!left || !right) return;
+  let shown = false;
+  function revealBible() {
+    if (!left.classList.contains('has-landed') || shown) return;
+    shown = true;
+    left.querySelector('span').hidden = true;
+    left.querySelector('span').style.display = 'none';
+    right.querySelector('span').textContent = 'May God be with us.';
+    right.insertAdjacentHTML('beforeend', '<svg class="tiny-bible" viewBox="0 0 40 30" role="img" aria-label="An open Bible"><path d="M2 4Q12 0 20 5Q29 0 38 4V27Q29 23 20 28Q11 23 2 27Z" fill="#fff4d2" stroke="#583d2b" stroke-width="2"/><path d="M20 5V28M10 7V19M6 11H14" fill="none" stroke="#947240" stroke-width="2"/></svg>');
+    left.setAttribute('aria-label', 'Sitting together');
+    right.setAttribute('aria-label', 'Reading the Bible together. May God be with us.');
+    right.removeAttribute('role');
+    right.removeAttribute('tabindex');
+  }
+  new MutationObserver(() => {
+    if (left.classList.contains('has-landed') && !shown) {
+      left.removeAttribute('aria-disabled');
+      left.setAttribute('aria-label', 'Read together');
+      right.setAttribute('role', 'button');
+      right.setAttribute('tabindex', '0');
+      right.setAttribute('aria-label', 'Read together');
+    }
+  }).observe(left, {attributes:true, attributeFilter:['class']});
+  left.addEventListener('click', revealBible);
+  right.addEventListener('click', revealBible);
+  right.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); revealBible(); }
+  });
+})();
+
+// Each phone keeps cycling while its service is open; reopening starts fresh.
+(() => {
+  const dialog = document.getElementById('service-details');
+  let timer;
+  const features = [
+    ['Restaurants', 'assets/latin-campaigns.png', 'Sabores worth sharing.', 'Argentine empanadas campaign concept'],
+    ['Ziplining', 'assets/latin-campaigns.png', 'A new perspective. A little courage.', 'Costa Rican rainforest ziplining campaign concept'],
+    ['Water sports', 'assets/latin-campaigns.png', 'Find your next adventure on the water.', 'Colombian Caribbean paddleboarding campaign concept'],
+    ['Wine tours', 'assets/latin-campaigns.png', 'A taste of Mendoza. A story to share.', 'Mendoza wine tour campaign concept'],
+    ['Community stays', 'assets/hostel-community-concept.png', 'Arrive as travelers. Leave as friends.', 'Hostel community concept']
+  ];
+  const brands = [
+    ['Skool.com', '', 'Find your people. Find your words.'],
+    ['DJI', 'assets/partner-campaigns.png', 'Every journey has a story worth capturing.'],
+    ['Airalo', 'assets/partner-campaigns.png', 'New destination. Stay connected.', '▣', 'eSIM / ON THE GO'],
+    ['World Nomads', 'assets/partner-campaigns.png', 'For the journeys beyond the familiar.'],
+    ['Samsonite', 'assets/partner-campaigns.png', 'Packed for the next chapter.', '🧳', 'READY FOR DEPARTURE']
+  ];
+  function start() {
+    clearInterval(timer);
+    if (!dialog.open || !['2','3'].includes(dialog.dataset.service)) return;
+    const phone = dialog.querySelector('.ugc-phone');
+    const image = phone.querySelector('.ig-post-image');
+    const original = image.innerHTML;
+    const partnership = dialog.dataset.service === '2';
+    const slides = partnership ? brands : features;
+    let index = 0;
+    function render() {
+      const [name, src, caption, detail, tag] = slides[index];
+      image.className = 'ig-post-image campaign-slide';
+      image.replaceChildren();
+      if (partnership && index === 0) {
+        image.classList.add('skool-promo');
+        image.innerHTML = original;
+      } else if (src) {
+        const img = document.createElement('img');
+        img.src = src; img.alt = partnership ? name + ' partnership concept' : detail;
+        if (src.includes('campaigns.png')) {
+          const quadrant = partnership ? index - 1 : index;
+          const crop = document.createElement('div'); crop.className = 'campaign-photo-crop';
+          img.style.left = quadrant % 2 ? '-100%' : '0';
+          img.style.top = quadrant > 1 ? '-100%' : '0';
+          crop.append(img); image.append(crop);
+          const fit = () => {
+            if (!img.naturalWidth) return;
+            const ratio = img.naturalWidth / img.naturalHeight;
+            const width = Math.max(image.clientWidth, image.clientHeight * ratio);
+            crop.style.width = width + 'px'; crop.style.height = width / ratio + 'px';
+          };
+          img.addEventListener('load', fit, {once:true});
+          crop.fitPhoto = fit;
+          fit();
+        } else image.append(img);
+      } else {
+        const art = document.createElement('div'); art.className = 'brand-art';
+        const icon = document.createElement('em'); icon.textContent = detail;
+        art.append(name, icon, tag); image.append(art);
+      }
+      if (!(partnership && index === 0)) {
+        const label = document.createElement('div'); label.className = 'campaign-label'; label.textContent = name;
+        image.append(label);
+      }
+      phone.querySelector('.ig-post-byline small').textContent = partnership ? name + ' · partnership concept' : name + ' spotlight · concept';
+      phone.querySelector('.ig-post-copy > strong').textContent = partnership ? 'Lost & Perdido × ' + name : name + ', through our lens.';
+      const copy = phone.querySelector('.ig-post-copy p'); copy.replaceChildren();
+      const handle = document.createElement('b'); handle.textContent = 'lostandperdido'; copy.append(handle, ' ' + caption);
+      phone.querySelector('.ig-carousel-dots').textContent = slides.map((_,i) => i === index ? '●' : '○').join(' ');
+      image.classList.remove('slide-enter'); void image.offsetWidth; image.classList.add('slide-enter');
+    }
+    slides.forEach(slide => { if(slide[1]) { const img = new Image(); img.src = slide[1]; } });
+    render();
+    timer = setInterval(() => { index = (index + 1) % slides.length; render(); }, 4000);
+  }
+  new MutationObserver(start).observe(dialog, {attributes:true,attributeFilter:['open']});
+  dialog.addEventListener('close', () => clearInterval(timer));
+})();
+
+// A compact destination index keeps nearby city beacons easy to select.
+(() => {
+  const navigation = document.createElement('nav');
+  navigation.className = 'city-navigation'; navigation.hidden = true;
+  navigation.setAttribute('aria-label', 'Destinations in the selected country');
+  worldMap.after(navigation);
+  countryPins.forEach(country => country.addEventListener('click', () => {
+    if (country.dataset.country === 'usa') return;
+    const visible = cityPins.filter(pin => !pin.hidden);
+    navigation.replaceChildren();
+    const heading = document.createElement('p');
+    heading.textContent = country.dataset.country + ' / ' + visible.length + ' destinations';
+    const list = document.createElement('div');
+    visible.forEach((pin,index) => {
+      pin.querySelector('.world-pin-dot').textContent = '';
+      const button = document.createElement('button'); button.type = 'button';
+      button.append(pin.getAttribute('aria-label'));
+      button.addEventListener('click', () => pin.click()); list.append(button);
+    });
+    navigation.append(heading,list); navigation.hidden = false;
+  }));
+  mapReset.addEventListener('click', () => { navigation.hidden = true; });
+})();
+
+window.addEventListener('resize', () => document.querySelectorAll('.campaign-photo-crop').forEach(crop => crop.fitPhoto?.()));
