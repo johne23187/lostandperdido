@@ -29,3 +29,7 @@ Interactive footprint globe:
 assets/vendor/d3.min.js — D3 v7.9.0, ISC license, https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js
 assets/footprint-countries.js — Natural Earth 1:110m country boundaries, public domain, https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson
 Travel history supplied by John and Mateo via the site owner. England, Antigua and Puerto Rico retain the supplied place names; marker locations are representative destinations, not exact trip tracks.
+
+john-yankees-head.png and mateo-yankees-head.png — AI-assisted head cutouts with navy Yankees caps, edited from user-provided john-e.jpg and mateo-l.jpg. Original photos retained. Used for globe markers and traveler headings.
+
+john-yankees-smiling.png — smiling head cutout with navy Yankees cap, AI-assisted edit of user-provided travel-photos/DR/7DD31933-DD1B-43FE-B9A1-0386670D2F4C.JPG. Replaces John’s globe avatar; original photo retained.

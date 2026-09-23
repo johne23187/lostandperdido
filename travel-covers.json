@@ -1,0 +1,68 @@
+{
+  "India": {
+    "src": "travel-photos/India/C226A786-57F7-4075-854C-2D4CEF6A21F8.JPG",
+    "position": "50% 40%",
+    "crop": [
+      0,
+      0.232,
+      1,
+      0.766
+    ]
+  },
+  "Antigua": {
+    "src": "travel-photos/Antigua/6AEBE64B-10D9-40B0-AB56-953038A92850.JPG",
+    "position": "50% 40%"
+  },
+  "Canada": {
+    "src": "travel-photos/Canada/F72EFFE0-1CF0-4E3C-A6A3-92F67687E23C.JPG",
+    "position": "50% 40%"
+  },
+  "USA": {
+    "src": "travel-photos/USA/AF1798E0-B61C-4C1F-ABE5-494B59DF3FAC.JPG",
+    "position": "50% 40%"
+  },
+  "Senegal": {
+    "src": "travel-photos/Senegal/58366548-8383-4678-ACC0-85EFA0225748.JPG",
+    "position": "50% 40%"
+  },
+  "Belarus": {
+    "src": "travel-photos/Belarus/5c653eb8-41e8-454e-9b44-1105d4fe6861.JPG",
+    "position": "50% 40%"
+  },
+  "Brasil": {
+    "src": "travel-photos/Brazil/f53c30ed-e4f3-4856-8d12-5b890d20f892.JPG",
+    "position": "50% 40%"
+  },
+  "Dominican Republic": {
+    "src": "travel-photos/DR/7DD31933-DD1B-43FE-B9A1-0386670D2F4C.JPG",
+    "position": "50% 40%"
+  },
+  "England": {
+    "src": "travel-photos/England/169C4E22-5450-4273-B5F9-D472C5FFD9E9.JPG",
+    "position": "50% 40%"
+  },
+  "Ireland": {
+    "src": "travel-photos/Ireland/48042a9f-e631-42a6-8a35-fcf84597632d.JPG",
+    "position": "50% 40%"
+  },
+  "Puerto Rico": {
+    "src": "travel-photos/PR/604ADE51-E3E2-444D-9960-980166FFEC2B.JPG",
+    "position": "50% 40%"
+  },
+  "Colombia": {
+    "src": "travel-photos/Colombia/2BF3F142-340C-40BA-89A3-089419D306AA.JPG",
+    "position": "50% 40%"
+  },
+  "Italy": {
+    "src": "travel-photos/Italy/4EBF7BCB-6E23-4575-8ABF-E5C0B40AAE7C.JPG",
+    "position": "50% 40%"
+  },
+  "Türkiye": {
+    "src": "travel-photos/Turkey/0f339b11-9968-42e3-b449-3ca096696764.JPG",
+    "position": "50% 40%"
+  },
+  "Bahamas": {
+    "src": "travel-photos/Bahamas/763D60B3-9AE2-413D-B05A-D838FBBBC3AB.JPG",
+    "position": "50% 35%"
+  }
+}

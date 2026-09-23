@@ -35,8 +35,14 @@
   svg.append('circle').attr('cx',350).attr('cy',350).attr('r',305).attr('fill','url(#footprint-ocean)');
   const grid = svg.append('path').datum(d3.geoGraticule10()).attr('fill','none').attr('stroke','#c5f5ff16').attr('stroke-width',.6);
   const countries = svg.append('g').selectAll('path').data(window.footprintCountries.features).join('path').attr('stroke','#beded153').attr('stroke-width',.65);
+  countries.style('cursor', feature => places.some(p=>p.code===feature.properties.code)?'pointer':null).on('click', (event, feature) => {
+    if (suppressClick) return;
+    const place=places.find(p=>p.code===feature.properties.code);
+    if(place && travelersFor(place).length) choose(place);
+  });
+  let suppressClick=false;
   function travelersFor(place) { return place.travelers.filter(t => filter === 'both' || filter === t); }
-  function person(t) { return `<svg viewBox="0 0 22 34" aria-hidden="true"><g fill="none" stroke="${colors[t]}" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="6" r="4"/><path d="M11 10v12M4 17l7-4 7 4M11 22l-6 10m6-10 6 10"/></g><circle cx="10" cy="5" r=".6" fill="${colors[t]}"/><circle cx="12" cy="5" r=".6" fill="${colors[t]}"/></svg>`; }
+  function person(t) { return `<img class="traveler-head traveler-head-${t}" src="assets/${t === 'john' ? 'john-yankees-smiling' : 'mateo-yankees-head'}.png" alt="${t === 'john' ? 'John' : 'Mateo'} wearing a blue Yankees cap" width="48" height="48" draggable="false">`; }
   places.forEach(place => {
     const button = document.createElement('button'); button.type = 'button'; button.className = 'footprint-marker';
     button.title = place.name; button.setAttribute('aria-label', place.name + ', visited by ' + place.travelers.join(' and '));
@@ -68,8 +74,9 @@
     });
   }
   function scheduleDraw() { cancelAnimationFrame(paintFrame); paintFrame=requestAnimationFrame(draw); }
-  function choose(place) {
+  function choose(place, openPortfolio = true) {
     cancelAnimationFrame(flight); selected=place;
+    if (openPortfolio) window.openCountryPortfolio(place);
     const people=travelersFor(place).map(t=>t==='john'?'John':'Mateo');
     selection.textContent=place.name+' · '+people.join(' & ')+(place.name==='USA' && people.includes('John')?' · John’s home':place.name==='Bolivia'?' · Mateo’s home':' · Visited');
     document.querySelectorAll('.footprint-country').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.place===place.name)));
@@ -99,23 +106,25 @@
     filter=button.dataset.traveler;
     document.querySelectorAll('[data-traveler]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
     document.querySelectorAll('[data-traveler-group]').forEach(g=>g.hidden=filter!=='both'&&g.dataset.travelerGroup!==filter);
-    if(selected && travelersFor(selected).length) choose(selected);
+    if(selected && travelersFor(selected).length) choose(selected, false);
     else { selected=null; selection.textContent='Pick a place. Follow a footprint.'; document.querySelectorAll('.footprint-country').forEach(b=>b.setAttribute('aria-pressed','false')); }
     draw();
   }));
   surface.addEventListener('pointerdown',event=>{
     if(event.target.closest('button') || event.button!==0) return;
+    suppressClick=false;
     cancelAnimationFrame(flight); drag={x:event.clientX,y:event.clientY,rotation:rotation.slice()};
-    surface.setPointerCapture(event.pointerId); surface.classList.add('dragging');
+     surface.classList.add('dragging');
   });
   surface.addEventListener('pointermove',event=>{
     if(!drag) return;
+    if(Math.hypot(event.clientX-drag.x,event.clientY-drag.y)>5) suppressClick=true;
     const factor=180/surface.clientWidth;
     rotation=[drag.rotation[0]+(event.clientX-drag.x)*factor, Math.max(-85,Math.min(85,drag.rotation[1]-(event.clientY-drag.y)*factor)),0];
     scheduleDraw();
   });
   function endDrag(){drag=null;surface.classList.remove('dragging');}
-  surface.addEventListener('pointerup',endDrag); surface.addEventListener('pointercancel',endDrag); surface.addEventListener('lostpointercapture',endDrag);
+  window.addEventListener('pointerup',endDrag); surface.addEventListener('pointerleave',endDrag); surface.addEventListener('pointercancel',endDrag); surface.addEventListener('lostpointercapture',endDrag);
   surface.addEventListener('keydown',event=>{
     if(event.target!==surface || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;
     event.preventDefault(); cancelAnimationFrame(flight);
@@ -128,7 +137,7 @@
     const footprint=button.dataset.globeMode==='footprint';
     section.classList.toggle('footprint-active',footprint);
     document.querySelectorAll('[data-globe-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    document.querySelector('.discovery-title').innerHTML=footprint?'Get lost<br><em>with me.</em>':'Unlock the world<br><em>with us.</em>';
+    document.querySelector('.discovery-title').innerHTML=footprint?'Get lost<br><em>with us.</em>':'Unlock the world<br><em>with us.</em>';
     if(footprint)draw();
   }));
   draw();

@@ -1802,3 +1802,66 @@ button.mountain-paraglider:focus-visible { outline: 2px dashed white; outline-of
 .footprint-key { display:flex; justify-content:center; gap:25px; padding:20px 0 8px; font:11px sans-serif; }
 .john-key { color:#f1b45f; }.mateo-key { color:#75d5ca; }
 @media(max-width:600px) { .globe-mode-switch { width:100%; }.globe-mode-switch button { flex:1; padding:10px; }.footprint-explorer { padding:3px; }.footprint-marker svg { width:12px; height:20px; }.footprint-globe-controls { padding:0 9px; } }
+
+/* Country portfolios: editorial cover, quiet photo grid, full-size viewing. */
+body:has(.country-portfolio[open]) { overflow:hidden; }
+.country-portfolio { width:min(1100px,calc(100vw - 32px)); max-height:92dvh; padding:0; border:0; border-radius:14px; background:#f5f2ea; color:#243f35; box-shadow:0 30px 100px #0007; }
+.country-portfolio::backdrop,.portfolio-lightbox::backdrop { background:#061315d9; backdrop-filter:blur(9px); }
+.portfolio-bar { position:sticky; top:0; z-index:3; display:flex; align-items:center; justify-content:space-between; padding:15px 24px; background:#f5f2eaf5; backdrop-filter:blur(12px); font:9px monospace; letter-spacing:.13em; }
+.portfolio-close,.lightbox-close { width:36px; height:36px; border:1px solid #84938955; border-radius:50%; background:transparent; color:inherit; font:25px sans-serif; cursor:pointer; }
+.portfolio-hero { position:relative; height:clamp(310px,50vw,530px); overflow:hidden; background:#29473e; }
+.portfolio-hero > img { width:100%; height:100%; object-fit:cover; object-position:center 40%; }
+.portfolio-hero:after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 10%,#0a1c199c 80%,#0a1c19d9); }
+.portfolio-heading { position:absolute; inset:auto 6% 9%; z-index:1; color:#fffaf0; }
+.portfolio-heading h2 { margin:14px 0; font:clamp(42px,7vw,86px)/1.04 Georgia,serif; letter-spacing:-.045em; }
+.portfolio-heading p { margin:0; font:10px/1.8 monospace; letter-spacing:.12em; }
+.portfolio-intro { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:34px 5%; }
+.portfolio-intro h3 { margin:0; font:28px Georgia,serif; }
+.portfolio-intro p { max-width:320px; margin:0; font:12px/1.7 sans-serif; color:#66756b; }
+.portfolio-grid { columns:3; column-gap:16px; padding:0 5% 45px; }
+.portfolio-tile { position:relative; display:block; width:100%; padding:0; margin:0 0 16px; border:0; background:#e5e6db; border-radius:4px; overflow:hidden; cursor:zoom-in; break-inside:avoid; }
+.portfolio-tile img { width:100%; height:auto; display:block; transition:transform .4s; }
+.portfolio-tile:hover img { transform:scale(1.025); }
+.portfolio-tile-caption { position:absolute; bottom:0; left:0; right:0; text-align:left; padding:24px 12px 12px; background:linear-gradient(transparent,#071d23b3); color:white; font:8px monospace; letter-spacing:.12em; opacity:0; transition:opacity .2s; }
+.portfolio-tile:hover .portfolio-tile-caption,.portfolio-tile:focus-visible .portfolio-tile-caption { opacity:1; }
+.portfolio-film { min-height:230px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:linear-gradient(135deg,#2a5757,#102827); color:#efe6ce; }
+.portfolio-film > span { font-size:45px; }.portfolio-film strong { font:20px Georgia,serif; }.portfolio-film small { font:8px monospace; letter-spacing:.2em; }
+.portfolio-empty { padding:35px 6%; font:16px/1.8 Georgia,serif; }
+.portfolio-lightbox { width:96vw; max-width:1400px; height:94dvh; max-height:94dvh; padding:50px 20px 65px; border:0; background:#071414; color:#fff; border-radius:12px; }
+.lightbox-close { position:absolute; top:10px; right:15px; z-index:2; }
+.lightbox-media { height:100%; display:flex; align-items:center; justify-content:center; }
+.lightbox-media img,.lightbox-media video { width:100%; height:100%; object-fit:contain; }
+.lightbox-controls { position:absolute; bottom:12px; left:15px; right:15px; display:flex; justify-content:center; align-items:center; gap:20px; }
+.lightbox-controls button { width:40px; height:36px; border:1px solid #ffffff40; border-radius:20px; background:none; color:white; cursor:pointer; }.lightbox-count { font:11px sans-serif; }
+@media(max-width:650px) { .portfolio-grid { columns:2; column-gap:10px; }.portfolio-tile { margin-bottom:10px; }.portfolio-intro { flex-direction:column; align-items:flex-start; }.portfolio-bar { padding:10px 15px; font-size:7px; }.portfolio-heading p { font-size:8px; }.portfolio-film { min-height:160px; } }
+@media(prefers-reduced-motion:reduce) { .portfolio-tile img { transition:none; } }
+
+/* Photo cutouts replace the footprint stick figures. */
+.traveler-head { display:block; width:44px; height:44px; object-fit:contain; user-select:none; pointer-events:none; }
+.footprint-marker { padding:0; gap:0; background:transparent; box-shadow:none; border-radius:8px; }
+.footprint-marker .traveler-head { width:36px; height:40px; filter:drop-shadow(0 1px 1px #07151c) drop-shadow(0 0 2px #f1b45f99); transition:transform .18s ease; }
+.footprint-marker .traveler-head-mateo { filter:drop-shadow(0 1px 1px #07151c) drop-shadow(0 0 2px #75d5ca99); }
+.footprint-marker .traveler-head + .traveler-head { margin-left:-7px; }
+.footprint-marker:hover .traveler-head,.footprint-marker:focus-visible .traveler-head { transform:translateY(-3px) scale(1.08); }
+.traveler-destinations h4 .traveler-head { width:45px; height:48px; }
+@media(max-width:600px) { .footprint-marker .traveler-head { width:29px; height:34px; } }
+@media(prefers-reduced-motion:reduce) { .footprint-marker .traveler-head { transition:none; } }
+
+/* Keep traveler selection and destination browsing directly below the globe. */
+.footprint-browser { margin-top:24px; }
+.discover-section:not(.footprint-active) .footprint-browser { display:none; }
+.footprint-browser .traveler-filters { justify-content:center; margin-top:0; }
+.footprint-browser .traveler-destinations { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.footprint-browser .traveler-destinations section[hidden] { display:none; }
+.footprint-browser .traveler-destinations section:only-child { grid-column:1/-1; }
+@media(max-width:600px) { .footprint-browser .traveler-destinations { grid-template-columns:1fr; gap:0; } }
+
+.footprint-key { flex-wrap:wrap; gap:12px 25px; }
+.both-key { color:#b5c894; }
+
+/* Compact the introduction above the personal globe. */
+.discover-section.footprint-active > .section-head { margin-bottom:14px; }
+.footprint-journal > .eyebrow { margin-top:0; margin-bottom:8px; }
+.footprint-journal h3 { margin:8px 0 10px; }
+.footprint-journal > p:last-child { margin-bottom:0; }
+.discover-section.footprint-active .travel-map-layout { row-gap:20px; }

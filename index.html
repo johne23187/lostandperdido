@@ -14,6 +14,8 @@
   <script src="script.js" defer></script>
   <script src="assets/vendor/d3.min.js" defer></script>
   <script src="assets/footprint-countries.js" defer></script>
+  <script src="travel-photos.js" defer></script>
+  <script src="portfolio.js" defer></script>
   <script src="footprint.js" defer></script>
 </head>
 <body>
@@ -198,29 +200,27 @@
       </div>
     </section>
 
-    <section class="section discover-section footprint-active" id="guides"><div class="section-head"><div><p class="eyebrow accent">04 / DISCOVER WITH US</p><h2 class="discovery-title">Get lost<br><em>with me.</em></h2></div></div><div class="travel-map-layout">
+    <section class="section discover-section footprint-active" id="guides"><div class="section-head"><div><p class="eyebrow accent">04 / DISCOVER WITH US</p><h2 class="discovery-title">Get lost<br><em>with us.</em></h2></div></div><div class="travel-map-layout">
       <aside class="footprint-journal">
-        <p class="eyebrow accent">TWO TRAVELERS. TWO FOOTPRINTS.</p>
-        <h3>Different roots.<br>A world of stories.</h3>
+        <p class="eyebrow accent">TWO TRAVELERS. ONE WORLD.</p>
+        <h3>Our stories.<br>A world to share.</h3>
         <p>Explore the places we’ve been, from home to the other side of the world. Pick a traveler, drag the globe, or choose a destination below.</p>
-        <div class="traveler-filters" role="group" aria-label="Show a traveler’s footprint"><button type="button" data-traveler="both" aria-pressed="true">Both</button><button type="button" data-traveler="john" aria-pressed="false">John</button><button type="button" data-traveler="mateo" aria-pressed="false">Mateo</button></div>
-        <div class="footprint-selection" role="status" aria-live="polite">Pick a place. Follow a footprint.</div>
-        <div class="traveler-destinations"></div>
+
       </aside>
       <aside class="map-journal">
         <p class="eyebrow accent">STORIES ALONG THE WAY</p>
         <div id="map-welcome"><h3>Click a pin.<br>Let the adventure begin.</h3><p>Start with Argentina, Chile or Bolivia on the globe, then pick a city to explore our route. This is where our trip photos and stories will land.</p></div>
       </aside>
       <div class="world-map-wrap">
-        <div class="globe-mode-switch" role="group" aria-label="Choose globe view"><button type="button" data-globe-mode="footprint" aria-pressed="true">Get lost with me</button><button type="button" data-globe-mode="planned" aria-pressed="false">Where we’re going</button></div>
+        <div class="globe-mode-switch" role="group" aria-label="Choose globe view"><button type="button" data-globe-mode="footprint" aria-pressed="true">Get lost with us</button><button type="button" data-globe-mode="planned" aria-pressed="false">Where we’re going</button></div>
         <div class="map-toolbar"><span class="eyebrow accent">OUR WORLD, ONE STOP AT A TIME</span><button type="button" class="map-reset">Show globe</button></div>
         <div class="globe-panel">
         <div class="footprint-explorer">
-          <div class="footprint-globe" tabindex="0" role="group" aria-label="Interactive travel globe. Drag to rotate, or use the arrow keys. Choose destinations in the adjacent list.">
+          <div class="footprint-globe" tabindex="0" role="group" aria-label="Interactive travel globe. Drag to rotate, or use the arrow keys. Choose destinations in the list below.">
             <svg class="footprint-earth" viewBox="0 0 700 700" aria-hidden="true"></svg><div class="footprint-markers"></div>
           </div>
           <div class="footprint-globe-controls"><span>DRAG TO EXPLORE · ARROW KEYS TO ROTATE</span><button type="button" class="footprint-reset">Reset view</button></div>
-          <div class="footprint-key"><span class="john-key">● John · USA</span><span class="mateo-key">● Mateo · Bolivia</span></div>
+          <div class="footprint-key"><span class="john-key">● John · USA</span><span class="mateo-key">● Mateo · Bolivia</span><span class="both-key">● Both</span></div>
         </div>
         <div class="travel-map world-map" aria-label="Globe showing unvisited countries and New York, USA, visited">
           <img class="world-map-art" src="assets/travel-globe.svg" alt="Globe with Argentina, Chile, Bolivia and the USA filled with their flags, question marks on other countries, and New York marked as visited." width="800" height="800">
@@ -283,6 +283,11 @@
         </div>
         <div class="map-legend"><span><i class="legend-visited"></i>Visited · New York, USA</span><span><b aria-hidden="true">?</b>Not visited yet</span></div>
         <p class="world-map-note">Select a country to zoom in and reveal its cities. Select a city for notes from that stop.</p>
+        <div class="footprint-browser">
+        <div class="traveler-filters" role="group" aria-label="Show a traveler’s footprint"><button type="button" data-traveler="both" aria-pressed="true">Both</button><button type="button" data-traveler="john" aria-pressed="false">John</button><button type="button" data-traveler="mateo" aria-pressed="false">Mateo</button></div>
+        <div class="footprint-selection" role="status" aria-live="polite">Pick a place. Follow a footprint.</div>
+        <div class="traveler-destinations"></div>
+        </div>
       </div>
 
       <dialog class="city-popup" id="city-popup" aria-label="Notes from this stop">
@@ -655,5 +660,14 @@
             </div></div><div class="social-format-pills"><span>FEATURES</span><span>STORIES</span><span>CAMPAIGNS</span></div><span class="ugc-concept-note">Industry feature concepts · illustrative imagery</span></div><div class="ugc-editorial"><span class="ugc-kicker">SOCIAL MEDIA / RECURRING FEATURES</span><h3>Stay in the story.<br>Keep showing up.</h3><p>From a memorable meal to a first leap into adventure, Lost &amp; Perdido bring your brand into experiences people want to be part of. Restaurants, outdoor adventures, water sports, wine tours, and beyond: every feature starts with a story worth sharing.</p><div class="ugc-deliverables"><div><b>01</b><span><strong>A consistent presence</strong><small>Plan a recurring series of features or advertisements around an agreed schedule.</small></span></div><div><b>02</b><span><strong>Your experience, in focus</strong><small>Show what makes your offering memorable, with content shaped around your industry, your audience, and the experience itself.</small></span></div><div><b>03</b><span><strong>A clear agreement</strong><small>Set the formats, frequency, and recurring fee together before the campaign begins.</small></span></div></div><p class="ugc-footnote">We choose partnerships and placements at our discretion to keep the work relevant to our community.</p></div></div></template>
 <template id="service-content-4" data-title="Photography"><div class="ugc-showcase"><div class="studio-visual photography-visual"><span class="studio-overline">THE DETAILS MAKE THE DESTINATION</span><div class="photo-contact-sheet"><figure><img src="assets/patagonia-closing.jpg" alt="Patagonian mountain landscape"><figcaption>01 / THE VIEW</figcaption></figure><figure><img src="assets/mendoza-vineyards.jpg" alt="Mendoza vineyards"><figcaption>02 / THE EXPERIENCE</figcaption></figure><figure><img src="assets/santiago-cathedral.jpg" alt="Santiago architecture"><figcaption>03 / THE DETAILS</figcaption></figure></div><div class="photo-delivery"><b>10</b><span>PROFESSIONAL PHOTOS<small>One cohesive visual story.</small></span></div><small class="photo-reference-note">Moodboard · destination references</small></div><div class="ugc-editorial"><span class="ugc-kicker">PHOTOGRAPHY / VISUAL STORYTELLING</span><h3>Show the feeling.<br>Make it memorable.</h3><p>Lost &amp; Perdido capture the views, dishes, and experiences that make your place distinctive. The result: a focused collection of 10 professional photos for your agreed marketing use.</p><div class="ugc-deliverables"><div><b>01</b><span><strong>The setting</strong><small>Scenic images that give your audience a sense of place.</small></span></div><div><b>02</b><span><strong>The experience</strong><small>Highlight signature dishes, standout activities, and the details people remember.</small></span></div><div><b>03</b><span><strong>The human connection</strong><small>Include lifestyle moments with Lost &amp; Perdido where they serve the story.</small></span></div></div><p class="ugc-footnote">We agree the shot list, delivery, and usage with you before the shoot, so the collection has a clear purpose from the start.</p></div></div></template>
 <template id="service-content-5" data-title="Media packages"><div class="package-studio"><span class="ugc-kicker">MEDIA PACKAGES / BUILT AROUND YOUR STORY</span><h3>One vision.<br>The right scale.</h3><p class="package-intro">Bring your brand into Lost &amp; Perdido’s world with a coordinated mix of long-form storytelling, social content, and photography.</p><section class="media-gear" aria-label="Camera gear illustrations"><div class="media-gear-heading"><span class="ugc-kicker">MORE ANGLES. MORE WAYS TO TELL YOUR STORY.</span><h4>The creative toolkit.</h4></div><div class="media-gear-grid"><figure><img src="assets/canon-rebel-t6-illustration.svg" alt="Digital illustration of Canon EOS Rebel T6" width="200" height="180"><figcaption><strong>Canon EOS Rebel T6</strong><span>Photography</span></figcaption></figure><figure><img src="assets/insta360-x5-illustration.svg" alt="Digital illustration of Insta360 X5" width="200" height="180"><figcaption><strong>Insta360 X5</strong><span>Immersive perspectives</span></figcaption></figure><figure><img src="assets/dji-pocket-3-illustration.svg" alt="Digital illustration of DJI Osmo Pocket 3" width="200" height="180"><figcaption><strong>DJI Osmo Pocket 3</strong><span>Stories in motion</span></figcaption></figure><figure><img src="assets/gopro-illustration.svg" alt="Digital illustration of GoPro" width="200" height="180"><figcaption><strong>GoPro</strong><span>Adventure close-up</span></figcaption></figure></div></section><div class="package-grid"><article class="package-card package-silver"><span class="package-mark" aria-hidden="true">✦</span><h4>Silver</h4><p>A focused introduction.</p><ul><li><b>01</b><span>long-form video</span></li><li><b>03</b><span>reels</span></li><li><b>02</b><span>photos</span></li><li><b>01</b><span>story post</span></li><li><b>01</b><span>YouTube integration</span></li></ul><span class="package-footer">LOST &amp; PERDIDO / YOUR BRAND</span></article><article class="package-card package-gold"><span class="package-mark" aria-hidden="true">✦</span><h4>Gold</h4><p>A broader brand story.</p><ul><li><b>02</b><span>long-form videos</span></li><li><b>05</b><span>reels</span></li><li><b>05</b><span>photos</span></li><li><b>03</b><span>story posts</span></li><li><b>02</b><span>YouTube integrations</span></li></ul><span class="package-footer">LOST &amp; PERDIDO / YOUR BRAND</span></article><article class="package-card package-platinum"><span class="package-mark" aria-hidden="true">✦</span><h4>Platinum</h4><p>Room for the full story.</p><ul><li><b>03</b><span>long-form videos</span></li><li><b>08</b><span>reels</span></li><li><b>10</b><span>photos</span></li><li><b>05</b><span>story posts</span></li><li><b>03</b><span>YouTube integrations</span></li></ul><span class="package-footer">LOST &amp; PERDIDO / YOUR BRAND</span></article></div><p class="package-terms">Customizable package concepts. We confirm platforms, scope, usage, and pricing together before booking. Natural YouTube integrations may be included within the long-form videos.</p></div></template>
+<dialog class="country-portfolio" aria-labelledby="portfolio-title">
+  <header class="portfolio-bar"><span>LOST &amp; PERDIDO / TRAVEL JOURNAL</span><button type="button" class="portfolio-close" aria-label="Close country portfolio">×</button></header>
+  <div class="portfolio-content"></div>
+</dialog>
+<dialog class="portfolio-lightbox" aria-label="Full-size travel photo viewer">
+  <button type="button" class="lightbox-close" aria-label="Close photo viewer">×</button>
+  <div class="lightbox-media"></div>
+  <div class="lightbox-controls"><button type="button" class="lightbox-prev" aria-label="Previous photo">←</button><span class="lightbox-count" aria-live="polite"></span><button type="button" class="lightbox-next" aria-label="Next photo">→</button></div>
+</dialog>
 </body>
 </html>
