@@ -30,7 +30,7 @@
   const path = d3.geoPath(projection);
   const defs = svg.append('defs');
   const ocean = defs.append('radialGradient').attr('id','footprint-ocean').attr('cx','30%').attr('cy','25%').attr('r','80%');
-  ocean.append('stop').attr('stop-color','#2a6174'); ocean.append('stop').attr('offset','1').attr('stop-color','#081827');
+  ocean.append('stop').attr('stop-color','#124278'); ocean.append('stop').attr('offset','1').attr('stop-color','#020e30');
   svg.append('circle').attr('cx',350).attr('cy',350).attr('r',311).attr('fill','none').attr('stroke','#88cfdf44').attr('stroke-width',2);
   svg.append('circle').attr('cx',350).attr('cy',350).attr('r',305).attr('fill','url(#footprint-ocean)');
   const grid = svg.append('path').datum(d3.geoGraticule10()).attr('fill','none').attr('stroke','#c5f5ff16').attr('stroke-width',.6);
@@ -55,7 +55,7 @@
     countries.attr('d',path).attr('fill', feature => {
       const place = places.find(p=>p.code===feature.properties.code);
       const people = place ? travelersFor(place) : [];
-      return !people.length ? '#3b5658' : people.length===2 ? '#b5c894' : colors[people[0]];
+      return !people.length ? '#28624e' : people.length===2 ? '#b5c894' : colors[people[0]];
     });
     const center = projection.invert([350,350]);
     places.forEach(place => {
@@ -94,7 +94,7 @@
   const list=document.querySelector('.traveler-destinations');
   ['john','mateo'].forEach(t=>{
     const group=document.createElement('section'); group.dataset.travelerGroup=t;
-    const heading=document.createElement('h4'); heading.innerHTML=person(t)+(t==='john'?'John <small>FROM USA</small>':'Mateo <small>FROM BOLIVIA</small>');
+    const heading=document.createElement('h4'); heading.innerHTML=person(t)+(t==='john'?'John <img class="traveler-flag" src="assets/flag-us.svg" alt="USA flag"><small>FROM USA</small>':'Mateo <img class="traveler-flag" src="assets/flag-bo.svg" alt="Bolivia flag"><small>FROM BOLIVIA</small>');
     const options=document.createElement('div');
     places.filter(p=>p.travelers.includes(t)).forEach(place=>{
       const button=document.createElement('button'); button.type='button'; button.className='footprint-country'; button.dataset.place=place.name; button.textContent=place.name; button.setAttribute('aria-pressed','false');

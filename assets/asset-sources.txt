@@ -33,3 +33,12 @@ Travel history supplied by John and Mateo via the site owner. England, Antigua a
 john-yankees-head.png and mateo-yankees-head.png — AI-assisted head cutouts with navy Yankees caps, edited from user-provided john-e.jpg and mateo-l.jpg. Original photos retained. Used for globe markers and traveler headings.
 
 john-yankees-smiling.png — smiling head cutout with navy Yankees cap, AI-assisted edit of user-provided travel-photos/DR/7DD31933-DD1B-43FE-B9A1-0386670D2F4C.JPG. Replaces John’s globe avatar; original photo retained.
+
+Host badge artwork: flag-do.svg, flag-ag.svg and statue-liberty.svg from jdecked/twemoji v16.0.1 (https://github.com/jdecked/twemoji), graphics CC-BY 4.0, copyright Twitter, Inc. and other contributors. License: https://creativecommons.org/licenses/by/4.0/. Downloaded via jsDelivr; unmodified. Existing US and Bolivia SVG flags reused in traveler headings.
+
+apple-flag-do.png, apple-flag-ag.png, apple-flag-bo.png, apple-liberty.png: fixed PNG renderings of the locally installed Apple Color Emoji font, requested by site owner for consistent host badges across devices.
+
+explosion-cloud.png — AI-generated transparent cinematic mushroom-cloud effect inspired by the user’s explosion reference; used behind the BOOM/SOCIALS reveal.
+apple-map-pin.png — PNG rendering of the locally installed Apple Color Emoji round pushpin, requested for consistent destination markers.
+
+University host badges: Fordham official athletics https://fordhamsports.com/images/logos/site/site.png ; UPB official site https://www.upb.edu (Framer-hosted white university wordmark).

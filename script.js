@@ -1517,6 +1517,26 @@ function preparePerspective() {
     copy.style.transformOrigin = '0 0';
     copy.style.transform = `translate(${45 - x * zoom}px, ${45 - y * zoom}px) scale(${zoom})`;
   }
+  function flyLensToBook(){
+    const lens=perspectiveLens, book=document.querySelector('.how-we-met-link');
+    const origin=lens.getBoundingClientRect();
+    document.body.append(lens);
+    Object.assign(lens.style,{position:'fixed',left:origin.left+'px',top:origin.top+'px',width:origin.width+'px',height:origin.height+'px',transform:'none',zIndex:'1000'});
+    copy.style.transition='opacity .25s';copy.style.opacity='0';
+    const started=performance.now();
+    function travel(now){
+      if(perspectiveMotion.matches){finishPerspective();return;}
+      const t=Math.min(1,(now-started)/1350),e=t*t*(3-2*t),target=book.getBoundingClientRect();
+      const x=target.left+target.width/2-origin.width/2,y=target.top+target.height/2-origin.height/2;
+      lens.style.left=origin.left+(x-origin.left)*e+'px';
+      lens.style.top=origin.top+(y-origin.top)*e-Math.sin(t*Math.PI)*45+'px';
+      lens.style.transform='scale('+(1-.7*e)+') rotate('+(-18*e)+'deg)';
+      lens.style.opacity=String(t>.85?(1-t)/.15:1);
+      if(t<1)perspectiveFrame=requestAnimationFrame(travel);
+      else {book.classList.add('book-attention');setTimeout(()=>book.classList.remove('book-attention'),1200);finishPerspective();}
+    }
+    perspectiveFrame=requestAnimationFrame(travel);
+  }
   draw(startX, startY, size, 1);
   const observer = new IntersectionObserver(entries => {
     if (!entries.some(entry => entry.isIntersecting)) return;
@@ -1524,7 +1544,8 @@ function preparePerspective() {
     const start = performance.now();
     function frame(now) {
       const t = Math.min(1, (now - start) / 3400);
-      if (t === 1 || perspectiveMotion.matches) { finishPerspective(); return; }
+      if (perspectiveMotion.matches) { finishPerspective(); return; }
+      if (t === 1) { flyLensToBook(); return; }
       const lift = Math.min(1, t / .25);
       const eased = 1 - Math.pow(1 - lift, 3);
       perspectiveP.style.opacity = String(Math.min(1, lift * 2));
@@ -1532,7 +1553,7 @@ function preparePerspective() {
       const targetX = r.width * (.12 + .76 * sweep);
       const targetY = r.height * (.22 + .56 * sweep);
       draw(startX + (targetX - startX) * eased, startY + (targetY - startY) * eased,
-        size + (Math.min(145, r.width * .38) - size) * eased, Math.min(1, (1 - t) / .17));
+        size + (Math.min(145, r.width * .38) - size) * eased, 1);
       perspectiveFrame = requestAnimationFrame(frame);
     }
     perspectiveFrame = requestAnimationFrame(frame);
@@ -1684,38 +1705,49 @@ setInterval(() => {
   });
 })();
 
-// Once reunited, either traveler can open the little Bible scene.
+// Both travelers can start the scene; each has a different gesture after landing.
 (() => {
-  const left = document.querySelector('.mountain-paraglider');
-  const right = document.querySelector('.mountain-sitter');
-  if (!left || !right) return;
-  let shown = false;
-  function revealBible() {
-    if (!left.classList.contains('has-landed') || shown) return;
-    shown = true;
-    left.querySelector('span').hidden = true;
-    left.querySelector('span').style.display = 'none';
-    right.querySelector('span').textContent = 'May God be with us.';
-    right.insertAdjacentHTML('beforeend', '<svg class="tiny-bible" viewBox="0 0 40 30" role="img" aria-label="An open Bible"><path d="M2 4Q12 0 20 5Q29 0 38 4V27Q29 23 20 28Q11 23 2 27Z" fill="#fff4d2" stroke="#583d2b" stroke-width="2"/><path d="M20 5V28M10 7V19M6 11H14" fill="none" stroke="#947240" stroke-width="2"/></svg>');
-    left.setAttribute('aria-label', 'Sitting together');
-    right.setAttribute('aria-label', 'Reading the Bible together. May God be with us.');
-    right.removeAttribute('role');
-    right.removeAttribute('tabindex');
-  }
-  new MutationObserver(() => {
-    if (left.classList.contains('has-landed') && !shown) {
-      left.removeAttribute('aria-disabled');
-      left.setAttribute('aria-label', 'Read together');
-      right.setAttribute('role', 'button');
-      right.setAttribute('tabindex', '0');
-      right.setAttribute('aria-label', 'Read together');
-    }
-  }).observe(left, {attributes:true, attributeFilter:['class']});
-  left.addEventListener('click', revealBible);
-  right.addEventListener('click', revealBible);
-  right.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); revealBible(); }
-  });
+ const left=document.querySelector('.mountain-paraglider'),right=document.querySelector('.mountain-sitter');
+ let bibleShown=false,crossShown=false,blessingScheduled=false;
+ right.setAttribute('role','button');right.setAttribute('tabindex','0');
+ right.setAttribute('aria-label','Invite our friend down and read together');
+ function bible(){
+  if(bibleShown)return;bibleShown=true;
+  right.querySelector('span').textContent='May God be with us.';
+  right.insertAdjacentHTML('beforeend','<svg class="tiny-bible" viewBox="0 0 40 30" role="img" aria-label="An open Bible"><path d="M2 4Q12 0 20 5Q29 0 38 4V27Q29 23 20 28Q11 23 2 27Z" fill="#fff4d2" stroke="#583d2b" stroke-width="2"/><path d="M20 5V28M10 7V19M6 11H14" fill="none" stroke="#947240" stroke-width="2"/></svg>');
+  right.setAttribute('aria-label','May God be with us.');
+ }
+ function rightAction(){
+  if(!left.classList.contains('has-landed'))left.click();
+ }
+ right.addEventListener('click',rightAction);
+ right.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();rightAction();}});
+ function raiseCross(){
+  if(crossShown)return;
+  crossShown=true;
+  const bubble=left.querySelector('span');bubble.hidden=false;bubble.style.display='';bubble.textContent='Que Dios te bendiga.';
+  left.insertAdjacentHTML('beforeend','<svg class="tiny-cross" viewBox="0 0 20 30" role="img" aria-label="A small raised cross"><path d="M10 2V27M3 9H17" stroke="#efd8a0" stroke-width="3" stroke-linecap="round"/></svg>');
+  left.classList.add('raising-cross');
+  left.setAttribute('aria-label','Que Dios te bendiga.');
+ }
+ new MutationObserver(()=>{
+  if(!left.classList.contains('has-landed'))return;
+  if(blessingScheduled)return;
+  blessingScheduled=true;
+  left.setAttribute('aria-disabled','true');right.setAttribute('aria-disabled','true');
+  setTimeout(()=>{
+   bible();
+   setTimeout(()=>{
+    raiseCross();
+    setTimeout(()=>{
+     right.querySelector('span').textContent='Amen.';right.setAttribute('aria-label','Amen.');
+     setTimeout(()=>{
+      const light=document.createElement('div');light.className='mountain-blessing-light';light.setAttribute('aria-hidden','true');right.closest('.closing').append(light);setTimeout(sendSkyHearts,2500);
+     },3000);
+    },2000);
+   },3000);
+  },3000);
+ }).observe(left,{attributes:true,attributeFilter:['class']});
 })();
 
 // Each phone keeps cycling while its service is open; reopening starts fresh.
@@ -1820,3 +1852,99 @@ setInterval(() => {
 })();
 
 window.addEventListener('resize', () => document.querySelectorAll('.campaign-photo-crop').forEach(crop => crop.fitPhoto?.()));
+
+// Reveal the existing orbit with one burst, without changing its motion.
+(() => {
+ const stage=document.querySelector('.socials-showcase');
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');
+ if(!motion.matches){
+  stage.classList.add('reveal-armed');
+  const burst=document.createElement('div');burst.className='social-burst';burst.setAttribute('aria-hidden','true');
+  for(let i=0;i<72;i++){
+   const spark=document.createElement('i');const a=i*Math.PI/12,r=200+(i%6)*55;
+   spark.style.setProperty('--spark-x',Math.cos(a)*r+'px');spark.style.setProperty('--spark-y',Math.sin(a)*r+'px');spark.style.setProperty('--spark-angle',i*15+'deg');spark.style.setProperty('--spark-delay',Math.floor(i/24)*.45+'s');spark.style.setProperty('--spark-color',['#ff5a49','#fff3c4','#75b9ff'][i%3]);burst.append(spark);
+  }
+  const cloud=document.createElement('img');cloud.className='explosion-cloud';cloud.src='assets/explosion-cloud.png';cloud.alt='';burst.append(cloud);
+  const shout=document.createElement('strong');shout.className='explosion-shout';shout.textContent='BOOM!';burst.append(shout);
+  const title=document.createElement('strong');title.className='explosion-title';title.textContent='SOCIALS';burst.append(title);
+  stage.append(burst);
+  const observer=new IntersectionObserver(entries=>{
+   if(!entries.some(e=>e.isIntersecting))return;
+   observer.disconnect();
+   const plane=document.querySelector('.space-plane').cloneNode(true);
+   plane.classList.remove('space-plane');plane.classList.add('explosion-trigger-plane');plane.removeAttribute('style');stage.append(plane);
+   const original=document.querySelector('.space-plane');original.style.visibility='hidden';
+   setTimeout(()=>{
+    plane.remove();original.style.visibility='';
+    if(motion.matches)return;
+    stage.classList.add('reveal-exploding');
+    setTimeout(()=>{stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();},4200);
+   },1500);
+  },{threshold:.12});observer.observe(stage);
+  motion.addEventListener('change',e=>{if(e.matches){observer.disconnect();stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();}});
+ }
+ document.querySelectorAll('.socials-click-hint').forEach(hint=>{
+  hint.className='social-hype-screen';hint.replaceChildren();
+  for(let i=0;i<7;i++){const line=document.createElement('b');line.textContent='FOLLOW US';line.style.setProperty('--line',i);hint.append(line);}
+  const phone=hint.closest('.phone-screen');
+  const post=phone.querySelector('.ig-post-image,.yt-feed-thumbnail,.tiktok-feed-video') || phone.querySelector('.tiktok-ui');
+  const target=post||phone;
+  target.classList.add('animated-social-post');target.append(hint);
+  const hearts=document.createElement('div');hearts.className='social-hype-hearts';hearts.setAttribute('aria-hidden','true');
+  for(let i=0;i<6;i++){const heart=document.createElement('i');heart.textContent='♥';heart.style.setProperty('--heart',i);hearts.append(heart);}target.append(hearts);
+  const ig=phone.querySelector('.ig-post-copy > strong');
+  const yt=phone.querySelector('.yt-feed-details small');
+  const tt=phone.querySelector('.tiktok-feed-action small');
+  let likes=ig?1284:12800,views=24000;
+  const counter=ig||tt||yt;
+  if(counter)counter.title='Animated social preview';
+  const viewLabel=document.createElement('small');viewLabel.className='post-view-count';viewLabel.title='Animated social preview';
+  if(!yt)target.append(viewLabel);
+  setInterval(()=>{
+   if(!socialsVisible||document.hidden)return;
+   likes+=17;views+=139;
+   if(ig)ig.textContent=likes.toLocaleString()+' likes';
+   if(tt)tt.textContent=likes.toLocaleString();
+   if(yt)yt.textContent='Lost & Perdido · '+views.toLocaleString()+' views · '+likes.toLocaleString()+' likes';
+   viewLabel.textContent=views.toLocaleString()+' views';
+  },1200);
+ });
+})();
+
+// Host portraits reveal their own introduction on click or keyboard activation.
+document.querySelectorAll('.host-card').forEach((card,index)=>{
+ const photo=card.querySelector('img');
+ const button=document.createElement('button');button.type='button';button.className='host-portrait-button';
+ button.setAttribute('aria-label',index===0?'Meet John':'Meet Mateo');button.setAttribute('aria-expanded','false');
+ photo.before(button);button.append(photo);
+ const cue=document.createElement('span');cue.className='host-click-cue';cue.textContent='click me';button.append(cue);
+ const bubble=document.createElement('span');bubble.className='host-intro-bubble';bubble.hidden=true;bubble.textContent=index===0?'I’m lost':'Estoy perdido';button.append(bubble);
+ button.addEventListener('click',()=>{bubble.hidden=!bubble.hidden;cue.hidden=!bubble.hidden;button.setAttribute('aria-expanded',String(!bubble.hidden));});
+});
+(() => {
+ const left=document.querySelector('.mountain-paraglider');
+ const hand=document.createElement('i');hand.className='first-figure-hand';hand.setAttribute('aria-hidden','true');
+ hand.innerHTML='<svg viewBox="0 0 48 60"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';
+ left.append(hand);
+ new MutationObserver(()=>{if(left.classList.contains('is-flying')||left.classList.contains('has-landed'))hand.remove();}).observe(left,{attributes:true,attributeFilter:['class']});
+})();
+
+function sendSkyHearts(){
+ const scene=document.querySelector('.closing'),box=scene.getBoundingClientRect();
+ const figures=[scene.querySelector('.mountain-paraglider'),scene.querySelector('.mountain-sitter')];
+ figures.forEach((figure,index)=>{
+  const heart=document.createElement('span');heart.className='sky-blessing-heart';heart.textContent='♥';heart.setAttribute('aria-hidden','true');scene.append(heart);
+  const r=figure.getBoundingClientRect();const x=r.left-box.left+r.width/2,y=r.top-box.top+r.height*.48;
+  const startX=box.width*.78,startY=box.height*.24;
+  heart.style.left=startX+'px';heart.style.top=startY+'px';
+  const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?1:3300;
+  heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove());
+ });
+}
+(() => {
+ const hand='<svg viewBox="0 0 48 60" aria-hidden="true"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';
+ document.querySelectorAll('.social-hype-screen').forEach(prompt=>{const cue=document.createElement('i');cue.className='post-click-hand';cue.innerHTML=hand;prompt.parentElement.append(cue);});
+ const gps=document.querySelector('.location-gps');const cue=document.createElement('span');cue.className='gps-dainty-cue';cue.setAttribute('aria-hidden','true');cue.textContent='↖';gps.append(cue);
+ const repost='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 15V6h13m-4-4 4 4-4 4M20 9v9H7m4-4-4 4 4 4"/></svg>';
+ document.querySelectorAll('.watch-section .ig-post-actions,.watch-section .tiktok-feed-actions').forEach(actions=>{const icon=document.createElement('span');icon.className='post-repost';icon.setAttribute('role','img');icon.setAttribute('aria-label','Repost');icon.innerHTML=repost;actions.append(icon);});
+})();
