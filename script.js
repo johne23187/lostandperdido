@@ -800,17 +800,14 @@ gpsDialog.addEventListener('close', () => {
 
 // One deterministic reading per local calendar day, stable across reloads.
 function dailyLostValue(date) {
-  const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}`;
   let hash = 2166136261;
   for (const character of day) hash = Math.imul(hash ^ character.charCodeAt(0), 16777619);
   return (hash >>> 0) % 101;
 }
 function lostDescription(value) {
-  if (value < 20) return 'we have a plan';
-  if (value < 40) return 'mas o menos';
-  if (value < 60) return 'we are figuring it out';
-  if (value < 80) return 'perdido';
-  return 'lost and perdido';
+  const phrases=['we have a plan','map in hand','almost on schedule','one tiny detour','mas o menos','mostly the right way','trusting the next turn','a little off script','we are figuring it out','asking a friendly local','following our curiosity','the scenic route, probably','perdido','the map is guessing too','no clue, good company','wrong turn, right story','lost and perdido','the compass gave up','send snacks, not directions','officially off the map','completely lost, still together'];
+  return phrases[Math.min(20,Math.floor(value/5))];
 }
 let lostMeterTimeout;
 function updateLostMeter() {
@@ -824,7 +821,7 @@ function updateLostMeter() {
   const description = document.getElementById('lost-description');
   description.textContent = lostDescription(value);
   originalText.set(description.firstChild, description.textContent);
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
   lostMeterTimeout = setTimeout(updateLostMeter, midnight - now + 50);
 }
 updateLostMeter();
@@ -953,7 +950,6 @@ let foldingPaper = null;
 const memoryImage = memoryAlbum.querySelector('.memory-image');
 const memoryCaption = memoryAlbum.querySelector('.memory-caption');
 const memoryLaunch = memoryAlbum.querySelector('.memory-launch');
-const memoryPlay = memoryAlbum.querySelector('.memory-play');
 const albumMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const campMemory = { src: 'assets/camp-chipinaw.jpg', caption: 'Camp Chipinaw. Where it all began.', alt: 'Camp Chipinaw and its wooded lakeshore' };
 // Permanent album photos, in display order after the opening camp photo.
@@ -1032,7 +1028,6 @@ let memoryTimer;
 let memoryGeneration = 0;
 const paperAnimations = new Set();
 function albumText(text) { return currentLanguage === 'es' ? (spanish[text] || text) : text; }
-function memoryButtonLabel() { memoryPlay.textContent = albumText(memoryPlaying ? 'Pause' : 'Play'); }
 function renderMemory() {
   const photo = memories[memoryIndex];
   memoryImage.hidden = !!photo.placeholder;
@@ -1040,9 +1035,7 @@ function renderMemory() {
   memoryLaunch.classList.toggle('is-placeholder', !!photo.placeholder);
   memoryLaunch.dataset.placeholder = albumText('Your photo goes here');
   memoryCaption.textContent = albumText(photo.caption);
-  memoryAlbum.querySelector('.memory-counter').textContent = `${memoryIndex + 1} / ${memories.length}`;
   memoryAlbum.querySelector('.memory-click').hidden = memoryPlaying || memoryIndex !== 0;
-  memoryButtonLabel();
   const nextPhoto = new Image();
   nextPhoto.src = memories[(memoryIndex + 1) % memories.length].src;
 }
@@ -1061,12 +1054,14 @@ function stopMemory() {
 async function paperAnimate(element, frames, duration, generation, easing = 'ease-in-out') {
   const animation = element.animate(frames, { duration, easing, fill: 'forwards' });
   paperAnimations.add(animation);
-  try { await animation.finished; } catch { return false; }
+  let deadline;
+  try { await Promise.race([animation.finished,new Promise(resolve=>{deadline=setTimeout(()=>{try{animation.finish();}catch{}resolve();},duration+1200);})]); } catch { return false; }
+  finally { clearTimeout(deadline); }
   return generation === memoryGeneration;
 }
 function scheduleMemory() {
   clearTimeout(memoryTimer);
-  if (memoryPlaying && meetingStory.open && !document.hidden) memoryTimer = setTimeout(() => transitionMemory(1), 3000);
+  if (memoryPlaying && meetingStory.open && !document.hidden) memoryTimer = setTimeout(() => transitionMemory(1), 2000);
 }
 // One paper surface throughout: eight photo-textured facets become the wings.
 function makeFoldingPaper(photo) {
@@ -1144,14 +1139,41 @@ function foldPaper(mesh, from, to, duration, generation) {
     requestAnimationFrame(frame);
   });
 }
+// A canceled browser animation must never leave the album permanently busy.
 async function transitionMemory(direction) {
+  if (memoryBusy || !memoryPlaying || !meetingStory.open) return;
+  const before = memoryIndex;
+  const recovery = setTimeout(() => {
+    if (!memoryBusy || !memoryPlaying || !meetingStory.open) return;
+    memoryGeneration++;
+    resetPaper();
+    if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
+    memoryBusy = false;
+    renderMemory();
+    scheduleMemory();
+  }, 8000);
+  try { await runMemoryTransition(direction); }
+  catch (error) {
+    console.warn('Photo animation recovered:', error);
+    if (memoryPlaying && meetingStory.open) {
+      memoryGeneration++;resetPaper();
+      if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
+      renderMemory();
+    }
+  } finally {
+    clearTimeout(recovery);
+    memoryBusy = false;
+    if (memoryPlaying && meetingStory.open) scheduleMemory();
+  }
+}
+async function runMemoryTransition(direction) {
   if (memoryBusy) return;
   clearTimeout(memoryTimer); memoryBusy = true;
   const generation = ++memoryGeneration;
   const nextIndex = (memoryIndex + direction + memories.length) % memories.length;
   // Decode before starting so every landing opens onto a fully loaded photo.
   const ready = new Image(); ready.src = memories[nextIndex].src;
-  try { await ready.decode(); } catch { /* A failed image must not lock controls. */ }
+  try { await Promise.race([ready.decode(), new Promise(resolve => setTimeout(resolve, 1800))]); } catch { /* Keep the sequence moving even if decoding fails. */ }
   if (generation !== memoryGeneration) return;
   if (!albumMotion.matches) {
     const mesh = makeFoldingPaper(memories[memoryIndex]);
@@ -1194,20 +1216,12 @@ async function transitionMemory(direction) {
 }
 function startMemory() {
   if (memoryBusy || memoryPlaying) return;
-  memoryPlaying = true; renderMemory(); transitionMemory(1);
+  memoryPlaying = true; memoryLaunch.classList.add("has-started"); renderMemory(); transitionMemory(1);
 }
 memoryLaunch.addEventListener('click', startMemory);
-memoryPlay.addEventListener('click', () => memoryPlaying ? stopMemory() : startMemory());
-for (const [selector, direction] of [['.memory-prev', -1], ['.memory-next', 1]]) {
-  memoryAlbum.querySelector(selector).addEventListener('click', () => { stopMemory(); transitionMemory(direction); });
-}
-memoryAlbum.addEventListener('keydown', event => {
-  if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || event.target.matches('input')) return;
-  event.preventDefault(); stopMemory(); transitionMemory(event.key === 'ArrowLeft' ? -1 : 1);
-});
-meetingStory.addEventListener('close', () => { stopMemory(); memoryIndex = 0; renderMemory(); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) stopMemory(); });
-albumMotion.addEventListener('change', stopMemory);
+meetingStory.addEventListener('close', () => { stopMemory(); memoryIndex = 0; memoryLaunch.classList.remove('has-started'); renderMemory(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(memoryTimer); else scheduleMemory(); });
+albumMotion.addEventListener('change', () => { const resume=memoryPlaying; stopMemory(); if(resume){memoryPlaying=true;renderMemory();scheduleMemory();} });
 renderMemory();
 
 // Dust follows the actual glyph positions, so the final text never moves.
@@ -1586,10 +1600,14 @@ function renderPoll(counts) {
   pollStatus.textContent = total ? `${total} ${total === 1 ? 'vote' : 'votes'} · ${pollChoice ? 'Your vote is in!' : 'Pick your side.'}` : 'Be the first to pick a side.';
 }
 async function fetchPoll(choice) {
+  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),3500);
+  try {
+  if(location.protocol==='file:')throw new Error('Local file preview');
   const response = await fetch('/api/poll', choice ? {
+    signal:controller.signal,
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ voter: pollVoter, choice })
-  } : { cache: 'no-store' });
+  } : { cache: 'no-store',signal:controller.signal });
   if (!response.ok) throw new Error('Poll unavailable');
   const counts = await response.json();
   if (![counts.lost, counts.perdido].every(n => Number.isInteger(n) && n >= 0)) throw new Error('Invalid totals');
@@ -1598,7 +1616,15 @@ async function fetchPoll(choice) {
     try { localStorage.setItem('lp-poll-choice', choice); } catch {}
   }
   renderPoll(counts);
+  } catch {
+    // Local previews have no shared API. Count only this browser's actual vote.
+    if(choice){pollChoice=choice;try{localStorage.setItem('lp-poll-choice',choice);}catch{}}
+    const counts={lost:pollChoice==='lost'?1:0,perdido:pollChoice==='perdido'?1:0};
+    renderPoll(counts);
+    pollStatus.textContent=pollChoice?'Your vote is saved · local preview results':'Pick a side · local preview poll';
+  } finally {clearTimeout(timeout);}
 }
+fetchPoll();
 pollButtons.forEach(button => button.addEventListener('click', async () => {
   pollButtons.forEach(item => { item.disabled = true; });
   pollStatus.textContent = 'Counting your vote…';
@@ -1742,7 +1768,7 @@ setInterval(() => {
     setTimeout(()=>{
      right.querySelector('span').textContent='Amen.';right.setAttribute('aria-label','Amen.');
      setTimeout(()=>{
-      const light=document.createElement('div');light.className='mountain-blessing-light';light.setAttribute('aria-hidden','true');right.closest('.closing').append(light);setTimeout(sendSkyHearts,2500);
+      const light=document.createElement('div');light.className='mountain-blessing-light';light.setAttribute('aria-hidden','true');right.closest('.closing').append(light);playBlessingChime();setTimeout(sendSkyHearts,2500);
      },3000);
     },2000);
    },3000);
@@ -1891,7 +1917,7 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
   const target=post||phone;
   target.classList.add('animated-social-post');target.append(hint);
   const hearts=document.createElement('div');hearts.className='social-hype-hearts';hearts.setAttribute('aria-hidden','true');
-  for(let i=0;i<6;i++){const heart=document.createElement('i');heart.textContent='♥';heart.style.setProperty('--heart',i);hearts.append(heart);}target.append(hearts);
+  for(let i=0;i<6;i++){const heart=document.createElement('i');heart.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21S2 15 2 8.5C2 2.5 9 1 12 6c3-5 10-3.5 10 2.5C22 15 12 21 12 21Z"/></svg>';heart.style.setProperty('--heart',i);hearts.append(heart);}target.append(hearts);
   const ig=phone.querySelector('.ig-post-copy > strong');
   const yt=phone.querySelector('.yt-feed-details small');
   const tt=phone.querySelector('.tiktok-feed-action small');
@@ -1899,13 +1925,13 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
   const counter=ig||tt||yt;
   if(counter)counter.title='Animated social preview';
   const viewLabel=document.createElement('small');viewLabel.className='post-view-count';viewLabel.title='Animated social preview';
-  if(!yt)target.append(viewLabel);
+  if(tt)target.append(viewLabel);
   setInterval(()=>{
    if(!socialsVisible||document.hidden)return;
    likes+=17;views+=139;
    if(ig)ig.textContent=likes.toLocaleString()+' likes';
    if(tt)tt.textContent=likes.toLocaleString();
-   if(yt)yt.textContent='Lost & Perdido · '+views.toLocaleString()+' views · '+likes.toLocaleString()+' likes';
+   if(yt)yt.textContent='Lost & Perdido';
    viewLabel.textContent=views.toLocaleString()+' views';
   },1200);
  });
@@ -1933,18 +1959,75 @@ function sendSkyHearts(){
  const scene=document.querySelector('.closing'),box=scene.getBoundingClientRect();
  const figures=[scene.querySelector('.mountain-paraglider'),scene.querySelector('.mountain-sitter')];
  figures.forEach((figure,index)=>{
-  const heart=document.createElement('span');heart.className='sky-blessing-heart';heart.textContent='♥';heart.setAttribute('aria-hidden','true');scene.append(heart);
+  const heart=document.createElement('span');heart.className='sky-blessing-heart';heart.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21S2 15 2 8.5C2 2.5 9 1 12 6c3-5 10-3.5 10 2.5C22 15 12 21 12 21Z"/></svg>';heart.setAttribute('aria-hidden','true');scene.append(heart);
   const r=figure.getBoundingClientRect();const x=r.left-box.left+r.width/2,y=r.top-box.top+r.height*.48;
-  const startX=box.width*.78,startY=box.height*.24;
+  const other=figures[1-index].getBoundingClientRect();
+  const startX=(r.left+r.width/2+other.left+other.width/2)/2-box.left,startY=box.height*.24;
   heart.style.left=startX+'px';heart.style.top=startY+'px';
   const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?1:3300;
-  heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove());
+  heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove(),()=>heart.remove());
  });
 }
 (() => {
  const hand='<svg viewBox="0 0 48 60" aria-hidden="true"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';
  document.querySelectorAll('.social-hype-screen').forEach(prompt=>{const cue=document.createElement('i');cue.className='post-click-hand';cue.innerHTML=hand;prompt.parentElement.append(cue);});
- const gps=document.querySelector('.location-gps');const cue=document.createElement('span');cue.className='gps-dainty-cue';cue.setAttribute('aria-hidden','true');cue.textContent='↖';gps.append(cue);
+ const gps=document.querySelector('.location-gps');const cue=document.createElement('span');cue.className='gps-dainty-cue';cue.setAttribute('aria-hidden','true');cue.textContent='←';gps.querySelector('.gps-lost').append(cue);
  const repost='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 15V6h13m-4-4 4 4-4 4M20 9v9H7m4-4-4 4 4 4"/></svg>';
  document.querySelectorAll('.watch-section .ig-post-actions,.watch-section .tiktok-feed-actions').forEach(actions=>{const icon=document.createElement('span');icon.className='post-repost';icon.setAttribute('role','img');icon.setAttribute('aria-label','Repost');icon.innerHTML=repost;actions.append(icon);});
 })();
+
+// A pointer over the camp photograph invites the first paper-plane launch.
+const campPointer=document.createElement('span');campPointer.className='camp-pointer';campPointer.setAttribute('aria-hidden','true');campPointer.innerHTML='<svg viewBox="0 0 32 40" fill="white" stroke="#172b35" stroke-width="2"><path d="M10 23V5c0-4 6-4 6 0v12c3-3 5-1 6 1 4-1 6 2 6 5v7l-5 8H12L3 26c-2-4 2-7 5-3l2 2Z"/></svg>';memoryLaunch.append(campPointer);
+
+// The tree is its own detail view; the friends and their timeline stay in place.
+(() => {
+ const scene=document.querySelector('.closing');
+ const tree=document.createElement('button');tree.type='button';tree.className='meadow-tree';tree.setAttribute('aria-label','Zoom in to the missing poster on the tree');tree.setAttribute('aria-haspopup','dialog');
+ tree.innerHTML='<img src="assets/meadow-poster-tree.png" alt="A leafy tree with a Lost & Perdido missing poster on its trunk"><span class="poster-arrow" aria-hidden="true">←</span>';
+ scene.prepend(tree);
+ const detail=document.createElement('dialog');detail.className='tree-poster-dialog';detail.setAttribute('aria-label','Lost & Perdido missing poster');
+ detail.innerHTML='<button class="tree-poster-close" type="button" aria-label="Return to the mountain view">×</button><div class="tree-poster-crop"><img src="assets/b4f2e6d3-2524-4479-addd-5a5b8b3daad9.JPG" alt="Missing: Lost & Perdido. Have you seen us? Probably exploring somewhere in Latin America, or just lost again."></div><p>Lost & Perdido · Have you seen us?</p>';
+ document.body.append(detail);
+ tree.addEventListener('click',()=>{
+  detail.showModal();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const a=tree.getBoundingClientRect(),b=detail.getBoundingClientRect();detail.animate([{opacity:0,transform:`translate(${a.x+a.width/2-b.x-b.width/2}px,${a.y+a.height/2-b.y-b.height/2}px) scale(.15)`},{opacity:1,transform:'translate(0,0) scale(1)'}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)'});}
+ });
+ detail.querySelector('button').addEventListener('click',()=>detail.close());
+ detail.addEventListener('click',event=>{if(event.target!==detail)return;const r=detail.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)detail.close();});
+ detail.addEventListener('close',()=>tree.focus({preventScroll:true}));
+})();
+
+// Unlock sound from the initial figure interaction, then play it with the light.
+let blessingAudio;
+function prepareBlessingAudio(){
+ try {
+  const AudioEngine=window.AudioContext||window.webkitAudioContext;
+  if(!AudioEngine)return;
+  if(!blessingAudio||blessingAudio.state==='closed')blessingAudio=new AudioEngine();
+  if(blessingAudio.state==='suspended')blessingAudio.resume().catch(()=>{});
+ } catch { /* The visual sequence remains available without audio. */ }
+}
+document.querySelectorAll('.mountain-paraglider,.mountain-sitter').forEach(figure=>{
+ figure.addEventListener('click',prepareBlessingAudio,{capture:true});
+ figure.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' ')prepareBlessingAudio();},{capture:true});
+});
+function playBlessingChime(){
+ const ctx=blessingAudio;
+ if(!ctx||ctx.state!=='running')return;
+ const start=ctx.currentTime,master=ctx.createGain(),echo=ctx.createDelay(1),tail=ctx.createGain();
+ master.gain.value=.16;master.connect(ctx.destination);
+ echo.delayTime.value=.34;tail.gain.value=.24;echo.connect(tail);tail.connect(master);tail.connect(echo);
+ // A warm major chord blooms beneath three delicate, bell-like upper notes.
+ [261.63,329.63,392,523.25,659.25,783.99].forEach((frequency,index)=>{
+  const oscillator=ctx.createOscillator(),envelope=ctx.createGain();
+  oscillator.type='sine';oscillator.frequency.value=frequency;
+  const at=start+index*.14;
+  envelope.gain.setValueAtTime(0,at);
+  envelope.gain.linearRampToValueAtTime(index<3?.24:.13,at+(index<3?.65:.045));
+  envelope.gain.exponentialRampToValueAtTime(.001,at+5.5);
+  oscillator.connect(envelope);envelope.connect(master);envelope.connect(echo);
+  oscillator.start(at);oscillator.stop(at+5.6);
+  oscillator.onended=()=>{oscillator.disconnect();envelope.disconnect();};
+ });
+ setTimeout(()=>{echo.disconnect();tail.disconnect();master.disconnect();},8500);
+}

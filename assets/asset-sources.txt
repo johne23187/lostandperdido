@@ -42,3 +42,7 @@ explosion-cloud.png — AI-generated transparent cinematic mushroom-cloud effect
 apple-map-pin.png — PNG rendering of the locally installed Apple Color Emoji round pushpin, requested for consistent destination markers.
 
 University host badges: Fordham official athletics https://fordhamsports.com/images/logos/site/site.png ; UPB official site https://www.upb.edu (Framer-hosted white university wordmark).
+
+Meadow tree and poster detail: AI-generated using the supplied Lost & Perdido missing poster as the visual reference; transparent tree cutout.
+
+Missing poster close-up: assets/b4f2e6d3-2524-4479-addd-5a5b8b3daad9.JPG — original image supplied by user, displayed without cropping or modification.

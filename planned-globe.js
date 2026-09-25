@@ -19,11 +19,11 @@
  const destinations=[{name:'Argentina',code:'ARG',key:'argentina',xy:[-65,-35]},{name:'Chile',code:'CHL',key:'chile',xy:[-71,-34]},{name:'Bolivia',code:'BOL',key:'bolivia',xy:[-65,-17]}];
  const flagCodes={ARG:'ar',CHL:'cl',BOL:'bo'};
  destinations.forEach(d=>{
-  const pattern=defs.append('pattern').attr('id','planned-flag-'+d.code).attr('patternUnits','objectBoundingBox').attr('width',1).attr('height',1).attr('viewBox','0 0 3 2').attr('preserveAspectRatio','none');
+  const pattern=defs.append('pattern').attr('id','planned-flag-'+d.code).attr('patternUnits','userSpaceOnUse').attr('width',1).attr('height',1).attr('viewBox','0 0 3 2').attr('preserveAspectRatio','none');
   pattern.append('image').attr('href','assets/flag-'+flagCodes[d.code]+'.svg').attr('width',3).attr('height',2).attr('preserveAspectRatio','none');
  });
  const reset=root.querySelector('.planned-reset');root.insertBefore(reset,surface);reset.setAttribute('aria-label','Reset zoom and return to the full globe');
- let selected=null,rotation=[65,20,0],scale=305,drag=null,moved=false,frame;
+ let city=null,selected=null,rotation=[65,20,0],scale=305,drag=null,moved=false,frame;
  const cityData=[...document.querySelectorAll('.city-pin')].map(pin=>{
   const box=document.querySelector('#stop-'+pin.dataset.stop+' .city-weather');
   return {name:pin.getAttribute('aria-label'),key:pin.dataset.country,xy:[Number(box.dataset.lon),Number(box.dataset.lat)],pin};
@@ -31,11 +31,17 @@
  const entries=[...destinations,...cityData];
  entries.forEach(item=>{
   const b=document.createElement('button');b.type='button';b.className='planned-pin';b.setAttribute('aria-label',item.name);b.innerHTML='<img src="assets/apple-map-pin.png" alt="" width="28" height="32"><span></span>';b.querySelector('span').textContent=item.name;
-  b.addEventListener('click',()=>item.pin?item.pin.click():select(item));item.button=b;layer.append(b);
+  b.addEventListener('click',()=>item.pin?selectCity(item):select(item));item.button=b;layer.append(b);
  });
  function draw(){
   projection.rotate(rotation).scale(scale);grid.attr('d',path);
   land.attr('d',path).attr('fill',f=>destinations.some(d=>d.code===f.properties.code)?'url(#planned-flag-'+f.properties.code+')':'url(#planned-land)');
+  destinations.forEach(d=>{
+   const feature=window.footprintCountries.features.find(f=>f.properties.code===d.code);
+   if(!feature)return;
+   const bounds=path.bounds(feature),w=bounds[1][0]-bounds[0][0],h=bounds[1][1]-bounds[0][1];
+   if(Number.isFinite(w)&&w>0&&h>0)defs.select('#planned-flag-'+d.code).attr('x',bounds[0][0]).attr('y',bounds[0][1]).attr('width',w).attr('height',h);
+  });
   const center=projection.invert([350,350]);
   entries.forEach(item=>{
    const active=selected?item.pin&&item.key===selected.key:!item.pin;
@@ -45,20 +51,23 @@
  }
  function list(){
   options.replaceChildren();const title=document.createElement('p');title.textContent=selected?selected.name+' / Pick a city':'WHERE WE’RE GOING';options.append(title);
-  (selected?cityData.filter(c=>c.key===selected.key):destinations).forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item.name;b.addEventListener('click',()=>item.pin?item.pin.click():select(item));options.append(b);});
+  (selected?cityData.filter(c=>c.key===selected.key):destinations).forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item.name;b.addEventListener('click',()=>item.pin?selectCity(item):select(item));options.append(b);});
  }
+ function selectCity(item){city=item;animate(item.xy,5600);reset.hidden=false;reset.textContent='← Back to country';item.pin.click();}
+ function animate(xy,target){cancelAnimationFrame(frame);const from=rotation.slice(),old=scale,start=performance.now(),to=[-xy[0],-xy[1],0];function tick(now){const t=matchMedia('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(now-start)/900),e=1-Math.pow(1-t,3);rotation=from.map((v,i)=>v+(to[i]-v)*e);scale=old+(target-old)*e;draw();if(t<1)frame=requestAnimationFrame(tick);}frame=requestAnimationFrame(tick);}
  function select(item){
+  city=null;reset.hidden=!item;reset.textContent='← Back to full globe';
   selected=item;cancelAnimationFrame(frame);const from=rotation.slice(),old=scale,start=performance.now(),to=item?[-item.xy[0],-item.xy[1],0]:[65,20,0];
   to[0]=from[0]+((to[0]-from[0])%360+540)%360-180;
   const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:900;list();
-  function tick(now){const t=duration?Math.min(1,(now-start)/duration):1,e=1-Math.pow(1-t,3);rotation=from.map((v,i)=>v+(to[i]-v)*e);scale=old+((item?560:305)-old)*e;draw();if(t<1)frame=requestAnimationFrame(tick);}
+  function tick(now){const t=duration?Math.min(1,(now-start)/duration):1,e=1-Math.pow(1-t,3);rotation=from.map((v,i)=>v+(to[i]-v)*e);scale=old+((item?(item.key==='bolivia'?2200:1450):305)-old)*e;draw();if(t<1)frame=requestAnimationFrame(tick);}
   frame=requestAnimationFrame(tick);
  }
- root.querySelector('.planned-reset').addEventListener('click',()=>select(null));
+ root.querySelector('.planned-reset').addEventListener('click',()=>city?select(selected):select(null));
  land.on('click',(event,f)=>{if(!moved){const item=destinations.find(d=>d.code===f.properties.code);if(item)select(item);}});
- surface.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;cancelAnimationFrame(frame);moved=false;drag={x:e.clientX,y:e.clientY,r:rotation.slice()};surface.classList.add('dragging');});
+ surface.addEventListener('pointerdown',e=>{if(selected||e.target.closest('button')||e.button!==0)return;cancelAnimationFrame(frame);moved=false;drag={x:e.clientX,y:e.clientY,r:rotation.slice()};surface.classList.add('dragging');});
  surface.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=moved||Math.hypot(dx,dy)>5;rotation=[drag.r[0]+dx*180/surface.clientWidth,Math.max(-85,Math.min(85,drag.r[1]-dy*180/surface.clientWidth)),0];draw();});
  function end(){drag=null;surface.classList.remove('dragging');}window.addEventListener('pointerup',end);surface.addEventListener('pointerleave',end);surface.addEventListener('pointercancel',end);
- surface.addEventListener('keydown',e=>{if(e.target!==surface||!e.key.startsWith('Arrow'))return;e.preventDefault();cancelAnimationFrame(frame);if(e.key==='ArrowLeft')rotation[0]-=12;if(e.key==='ArrowRight')rotation[0]+=12;if(e.key==='ArrowUp')rotation[1]=Math.min(85,rotation[1]+12);if(e.key==='ArrowDown')rotation[1]=Math.max(-85,rotation[1]-12);draw();});
- list();draw();
+ surface.addEventListener('keydown',e=>{if(selected||e.target!==surface||!e.key.startsWith('Arrow'))return;e.preventDefault();cancelAnimationFrame(frame);if(e.key==='ArrowLeft')rotation[0]-=12;if(e.key==='ArrowRight')rotation[0]+=12;if(e.key==='ArrowUp')rotation[1]=Math.min(85,rotation[1]+12);if(e.key==='ArrowDown')rotation[1]=Math.max(-85,rotation[1]-12);draw();});
+ reset.hidden=true;list();draw();
 })();

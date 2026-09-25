@@ -2040,3 +2040,97 @@ body:has(.country-portfolio[open]) { overflow:hidden; }
  100% {opacity:0;transform:perspective(600px) translate(-50%,-50%) translateZ(570px) rotate(18deg);}
 }
 @media(prefers-reduced-motion:reduce) {.explosion-trigger-plane {animation:none;} }
+/* Mouth-level introductions without covering the faces. */
+.host-portrait-button {padding-bottom:0;overflow:visible;}
+.host-intro-bubble,.host-card:nth-of-type(2) .host-intro-bubble {width:100px;height:57px;padding:8px 9px 18px;left:2%;right:auto;bottom:auto;top:30%;transform:none;font-size:12px;}
+.host-card:nth-of-type(2) .host-intro-bubble {top:66%;left:44%;}
+.host-intro-bubble:before {transform:scaleX(-1);}
+.host-card:nth-of-type(2) .host-intro-bubble:before {transform:scaleY(-1);}
+.host-card:nth-of-type(2) .host-intro-bubble {padding:20px 8px 6px;}
+.host-click-cue {top:45%;bottom:auto;left:50%;transform:translateX(-50%);}
+.host-university a {display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none;}
+.host-university a:hover {text-decoration:underline;}
+.yt-feed-thumbnail .social-hype-screen>b:first-child,.yt-feed-thumbnail .social-hype-screen>b:last-child {display:none;}
+.yt-feed-thumbnail .social-hype-screen>b {font-size:10px;line-height:1.5;}
+.social-hype-hearts i {width:20px;height:20px;color:#ff3040;animation:social-heart-rise 2.8s calc(var(--heart)*.4s) ease-out infinite;}
+.social-hype-hearts svg {width:100%;height:100%;filter:drop-shadow(0 1px 2px #0003);}
+@keyframes social-heart-rise {0%{opacity:0;transform:translateY(0) scale(.5)}15%{opacity:1;transform:translateY(-15px) scale(1.15)}55%{opacity:.85;transform:translate(8px,-65px) scale(.95)}100%{opacity:0;transform:translate(-5px,-140px) scale(.7)}}
+.gps-lost {position:relative;overflow:visible;}
+.gps-lost .gps-dainty-cue {top:50%;left:calc(100% + 4px);right:auto;transform:translateY(-50%);font-size:13px;}
+.planned-reset[hidden] {display:none!important;}
+.planned-pin {min-width:40px;min-height:44px;}
+.contact-followers>a {box-sizing:border-box;width:180px;min-height:66px;}
+.contact-followers .youtube-series-badge {flex-basis:auto;}
+.contact-followers .youtube-series-badge strong {font-size:12px;}
+.contact-followers .youtube-series-badge small:last-child {font-size:8px;}
+.camp-pointer {position:absolute;top:46%;left:50%;width:30px;height:40px;pointer-events:none;filter:drop-shadow(0 2px 3px #0005);animation:camp-tap 2s ease-in-out infinite;}
+.camp-pointer svg {width:100%;height:100%;}
+.memory-launch.has-started .camp-pointer {display:none;}
+@keyframes camp-tap {0%,100%{transform:translate(5px,5px)}50%{transform:translate(0,0) scale(.88)}}
+.portfolio-description {max-width:560px;font-size:14px;line-height:1.6;}
+@media(prefers-reduced-motion:reduce) {.camp-pointer {animation:none}.social-hype-hearts {display:none}}
+/* A single invitation, then an uninterrupted photo story. */
+.memory-launch .memory-click {position:absolute;top:47%;left:calc(50% + 36px);right:auto;bottom:auto;transform:none;background:none;border:0;box-shadow:none;padding:0;color:#fff;font:500 14px/1.2 Arial,sans-serif;text-shadow:0 1px 5px #000;white-space:nowrap;animation:camp-invitation 1s ease-in-out infinite;}
+.memory-click[hidden] {display:none!important;}
+.camp-pointer {animation:camp-tap 1s ease-in-out infinite;}
+@keyframes camp-invitation {0%,100%{opacity:.55}50%{opacity:1}}
+/* Hidden must win over the bubble's grid layout; each portrait owns its toggle. */
+.host-portrait-button .host-intro-bubble[hidden],.host-portrait-button .host-click-cue[hidden] {display:none!important;}
+.host-portrait-button .host-intro-bubble,.host-portrait-button .host-click-cue {pointer-events:none;}
+.route-photo-frame {position:relative;isolation:isolate;}
+.route-photo-frame:after {content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#071a22cc);pointer-events:none;z-index:1;}
+.route-photo-frame .arrival {position:absolute;bottom:15px;left:18px;right:18px;margin:0;padding:0;color:white;z-index:2;}
+.route-photo-frame .arrival-date {font-size:10px!important;margin:0 0 8px;color:#fff!important;letter-spacing:.05em;}
+.route-photo-frame .countdown {color:#fff;gap:6px;}
+.route-photo-frame .countdown-unit {padding:0;border:0;background:none;}
+.route-photo-frame .countdown-unit strong {font-size:clamp(1.25rem,2.2vw,1.8rem);}
+.route-photo-frame .countdown-unit small {margin-top:3px;color:#fff;}
+.route-content {padding:18px 22px;gap:8px;}
+.route-content h3 {font-size:1.55rem;margin:0;}
+.route-content p {margin:0;}
+.route-content .route-label {margin-top:6px;}
+.discover-section > .section-head {margin-bottom:12px;}
+.discover-section .travel-map-layout {row-gap:14px;}
+.discover-section .map-journal {padding:14px 20px;box-shadow:none;}
+.discover-section .map-journal h3 {font-size:1.5rem;line-height:1.2;margin:0 0 6px;}
+.discover-section .map-journal p {margin:0;font-size:.85rem;line-height:1.5;}
+.discover-section .map-journal .eyebrow {margin-bottom:6px;}
+.discover-section .footprint-journal {padding-block:4px;}
+.discover-section .footprint-journal h3 {font-size:1.7rem;margin:4px 0 8px;}
+.discover-section .footprint-journal p {margin-block:5px;}
+@media(prefers-reduced-motion:reduce) {.memory-launch .memory-click,.camp-pointer {animation:none;}}
+.meadow-tree {position:absolute;z-index:0;right:calc(15% - 82px);bottom:calc(24% - 37px);width:210px;padding:0;border:0;background:none;cursor:zoom-in;line-height:0;}
+.meadow-tree img {display:block;width:100%;height:auto;filter:drop-shadow(5px 8px 5px #061e2440);}
+.meadow-tree>span {position:absolute;top:57%;left:50%;transform:translateX(-50%);white-space:nowrap;color:white;text-shadow:0 1px 4px #000;font:10px/1.3 Arial,sans-serif;background:#10221e88;padding:4px 7px;border-radius:20px;}
+.meadow-tree:focus-visible {outline:2px solid white;outline-offset:5px;}
+.tree-poster-dialog {width:min(480px,88vw);max-height:92dvh;padding:12px;border:1px solid #c5b48b;border-radius:10px;background:#231b12;color:#fff9e9;overflow:auto;box-shadow:0 25px 100px #0009;}
+.tree-poster-dialog::backdrop {background:#04110de0;backdrop-filter:blur(5px);}
+.tree-poster-crop {position:relative;aspect-ratio: .65;overflow:hidden;border-radius:5px;}
+.tree-poster-crop img {position:absolute;width:260%;max-width:none;height:auto;left:50%;top:50%;transform:translate(-50%,-60%);}
+.tree-poster-close {position:absolute;top:17px;right:17px;z-index:2;width:38px;height:38px;border:1px solid #fff8;border-radius:50%;background:#17251eee;color:white;font-size:25px;cursor:pointer;}
+.tree-poster-dialog p {text-align:center;font:12px/1.5 Georgia,serif;margin:12px 0 2px;}
+@media(max-width:700px){.meadow-tree {right:calc(12% - 64px);width:175px;}}
+/* Keep the meadow detail at landscape scale, with subdued natural color. */
+.meadow-tree {width:92px;right:calc(15% - 22px);bottom:calc(24% - 30px);}
+.meadow-tree img {filter:saturate(.38) brightness(.83) contrast(.8);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 90%,transparent 100%);}
+.meadow-tree>span {display:block;top:18%;left:50%;padding:3px 6px;background:#15272055;border:1px solid #ffffff20;border-radius:12px;color:#fff9e9;font:9px/1.4 Arial,sans-serif;letter-spacing:.02em;text-shadow:0 1px 3px #0008;opacity:.85;transition:opacity .2s,background .2s;}
+.meadow-tree:hover>span,.meadow-tree:focus-visible>span {opacity:1;background:#152720a0;}
+.meadow-tree:focus-visible {outline:1px dashed #fff9;}
+/* Never enlarge a tiny crop of the poster: show the complete source image. */
+.tree-poster-dialog {width:min(480px,88vw);background:#18231d;border-color:#ffffff30;}
+.tree-poster-crop {aspect-ratio:auto;overflow:visible;}
+.tree-poster-crop img {position:static;display:block;width:100%;max-width:100%;height:auto;transform:none;border-radius:4px;}
+@media(max-width:700px){.meadow-tree {width:80px;right:calc(12% - 19px);}}
+
+/* Leave the trunk clear while keeping the landing and light aligned. */
+.closing {--seated-right:max(8px, calc(15% - 60px));}
+.mountain-sitter {right:var(--seated-right);}
+.mountain-paraglider.has-landed {right:calc(var(--seated-right) + 38px);}
+.mountain-blessing-light {right:calc(var(--seated-right) - 55px);}
+.meadow-tree > .poster-arrow {top:56%;left:68%;transform:translateY(-50%);padding:0;border:0;border-radius:0;background:none;color:#fff;font:20px/1 Arial,sans-serif;opacity:.9;text-shadow:0 1px 3px #0008;pointer-events:none;}
+.meadow-tree:hover > .poster-arrow,.meadow-tree:focus-visible > .poster-arrow {background:none;opacity:1;}
+@media(max-width:700px){.closing {--seated-right:max(8px, calc(12% - 50px));}.meadow-tree {right:calc(12% + 6px);}}
+
+/* Explicit dimensions keep the inline SVG hearts visible above the scene. */
+.sky-blessing-heart {display:block;width:32px;height:32px;}
+.sky-blessing-heart svg {display:block;width:100%;height:100%;overflow:visible;}
