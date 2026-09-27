@@ -18,7 +18,11 @@ with ThreadPoolExecutor(max_workers=4) as pool:
  for folder in sorted(source.iterdir()):
   if not folder.is_dir():continue
   files=sorted(p for p in folder.rglob('*') if p.suffix.lower() in {'.jpg','.jpeg','.png','.webp','.heic','.mp4','.mov','.m4v'})
-  manifest[names.get(folder.name,folder.name)]=list(pool.map(prepare,files))
+  seen=set(); unique=[]
+  for photo in files:
+   digest=hashlib.sha256(photo.read_bytes()).hexdigest()
+   if digest not in seen: unique.append(photo);seen.add(digest)
+  manifest[names.get(folder.name,folder.name)]=list(pool.map(prepare,unique))
 (ROOT/'travel-photos.js').write_text('window.travelPortfolios='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n')
 print('Built',len(manifest),'portfolios with',sum(len(v) for v in manifest.values()),'photos and videos.')
 

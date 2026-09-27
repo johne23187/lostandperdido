@@ -1,2 +1,5 @@
 
 .local-data/
+dist/
+node_modules/
+.netlify/

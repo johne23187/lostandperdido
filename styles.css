@@ -655,8 +655,8 @@ footer .brand { color: white; }
   .site-header { flex-wrap: wrap; align-items: center; padding: 18px 6vw; }
   .menu-toggle:not([hidden]) { display: flex; align-items: center; gap: 12px; border: 1px solid #ffffff80; border-radius: 999px; padding: 9px 13px; background: #15151570; color: white; font-size: .75rem; }
   nav { width: 100%; justify-content: flex-start; gap: 20px; padding: 18px; background: #151515; border-radius: 3px; }
-  body.js-ready nav { display: none; }
-  body.js-ready nav.is-open { display: flex; }
+  body.js-ready .site-header nav { display: none; }
+  body.js-ready .site-header nav.is-open { display: flex; }
   .hero-content { padding: 170px 6vw 130px; }
   h1 { font-size: clamp(3.5rem, 11vw, 5.5rem); }
   .hero .eyebrow { max-width: 300px; font-size: .65rem; }
@@ -1419,10 +1419,10 @@ body:has(.van-cinema[open]) { overflow: hidden; }
 .van-zoom-shell { position: fixed; z-index: 10; pointer-events: none; transform-origin: 64% 48%; }
 @media(max-width: 650px) {
  .soundtrack-media { gap: 8px; } .memory-van { min-width: 110px; flex-basis: 150px; } .van-caption { font-size: 10px; }
- .van-front-seats { grid-template-columns: 23% 77%; gap: 14px; width: 106%; margin-left: -12%; margin-top: 90px; }
- .van-passenger-seat .van-headrest { padding: 13px; border-radius: 25px; } .van-driver-seat .van-headrest { width: 130%; height: 150px; }
+ .van-front-seats { grid-template-columns: .8fr 1.2fr; gap: 12px; width: 94%; margin: 80px auto 0; }
+ .van-passenger-seat .van-headrest { padding: 13px; border-radius: 25px; } .van-driver-seat .van-headrest { width: 94%; height: 130px; }
  .van-seat-back { height: 280px; } .van-tv-play { font-size: 32px; } .van-cinema-heading { padding-top: 28px; }
- .van-cabin { min-height: max(680px, 100dvh); } .van-tv-bezel { font-size: 5px; }
+ .van-cabin { min-height: 100dvh; } .van-tv-bezel { font-size: 5px; }
 }
 @media(prefers-reduced-motion: reduce) { .memory-van img { transition: none; } }
 
@@ -2040,3 +2040,284 @@ body:has(.country-portfolio[open]) { overflow:hidden; }
  100% {opacity:0;transform:perspective(600px) translate(-50%,-50%) translateZ(570px) rotate(18deg);}
 }
 @media(prefers-reduced-motion:reduce) {.explosion-trigger-plane {animation:none;} }
+/* Mouth-level introductions without covering the faces. */
+.host-portrait-button {padding-bottom:0;overflow:visible;}
+.host-intro-bubble,.host-card:nth-of-type(2) .host-intro-bubble {width:100px;height:57px;padding:8px 9px 18px;left:2%;right:auto;bottom:auto;top:30%;transform:none;font-size:12px;}
+.host-card:nth-of-type(2) .host-intro-bubble {top:66%;left:44%;}
+.host-intro-bubble:before {transform:scaleX(-1);}
+.host-card:nth-of-type(2) .host-intro-bubble:before {transform:scaleY(-1);}
+.host-card:nth-of-type(2) .host-intro-bubble {padding:20px 8px 6px;}
+.host-click-cue {top:45%;bottom:auto;left:50%;transform:translateX(-50%);}
+.host-university a {display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none;}
+.host-university a:hover {text-decoration:underline;}
+.yt-feed-thumbnail .social-hype-screen>b:first-child,.yt-feed-thumbnail .social-hype-screen>b:last-child {display:none;}
+.yt-feed-thumbnail .social-hype-screen>b {font-size:10px;line-height:1.5;}
+.social-hype-hearts i {width:20px;height:20px;color:#ff3040;animation:social-heart-rise 2.8s calc(var(--heart)*.4s) ease-out infinite;}
+.social-hype-hearts svg {width:100%;height:100%;filter:drop-shadow(0 1px 2px #0003);}
+@keyframes social-heart-rise {0%{opacity:0;transform:translateY(0) scale(.5)}15%{opacity:1;transform:translateY(-15px) scale(1.15)}55%{opacity:.85;transform:translate(8px,-65px) scale(.95)}100%{opacity:0;transform:translate(-5px,-140px) scale(.7)}}
+.gps-lost {position:relative;overflow:visible;}
+.gps-lost .gps-dainty-cue {top:50%;left:calc(100% + 4px);right:auto;transform:translateY(-50%);font-size:13px;}
+.planned-reset[hidden] {display:none!important;}
+.planned-pin {min-width:40px;min-height:44px;}
+.contact-followers>a {box-sizing:border-box;width:180px;min-height:66px;}
+.contact-followers .youtube-series-badge {flex-basis:auto;}
+.contact-followers .youtube-series-badge strong {font-size:12px;}
+.contact-followers .youtube-series-badge small:last-child {font-size:8px;}
+.camp-pointer {position:absolute;top:46%;left:50%;width:30px;height:40px;pointer-events:none;filter:drop-shadow(0 2px 3px #0005);animation:camp-tap 2s ease-in-out infinite;}
+.camp-pointer svg {width:100%;height:100%;}
+.memory-launch.has-started .camp-pointer {display:none;}
+@keyframes camp-tap {0%,100%{transform:translate(5px,5px)}50%{transform:translate(0,0) scale(.88)}}
+.portfolio-description {max-width:560px;font-size:14px;line-height:1.6;}
+@media(prefers-reduced-motion:reduce) {.camp-pointer {animation:none}.social-hype-hearts {display:none}}
+/* A single invitation, then an uninterrupted photo story. */
+.memory-launch .memory-click {position:absolute;top:47%;left:calc(50% + 36px);right:auto;bottom:auto;transform:none;background:none;border:0;box-shadow:none;padding:0;color:#fff;font:500 14px/1.2 Arial,sans-serif;text-shadow:0 1px 5px #000;white-space:nowrap;animation:camp-invitation 1s ease-in-out infinite;}
+.memory-click[hidden] {display:none!important;}
+.camp-pointer {animation:camp-tap 1s ease-in-out infinite;}
+@keyframes camp-invitation {0%,100%{opacity:.55}50%{opacity:1}}
+/* Hidden must win over the bubble's grid layout; each portrait owns its toggle. */
+.host-portrait-button .host-intro-bubble[hidden],.host-portrait-button .host-click-cue[hidden] {display:none!important;}
+.host-portrait-button .host-intro-bubble,.host-portrait-button .host-click-cue {pointer-events:none;}
+.route-photo-frame {position:relative;isolation:isolate;}
+.route-photo-frame:after {content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#071a22cc);pointer-events:none;z-index:1;}
+.route-photo-frame .arrival {position:absolute;bottom:15px;left:18px;right:18px;margin:0;padding:0;color:white;z-index:2;}
+.route-photo-frame .arrival-date {font-size:10px!important;margin:0 0 8px;color:#fff!important;letter-spacing:.05em;}
+.route-photo-frame .countdown {color:#fff;gap:6px;}
+.route-photo-frame .countdown-unit {padding:0;border:0;background:none;}
+.route-photo-frame .countdown-unit strong {font-size:clamp(1.25rem,2.2vw,1.8rem);}
+.route-photo-frame .countdown-unit small {margin-top:3px;color:#fff;}
+.route-content {padding:18px 22px;gap:8px;}
+.route-content h3 {font-size:1.55rem;margin:0;}
+.route-content p {margin:0;}
+.route-content .route-label {margin-top:6px;}
+.discover-section > .section-head {margin-bottom:12px;}
+.discover-section .travel-map-layout {row-gap:14px;}
+.discover-section .map-journal {padding:14px 20px;box-shadow:none;}
+.discover-section .map-journal h3 {font-size:1.5rem;line-height:1.2;margin:0 0 6px;}
+.discover-section .map-journal p {margin:0;font-size:.85rem;line-height:1.5;}
+.discover-section .map-journal .eyebrow {margin-bottom:6px;}
+.discover-section .footprint-journal {padding-block:4px;}
+.discover-section .footprint-journal h3 {font-size:1.7rem;margin:4px 0 8px;}
+.discover-section .footprint-journal p {margin-block:5px;}
+@media(prefers-reduced-motion:reduce) {.memory-launch .memory-click,.camp-pointer {animation:none;}}
+.meadow-tree {position:absolute;z-index:0;right:calc(15% - 82px);bottom:calc(24% - 37px);width:210px;padding:0;border:0;background:none;cursor:zoom-in;line-height:0;}
+.meadow-tree img {display:block;width:100%;height:auto;filter:drop-shadow(5px 8px 5px #061e2440);}
+.meadow-tree>span {position:absolute;top:57%;left:50%;transform:translateX(-50%);white-space:nowrap;color:white;text-shadow:0 1px 4px #000;font:10px/1.3 Arial,sans-serif;background:#10221e88;padding:4px 7px;border-radius:20px;}
+.meadow-tree:focus-visible {outline:2px solid white;outline-offset:5px;}
+.tree-poster-dialog {width:min(480px,88vw);max-height:92dvh;padding:12px;border:1px solid #c5b48b;border-radius:10px;background:#231b12;color:#fff9e9;overflow:auto;box-shadow:0 25px 100px #0009;}
+.tree-poster-dialog::backdrop {background:#04110de0;backdrop-filter:blur(5px);}
+.tree-poster-crop {position:relative;aspect-ratio: .65;overflow:hidden;border-radius:5px;}
+.tree-poster-crop img {position:absolute;width:260%;max-width:none;height:auto;left:50%;top:50%;transform:translate(-50%,-60%);}
+.tree-poster-close {position:absolute;top:17px;right:17px;z-index:2;width:38px;height:38px;border:1px solid #fff8;border-radius:50%;background:#17251eee;color:white;font-size:25px;cursor:pointer;}
+.tree-poster-dialog p {text-align:center;font:12px/1.5 Georgia,serif;margin:12px 0 2px;}
+@media(max-width:700px){.meadow-tree {right:calc(12% - 64px);width:175px;}}
+/* Keep the meadow detail at landscape scale, with subdued natural color. */
+.meadow-tree {width:92px;right:calc(15% - 22px);bottom:calc(24% - 30px);}
+.meadow-tree img {filter:saturate(.38) brightness(.83) contrast(.8);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 90%,transparent 100%);}
+.meadow-tree>span {display:block;top:18%;left:50%;padding:3px 6px;background:#15272055;border:1px solid #ffffff20;border-radius:12px;color:#fff9e9;font:9px/1.4 Arial,sans-serif;letter-spacing:.02em;text-shadow:0 1px 3px #0008;opacity:.85;transition:opacity .2s,background .2s;}
+.meadow-tree:hover>span,.meadow-tree:focus-visible>span {opacity:1;background:#152720a0;}
+.meadow-tree:focus-visible {outline:1px dashed #fff9;}
+/* Never enlarge a tiny crop of the poster: show the complete source image. */
+.tree-poster-dialog {width:min(480px,88vw);background:#18231d;border-color:#ffffff30;}
+.tree-poster-crop {aspect-ratio:auto;overflow:visible;}
+.tree-poster-crop img {position:static;display:block;width:100%;max-width:100%;height:auto;transform:none;border-radius:4px;}
+@media(max-width:700px){.meadow-tree {width:80px;right:calc(12% - 19px);}}
+
+/* Leave the trunk clear while keeping the landing and light aligned. */
+.closing {--seated-right:max(8px, calc(15% - 60px));}
+.mountain-sitter {right:var(--seated-right);}
+.mountain-paraglider.has-landed {right:calc(var(--seated-right) + 38px);}
+.mountain-blessing-light {right:calc(var(--seated-right) - 55px);}
+@media(max-width:700px){.closing {--seated-right:max(8px, calc(12% - 50px));}.meadow-tree {right:calc(12% + 6px);}}
+
+/* Explicit dimensions keep the inline SVG hearts visible above the scene. */
+.sky-blessing-heart {display:block;width:32px;height:32px;}
+.sky-blessing-heart svg {display:block;width:100%;height:100%;overflow:visible;}
+
+/* Host details and touch-friendly controls. */
+.host-click-cue {top:50%;left:50%;bottom:auto;transform:translate(-50%,-50%);padding:0;background:none;border:0;border-radius:0;color:#fff;font:600 16px/1.2 "DM Sans",sans-serif;text-shadow:0 1px 5px #0008;animation:host-cue-pulse 1s ease-in-out infinite;}
+@keyframes host-cue-pulse {0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}50%{opacity:.45;transform:translate(-50%,-50%) scale(1.06)}}
+.host-card .host-university .fordham-logo {width:44px;height:44px;}
+.host-university:has(.fordham-logo) a {flex-wrap:nowrap;justify-content:flex-start;gap:6px;margin:0;padding:0;}
+.host-university:has(.fordham-logo) a span {min-width:0;}
+.host-university a {flex-wrap:wrap;}
+.host-card .host-hometown {margin:3px 0 10px;font-size:10.5px;line-height:1.5;}
+.host-hometown-prefix {display:block;}
+.host-hometown-place {display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.host-card .host-hometown .hometown-decoration {display:inline-block;width:20px;height:30px;aspect-ratio:auto;object-fit:contain;flex:none;border-radius:0;transform-origin:50% 90%;animation:hometown-sway 4s ease-in-out infinite;}
+@keyframes hometown-sway {0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@media(prefers-reduced-motion:reduce) {.host-card .host-hometown .hometown-decoration {animation:none;}}
+.ig-post-image .social-hype-hearts i,.yt-feed-thumbnail .social-hype-hearts i {left:calc(18% + var(--heart)*28%);animation-delay:calc(var(--heart)*.9s);}
+.post-view-count {font-variant-numeric:tabular-nums;white-space:nowrap;}
+.gps-poll-options button {position:relative;min-height:44px;background-image:linear-gradient(90deg,#ffffff30 var(--poll-share,0%),transparent var(--poll-share,0%));transition:background-position .2s;}
+.gps-poll-options button:disabled {cursor:default;opacity:1;}
+.gps-poll-options button:focus-visible {outline:3px solid #273d59;outline-offset:4px;}
+/* Center the trunk between the seated friends without moving their animation. */
+.meadow-tree {right:calc(var(--seated-right) - 5px);}
+/* Only the poster sits above speech bubbles; the rest of the tree stays behind. */
+.meadow-tree {z-index:auto;}
+.meadow-tree::after {content:"";position:absolute;inset:0;z-index:3;background:url('assets/meadow-poster-tree.png') center/100% 100% no-repeat;clip-path:polygon(40% 46%,60% 46%,65% 72%,39% 72%);filter:saturate(.38) brightness(.83) contrast(.8);pointer-events:none;}
+@media(max-width:700px) {
+  .meadow-tree {right:calc(var(--seated-right) + 1px);}
+  .host-flags {right:0;}
+  .host-card figcaption {overflow-wrap:anywhere;}
+  .host-university a {gap:4px;}
+  .host-card .host-university img[src$="fordham-ram.svg"] {max-width:100%;}
+  dialog {max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overscroll-behavior:contain;}
+  .meeting-story {width:calc(100vw - 24px);}
+  .memory-launch {touch-action:manipulation;}
+  .memory-controls button,.meeting-close,.tree-poster-close,.city-popup-close {min-width:44px;min-height:44px;}
+  .gps-poll {width:calc(100% - 24px);margin-inline:12px;}
+  .gps-poll-status {font-size:12px;}
+  .site-header nav.is-open {flex-wrap:wrap;}
+  .traveler-tabs button,.globe-mode-switch button,.footprint-reset,.planned-reset {min-height:44px;}
+}
+@media(prefers-reduced-motion:reduce) {.host-click-cue {animation:none;}}
+
+/* Match the visible flag artwork, including the source PNG's transparent margins. */
+.host-flags .host-flag .host-us-flag {width:24px;height:21px;}
+/* Feed icon defaults must not turn the floating TikTok-style hearts into outlines. */
+.social-hype-hearts svg {fill:currentColor;stroke:none;stroke-width:0;}
+.social-instagram .phone .instagram-ui {display:flex;flex-direction:column;}
+.social-instagram .instagram-ui > * {flex-shrink:0;}
+.social-instagram .instagram-ui .ig-post-image {flex:1 1 auto;min-height:0;aspect-ratio:auto;overflow:hidden;}
+.social-instagram .ig-post-copy {color:#101010;background:#fff;}
+.social-instagram .ig-like-count {display:block;font-weight:700;line-height:1.5;font-variant-numeric:tabular-nums;}
+.mountain-paraglider.has-landed {right:calc(var(--seated-right) + 38px + .5cm);}
+
+/* A final invitation after the blessing; the poster remains visitor-controlled. */
+.poster-discovered .mountain-friend > span[hidden] {display:none!important;}
+.poster-discovered .poster-traveler {overflow:visible;transform-origin:50% 85%;}
+.poster-discovered .mountain-friend > span {display:none;}
+
+/* Muted alpine greens and a quiet breeze, anchored at the existing roots. */
+.meadow-tree {--tree-landscape-tone:saturate(.48) hue-rotate(12deg) brightness(.76) contrast(.88);}
+.meadow-tree img,.meadow-tree::before,.meadow-tree::after {
+  filter:var(--tree-landscape-tone);
+  transform-origin:50% 100%;
+  animation:meadow-tree-breeze 9s ease-in-out infinite;
+}
+/* Tone the grass separately so the canopy and poster keep their existing color. */
+.meadow-tree img {
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 84%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 84%);
+}
+.meadow-tree::before {
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:url('assets/meadow-poster-tree.png') center/100% 100% no-repeat;
+  filter:saturate(.18) hue-rotate(15deg) brightness(.62) contrast(.85);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 76%,#000 84%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 76%,#000 84%,#000 88%,transparent 100%);
+}
+.meadow-tree > .poster-arrow {
+  display:none;
+  top:57%;left:69%;z-index:4;padding:0;border:0;border-radius:0;
+  background:none;color:#fff;font:17px/1 Arial,sans-serif;
+  text-shadow:0 1px 3px #0009;pointer-events:none;
+  transform:translateY(-50%);animation:poster-arrow-pulse 1s ease-in-out infinite;
+}
+.poster-ending-complete .meadow-tree > .poster-arrow {display:block;}
+.meadow-tree:hover > .poster-arrow,.meadow-tree:focus-visible > .poster-arrow {background:none;}
+@keyframes poster-arrow-pulse {
+  0%,100% {opacity:.55;transform:translateY(-50%);}
+  50% {opacity:1;transform:translate(-2px,-50%) scale(1.08);}
+}
+@media(prefers-reduced-motion:reduce) {.meadow-tree > .poster-arrow {animation:none;opacity:1;}}
+@keyframes meadow-tree-breeze {
+  0%,100% {transform:skewX(0deg);}
+  30% {transform:skewX(.35deg);}
+  70% {transform:skewX(-.25deg);}
+}
+.meadow-tree:hover img,.meadow-tree:hover::before,.meadow-tree:hover::after,
+.meadow-tree:focus-visible img,.meadow-tree:focus-visible::before,.meadow-tree:focus-visible::after {animation-play-state:paused;}
+@media(prefers-reduced-motion:reduce) {
+  .meadow-tree img,.meadow-tree::before,.meadow-tree::after {animation:none;}
+}
+
+/* A tighter, shared editorial edge for the introduction and itinerary. */
+.about-section {padding:72px 5vw;gap:clamp(24px,3vw,48px);align-items:start;}
+.about-copy {margin:0;max-width:none;}
+.about-copy > p:not(.eyebrow) {max-width:52ch;font-size:1.02rem;line-height:1.7;margin-top:22px;}
+.hosts {max-width:560px;}
+@media(min-width:900px) {
+  .about-section {grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+  .host-card {grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:14px;}
+}
+.host-card .host-hometown {font-weight:600;white-space:nowrap;font-size:clamp(8px,.88vw,11px);}
+.host-hometown-prefix {display:inline;}
+.host-hometown-place {display:inline;}
+.host-card .host-hometown .hometown-decoration {vertical-align:middle;margin-left:3px;}
+@media(max-width:899px) {
+  .about-section {grid-template-columns:1fr;}
+  .host-card {grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);}
+  .host-card .host-hometown {font-size:clamp(8px,2.3vw,11px);}
+}
+.host-click-cue {animation:host-cue-gentle 3s ease-in-out infinite;}
+@keyframes host-cue-gentle {
+  0%,33.333%,100% {opacity:0;transform:translate(-50%,-50%) scale(.98);}
+  8%,25% {opacity:.95;transform:translate(-50%,-50%) scale(1.02);}
+}
+.journey-section {padding-bottom:42px;}
+.journey-section .section-copy {color:var(--orange);font-family:inherit;font-style:normal;font-size:1rem;}
+.discover-section {padding-top:42px;}
+.footprint-journal {padding:14px 20px;border:1px solid var(--line);background:var(--cream);}
+.camp-magnifier {width:30px;height:40px;}
+.camp-magnifier > .perspective-lens {left:4px;top:0;transform:scale(.24);transform-origin:0 0;}
+.lost-meter {border-color:#c6a57888;background:linear-gradient(165deg,#273239,#101c22 72%);box-shadow:inset 0 1px 0 #f6dfb930,inset 0 -2px 0 #0007,0 5px 15px #0003;}
+.lost-meter-top {position:relative;padding-right:26px;}
+.lost-meter-power {position:absolute;right:-1px;top:-1px;display:flex;align-items:center;gap:2px;padding:1px;border:0;background:none;color:#e7caa1;font:5px/1 monospace;cursor:pointer;}
+.lost-meter-power::before {content:"";position:absolute;inset:-9px -3px;}
+.lost-meter-power i {position:relative;display:block;width:13px;height:7px;background:#0b1418;border:1px solid #b29a7166;border-radius:3px;box-shadow:inset 0 1px 2px #000;}
+.lost-meter-power i::after {content:"";position:absolute;top:0;left:6px;width:5px;height:5px;border-radius:1px;background:linear-gradient(#f7ddb1,#a78a60);transition:left .15s;}
+.lost-meter-power[aria-checked="false"] i::after {left:0;}
+.lost-meter-power:focus-visible {outline:2px solid #f6dfb9;outline-offset:3px;}
+.lost-meter meter {outline:1px solid #d7bf8b33;outline-offset:2px;}
+.lost-meter::after {content:"";position:absolute;left:9px;right:9px;bottom:6px;height:3px;background:repeating-linear-gradient(90deg,#dfc49a77 0 1px,transparent 1px 8px);pointer-events:none;}
+.lost-meter.is-off .lost-meter-value,.lost-meter.is-off meter {opacity:.12;filter:grayscale(1);}
+.lost-meter.is-off > small {opacity:.55;}
+.meadow-tree {--tree-landscape-tone:saturate(.24) hue-rotate(10deg) brightness(.65) contrast(.85);}
+@media(prefers-reduced-motion:reduce) {
+  .host-click-cue {animation:none;opacity:1;}
+  .lost-meter-power i::after {transition:none;}
+}
+
+/* Names and Polaroid frames share a column without changing the profile details. */
+.host-photo {min-width:0;align-self:center;}
+.host-photo > .host-name {display:block;margin:0 0 10px;text-align:center;}
+.host-portrait-button {padding:8px 8px 23px;background:#fffdf7;box-shadow:0 2px 4px #443b2420,2px 7px 13px #443b2425;border:1px solid #e3ded1;}
+.host-portrait-button > img {border-radius:0;}
+.host-portrait-button .host-click-cue {top:calc(50% - 7px);}
+.about-section {padding-bottom:12px;}
+.about-copy .how-we-met-link {display:block;margin:18px 0 8px;}
+.journey-section {padding-top:24px;padding-bottom:16px;}
+.journey-section .route-footnote {margin-bottom:0;}
+.route-divider {display:flex;align-items:center;justify-content:center;gap:clamp(14px,5vw,64px);padding:12px 5vw;background:var(--orange);color:#fff8e9;font:600 12px/1.3 "DM Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;}
+.route-divider i {font-style:normal;}
+.discover-section {padding-top:24px;padding-bottom:0;}
+.discover-section .footprint-browser {margin-bottom:0;}
+.discover-section .traveler-destinations > section {padding-bottom:12px;}
+.watch-section {margin-top:0;padding-top:4px;padding-bottom:4px;}
+.watch-intro {margin:0 0 8px;padding-top:8px;margin-left:-2vw;}
+.watch-intro > .eyebrow {margin:0;}
+.watch-intro > .socials-title {margin-top:8px;}
+@media(max-width:700px) {
+  .route-divider {font-size:10px;gap:14px;padding-block:10px;}
+  .host-portrait-button {padding:5px 5px 17px;}
+  .watch-section {padding-top:4px;padding-bottom:4px;}
+}
+
+/* Production polish: preserve labels and give decorative interactions room. */
+.services .service-icon {position:absolute;left:50%;top:50%;width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;color:var(--orange);opacity:0;transform:translate(-50%,-40%) scale(.8);transition:opacity .2s,transform .2s;pointer-events:none;}
+.service-label {transition:opacity .2s;}
+@media (hover:hover) {.services button:hover .service-label {opacity:0;} .services button:hover .service-icon {opacity:1;transform:translate(-50%,-50%) scale(1);}}
+.services button:focus-visible .service-label {opacity:0;}
+.services button:focus-visible .service-icon {opacity:1;transform:translate(-50%,-50%) scale(1);}
+.watch-section {padding-bottom:40px;}
+#journey .section-copy {font-family:"DM Sans",sans-serif;font-size:.9rem;line-height:1.7;}
+@media(max-width:650px) {dialog.van-cinema {width:100vw;max-width:100vw;margin:0;max-height:100dvh;} .van-steering {width:75px;height:75px;border-width:9px;} .van-headrest {padding:10px;border-radius:25px;} .van-passenger-seat .van-headrest {padding:8px;} .van-cabin::after {box-shadow:inset 0 0 45px 12px #05080d80;} .van-seat-pocket span {font-size:11px;} .van-windshield {left:8%;width:84%;border-width:12px;}}
+@media(prefers-reduced-motion:reduce) {.services .service-icon,.service-label {transition:none;}}
+
+@media(max-width:700px) {.hero {background-image:linear-gradient(90deg,rgba(0,0,0,.60),rgba(0,0,0,.12) 85%),url("https://images.unsplash.com/photo-1531968455001-5c5272a41129?auto=format&fit=crop&w=1000&q=85");} .van-video-controls button {min-width:44px;min-height:44px;} }
+@media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto;}}
+
+/* Keep the closing scene speech bubble within narrow viewports. */
+@media(max-width:700px){.mountain-sitter > span{left:auto;right:0;transform:none;}}

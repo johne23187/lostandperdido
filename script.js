@@ -34,6 +34,10 @@ window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  'Occupation': 'Ocupación',
+  'Professional Tourist': 'Turista profesional',
+  'Language Specialist': 'Especialista en idiomas',
+  'From Argentina’s vineyards to Chile’s coast and Bolivia’s mountain skies. Two languages, local stories, and a little room to get lost.': 'De los viñedos de Argentina a la costa de Chile y los cielos de Bolivia. Dos idiomas, historias locales y un poco de espacio para perdernos.',
   'OUR SOUNDTRACK': 'NUESTRA BANDA SONORA',
   'Listen on YouTube ↗': 'Escuchar en YouTube ↗',
   "A summer to remember.": "Un verano para recordar.",
@@ -81,7 +85,7 @@ const spanish = {
   "TWO LANGUAGES. ONE FRIENDSHIP.": "DOS IDIOMAS. UNA AMISTAD.",
   'Discover with us': 'Descubre con nosotros',
   'STORIES ALONG THE WAY': 'HISTORIAS EN EL CAMINO',
-  '04 / DISCOVER WITH US': '04 / DESCUBRE CON NOSOTROS',
+  '03 / DISCOVER WITH US': '03 / DESCUBRE CON NOSOTROS',
   'Unlock the world': 'Descubre el mundo',
   'with us.': 'con nosotros.',
   'Click a pin.': 'Haz clic en un pin.',
@@ -232,7 +236,7 @@ const spanish = {
   'Argentina': 'Argentina',
   'Chile': 'Chile',
   'Bolivia ↗': 'Bolivia ↗',
-  '01 / THE ITINERARY': '01 / EL ITINERARIO',
+  '02 / THE ITINERARY': '02 / EL ITINERARIO',
   'Three countries.': 'Tres países.',
   'No perfect itinerary.': 'Sin itinerario perfecto.',
   'About a month on the road. From Mendoza to coastal Chile, then deeper into Bolivia. This is the starting plan. The people we meet will help write the rest.': 'Cerca de un mes en el camino. De Mendoza a la costa de Chile y después más adentro de Bolivia. Este es el plan inicial. La gente que conozcamos ayudará a escribir el resto.',
@@ -270,10 +274,13 @@ const spanish = {
   'Lost': 'Lost',
   'Perdido': 'Perdido',
   'TWO PERSPECTIVES · ONE ROAD': 'DOS PERSPECTIVAS · UN CAMINO',
-  '02 / NICE TO MEET YOU · MUCHO GUSTO': '02 / MUCHO GUSTO · NICE TO MEET YOU',
+  '01 / NICE TO MEET YOU · MUCHO GUSTO': '01 / MUCHO GUSTO · NICE TO MEET YOU',
   'Meet your hosts': 'Conoce a tus anfitriones',
   'Born and raised in New York, NY.': 'Nacido y criado en Nueva York, NY.',
   'Born and raised in La Paz, Bolivia.': 'Nacido y criado en La Paz, Bolivia.',
+  'Born and raised in': 'Nacido y criado en',
+  'New York, NY.': 'Nueva York, NY.',
+  'La Paz, Bolivia.': 'La Paz, Bolivia.',
   'Languages spoken': 'Idiomas',
   'English (native), Spanish (fluent), Portuguese (no sabo).': 'Inglés (nativo), español (fluido), portugués (no sabo).',
   'Spanish (native), English (fluent), Portuguese (proficient).': 'Español (nativo), inglés (fluido), portugués (competente).',
@@ -286,7 +293,7 @@ const spanish = {
   'English and Spanish live side by side here: in conversations with locals, over food, on bus rides and in the moments we couldn’t have planned.': 'Aquí el inglés y el español conviven: en conversaciones con gente local, alrededor de la comida, durante viajes en bus y en esos momentos que nunca podríamos haber planeado.',
   'You don’t need to speak both languages.': 'No necesitas hablar los dos idiomas.',
   'You just need a little curiosity.': 'Solo necesitas un poco de curiosidad.',
-  '03 / FOLLOW US': '03 / SÍGUENOS',
+  '04 / FOLLOW US': '04 / SÍGUENOS',
   'The good stuff': 'Lo mejor',
   'is rarely planned.': 'casi nunca se planea.',
   'FIRST SEASON · COMING SOON': 'PRIMERA TEMPORADA · PRÓXIMAMENTE',
@@ -312,7 +319,7 @@ const spanish = {
   'After the trip': 'Después del viaje',
   'Language & local connections': 'Idioma y conexiones locales',
   'What actually earned its place in our bags': 'Lo que realmente se ganó un lugar en nuestras mochilas',
-  '05 / JOIN THE FAMILY': '05 / ÚNETE A LA FAMILIA',
+  '05 / WORK WITH US': '05 / TRABAJA CON NOSOTROS',
   'Your place.': 'Tu lugar.',
   'Our perspective.': 'Nuestra perspectiva.',
   'A shared story.': 'Una historia compartida.',
@@ -370,7 +377,7 @@ function collectTranslatableText() {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const parent = node.parentElement;
-      if (!parent || parent.matches('script, style')) return NodeFilter.FILTER_REJECT;
+      if (!parent || parent.closest('[data-editorial]') || parent.matches('script, style')) return NodeFilter.FILTER_REJECT;
       return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
     }
   });
@@ -378,6 +385,7 @@ function collectTranslatableText() {
   while ((node = walker.nextNode())) originalText.set(node, node.textContent);
 
   document.querySelectorAll('[aria-label], img[alt]').forEach((element) => {
+    if (element.closest('[data-editorial]')) return;
     originalAttributes.set(element, {
       ariaLabel: element.getAttribute('aria-label'),
       alt: element.getAttribute('alt')
@@ -390,7 +398,7 @@ function translateStaticText(language) {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const parent = node.parentElement;
-      if (!parent || parent.matches('script, style, .countdown')) return NodeFilter.FILTER_REJECT;
+      if (!parent || parent.closest('[data-editorial]') || parent.matches('script, style, .countdown')) return NodeFilter.FILTER_REJECT;
       return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
     }
   });
@@ -405,6 +413,7 @@ function translateStaticText(language) {
   }
 
   document.querySelectorAll('[aria-label], img[alt]').forEach((element) => {
+    if (element.closest('[data-editorial]')) return;
     if (!originalAttributes.has(element)) {
       originalAttributes.set(element, {
         ariaLabel: element.getAttribute('aria-label'),
@@ -436,6 +445,8 @@ function setLanguage(language, save = true) {
   document.documentElement.lang = currentLanguage;
   translateStaticText(currentLanguage);
   updateLanguageButtons(currentLanguage);
+  document.querySelector('.plane-word').textContent='and';
+  document.querySelector('.floating-and').setAttribute('aria-label','and');
 
   const metaDescription = document.querySelector('meta[name="description"]');
   if (currentLanguage === 'es') {
@@ -448,6 +459,7 @@ function setLanguage(language, save = true) {
 
   if (save) localStorage.setItem('lostandperdido-language', currentLanguage);
   updateCountdowns();
+  document.dispatchEvent(new CustomEvent('lp:languagechange'));
 }
 
 collectTranslatableText();
@@ -800,21 +812,30 @@ gpsDialog.addEventListener('close', () => {
 
 // One deterministic reading per local calendar day, stable across reloads.
 function dailyLostValue(date) {
-  const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const day = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}`;
   let hash = 2166136261;
   for (const character of day) hash = Math.imul(hash ^ character.charCodeAt(0), 16777619);
   return (hash >>> 0) % 101;
 }
 function lostDescription(value) {
-  if (value < 20) return 'we have a plan';
-  if (value < 40) return 'mas o menos';
-  if (value < 60) return 'we are figuring it out';
-  if (value < 80) return 'perdido';
-  return 'lost and perdido';
+  const phrases=['lost, but early','map upside down','¿por aquí?','tiny wrong turn','más o menos','lost-ish','trust the detour','off the script','¿dónde estamos?','ask a local','lost together','scenic, probably','muy perdido','map says maybe','no clue. good crew.','wrong turn club','lost & perdido','compass: nope','send snacks','off the map','we’re so lost'];
+  return phrases[Math.min(20,Math.floor(value/5))];
 }
 let lostMeterTimeout;
+let lostMeterPowered=true;
+try { lostMeterPowered=localStorage.getItem('lp-meter-power')!=='off'; } catch {}
+const meterPower=document.querySelector('.lost-meter-power');
+function syncMeterPower(){
+ document.querySelector('.lost-meter').classList.toggle('is-off',!lostMeterPowered);
+ meterPower.setAttribute('aria-checked',String(lostMeterPowered));
+ meterPower.querySelector('span').textContent=lostMeterPowered?'ON':'OFF';
+ if(lostMeterPowered)updateLostMeter();
+ else {clearTimeout(lostMeterTimeout);document.getElementById('lost-description').textContent='off the radar';}
+}
+meterPower.addEventListener('click',()=>{lostMeterPowered=!lostMeterPowered;try{localStorage.setItem('lp-meter-power',lostMeterPowered?'on':'off');}catch{}syncMeterPower();});
 function updateLostMeter() {
   clearTimeout(lostMeterTimeout);
+  if(!lostMeterPowered)return;
   const now = new Date();
   const value = dailyLostValue(now);
   renderShotClock(document.getElementById('lost-percentage'), value);
@@ -824,10 +845,10 @@ function updateLostMeter() {
   const description = document.getElementById('lost-description');
   description.textContent = lostDescription(value);
   originalText.set(description.firstChild, description.textContent);
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1);
   lostMeterTimeout = setTimeout(updateLostMeter, midnight - now + 50);
 }
-updateLostMeter();
+syncMeterPower();
 document.addEventListener('visibilitychange', () => { if (!document.hidden) updateLostMeter(); });
 
 const meetingLink = document.querySelector('.how-we-met-link');
@@ -839,6 +860,11 @@ function openMeetingStory(opener) {
   meetingNavigate = false;
   meetingStory.showModal();
   meetingStory.scrollTop = 0;
+  const lens = meetingStory.querySelector(".camp-magnifier > .perspective-lens");
+  if (lens && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    lens.getAnimations().forEach(animation => animation.cancel());
+    lens.animate([{ transform: "scale(.65)" }, { transform: "scale(.24)" }], { duration: 1100, easing: "cubic-bezier(.22,1,.36,1)" });
+  }
   startMeetingMusic();
 }
 // Load the player in the open dialog; failed players can be rebuilt on retry.
@@ -863,6 +889,7 @@ function startMeetingMusic() {
     meetingMusicPlayer = undefined;
     meetingMusicFailure = '';
   }
+  loadMeetingMusicAPI();
   prepareMeetingMusic();
   musicAction.hidden = false;
   clearTimeout(meetingMusicTimeout);
@@ -924,10 +951,10 @@ function prepareMeetingMusic() {
 }
 musicAction.addEventListener('click', startMeetingMusic);
 window.onYouTubeIframeAPIReady = prepareMeetingMusic;
-if (window.YT?.Player) prepareMeetingMusic();
-else {
-  const api = document.createElement('script'); api.src = 'https://www.youtube.com/iframe_api'; api.async = true;
-  api.onerror = () => { meetingMusicFailure = 'YouTube is blocked or unavailable. Use Listen on YouTube below.'; musicAction.hidden = true; setMusicNotice(meetingMusicFailure); };
+function loadMeetingMusicAPI() {
+  if (window.YT?.Player || document.getElementById("meeting-youtube-api")) return;
+  const api = document.createElement('script'); api.id = "meeting-youtube-api"; api.src = 'https://www.youtube.com/iframe_api'; api.async = true;
+  api.onerror = () => { api.remove(); meetingMusicFailure = 'YouTube is blocked or unavailable. Use Listen on YouTube below.'; musicAction.hidden = true; setMusicNotice(meetingMusicFailure); };
   document.head.append(api);
 }
 meetingLink.addEventListener('click', () => openMeetingStory(meetingLink));
@@ -953,7 +980,6 @@ let foldingPaper = null;
 const memoryImage = memoryAlbum.querySelector('.memory-image');
 const memoryCaption = memoryAlbum.querySelector('.memory-caption');
 const memoryLaunch = memoryAlbum.querySelector('.memory-launch');
-const memoryPlay = memoryAlbum.querySelector('.memory-play');
 const albumMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const campMemory = { src: 'assets/camp-chipinaw.jpg', caption: 'Camp Chipinaw. Where it all began.', alt: 'Camp Chipinaw and its wooded lakeshore' };
 // Permanent album photos, in display order after the opening camp photo.
@@ -1032,7 +1058,6 @@ let memoryTimer;
 let memoryGeneration = 0;
 const paperAnimations = new Set();
 function albumText(text) { return currentLanguage === 'es' ? (spanish[text] || text) : text; }
-function memoryButtonLabel() { memoryPlay.textContent = albumText(memoryPlaying ? 'Pause' : 'Play'); }
 function renderMemory() {
   const photo = memories[memoryIndex];
   memoryImage.hidden = !!photo.placeholder;
@@ -1040,9 +1065,7 @@ function renderMemory() {
   memoryLaunch.classList.toggle('is-placeholder', !!photo.placeholder);
   memoryLaunch.dataset.placeholder = albumText('Your photo goes here');
   memoryCaption.textContent = albumText(photo.caption);
-  memoryAlbum.querySelector('.memory-counter').textContent = `${memoryIndex + 1} / ${memories.length}`;
   memoryAlbum.querySelector('.memory-click').hidden = memoryPlaying || memoryIndex !== 0;
-  memoryButtonLabel();
   const nextPhoto = new Image();
   nextPhoto.src = memories[(memoryIndex + 1) % memories.length].src;
 }
@@ -1061,12 +1084,14 @@ function stopMemory() {
 async function paperAnimate(element, frames, duration, generation, easing = 'ease-in-out') {
   const animation = element.animate(frames, { duration, easing, fill: 'forwards' });
   paperAnimations.add(animation);
-  try { await animation.finished; } catch { return false; }
+  let deadline;
+  try { await Promise.race([animation.finished,new Promise(resolve=>{deadline=setTimeout(()=>{try{animation.finish();}catch{}resolve();},duration+1200);})]); } catch { return false; }
+  finally { clearTimeout(deadline); }
   return generation === memoryGeneration;
 }
 function scheduleMemory() {
   clearTimeout(memoryTimer);
-  if (memoryPlaying && meetingStory.open && !document.hidden) memoryTimer = setTimeout(() => transitionMemory(1), 3000);
+  if (memoryPlaying && !memoryBusy && meetingStory.open && !document.hidden) memoryTimer = setTimeout(() => transitionMemory(1), 2000);
 }
 // One paper surface throughout: eight photo-textured facets become the wings.
 function makeFoldingPaper(photo) {
@@ -1144,14 +1169,44 @@ function foldPaper(mesh, from, to, duration, generation) {
     requestAnimationFrame(frame);
   });
 }
+// A canceled browser animation must never leave the album permanently busy.
 async function transitionMemory(direction) {
-  if (memoryBusy) return;
-  clearTimeout(memoryTimer); memoryBusy = true;
+  if (memoryBusy || !memoryPlaying || !meetingStory.open) return;
+  clearTimeout(memoryTimer);
+  memoryBusy = true;
   const generation = ++memoryGeneration;
+  const before = memoryIndex;
+  const recovery = setTimeout(() => {
+    if (generation !== memoryGeneration || !memoryBusy || !memoryPlaying || !meetingStory.open) return;
+    memoryGeneration++;
+    resetPaper();
+    if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
+    memoryBusy = false;
+    renderMemory();
+    scheduleMemory();
+  }, 8000);
+  try { await runMemoryTransition(direction, generation); }
+  catch (error) {
+    console.warn('Photo animation recovered:', error);
+    if (generation === memoryGeneration && memoryPlaying && meetingStory.open) {
+      resetPaper();
+      if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
+      renderMemory();
+    }
+  } finally {
+    clearTimeout(recovery);
+    if (generation === memoryGeneration) {
+      resetPaper();
+      memoryBusy = false;
+      scheduleMemory();
+    }
+  }
+}
+async function runMemoryTransition(direction, generation) {
   const nextIndex = (memoryIndex + direction + memories.length) % memories.length;
   // Decode before starting so every landing opens onto a fully loaded photo.
   const ready = new Image(); ready.src = memories[nextIndex].src;
-  try { await ready.decode(); } catch { /* A failed image must not lock controls. */ }
+  try { await Promise.race([ready.decode(), new Promise(resolve => setTimeout(resolve, 1800))]); } catch { /* Keep the sequence moving even if decoding fails. */ }
   if (generation !== memoryGeneration) return;
   if (!albumMotion.matches) {
     const mesh = makeFoldingPaper(memories[memoryIndex]);
@@ -1190,24 +1245,30 @@ async function transitionMemory(direction) {
     if (!await foldPaper(incoming,1,0,600,generation) || !await landing) return;
   } else { memoryIndex = nextIndex; renderMemory(); }
   if (generation !== memoryGeneration) return;
-  resetPaper(); memoryBusy = false; scheduleMemory();
+  resetPaper();
 }
 function startMemory() {
   if (memoryBusy || memoryPlaying) return;
-  memoryPlaying = true; renderMemory(); transitionMemory(1);
+  memoryPlaying = true; memoryLaunch.classList.add("has-started"); renderMemory(); transitionMemory(1);
 }
 memoryLaunch.addEventListener('click', startMemory);
-memoryPlay.addEventListener('click', () => memoryPlaying ? stopMemory() : startMemory());
-for (const [selector, direction] of [['.memory-prev', -1], ['.memory-next', 1]]) {
-  memoryAlbum.querySelector(selector).addEventListener('click', () => { stopMemory(); transitionMemory(direction); });
+meetingStory.addEventListener('close', () => { stopMemory(); memoryIndex = 0; memoryLaunch.classList.remove('has-started'); renderMemory(); });
+function suspendMemory() {
+  clearTimeout(memoryTimer);
+  memoryGeneration++;
+  resetPaper();
+  memoryBusy = false;
 }
-memoryAlbum.addEventListener('keydown', event => {
-  if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || event.target.matches('input')) return;
-  event.preventDefault(); stopMemory(); transitionMemory(event.key === 'ArrowLeft' ? -1 : 1);
-});
-meetingStory.addEventListener('close', () => { stopMemory(); memoryIndex = 0; renderMemory(); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) stopMemory(); });
-albumMotion.addEventListener('change', stopMemory);
+document.addEventListener('visibilitychange', () => { if (document.hidden) suspendMemory(); else scheduleMemory(); });
+// Fold coordinates depend on the stage dimensions, including mobile rotation.
+let memoryResizeTimer;
+new ResizeObserver(() => {
+  if (!memoryBusy) return;
+  suspendMemory();
+  clearTimeout(memoryResizeTimer);
+  memoryResizeTimer = setTimeout(scheduleMemory, 150);
+}).observe(paperStage);
+albumMotion.addEventListener('change', () => { const resume=memoryPlaying; stopMemory(); if(resume){memoryPlaying=true;renderMemory();scheduleMemory();} });
 renderMemory();
 
 // Dust follows the actual glyph positions, so the final text never moves.
@@ -1460,6 +1521,7 @@ const serviceDialog = document.getElementById('service-details');
 let serviceOpener;
 document.querySelectorAll('[data-service]').forEach(button => {
   button.addEventListener('click', () => {
+    if (window.openServiceStudio) { serviceOpener = button; window.openServiceStudio(Number(button.dataset.service), button); return; }
     serviceOpener = button;
     serviceDialog.classList.add('service-dialog-ugc');
     serviceDialog.dataset.service = button.dataset.service;
@@ -1564,51 +1626,85 @@ function preparePerspective() {
 document.fonts.ready.then(preparePerspective);
 perspectiveMotion.addEventListener('change', event => { if (event.matches) finishPerspective(); });
 
-// Shared totals come from the preview's poll API; never invent fallback percentages.
+// Shared totals and daily eligibility are authoritative on the server.
 const pollButtons = [...document.querySelectorAll('[data-poll]')];
 const pollStatus = document.querySelector('.gps-poll-status');
-let pollVoter = '';
-let pollChoice = '';
-try {
-  pollVoter = localStorage.getItem('lp-poll-voter') || '';
-  pollChoice = localStorage.getItem('lp-poll-choice') || '';
-} catch {}
-if (!pollVoter) pollVoter = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-try { localStorage.setItem('lp-poll-voter', pollVoter); } catch {}
-function renderPoll(counts) {
-  const total = counts.lost + counts.perdido;
-  const lost = total ? Math.round(counts.lost / total * 100) : 0;
+let pollState = {lost:0, perdido:0, choice:'', day:'', nextVoteAt:''};
+let pollReady = false;
+let pollPending = false;
+let pollEvents;
+function renderPoll(state = pollState) {
+  const total = state.lost + state.perdido;
+  const lost = total ? Math.round(state.lost / total * 100) : 0;
   pollButtons.forEach(button => {
-    const choice = button.dataset.poll;
-    button.querySelector('strong').textContent = total ? `${choice === 'lost' ? lost : 100 - lost}%` : '—';
-    button.setAttribute('aria-pressed', String(choice === pollChoice));
+    const percentage = total ? (button.dataset.poll === 'lost' ? lost : 100-lost) : 0;
+    button.querySelector('strong').textContent = percentage + '%';
+    button.style.setProperty('--poll-share', percentage + '%');
+    button.setAttribute('aria-pressed', String(button.dataset.poll === state.choice));
+    button.disabled = !pollReady || pollPending || !!state.choice;
   });
-  pollStatus.textContent = total ? `${total} ${total === 1 ? 'vote' : 'votes'} · ${pollChoice ? 'Your vote is in!' : 'Pick your side.'}` : 'Be the first to pick a side.';
+  pollStatus.textContent = total.toLocaleString() + ' votes · ' + (pollPending ? 'Saving your vote…' : state.choice ? 'Your vote is saved. Vote again tomorrow (00:00 UTC).' : 'Pick your side. One vote per day.');
+}
+function acceptPoll(data) {
+  if (![data.lost,data.perdido].every(n => Number.isSafeInteger(n) && n >= 0) || !['','lost','perdido'].includes(data.choice) || !Number.isFinite(Date.parse(data.nextVoteAt))) throw new Error('Invalid poll response');
+  pollState = data;
+  pollReady = true;
+  renderPoll();
 }
 async function fetchPoll(choice) {
-  const response = await fetch('/api/poll', choice ? {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ voter: pollVoter, choice })
-  } : { cache: 'no-store' });
-  if (!response.ok) throw new Error('Poll unavailable');
-  const counts = await response.json();
-  if (![counts.lost, counts.perdido].every(n => Number.isInteger(n) && n >= 0)) throw new Error('Invalid totals');
-  if (choice) {
-    pollChoice = choice;
-    try { localStorage.setItem('lp-poll-choice', choice); } catch {}
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+  try {
+    const response = await fetch('/api/poll', {
+      method:choice ? 'POST' : 'GET', credentials:'same-origin', cache:'no-store', signal:controller.signal,
+      ...(choice ? {headers:{'Content-Type':'application/json'}, body:JSON.stringify({choice})} : {})
+    });
+    if (!response.ok && response.status !== 409) throw new Error('Poll unavailable');
+    acceptPoll(await response.json());
+  } finally { clearTimeout(timeout); }
+}
+function connectPoll() {
+  if (pollState.live === 'poll' || pollEvents || !gpsDialog.open || document.hidden || !pollReady || !window.EventSource) return;
+  pollEvents = new EventSource('/api/poll/events');
+  pollEvents.onmessage = event => {
+    try { if (!pollPending) acceptPoll(JSON.parse(event.data)); } catch { /* Keep the last confirmed totals. */ }
+  };
+}
+async function refreshPoll() {
+  if (pollPending) return;
+  try { await fetchPoll(); connectPoll(); }
+  catch {
+    pollReady = false;
+    renderPoll();
+    pollStatus.textContent = 'Live voting is temporarily unavailable. Please try again shortly.';
   }
-  renderPoll(counts);
 }
 pollButtons.forEach(button => button.addEventListener('click', async () => {
-  pollButtons.forEach(item => { item.disabled = true; });
-  pollStatus.textContent = 'Counting your vote…';
-  try { await fetchPoll(button.dataset.poll); }
-  catch { pollStatus.textContent = 'Voting is unavailable right now. Please try again later.'; }
-  finally { pollButtons.forEach(item => { item.disabled = false; }); }
+  if (!pollReady || pollPending || pollState.choice) return;
+  pollPending = true;
+  const choice = button.dataset.poll;
+  // Give immediate feedback, but confirm persistence before claiming a saved vote.
+  renderPoll({...pollState, [choice]:pollState[choice]+1, choice});
+  let failed = false;
+  try { await fetchPoll(choice); }
+  catch { failed = true; }
+  finally { pollPending = false; renderPoll(); }
+  if (failed) {
+    // Reconcile a request that may have reached the server before the connection failed.
+    try { await fetchPoll(); } catch { pollReady = false; renderPoll(); }
+    if (!pollState.choice) pollStatus.textContent = 'Your vote could not be confirmed. Please try again.';
+  }
 }));
-gpsButton.addEventListener('click', () => {
-  fetchPoll().catch(() => { pollStatus.textContent = 'Voting is unavailable right now. Please try again later.'; });
+renderPoll();
+refreshPoll();
+gpsButton.addEventListener('click', refreshPoll);
+gpsDialog.addEventListener('close', () => { pollEvents?.close(); pollEvents = null; });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { pollEvents?.close(); pollEvents = null; }
+  else if (gpsDialog.open) refreshPoll();
 });
+// Reconnect fallback and eligibility rollover, even if a tab stays open overnight.
+setInterval(() => { if (gpsDialog.open && !document.hidden) refreshPoll(); }, 10000);
 
 // Current conditions refresh on entry and every ten minutes while a city is open.
 const cityWeatherCache = new Map();
@@ -1685,7 +1781,7 @@ setInterval(() => {
       flyer.style.transform = 'none';
       const origin = flyer.getBoundingClientRect();
       const target = friend.getBoundingClientRect();
-      const x = (target.left - 38 - origin.left) * ease;
+      const x = (target.left - (38 + 96 / 2.54 * .5) - origin.left) * ease;
       const y = (target.top - origin.top) * ease - Math.sin(Math.PI * progress) * 65;
       const bank = Math.sin(progress * Math.PI * 2) * 12;
       flyer.style.transform = `translate(${x}px, ${y}px) rotate(${bank}deg)`;
@@ -1742,7 +1838,7 @@ setInterval(() => {
     setTimeout(()=>{
      right.querySelector('span').textContent='Amen.';right.setAttribute('aria-label','Amen.');
      setTimeout(()=>{
-      const light=document.createElement('div');light.className='mountain-blessing-light';light.setAttribute('aria-hidden','true');right.closest('.closing').append(light);setTimeout(sendSkyHearts,2500);
+      const light=document.createElement('div');light.className='mountain-blessing-light';light.setAttribute('aria-hidden','true');right.closest('.closing').append(light);playBlessingChime();setTimeout(sendSkyHearts,2500);
      },3000);
     },2000);
    },3000);
@@ -1770,7 +1866,7 @@ setInterval(() => {
   ];
   function start() {
     clearInterval(timer);
-    if (!dialog.open || !['2','3'].includes(dialog.dataset.service)) return;
+    if (!dialog.open || dialog.dataset.modernStudio === 'true' || !['2','3'].includes(dialog.dataset.service)) return;
     const phone = dialog.querySelector('.ugc-phone');
     const image = phone.querySelector('.ig-post-image');
     const original = image.innerHTML;
@@ -1891,7 +1987,7 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
   const target=post||phone;
   target.classList.add('animated-social-post');target.append(hint);
   const hearts=document.createElement('div');hearts.className='social-hype-hearts';hearts.setAttribute('aria-hidden','true');
-  for(let i=0;i<6;i++){const heart=document.createElement('i');heart.textContent='♥';heart.style.setProperty('--heart',i);hearts.append(heart);}target.append(hearts);
+  for(let i=0;i<(phone.querySelector('.tiktok-feed-action')?6:3);i++){const heart=document.createElement('i');heart.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21S2 15 2 8.5C2 2.5 9 1 12 6c3-5 10-3.5 10 2.5C22 15 12 21 12 21Z"/></svg>';heart.style.setProperty('--heart',i);hearts.append(heart);}target.append(hearts);
   const ig=phone.querySelector('.ig-post-copy > strong');
   const yt=phone.querySelector('.yt-feed-details small');
   const tt=phone.querySelector('.tiktok-feed-action small');
@@ -1899,13 +1995,15 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
   const counter=ig||tt||yt;
   if(counter)counter.title='Animated social preview';
   const viewLabel=document.createElement('small');viewLabel.className='post-view-count';viewLabel.title='Animated social preview';
-  if(!yt)target.append(viewLabel);
+  viewLabel.textContent=views.toLocaleString()+' views';
+  if(tt || yt)target.append(viewLabel);
   setInterval(()=>{
    if(!socialsVisible||document.hidden)return;
-   likes+=17;views+=139;
+   if(motion.matches)return;
+   likes+=137+Math.floor(Math.random()*260);views+=1700+Math.floor(Math.random()*2400);
    if(ig)ig.textContent=likes.toLocaleString()+' likes';
    if(tt)tt.textContent=likes.toLocaleString();
-   if(yt)yt.textContent='Lost & Perdido · '+views.toLocaleString()+' views · '+likes.toLocaleString()+' likes';
+   if(yt)yt.textContent='Lost & Perdido · '+views.toLocaleString()+' views';
    viewLabel.textContent=views.toLocaleString()+' views';
   },1200);
  });
@@ -1929,22 +2027,129 @@ document.querySelectorAll('.host-card').forEach((card,index)=>{
  new MutationObserver(()=>{if(left.classList.contains('is-flying')||left.classList.contains('has-landed'))hand.remove();}).observe(left,{attributes:true,attributeFilter:['class']});
 })();
 
-function sendSkyHearts(){
+async function sendSkyHearts(){
  const scene=document.querySelector('.closing'),box=scene.getBoundingClientRect();
  const figures=[scene.querySelector('.mountain-paraglider'),scene.querySelector('.mountain-sitter')];
- figures.forEach((figure,index)=>{
-  const heart=document.createElement('span');heart.className='sky-blessing-heart';heart.textContent='♥';heart.setAttribute('aria-hidden','true');scene.append(heart);
+ const arrivals=figures.map((figure,index)=>{
+  const heart=document.createElement('span');heart.className='sky-blessing-heart';heart.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21S2 15 2 8.5C2 2.5 9 1 12 6c3-5 10-3.5 10 2.5C22 15 12 21 12 21Z"/></svg>';heart.setAttribute('aria-hidden','true');scene.append(heart);
   const r=figure.getBoundingClientRect();const x=r.left-box.left+r.width/2,y=r.top-box.top+r.height*.48;
-  const startX=box.width*.78,startY=box.height*.24;
+  const other=figures[1-index].getBoundingClientRect();
+  const startX=(r.left+r.width/2+other.left+other.width/2)/2-box.left,startY=box.height*.24;
   heart.style.left=startX+'px';heart.style.top=startY+'px';
   const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?1:3300;
-  heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove());
+  return heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove(),()=>heart.remove());
  });
+ await Promise.allSettled(arrivals);
+ setTimeout(revealPosterScene,7000);
+}
+
+// The final beat stops at an invitation: only the visitor opens the poster.
+async function revealPosterScene(){
+ const scene=document.querySelector('.closing');
+ if(scene.classList.contains('poster-discovered'))return;
+ scene.classList.add('poster-discovered');
+ const figures=[scene.querySelector('.mountain-paraglider'),scene.querySelector('.mountain-sitter')];
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ await Promise.all(figures.map(async (figure,index)=>{
+  const bubble=figure.querySelector(':scope > span');bubble.hidden=true;
+  figure.querySelectorAll('.tiny-bible,.tiny-cross').forEach(prop=>prop.remove());
+  figure.classList.remove('raising-cross');
+  const old=figure.querySelector(':scope > svg');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 60 80');svg.setAttribute('aria-hidden','true');svg.classList.add('poster-traveler');
+  svg.innerHTML='<g stroke="#fff8e5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle r="9"/><path class="poster-body"/><path class="poster-legs"/><path class="poster-arms"/><g class="poster-face"><path d="M22 25Q26 30 30 25" stroke-width="1.4"/><circle cx="23" cy="21" r="1.3" fill="#fff8e5"/><circle cx="29" cy="21" r="1.3" fill="#fff8e5"/></g></g>';
+  old.replaceWith(svg);
+  const head=svg.querySelector('circle'),body=svg.querySelector('.poster-body'),legs=svg.querySelector('.poster-legs'),arms=svg.querySelector('.poster-arms'),face=svg.querySelector('.poster-face');
+  function pose(t){
+   const mix=(a,b)=>a+(b-a)*t;
+   const point=(a,b)=>mix(a[0],b[0])+','+mix(a[1],b[1]);
+   head.setAttribute('cx',mix(26,30));head.setAttribute('cy',mix(22,8));
+   body.setAttribute('d','M'+point([26,31],[30,17])+'L'+point([24,53],[30,42]));
+   legs.setAttribute('d','M'+point([24,53],[30,42])+'L'+point([40,53],[39,55])+'L49,67M'+point([24,53],[30,42])+'L'+point([16,64],[22,55])+'L'+point([33,67],[17,67]));
+   arms.setAttribute('d','M'+point([25,37],[30,24])+'L'+point([36,45],[40,33])+'L'+point([40,53],[48,28])+'M'+point([25,37],[30,24])+'L'+point([13,47],[21,35])+'L'+point([9,61],[19,44]));
+   face.setAttribute('transform','translate('+mix(0,4)+','+mix(0,-14)+')');
+  }
+  pose(0);
+  if(!reduced)await new Promise(resolve=>{
+   const start=performance.now();
+   function frame(now){const t=Math.min(1,(now-start)/850);pose(t*t*(3-2*t));if(t<1)requestAnimationFrame(frame);else resolve();}
+   requestAnimationFrame(frame);
+  });
+  pose(1);
+  // Turn away from the viewer, with each traveler's arm directed toward the tree.
+  const direction=index===0?1:-1;
+  if(!reduced){
+   await svg.animate([{transform:'scaleX(1)'},{transform:'scaleX(.08)'}],{duration:240,fill:'forwards'}).finished.catch(()=>{});
+  }
+  face.remove();
+  svg.style.transform=`scaleX(${direction})`;
+  svg.getAnimations().forEach(animation=>animation.cancel());
+  if(!reduced)await svg.animate([{transform:`scaleX(${direction*.08})`},{transform:`scaleX(${direction})`}],{duration:260}).finished.catch(()=>{});
+  figure.setAttribute('aria-label','Standing and looking at the tree.');
+ }));
+ scene.classList.add('poster-ending-complete');
 }
 (() => {
  const hand='<svg viewBox="0 0 48 60" aria-hidden="true"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';
  document.querySelectorAll('.social-hype-screen').forEach(prompt=>{const cue=document.createElement('i');cue.className='post-click-hand';cue.innerHTML=hand;prompt.parentElement.append(cue);});
- const gps=document.querySelector('.location-gps');const cue=document.createElement('span');cue.className='gps-dainty-cue';cue.setAttribute('aria-hidden','true');cue.textContent='↖';gps.append(cue);
+ const gps=document.querySelector('.location-gps');const cue=document.createElement('span');cue.className='gps-dainty-cue';cue.setAttribute('aria-hidden','true');cue.textContent='←';gps.querySelector('.gps-lost').append(cue);
  const repost='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 15V6h13m-4-4 4 4-4 4M20 9v9H7m4-4-4 4 4 4"/></svg>';
  document.querySelectorAll('.watch-section .ig-post-actions,.watch-section .tiktok-feed-actions').forEach(actions=>{const icon=document.createElement('span');icon.className='post-repost';icon.setAttribute('role','img');icon.setAttribute('aria-label','Repost');icon.innerHTML=repost;actions.append(icon);});
 })();
+
+// A pointer over the camp photograph invites the first paper-plane launch.
+const campPointer=document.createElement('span');campPointer.className='camp-pointer camp-magnifier';campPointer.setAttribute('aria-hidden','true');
+const smallLens=document.createElement('span');smallLens.className='perspective-lens';smallLens.innerHTML='<span class="perspective-glass"></span>';campPointer.append(smallLens);memoryLaunch.append(campPointer);
+
+// The tree is its own detail view; the friends and their timeline stay in place.
+(() => {
+ const scene=document.querySelector('.closing');
+ const tree=document.createElement('button');tree.type='button';tree.className='meadow-tree';tree.setAttribute('aria-label','Zoom in to the missing poster on the tree');tree.setAttribute('aria-haspopup','dialog');
+ tree.innerHTML='<img src="assets/meadow-poster-tree.png" alt="A leafy tree with a Lost & Perdido missing poster on its trunk"><span class="poster-arrow" aria-hidden="true">←</span>';
+ scene.prepend(tree);
+ const detail=document.createElement('dialog');detail.className='tree-poster-dialog';detail.setAttribute('aria-label','Lost & Perdido missing poster');
+ detail.innerHTML='<button class="tree-poster-close" type="button" aria-label="Return to the mountain view">×</button><div class="tree-poster-crop"><img src="assets/b4f2e6d3-2524-4479-addd-5a5b8b3daad9.JPG" alt="Missing: Lost & Perdido. Have you seen us? Probably exploring somewhere in Latin America, or just lost again."></div><p>Lost & Perdido · Have you seen us?</p>';
+ document.body.append(detail);
+ tree.addEventListener('click',()=>{
+  detail.showModal();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const a=tree.getBoundingClientRect(),b=detail.getBoundingClientRect();detail.animate([{opacity:0,transform:`translate(${a.x+a.width/2-b.x-b.width/2}px,${a.y+a.height/2-b.y-b.height/2}px) scale(.15)`},{opacity:1,transform:'translate(0,0) scale(1)'}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)'});}
+ });
+ detail.querySelector('button').addEventListener('click',()=>detail.close());
+ detail.addEventListener('click',event=>{if(event.target!==detail)return;const r=detail.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)detail.close();});
+ detail.addEventListener('close',()=>tree.focus({preventScroll:true}));
+})();
+
+// Unlock sound from the initial figure interaction, then play it with the light.
+let blessingAudio;
+function prepareBlessingAudio(){
+ try {
+  const AudioEngine=window.AudioContext||window.webkitAudioContext;
+  if(!AudioEngine)return;
+  if(!blessingAudio||blessingAudio.state==='closed')blessingAudio=new AudioEngine();
+  if(blessingAudio.state==='suspended')blessingAudio.resume().catch(()=>{});
+ } catch { /* The visual sequence remains available without audio. */ }
+}
+document.querySelectorAll('.mountain-paraglider,.mountain-sitter').forEach(figure=>{
+ figure.addEventListener('click',prepareBlessingAudio,{capture:true});
+ figure.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' ')prepareBlessingAudio();},{capture:true});
+});
+function playBlessingChime(){
+ const ctx=blessingAudio;
+ if(!ctx||ctx.state!=='running')return;
+ const start=ctx.currentTime,master=ctx.createGain(),echo=ctx.createDelay(1),tail=ctx.createGain();
+ master.gain.value=.16;master.connect(ctx.destination);
+ echo.delayTime.value=.34;tail.gain.value=.24;echo.connect(tail);tail.connect(master);tail.connect(echo);
+ // A warm major chord blooms beneath three delicate, bell-like upper notes.
+ [261.63,329.63,392,523.25,659.25,783.99].forEach((frequency,index)=>{
+  const oscillator=ctx.createOscillator(),envelope=ctx.createGain();
+  oscillator.type='sine';oscillator.frequency.value=frequency;
+  const at=start+index*.14;
+  envelope.gain.setValueAtTime(0,at);
+  envelope.gain.linearRampToValueAtTime(index<3?.24:.13,at+(index<3?.65:.045));
+  envelope.gain.exponentialRampToValueAtTime(.001,at+5.5);
+  oscillator.connect(envelope);envelope.connect(master);envelope.connect(echo);
+  oscillator.start(at);oscillator.stop(at+5.6);
+  oscillator.onended=()=>{oscillator.disconnect();envelope.disconnect();};
+ });
+ setTimeout(()=>{echo.disconnect();tail.disconnect();master.disconnect();},8500);
+}

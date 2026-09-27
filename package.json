@@ -1,0 +1,11 @@
+{
+  "name": "lost-and-perdido",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-netlify.mjs",
+    "start": "node scripts/server.mjs",
+    "test": "node scripts/test-site.mjs && node scripts/test-netlify-poll.mjs && node scripts/test-audit.mjs"
+  },
+  "engines": { "node": ">=22.13.0" },
+  "dependencies": { "@netlify/blobs": "^10.5.0" }
+}
