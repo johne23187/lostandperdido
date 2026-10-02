@@ -1,0 +1,917 @@
+[
+  {
+    "src": "assets/159B50D2-7CEC-4F17-A497-05D39097E2A7.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/104147b0f44f6cdb-poster.jpg",
+    "playback": "assets/travel-videos/104147b0f44f6cdb.mp4"
+  },
+  {
+    "src": "assets/23C726B9-3B72-49EC-95D4-2C863E99B6BE.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/2c85fbe198667ded-poster.jpg",
+    "playback": "assets/travel-videos/2c85fbe198667ded.mp4"
+  },
+  {
+    "src": "assets/69506497710__44EF6C91-E7FF-4F76-96DE-3C0A3DBCACC5.MOV",
+    "country": "USA",
+    "poster": "assets/travel-previews/78dba1c6971d26e2-poster.jpg",
+    "playback": "assets/travel-videos/78dba1c6971d26e2.mp4"
+  },
+  {
+    "src": "assets/868FA733-0470-4F7B-8AE6-B630BB4069CC.MOV",
+    "country": "USA",
+    "poster": "assets/travel-previews/d0cc7cf40c0e90dc-poster.jpg",
+    "playback": "assets/travel-videos/d0cc7cf40c0e90dc.mp4",
+    "location": "Orlando, Florida"
+  },
+  {
+    "src": "assets/E59C4736-2815-4BEE-A028-153799874BF8.MOV",
+    "country": "USA",
+    "poster": "assets/travel-previews/c88162e957f60649-poster.jpg",
+    "playback": "assets/travel-videos/c88162e957f60649.mp4",
+    "location": "Orlando, Florida"
+  },
+  {
+    "src": "assets/FullSizeRender (1).jpeg",
+    "country": "USA",
+    "location": "Orlando, Florida"
+  },
+  {
+    "src": "assets/FullSizeRender.jpeg",
+    "country": "USA",
+    "location": "Orlando, Florida"
+  },
+  {
+    "src": "assets/IMG_0051.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0055.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0114.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0152.jpeg",
+    "country": "USA",
+    "location": "New York State"
+  },
+  {
+    "src": "assets/IMG_0157.jpeg",
+    "country": "USA",
+    "location": "New York State"
+  },
+  {
+    "src": "assets/IMG_0231.jpeg",
+    "country": "USA",
+    "location": "New York State"
+  },
+  {
+    "src": "assets/IMG_0426.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0483.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/a9ac1339be14b157-poster.jpg",
+    "playback": "assets/travel-videos/a9ac1339be14b157.mp4"
+  },
+  {
+    "src": "assets/IMG_0484.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/276ff30ba8e19fbf-poster.jpg",
+    "playback": "assets/travel-videos/276ff30ba8e19fbf.mp4"
+  },
+  {
+    "src": "assets/IMG_0485.jpeg",
+    "country": "USA",
+    "location": "Philadelphia"
+  },
+  {
+    "src": "assets/IMG_0513.mov",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/88163068a3e04d23-poster.jpg",
+    "playback": "assets/travel-videos/88163068a3e04d23.mp4"
+  },
+  {
+    "src": "assets/IMG_0528.jpeg",
+    "country": "USA",
+    "location": "Philadelphia"
+  },
+  {
+    "src": "assets/IMG_0535.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/0e04228041439d69-poster.jpg",
+    "playback": "assets/travel-videos/0e04228041439d69.mp4"
+  },
+  {
+    "src": "assets/IMG_0536.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/218038a20970a1c4-poster.jpg",
+    "playback": "assets/travel-videos/218038a20970a1c4.mp4"
+  },
+  {
+    "src": "assets/IMG_0557.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/253f23b03ab03833-poster.jpg",
+    "playback": "assets/travel-videos/253f23b03ab03833.mp4"
+  },
+  {
+    "src": "assets/IMG_0568.mov",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/8ab14fd733a588a8-poster.jpg",
+    "playback": "assets/travel-videos/8ab14fd733a588a8.mp4"
+  },
+  {
+    "src": "assets/IMG_0632.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0656.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0698.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/c3eb8b1520922c71-poster.jpg",
+    "playback": "assets/travel-videos/c3eb8b1520922c71.mp4"
+  },
+  {
+    "src": "assets/IMG_0699.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/9b86ac2f46277a62-poster.jpg",
+    "playback": "assets/travel-videos/9b86ac2f46277a62.mp4"
+  },
+  {
+    "src": "assets/IMG_0914.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/ad8d597a3834035a-poster.jpg",
+    "playback": "assets/travel-videos/ad8d597a3834035a.mp4"
+  },
+  {
+    "src": "assets/IMG_0915.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/d255b1641eb3a330-poster.jpg",
+    "playback": "assets/travel-videos/d255b1641eb3a330.mp4"
+  },
+  {
+    "src": "assets/IMG_0916.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/fe1215533bb8aaa4-poster.jpg",
+    "playback": "assets/travel-videos/fe1215533bb8aaa4.mp4"
+  },
+  {
+    "src": "assets/IMG_0920.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/59195cf47d9f9e7a-poster.jpg",
+    "playback": "assets/travel-videos/59195cf47d9f9e7a.mp4"
+  },
+  {
+    "src": "assets/IMG_0923.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/511735ee8a468768-poster.jpg",
+    "playback": "assets/travel-videos/511735ee8a468768.mp4"
+  },
+  {
+    "src": "assets/IMG_0954.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_0957.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_1742.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_1745.MOV",
+    "country": "USA",
+    "poster": "assets/travel-previews/c6c0def8fbd09b95-poster.jpg",
+    "playback": "assets/travel-videos/c6c0def8fbd09b95.mp4"
+  },
+  {
+    "src": "assets/IMG_1750.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/ccd63c1996b40ab9-poster.jpg",
+    "playback": "assets/travel-videos/ccd63c1996b40ab9.mp4"
+  },
+  {
+    "src": "assets/IMG_1899.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/50bab3848ab580b4-poster.jpg",
+    "playback": "assets/travel-videos/50bab3848ab580b4.mp4"
+  },
+  {
+    "src": "assets/IMG_1911.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/5f6cf0af03b15d6c-poster.jpg",
+    "playback": "assets/travel-videos/5f6cf0af03b15d6c.mp4"
+  },
+  {
+    "src": "assets/IMG_1913.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/70151e4879cbf913-poster.jpg",
+    "playback": "assets/travel-videos/70151e4879cbf913.mp4"
+  },
+  {
+    "src": "assets/IMG_1967.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/78c70d55a8a48306-poster.jpg",
+    "playback": "assets/travel-videos/78c70d55a8a48306.mp4"
+  },
+  {
+    "src": "assets/IMG_1974.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/d1cfd8da5365f2c8-poster.jpg",
+    "playback": "assets/travel-videos/d1cfd8da5365f2c8.mp4"
+  },
+  {
+    "src": "assets/IMG_1978.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/ba8224b28b1df948-poster.jpg",
+    "playback": "assets/travel-videos/ba8224b28b1df948.mp4"
+  },
+  {
+    "src": "assets/IMG_1994.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/dde8766a810fbfa1-poster.jpg",
+    "playback": "assets/travel-videos/dde8766a810fbfa1.mp4"
+  },
+  {
+    "src": "assets/IMG_2035.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2048.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/217b94b64191ca50-poster.jpg",
+    "playback": "assets/travel-videos/217b94b64191ca50.mp4"
+  },
+  {
+    "src": "assets/IMG_2053.jpeg",
+    "country": "USA",
+    "location": "New Jersey"
+  },
+  {
+    "src": "assets/IMG_2055.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/1fcfed6d20c0acf4-poster.jpg",
+    "playback": "assets/travel-videos/1fcfed6d20c0acf4.mp4"
+  },
+  {
+    "src": "assets/IMG_2056.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2057.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2067.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/ed1b62b40a76fd56-poster.jpg",
+    "playback": "assets/travel-videos/ed1b62b40a76fd56.mp4"
+  },
+  {
+    "src": "assets/IMG_2074.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2082.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2123.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/fe84e6747eb102fd-poster.jpg",
+    "playback": "assets/travel-videos/fe84e6747eb102fd.mp4"
+  },
+  {
+    "src": "assets/IMG_2131.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/4b93f014174426c1-poster.jpg",
+    "playback": "assets/travel-videos/4b93f014174426c1.mp4"
+  },
+  {
+    "src": "assets/IMG_2185.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2185.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/e4665214d01d64c4-poster.jpg",
+    "playback": "assets/travel-videos/e4665214d01d64c4.mp4"
+  },
+  {
+    "src": "assets/IMG_2192.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2193.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_2194.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/5787195bd67befa5-poster.jpg",
+    "playback": "assets/travel-videos/5787195bd67befa5.mp4"
+  },
+  {
+    "src": "assets/IMG_2197.mov",
+    "country": "Senegal",
+    "poster": "assets/travel-previews/085b36f5c79b69a3-poster.jpg",
+    "playback": "assets/travel-videos/085b36f5c79b69a3.mp4"
+  },
+  {
+    "src": "assets/IMG_2199.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/92dade5700d91d09-poster.jpg",
+    "playback": "assets/travel-videos/92dade5700d91d09.mp4"
+  },
+  {
+    "src": "assets/IMG_2235.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2273.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2277.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2279.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_2288.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2290.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/ccc6e3e08b66a856-poster.jpg",
+    "playback": "assets/travel-videos/ccc6e3e08b66a856.mp4"
+  },
+  {
+    "src": "assets/IMG_2291.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2296.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2306.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/f9f42505d9903e48-poster.jpg",
+    "playback": "assets/travel-videos/f9f42505d9903e48.mp4"
+  },
+  {
+    "src": "assets/IMG_2310.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/fa9ae3785fbd177b-poster.jpg",
+    "playback": "assets/travel-videos/fa9ae3785fbd177b.mp4"
+  },
+  {
+    "src": "assets/IMG_2332.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/376f0736d18f0c69-poster.jpg",
+    "playback": "assets/travel-videos/376f0736d18f0c69.mp4"
+  },
+  {
+    "src": "assets/IMG_2333.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/f3baec850f70effb-poster.jpg",
+    "playback": "assets/travel-videos/f3baec850f70effb.mp4"
+  },
+  {
+    "src": "assets/IMG_2372.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2435.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2439.mov",
+    "country": "USA",
+    "location": "Yosemite",
+    "poster": "assets/travel-previews/7583d5bd37f847a7-poster.jpg",
+    "playback": "assets/travel-videos/7583d5bd37f847a7.mp4"
+  },
+  {
+    "src": "assets/IMG_2448.JPG",
+    "country": "USA",
+    "location": "Yosemite"
+  },
+  {
+    "src": "assets/IMG_2494.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/82409160724520b5-poster.jpg",
+    "playback": "assets/travel-videos/82409160724520b5.mp4"
+  },
+  {
+    "src": "assets/IMG_2685.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/0148caa88b1f765b-poster.jpg",
+    "playback": "assets/travel-videos/0148caa88b1f765b.mp4"
+  },
+  {
+    "src": "assets/IMG_2700.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2701.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2714.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/e06b24b68cfbb658-poster.jpg",
+    "playback": "assets/travel-videos/e06b24b68cfbb658.mp4"
+  },
+  {
+    "src": "assets/IMG_2718.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2751.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2752.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2778.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2846.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2854.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_2951.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_2968.mov",
+    "country": "USA",
+    "location": "Orlando, Florida",
+    "poster": "assets/travel-previews/75cd41fd4abb1fff-poster.jpg",
+    "playback": "assets/travel-videos/75cd41fd4abb1fff.mp4"
+  },
+  {
+    "src": "assets/IMG_3320.JPG",
+    "country": "Italy",
+    "location": "Milan"
+  },
+  {
+    "src": "assets/IMG_3323.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/0821916c590e1f4a-poster.jpg",
+    "playback": "assets/travel-videos/0821916c590e1f4a.mp4"
+  },
+  {
+    "src": "assets/IMG_3326.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/d55d5add3a7df895-poster.jpg",
+    "playback": "assets/travel-videos/d55d5add3a7df895.mp4"
+  },
+  {
+    "src": "assets/IMG_3357.mov",
+    "country": "Italy",
+    "location": "Lake Como",
+    "poster": "assets/travel-previews/3302132cb206e939-poster.jpg",
+    "playback": "assets/travel-videos/3302132cb206e939.mp4"
+  },
+  {
+    "src": "assets/IMG_3358.mov",
+    "country": "Italy",
+    "location": "Lake Como",
+    "poster": "assets/travel-previews/59eee9e43c67d76c-poster.jpg",
+    "playback": "assets/travel-videos/59eee9e43c67d76c.mp4"
+  },
+  {
+    "src": "assets/IMG_3365.mov",
+    "country": "Italy",
+    "location": "Lake Garda",
+    "poster": "assets/travel-previews/2ef3e309f5e97a0b-poster.jpg",
+    "playback": "assets/travel-videos/2ef3e309f5e97a0b.mp4"
+  },
+  {
+    "src": "assets/IMG_3368.JPG",
+    "country": "Italy",
+    "location": "Lake Garda"
+  },
+  {
+    "src": "assets/IMG_3386.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/94b6fdd1ffbe1db2-poster.jpg",
+    "playback": "assets/travel-videos/94b6fdd1ffbe1db2.mp4"
+  },
+  {
+    "src": "assets/IMG_3391.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/eefe2aa81b8ba86d-poster.jpg",
+    "playback": "assets/travel-videos/eefe2aa81b8ba86d.mp4"
+  },
+  {
+    "src": "assets/IMG_3396.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/c437c0cb8c415233-poster.jpg",
+    "playback": "assets/travel-videos/c437c0cb8c415233.mp4"
+  },
+  {
+    "src": "assets/IMG_3399.mov",
+    "country": "Italy",
+    "location": "Milan",
+    "poster": "assets/travel-previews/36a5429d19d554b3-poster.jpg",
+    "playback": "assets/travel-videos/36a5429d19d554b3.mp4"
+  },
+  {
+    "src": "assets/IMG_3875.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_4611.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_4796.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_4940.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_5194.JPG",
+    "country": "Senegal"
+  },
+  {
+    "src": "assets/IMG_5238.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5260.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5263.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5287.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5308.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5311.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5340.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  },
+  {
+    "src": "assets/IMG_5980.jpeg",
+    "country": "USA"
+  },
+  {
+    "src": "assets/IMG_6210.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_6755.JPG",
+    "country": "USA"
+  },
+  {
+    "src": "assets/IMG_6917.jpeg",
+    "country": "Dominican Republic"
+  },
+  {
+    "src": "assets/IMG_6922.MOV",
+    "country": "Dominican Republic",
+    "poster": "assets/travel-previews/da4c2e861894675a-poster.jpg",
+    "playback": "assets/travel-videos/da4c2e861894675a.mp4"
+  },
+  {
+    "src": "assets/IMG_6923.MOV",
+    "country": "Dominican Republic",
+    "poster": "assets/travel-previews/399b3fad1b0b0ab9-poster.jpg",
+    "playback": "assets/travel-videos/399b3fad1b0b0ab9.mp4"
+  },
+  {
+    "src": "assets/IMG_6932.jpeg",
+    "country": "Dominican Republic"
+  },
+  {
+    "src": "assets/IMG_6937.jpeg",
+    "country": "Dominican Republic"
+  },
+  {
+    "src": "assets/IMG_6942.jpeg",
+    "country": "Dominican Republic"
+  },
+  {
+    "src": "assets/IMG_6949.mov",
+    "country": "Dominican Republic",
+    "poster": "assets/travel-previews/39c683798988fb2a-poster.jpg",
+    "playback": "assets/travel-videos/39c683798988fb2a.mp4"
+  },
+  {
+    "src": "assets/IMG_7124.jpeg",
+    "country": "USA",
+    "location": "New Jersey"
+  },
+  {
+    "src": "assets/IMG_7246.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_7247.mov",
+    "country": "USA",
+    "location": "Niagara Falls",
+    "poster": "assets/travel-previews/ac8d93ae264449ab-poster.jpg",
+    "playback": "assets/travel-videos/ac8d93ae264449ab.mp4"
+  },
+  {
+    "src": "assets/IMG_7272.JPG",
+    "country": "USA",
+    "location": "Niagara Falls"
+  },
+  {
+    "src": "assets/IMG_7944.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_8329.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_8339.JPG",
+    "country": "Italy",
+    "location": "Venice"
+  },
+  {
+    "src": "assets/IMG_8342.JPG",
+    "country": "Italy",
+    "location": "Venice"
+  },
+  {
+    "src": "assets/IMG_8343.JPG",
+    "country": "Italy",
+    "location": "Venice"
+  },
+  {
+    "src": "assets/IMG_8370.JPG",
+    "country": "Italy",
+    "location": "Venice"
+  },
+  {
+    "src": "assets/IMG_8449.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_8456.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_8497.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_8507.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_8567.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_8636.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_8664.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_8724.JPG",
+    "country": "Italy",
+    "location": "Milan"
+  },
+  {
+    "src": "assets/IMG_8847.JPG",
+    "country": "Italy",
+    "location": "Lake Como"
+  },
+  {
+    "src": "assets/IMG_8901.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/65f572511f0effdc-poster.jpg",
+    "playback": "assets/travel-videos/65f572511f0effdc.mp4"
+  },
+  {
+    "src": "assets/IMG_8911.jpeg",
+    "country": "Puerto Rico"
+  },
+  {
+    "src": "assets/IMG_8916.MOV",
+    "country": "Puerto Rico",
+    "poster": "assets/travel-previews/8623224f7cc40046-poster.jpg",
+    "playback": "assets/travel-videos/8623224f7cc40046.mp4"
+  },
+  {
+    "src": "assets/IMG_8920.mov",
+    "country": "Italy",
+    "location": "Lake Como",
+    "poster": "assets/travel-previews/0e2b7831ab071f3f-poster.jpg",
+    "playback": "assets/travel-videos/0e2b7831ab071f3f.mp4"
+  },
+  {
+    "src": "assets/IMG_8947.JPG",
+    "country": "Italy",
+    "location": "Lake Como"
+  },
+  {
+    "src": "assets/IMG_9020.JPG",
+    "country": "Italy",
+    "location": "Lake Garda"
+  },
+  {
+    "src": "assets/IMG_9027.JPG",
+    "country": "Italy",
+    "location": "Lake Garda"
+  },
+  {
+    "src": "assets/IMG_9076.mov",
+    "country": "Italy",
+    "location": "Lake Garda",
+    "poster": "assets/travel-previews/e25351a10acffaf2-poster.jpg",
+    "playback": "assets/travel-videos/e25351a10acffaf2.mp4"
+  },
+  {
+    "src": "assets/IMG_9106.JPG",
+    "country": "Italy",
+    "location": "Lake Garda"
+  },
+  {
+    "src": "assets/IMG_9390.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9605.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9623.JPG",
+    "country": "Italy"
+  },
+  {
+    "src": "assets/IMG_9632.JPG",
+    "country": "Italy",
+    "location": "Milan"
+  },
+  {
+    "src": "assets/IMG_9665.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9666.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9679.MOV",
+    "country": "USA",
+    "location": "New York City",
+    "poster": "assets/travel-previews/23c4d87bc6ac6897-poster.jpg",
+    "playback": "assets/travel-videos/23c4d87bc6ac6897.mp4"
+  },
+  {
+    "src": "assets/IMG_9708.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9719.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9771.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9856.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9880.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9895.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_9999.jpeg",
+    "country": "USA",
+    "location": "New York City"
+  },
+  {
+    "src": "assets/IMG_4986.JPG",
+    "country": "USA",
+    "location": "North Carolina"
+  }
+]

@@ -95,3 +95,180 @@ html[lang=en] .watch-section .socials-title,.watch-section .socials-title{font-f
 .stingray-excursion{position:relative}.stingray-badge{position:absolute;bottom:12px;left:12px;display:grid;place-items:center;width:90px;min-height:44px;z-index:3;filter:drop-shadow(0 1px 2px #fff);transition:transform .2s}.stingray-badge:hover{transform:rotate(-4deg) scale(1.06)}.stingray-badge:focus-visible{outline:3px solid #19314f;outline-offset:4px;border-radius:5px}.stingray-badge img{display:block!important;width:90px!important;height:53px!important;min-height:0!important;object-fit:contain!important;transform:none!important;border:0!important;box-shadow:none!important}.studio-post-visual .stingray-badge{width:65px;left:9px;bottom:9px}.studio-post-visual .stingray-badge img{width:65px!important;height:39px!important}.studio-esim-card{width:85px;right:8px;top:90px;padding:8px;gap:6px;transform:rotate(5deg);border-radius:8px}.studio-esim-card b{font-size:7px}.studio-esim-card small{font-size:9px}.studio-esim-card>span{font-size:12px}.studio-jacket{position:absolute;right:10px;top:98px;width:84px;transform:rotate(6deg);filter:drop-shadow(0 3px 7px #0004)}.studio-jacket svg{width:100%;height:98px}.studio-jacket small{display:block;background:#fff5e9;color:#19314f;font-size:8px;padding:3px;text-align:center}.studio-platform-patagonia .studio-brand-lockup b{font-family:Georgia,serif;letter-spacing:-.04em}.studio-platform-youtube .studio-platform-bar{font-size:17px;border:0}.youtube-mark{display:inline-block;padding:0 5px;background:#e52822;color:#fff;border-radius:5px;font-size:12px}.studio-platform-youtube .studio-post-visual{height:auto;aspect-ratio:16/10}.studio-platform-youtube .studio-scene{object-position:center 37%}.studio-video-controls{position:absolute;left:0;bottom:0;right:0;padding:22px 10px 12px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(transparent,#000b);color:#fff;font:9px monospace}.studio-video-controls i{position:absolute;bottom:5px;left:8px;right:8px;height:2px;background:#fff6}.studio-video-controls i:before{content:'';display:block;width:20%;height:100%;background:#ef3830}.studio-platform-youtube .stingray-badge{bottom:33px}.studio-youtube-title{padding:13px 12px 4px;font:14px/1.4 "DM Sans",sans-serif}.studio-youtube-title small{display:block;margin-top:6px;color:#65717b;font-size:9px}.studio-youtube-actions{margin:8px 12px 14px;padding:9px;background:#f0f1f2;border-radius:18px;font-size:10px}.studio-platform-tiktok{background:#101217;color:white;position:relative}.studio-platform-tiktok .studio-phone-status{position:absolute;left:0;right:0;top:0;z-index:2;background:linear-gradient(#0008,transparent)}.studio-platform-tiktok .studio-phone-status i{background:#000}.studio-tiktok-tabs{position:absolute;left:0;right:0;top:48px;z-index:2;text-align:center;font-size:11px;word-spacing:7px;text-shadow:0 1px 4px #000}.studio-tiktok-tabs b{border-bottom:2px solid #fff;padding-bottom:7px}.studio-platform-tiktok .studio-post-visual{height:475px}.studio-platform-tiktok .studio-scene{object-position:45% center}.studio-tiktok-tools{position:absolute;right:9px;bottom:105px;display:grid;gap:17px;font-size:25px;text-align:center;text-shadow:0 2px 4px #0005}.studio-tiktok-tools span:nth-child(2){color:#ff3d71}.studio-tiktok-overlay{position:absolute;left:0;right:0;bottom:0;padding:26px 45px 15px 12px;background:linear-gradient(transparent,#000b);font:12px/1.4 "DM Sans",sans-serif}.studio-tiktok-overlay p{font:11px/1.5 "DM Sans",sans-serif!important;margin:7px 0!important;color:white}.studio-tiktok-overlay small{font-size:8px}.studio-platform-tiktok .stingray-badge{bottom:105px;left:10px}.studio-platform-tiktok .studio-phone-nav{border-color:#ffffff20}.studio-outside-disclosure{display:block;font:9px/1.5 "DM Sans",sans-serif;color:#53606a;margin:10px 8px 0;text-align:center}.studio-platform-youtube .studio-caption{min-height:70px}
 @media(max-width:700px){#passport-reader .passport-id-photo img{max-height:340px}.feature-social .feature-visual,.feature-partnership .feature-visual{height:auto;max-height:none}.vision-metric{font-size:32px}.vision-platforms{gap:5px}.vision-platforms span{width:26px;height:26px}.passport-community h2 .storybook-friends{width:48px;height:37px;margin-left:6px}.vision-board .vision-card{padding:17px}.studio-feature-grid{gap:26px}}
 @media(prefers-reduced-motion:reduce){.partner-cover{animation:none}}
+.passport-manifesto .passport-signatures {font-family:"Caveat","Snell Roundhand",cursive!important;font-size:32px!important;font-weight:500!important;}
+#passport-reader .passport-id-photo img {height:320px;max-height:none;object-fit:cover;object-position:50% 21%;}
+.vision-postcard img {height:auto;max-height:none;object-fit:contain;object-position:center;}
+.vision-faith .one-person {font:600 22px/1.3 "Caveat",cursive;color:#b95c34;margin:0 0 12px;}
+.community-margin.accent-margin {justify-content:flex-end;margin-left:auto;text-align:right;}
+.community-margin.accent-margin span {transform:rotate(4deg);}
+.vision-metric {font-variant-numeric:tabular-nums;font-size:clamp(24px,3vw,34px);letter-spacing:-.045em;white-space:nowrap;}
+.studio-brand-lockup a {color:inherit;font:inherit;font-weight:700;text-decoration:none;pointer-events:auto;}
+.studio-brand-lockup a:hover {text-decoration:underline;text-underline-offset:3px;}
+.studio-brand-lockup a:focus-visible {outline:2px solid currentColor;outline-offset:4px;}
+
+/* Portrait photography and films retain the complete original frame. */
+.feature-photography .editorial-photo img{height:auto;max-height:none;object-fit:contain;object-position:center;}
+.passport-manifesto .passport-signatures{font-family:"Great Vibes","Snell Roundhand",cursive!important;font-size:clamp(30px,3.2vw,39px)!important;font-weight:400!important;flex-wrap:wrap;line-height:1.7!important;}
+.community-launch{display:flex;align-items:center;justify-content:space-around;gap:20px;min-height:120px;margin:20px 0 0;color:#356a76;}
+.community-launch svg{width:48px;height:80px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transform:rotate(-20deg);}
+.community-launch svg:nth-child(2){width:65px;height:105px;color:#a14e3b;transform:translateY(-8px) rotate(18deg);}
+.community-launch svg:nth-child(3){transform:rotate(35deg);}
+.community-margin.community-phrase{justify-content:flex-end;margin:20px 0 8px;}
+.feature-films{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);}
+.feature-films .feature-visual{min-height:0;max-height:none;padding:30px 24px;flex-direction:column;justify-content:center;gap:20px;}
+.editorial-film{width:min(100%,290px);margin:0;}
+.editorial-film video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#080d12;border-radius:12px;box-shadow:0 12px 30px #0004;}
+.editorial-film figcaption{font:9px/1.6 monospace;padding:12px 0;color:#e7dcc7;}
+.feature-films .feature-copy{column-count:1;}
+.feature-films .feature-visual>.editorial-note{position:static;max-width:none;margin:0;transform:rotate(-3deg);}
+.studio-platform-airalo .studio-esim-card{top:76px;right:12px;width:128px;background:#fffaf0;color:#19314f;box-shadow:0 6px 18px #0003;transform:rotate(3deg);}
+.studio-platform-airalo .studio-esim-card>span:first-child{font-size:25px;font-weight:700;}
+.studio-platform-airalo .studio-scene{object-position:center;}
+@media(max-width:700px){.feature-films{grid-template-columns:1fr;}.feature-films .feature-visual{height:auto;}.editorial-film{width:min(100%,260px);}}
+
+/* Three short films, composed as a portrait reel with their original framing intact. */
+.feature-films{grid-template-columns:minmax(0,1fr);}
+.feature-films .feature-visual{padding:28px clamp(18px,4vw,42px);align-items:stretch;}
+.editorial-film-reel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start;width:100%;}
+.editorial-film-reel .editorial-film{width:100%;max-width:260px;margin:0 auto;}
+.film-reel-label{display:flex;justify-content:space-between;margin-bottom:10px;color:#e7dcc7;font:10px/1.4 monospace;letter-spacing:.12em;}
+.editorial-film-reel video{aspect-ratio:9/16;object-fit:contain;}
+.editorial-film-reel figcaption strong{display:block;font:600 18px/1.3 Georgia,serif;margin-bottom:7px;}
+.editorial-film-reel figcaption span{display:block;font:10px/1.5 "DM Sans",sans-serif;}
+.feature-films .feature-visual>.editorial-note{align-self:flex-end;}
+@media(min-width:701px){.feature-films .feature-copy{column-count:2;column-gap:38px;}.feature-films .section-compass-dock{break-inside:avoid;}}
+@media(max-width:600px){.editorial-film-reel{grid-template-columns:minmax(0,1fr);gap:30px;}.editorial-film-reel .editorial-film{max-width:290px;}}
+
+/* Small compasses occupy their own space, never covering reading or playback controls. */
+.gps-compass-dock.section-compass-dock{position:relative;inset:auto;display:flex;justify-content:flex-end;align-items:center;gap:12px;width:100%;max-width:none;min-height:54px;margin:20px 0 0;padding:0;flex-shrink:0;clear:both;}
+.section-compass-dock button{width:48px;height:48px;flex-basis:48px;min-width:48px;min-height:48px;padding:4px;}
+.gps-compass-dock.section-compass-dock p{max-width:250px;min-width:0;margin:0;padding:8px 11px;border-radius:5px;color:#234859;font:12px/1.45 Georgia,serif;letter-spacing:normal;text-transform:none;}
+.country-portfolio .section-compass-dock{width:auto;margin:16px 28px 0;}
+.van-cinema>.section-compass-dock{width:auto;margin:0;padding:14px 5vw 24px;background:#0b101a;}
+.portfolio-lightbox{padding-top:96px;}
+.portfolio-lightbox>.section-compass-dock{position:absolute;top:12px;left:20px;right:72px;bottom:auto;width:auto;margin:0;justify-content:flex-start;flex-direction:row-reverse;}
+.tree-poster-dialog>.section-compass-dock{padding:0 16px 12px;margin-top:8px;}
+@media(prefers-reduced-motion:reduce){.compass-needle{animation:none;}}
+.editorial-film-reel{align-items:center;}
+.editorial-film-reel .editorial-film:first-child video{aspect-ratio:16/9;}
+
+/* Shared pen-and-ink language for learning, dreams, and the rocket doodles. */
+.passport-doodle{display:block;width:min(100%,280px);height:auto;margin:22px auto 8px;color:#356a76;}
+.passport-doodle .doodle-accent{stroke:#a14e3b;}
+.learning-doodle{transform:rotate(-3deg);}
+.faithful-steps-doodle{margin:0 auto 8px;transform:rotate(2deg);}
+.partner-magazine-stand .editorial-seal{background:#b72d2a;border-color:#b72d2a;outline-color:#b72d2a;opacity:1;}
+.partner-directory-panel .service-emoji{display:block;object-fit:contain;width:40px;height:40px;}
+
+/* Matching immigration-style impressions; opening a note leaves the stamp intact. */
+.passport-stamps .passport-stamp-collection{grid-template-columns:minmax(0,1fr);gap:24px;justify-items:center;}
+.passport-stamps .passport-stamp:nth-child(n){width:100%;max-width:270px;min-height:0;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;transform:none;opacity:1;}
+.passport-stamps .passport-stamp summary,.passport-stamps .empty-stamp:nth-child(n){position:relative;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:min(100%,210px);max-width:210px;aspect-ratio:1;min-height:0;margin-inline:auto;padding:30px 22px;border:4px double currentColor;border-radius:50%;outline:1px dashed currentColor;outline-offset:-11px;background:repeating-linear-gradient(172deg,transparent 0 5px,#edf0df50 5px 6px);box-shadow:inset 0 0 0 1px #edf0df;transform:rotate(-3deg);text-align:center;}
+.passport-stamps .passport-stamp summary{list-style:none;}
+.passport-stamps .passport-stamp summary::-webkit-details-marker{display:none;}
+.passport-stamps .passport-stamp summary::before,.passport-stamps .empty-stamp::before{content:'L&P / BORDER STORIES';font:8px/1.2 monospace;letter-spacing:.16em;}
+.passport-stamps .passport-stamp summary::after{content:'+';position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font:16px/1 monospace;}
+.passport-stamps .passport-stamp[open] summary::after{content:'−';}
+.passport-stamps .passport-stamp summary img{width:25px;height:17px;opacity:.8;filter:sepia(.35);}
+.passport-stamps .passport-stamp strong{font:700 17px/1.15 monospace;letter-spacing:.12em;flex-basis:auto;}
+.passport-stamps .passport-stamp small{font:9px/1.3 monospace;letter-spacing:.13em;flex-basis:auto;}
+.passport-stamps .passport-stamp p{padding:12px 8px 0;font:12px/1.6 "DM Sans",sans-serif;}
+.passport-stamps .passport-stamp:nth-child(2) summary{transform:rotate(2deg);}
+.passport-stamps .passport-stamp:nth-child(3) summary{transform:rotate(-2deg);}
+.passport-stamps .empty-stamp:nth-child(n){margin:24px auto;color:#466b6d;font:700 13px/1.5 monospace;letter-spacing:.08em;}
+.passport-stamps .empty-stamp:nth-of-type(2){transform:rotate(2deg);}
+.passport-stamps .empty-stamp:nth-of-type(3){transform:rotate(-2deg);}
+.passport-stamps .passport-stamp summary:focus-visible{outline:3px solid var(--orange);outline-offset:5px;}
+
+/* Four authored photographs replace the single horseback portrait. */
+.feature-photography .feature-visual{padding:30px 24px;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:20px;}
+.photography-contact-sheet{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;width:100%;}
+.photography-contact-sheet figure{min-width:0;margin:0;padding:6px 6px 0;background:#fffaef;box-shadow:2px 4px 9px #172e401c;}
+.photography-contact-sheet figure:first-child{grid-row:span 3;display:flex;flex-direction:column;}
+.photography-contact-sheet img{display:block;width:100%;height:auto;min-height:0;object-fit:contain;}
+.photography-contact-sheet figure:first-child img{flex:1;object-fit:contain;background:#09090d;}
+.photography-contact-sheet figcaption{padding:8px 2px;font:9px/1.4 "DM Sans",sans-serif;color:#42525a;}
+.photography-contact-sheet figcaption b{font:9px monospace;color:var(--orange);margin-right:4px;}
+.feature-photography .feature-visual>.editorial-note{position:static;max-width:none;align-self:flex-end;margin:0;}
+@media(max-width:700px){.feature-photography .feature-visual{height:auto;max-height:none;}.photography-contact-sheet{max-width:480px;margin:auto;}}
+
+/* An ownership seal for the four original photographs, kept clear of the images. */
+.photography-ownership-stamp{display:flex;flex-direction:column;align-items:center;justify-content:center;align-self:center;gap:9px;box-sizing:border-box;width:154px;aspect-ratio:1;padding:20px 15px;border:4px double currentColor;border-radius:50%;outline:1px dashed currentColor;outline-offset:-10px;color:var(--orange);background:repeating-linear-gradient(172deg,transparent 0 5px,#e9dfcd70 5px 6px);text-align:center;transform:rotate(-9deg);}
+.photography-ownership-stamp small{font:700 8px/1.5 monospace;letter-spacing:.1em;max-width:112px;}
+.photography-ownership-stamp strong{font:700 25px/1 Georgia,serif;}
+.photography-ownership-stamp strong span{display:block;margin-top:4px;font-size:15px;}
+.partner-magazine-stand .editorial-seal strong{font-family:"DM Sans",sans-serif;font-size:29px;font-weight:800;letter-spacing:-.055em;line-height:1;}
+.partner-magazine-stand .editorial-seal .brand-perdido{font:700 13px/1.4 Georgia,serif;letter-spacing:.01em;margin-top:6px;}
+/* Keep the magazine's phone previews fluid at narrow reader widths, too. */
+.modern-phone-stage,.studio-phone{min-width:0;max-width:100%;}
+.studio-phone{width:300px;}
+.studio-account>span{min-width:0;overflow-wrap:anywhere;}
+.studio-choice-row{gap:6px;}
+.studio-choice-row button{flex:0 1 auto;}
+@media(max-width:420px){.feature-social .feature-visual,.feature-partnership .feature-visual{padding-inline:16px;}.studio-tiktok-tools{right:8px;}.studio-post-headline{font-size:13px;}.studio-platform-tiktok .studio-post-visual{height:auto;aspect-ratio:9/16;}.studio-tiktok-overlay{padding-right:46px;}.studio-choice-row button{padding:9px 11px;}}
+.studio-platform-samsonite .studio-scene{object-position:40% 30%;}
+.studio-platform-safetywing .studio-scene{object-position:35% 55%;}
+.studio-platform-samsonite .studio-luggage{width:74px;height:120px!important;right:10px;bottom:57px;filter:drop-shadow(0 4px 9px #0006);}
+.studio-platform-dji .studio-product{width:120px;height:80px!important;right:9px;bottom:58px;filter:drop-shadow(0 4px 9px #0006);}
+.studio-insurance-note{position:absolute;right:10px;top:94px;display:grid;justify-items:center;gap:5px;width:78px;padding:10px 6px;border:1px solid #ffffffa0;border-radius:9px;background:#f5f7eced;color:#204f58;transform:rotate(4deg);}
+.studio-insurance-note svg{width:30px;height:34px;fill:none;stroke:currentColor;stroke-width:1.7;}
+.studio-insurance-note span{font:700 7px/1.5 "DM Sans",sans-serif;text-align:center;letter-spacing:.07em;}
+.studio-brand-lockup>a{display:block;font-size:28px;line-height:1.15;letter-spacing:-.04em;}
+
+/* The seal belongs to the cover, so it travels with the paper. */
+.partner-magazine-stand .partner-cover .editorial-seal{position:absolute;right:4%;bottom:4%;width:clamp(78px,10vw,112px);height:auto;aspect-ratio:1;padding:8px;margin:0;z-index:2;pointer-events:none;border-width:3px;outline-offset:2px;box-shadow:inset 0 0 0 2px #f3ead0;}
+.partner-magazine-stand .partner-cover .editorial-seal strong{font-size:clamp(19px,2.5vw,27px);margin:5px 0;}
+.partner-magazine-stand .partner-cover .editorial-seal .brand-perdido{font-size:clamp(9px,1.1vw,12px);margin-top:4px;}
+.partner-cover .editorial-seal>span{font-size:6px;}
+.partner-cover .magazine-cover-deck{bottom:29%;}
+.partner-cover .magazine-cover-title{bottom:38%;}
+.partner-cover .magazine-open{right:calc(4% + 120px);width:max-content;max-width:55%;}
+.studio-platform-samsonite .studio-scene{object-position:50% 44%;}
+
+/* A small ink-drawn solar system continues the passport rocket illustrations. */
+.community-cosmos{margin:8px auto 20px;width:min(100%,340px);color:#356a76;pointer-events:none;}
+.community-cosmos svg{width:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.cosmos-orbits{opacity:.35;stroke-dasharray:3 6;}
+.cosmos-sun{color:#a14e3b;transform-origin:160px 76px;animation:cosmos-spin 35s linear infinite;}
+.cosmos-planet,.cosmos-earth,.cosmos-moon{animation:cosmos-drift 7s ease-in-out infinite alternate;}
+.cosmos-earth{animation-delay:-3s;}.cosmos-moon{animation-delay:-5s;}
+@keyframes cosmos-spin{to{transform:rotate(360deg);}}
+@keyframes cosmos-drift{to{transform:translateY(-7px);}}
+.photo-picture-book{padding:clamp(18px,4vw,45px);background:#eee4d0;color:#233e40;}
+.photo-picture-book header{max-width:650px;margin:0 auto 25px;text-align:center;}
+.photo-picture-book h3{font:600 clamp(26px,4vw,42px)/1.15 Georgia,serif;margin:12px 0;}
+.photo-book-spread{position:relative;padding:22px;background:linear-gradient(90deg,#fff9ec 48%,#dbd0bc 50%,#fff9ec 52%);box-shadow:5px 7px 0 #c5bba8,8px 12px 20px #0002;border-radius:3px;}
+.photo-picture-book .photography-contact-sheet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;transform:none;}
+.photo-picture-book figure{margin:0;min-width:0;transform:none;}
+.photo-picture-book figure[hidden]{display:none;}
+.photo-picture-book figure img{display:block;width:100%;height:clamp(210px,35vw,430px);object-fit:contain;background:#172e31;}
+.photo-picture-book figcaption{padding:14px 0 40px;font:14px Georgia,serif;}
+.photo-picture-book .photography-ownership-stamp{width:74px;height:74px;right:30px;bottom:10px;}
+.photo-picture-book .photography-ownership-stamp strong{font-size:15px;}.photo-picture-book .photography-ownership-stamp small{font-size:5px;}
+.photo-picture-book nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:28px;}
+.photo-picture-book nav button{min-height:44px;padding:10px 17px;border:1px solid #b8a98c;border-radius:4px;background:#fff9ec;color:#233e40;cursor:pointer;}
+.photo-picture-book nav button:disabled{opacity:.35;cursor:default;}
+.photo-book-status,.photo-book-credit{font:11px/1.5 monospace;}.photo-book-credit{text-align:center;margin-top:20px;}
+@media(max-width:550px){.photo-book-spread{padding:12px;}.photo-picture-book .photography-contact-sheet{gap:16px;}.photo-picture-book figure img{height:230px;}.photo-picture-book figcaption{font-size:11px;}.photo-picture-book .photography-ownership-stamp{right:18px;}}
+@media(prefers-reduced-motion:reduce){.community-cosmos *{animation:none!important;}}
+
+.photo-picture-book .photography-contact-sheet figure{grid-row:auto;}
+
+/* A tiny bilingual film ident fills the blue space above our unexpected co-star. */
+.film-intro-card{position:relative;margin:0 0 24px;padding:17px 0 14px;border-top:1px solid #f5e6c947;border-bottom:1px solid #f5e6c947;color:#f9efd8;overflow:hidden;}
+.film-intro-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;}
+.film-intro-top>span{display:flex;align-items:center;gap:6px;font:8px/1.5 monospace;letter-spacing:.09em;}
+.film-intro-top i{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:#ef8057;box-shadow:0 0 8px #ef805755;}
+.film-intro-top>svg{width:52px;height:40px;flex-shrink:0;fill:none;stroke:#f6d799;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.film-camera-reel-one{transform-origin:24px 15px;}.film-camera-reel-two{transform-origin:51px 15px;}
+.film-camera-reel{animation:film-reel-roll 10s linear infinite;}
+.film-intro-card h3{margin:0;font:800 clamp(29px,3.6vw,43px)/.98 "DM Sans",sans-serif;letter-spacing:-.055em;}
+.film-intro-card h3 em{display:inline-block;margin-top:4px;color:#f2a66d;font-style:normal;transform:rotate(-5deg);}
+.film-intro-route{height:27px;margin:8px 0 5px;}
+.film-intro-route svg{display:block;width:100%;height:27px;fill:none;stroke:#b9d5ce;stroke-width:1.5;stroke-linecap:round;}
+.film-intro-route path:first-child{stroke-dasharray:4 6;animation:film-route-travel 4s linear infinite;}
+.film-intro-card>small{font:8px/1.5 monospace;letter-spacing:.16em;color:#d5e2de;}
+@keyframes film-reel-roll{to{transform:rotate(360deg);}}
+@keyframes film-route-travel{to{stroke-dashoffset:-40;}}
+@media(max-width:600px){.film-intro-card h3{font-size:43px;}.film-intro-card{margin-bottom:25px;}}
+@media(prefers-reduced-motion:reduce){.film-camera-reel,.film-intro-route path:first-child{animation:none;}}

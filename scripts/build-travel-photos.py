@@ -1,5 +1,6 @@
 """Build local portfolio manifest and optimized previews; originals stay untouched."""
-import json, subprocess, hashlib
+import json, hashlib
+from PIL import Image, ImageOps
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 ROOT=Path(__file__).resolve().parents[1]
@@ -11,7 +12,9 @@ def prepare(p):
  if video:return {'src':relative,'type':'video'}
  preview=output/(key+'.jpg')
  if not preview.exists() or preview.stat().st_mtime<p.stat().st_mtime:
-  subprocess.run(['sips','-s','format','jpeg','-s','formatOptions','75','-Z','1000',str(p),'--out',str(preview)],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
+  image=ImageOps.exif_transpose(Image.open(p)).convert('RGB')
+  image.thumbnail((1000,1000))
+  image.save(preview,quality=75,optimize=True)
  return {'src':relative,'preview':preview.relative_to(ROOT).as_posix(),'type':'photo'}
 manifest={}
 with ThreadPoolExecutor(max_workers=4) as pool:
@@ -23,6 +26,16 @@ with ThreadPoolExecutor(max_workers=4) as pool:
    digest=hashlib.sha256(photo.read_bytes()).hexdigest()
    if digest not in seen: unique.append(photo);seen.add(digest)
   manifest[names.get(folder.name,folder.name)]=list(pool.map(prepare,unique))
+# Curated uploads can stay in assets; this inventory preserves their destination labels.
+additions=json.loads((ROOT/'travel-additions.json').read_text()) if (ROOT/'travel-additions.json').exists() else []
+for item in additions:
+ entry=prepare(ROOT/item['src'])
+ for field in ('location','poster'):
+  if item.get(field):entry[field]=item[field]
+ if item.get('playback'):
+  if not (ROOT/item['playback']).is_file():raise FileNotFoundError(item['playback'])
+  entry['src']=item['playback']
+ manifest.setdefault(item['country'],[]).append(entry)
 (ROOT/'travel-photos.js').write_text('window.travelPortfolios='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n')
 print('Built',len(manifest),'portfolios with',sum(len(v) for v in manifest.values()),'photos and videos.')
 

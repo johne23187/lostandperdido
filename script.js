@@ -28,12 +28,16 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-window.matchMedia('(min-width: 701px)').addEventListener('change', closeMenu);
+window.matchMedia('(min-width: 1001px)').addEventListener('change', closeMenu);
 
 // ---------- Bilingual EN / ES site ----------
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  "CITY STREETS TO PATAGONIA": "DE LA CIUDAD A LA PATAGONIA",
+  "Next stop: Patagonia, too.": "Próxima parada: también Patagonia.",
+  "Santiago’s city streets, the Maipo Valley, a little Pacific air—and now Patagonia, too. We’re heading south for mountain trails, wide-open landscapes, and the kind of detours that make us glad we got lost.": "Las calles de Santiago, el Valle del Maipo, un poco de brisa del Pacífico y, ahora, también Patagonia. Vamos al sur en busca de senderos de montaña, paisajes abiertos y esos desvíos que nos hacen agradecer habernos perdido.",
+
   'Occupation': 'Ocupación',
   'Professional Tourist': 'Turista profesional',
   'Language Specialist': 'Especialista en idiomas',
@@ -674,8 +678,12 @@ drawWorldMap();
 const socialsSection = document.querySelector('.watch-section');
 const socialsStage = document.querySelector('.socials-showcase');
 const orbitPhones = [...document.querySelectorAll('.social-card')];
+orbitPhones.forEach(card=>{
+ const phone=card.querySelector('.phone'),frame=document.createElement('div');frame.className='phone-size-frame';phone.before(frame);frame.append(phone);
+});
 const spacePlane = document.querySelector('.space-plane');
 const socialsMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const socialsMobile = window.matchMedia('(max-width: 700px)');
 let socialsVisible = false;
 let socialsFrame;
 let socialsElapsed = 0;
@@ -683,15 +691,18 @@ let socialsLastTime;
 let socialsSize = { width: 0, height: 0, stage: 0 };
 function paintSocialsMotion() {
   const phase = socialsElapsed / 24000 * Math.PI * 2;
-  const radius = Math.max(0, (socialsSize.stage - (orbitPhones[0]?.offsetWidth || 140)) / 2 - 12);
-  orbitPhones.forEach((card, index) => {
-    const angle = phase + (index - 1) * Math.PI * 2 / 3;
-    const depth = Math.cos(angle);
-    const scale = .83 + depth * .17;
-    card.style.transform = `translate(-50%, -50%) translate(${Math.sin(angle) * radius}px, ${depth * 30}px) scale(${scale})`;
-    card.style.zIndex = String(Math.round((depth + 1) * 100));
-    card.style.setProperty('--phone-tilt', `${-Math.sin(angle) * 15}deg`);
-    card.style.setProperty('--phone-roll', `${Math.sin(angle) * 2}deg`);
+  const phoneWidth=orbitPhones[0]?.offsetWidth || 140;
+  const radius=Math.max(0,(socialsSize.stage-phoneWidth)/2-24);
+  orbitPhones.forEach((card,index)=>{
+    card.style.setProperty('--phone-fit',String(card.offsetWidth/280));
+    card.querySelector('.phone-wrap').style.height=(card.offsetWidth*19.5/9)+'px';
+    const angle=phase+(index-1)*Math.PI*2/3;
+    const depth=Math.cos(angle),scale=.78+depth*.16;
+    card.style.transform=`translate(-50%, -50%) translate(${Math.sin(angle)*radius}px, ${depth*22}px) scale(${scale})`;
+    card.style.zIndex=String(Math.round((depth+1)*100));
+    card.style.setProperty('--phone-tilt',`${-Math.sin(angle)*15}deg`);
+    card.style.setProperty('--phone-roll',`${Math.sin(angle)*2}deg`);
+    card.style.setProperty('--phone-bob','0px');
   });
   // A broad figure eight traverses the full star field behind the phones.
   const flight = socialsElapsed / 30000 * Math.PI * 2 - Math.PI / 2;
@@ -725,6 +736,7 @@ new IntersectionObserver(([entry]) => {
   syncSocialsMotion();
 }).observe(socialsSection);
 socialsMotion.addEventListener('change', syncSocialsMotion);
+socialsMobile.addEventListener('change', syncSocialsMotion);
 document.addEventListener('visibilitychange', syncSocialsMotion);
 
 // Seven-segment shot-clock numerals, drawn locally so they need no font download.
@@ -776,7 +788,10 @@ satelliteButton.addEventListener('click', () => {
 satelliteDialog.addEventListener('close', () => { satelliteZoomAnimations.forEach(animation => animation.cancel()); satelliteButton.style.animationPlayState = ''; satelliteButton.focus({ preventScroll: true }); });
 // Edit these coordinates when our location changes; never use the visitor's location.
 const gpsLocation = { latitude: 40.7128, longitude: -74.0060, label: 'NEW YORK · USA' };
-const gpsButton = document.querySelector('.gps-lost');
+const gpsButton = document.querySelector('.location-gps');
+gpsButton.addEventListener('keydown', event => {
+  if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); gpsButton.click(); }
+});
 const gpsDialog = document.getElementById('gps-tracker');
 const gpsDevice = gpsDialog.querySelector('.gps-expanded-device');
 const gpsTravelers = gpsDialog.querySelector('.gps-travelers');
@@ -1072,7 +1087,7 @@ function renderMemory() {
 function resetPaper() {
   paperAnimations.forEach(animation => animation.cancel());
   paperAnimations.clear();
-  paperCard.style.opacity = '1'; paperCard.style.visibility = 'visible';
+  paperCard.style.opacity = '1'; paperCard.style.visibility = 'visible';paperCard.style.transform='';
   if (foldingPaper) { foldingPaper.remove(); foldingPaper = null; }
   paperFigure.style.visibility = '';
   paperStage.classList.remove('is-folding', 'is-flying');
@@ -1113,7 +1128,7 @@ function makeFoldingPaper(photo) {
     const image = document.createElementNS(ns, 'image');
     Object.entries({href:photo.src,x:12,y:12,width:width-24,height:width-24,preserveAspectRatio:'xMidYMid meet'}).forEach(([key,value])=>image.setAttribute(key,value)); surface.append(image);
     const caption = document.createElementNS(ns, 'text');
-    Object.entries({x:width/2,y:width+24,'text-anchor':'middle',fill:'#655d51','font-size':13,'font-family':'Georgia, serif'}).forEach(([key,value])=>caption.setAttribute(key,value)); caption.textContent = albumText(photo.caption); surface.append(caption);
+    Object.entries({x:width/2,y:width+24,'text-anchor':'middle',fill:'#655d51','font-size':Math.min(13,width/19),'font-family':'Georgia, serif'}).forEach(([key,value])=>caption.setAttribute(key,value)); caption.textContent = albumText(photo.caption); surface.append(caption);
     const shade = document.createElementNS(ns, 'rect');
     Object.entries({width,height,fill:['#ffffff','#ffffff','#b5b5b5','#b5b5b5','#b5b5b5','#dedede','#ffffff','#ffffff'][index],opacity:0}).forEach(([key,value])=>shade.setAttribute(key,value)); surface.append(shade);
     group.append(surface); svg.append(group); return {ids,group,shade};
@@ -1170,82 +1185,57 @@ function foldPaper(mesh, from, to, duration, generation) {
   });
 }
 // A canceled browser animation must never leave the album permanently busy.
-async function transitionMemory(direction) {
-  if (memoryBusy || !memoryPlaying || !meetingStory.open) return;
-  clearTimeout(memoryTimer);
-  memoryBusy = true;
-  const generation = ++memoryGeneration;
-  const before = memoryIndex;
-  const recovery = setTimeout(() => {
-    if (generation !== memoryGeneration || !memoryBusy || !memoryPlaying || !meetingStory.open) return;
-    memoryGeneration++;
-    resetPaper();
-    if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
-    memoryBusy = false;
-    renderMemory();
-    scheduleMemory();
-  }, 8000);
-  try { await runMemoryTransition(direction, generation); }
-  catch (error) {
-    console.warn('Photo animation recovered:', error);
-    if (generation === memoryGeneration && memoryPlaying && meetingStory.open) {
-      resetPaper();
-      if (memoryIndex === before) memoryIndex = (before + direction + memories.length) % memories.length;
-      renderMemory();
-    }
-  } finally {
-    clearTimeout(recovery);
-    if (generation === memoryGeneration) {
-      resetPaper();
-      memoryBusy = false;
-      scheduleMemory();
-    }
-  }
+// Some embedded previews stop delivering animation frames. Keep one fallback
+// tick alive so playback still advances, without running overlapping timelines.
+function queueMemoryFrame(callback){
+  let delivered=false,raf,timeout;
+  const deliver=now=>{if(delivered)return;delivered=true;clearTimeout(timeout);cancelAnimationFrame(raf);callback(now);};
+  timeout=setTimeout(()=>deliver(performance.now()),80);
+  raf=requestAnimationFrame(deliver);
 }
-async function runMemoryTransition(direction, generation) {
-  const nextIndex = (memoryIndex + direction + memories.length) % memories.length;
-  // Decode before starting so every landing opens onto a fully loaded photo.
-  const ready = new Image(); ready.src = memories[nextIndex].src;
-  try { await Promise.race([ready.decode(), new Promise(resolve => setTimeout(resolve, 1800))]); } catch { /* Keep the sequence moving even if decoding fails. */ }
-  if (generation !== memoryGeneration) return;
-  if (!albumMotion.matches) {
-    const mesh = makeFoldingPaper(memories[memoryIndex]);
-    const foldMovement = paperAnimate(paperCard,[
-      {transform:'translate(0,0) rotate(-2deg)'},
-      {transform:'translate(0,-3px) rotate(0deg)',offset:.25},
-      {transform:'translate(0,1px) rotate(-2deg)',offset:.5},
-      {transform:'translate(0,-2px) rotate(1deg)',offset:.75},
-      {transform:'translate(0,-5px) rotate(-4deg)'}
-    ],440,generation);
-    if (!await foldPaper(mesh,0,1,440,generation) || !await foldMovement) return;
-    const distance = paperStage.clientWidth/2+paperCard.offsetWidth;
-    const departureAngle = Math.atan2(-160 + 30, distance - 80) * 180 / Math.PI;
-    if (!await paperAnimate(paperCard,[
-      {transform:'translate(0,-5px) rotate(-4deg)'},
-      {transform:'translate(-20px,2px) rotate(2deg)',offset:.22},
-      {transform:'translate(80px,-30px) rotate(-14deg)',offset:.52},
-      {transform:`translate(${distance}px,-160px) rotate(${departureAngle}deg)`}
-    ],1000 / 3,generation,'cubic-bezier(.42,0,.65,1)')) return;
-    // Exchange the photograph only while the sheet is completely offstage.
-    mesh.svg.remove(); foldingPaper = null;
-    memoryIndex = nextIndex; renderMemory();
-    const incoming = makeFoldingPaper(memories[memoryIndex]); paintPaperFold(incoming,1);
-    if (!await paperAnimate(paperCard,[
-      {transform:`translate(${-distance}px,95px) rotate(-14deg)`},
-      {transform:'translate(-120px,-32px) rotate(-16deg)',offset:.52},
-      {transform:'translate(18px,-19px) rotate(8deg)',offset:.82},
-      {transform:'translate(0,-5px) rotate(-4deg)'}
-    ],450,generation,'cubic-bezier(.25,.5,.4,1)')) return;
-    const landing = paperAnimate(paperCard,[
-      {transform:'translate(0,-5px) rotate(-4deg)'},
-      {transform:'translate(0,-15px) rotate(2deg)',offset:.56},
-      {transform:'translate(0,3px) rotate(-3deg)',offset:.86},
-      {transform:'translate(0,0) rotate(-2deg)'}
-    ],600,generation);
-    if (!await foldPaper(incoming,1,0,600,generation) || !await landing) return;
-  } else { memoryIndex = nextIndex; renderMemory(); }
-  if (generation !== memoryGeneration) return;
-  resetPaper();
+function transitionMemory(direction) {
+  if (memoryBusy || !memoryPlaying || !meetingStory.open || document.hidden) return;
+  clearTimeout(memoryTimer);
+  memoryBusy=true;
+  const generation=++memoryGeneration;
+  const next=(memoryIndex+direction+memories.length)%memories.length;
+  let mesh,swapped=false,start;
+  const distance=paperStage.clientWidth/2+paperCard.offsetWidth;
+  const flightScale=Math.min(1,paperCard.offsetWidth/340);
+  function finish(){
+    if(generation!==memoryGeneration)return;
+    if(!swapped){memoryIndex=next;renderMemory();}
+    resetPaper();memoryBusy=false;scheduleMemory();
+  }
+  function pose(x,y,angle){paperCard.style.transform=`translate(${x}px,${y*flightScale}px) rotate(${angle}deg)`;}
+  const ease=t=>t*t*(3-2*t);
+  function frame(now){
+    if(generation!==memoryGeneration)return;
+    if(!meetingStory.open||document.hidden){suspendMemory();return;}
+    if(start===undefined)start=now;
+    const elapsed=now-start;
+    try {
+      if(elapsed<440){
+        const t=elapsed/440;paintPaperFold(mesh,t);pose(0,-5*ease(t),-2-2*ease(t));
+      }else if(elapsed<773){
+        paintPaperFold(mesh,1);const t=ease((elapsed-440)/333);
+        pose(distance*t,-5-155*t-Math.sin(t*Math.PI)*12,-4-12*t);
+      }else{
+        if(!swapped){mesh.svg.remove();foldingPaper=null;memoryIndex=next;renderMemory();mesh=makeFoldingPaper(memories[memoryIndex]);paintPaperFold(mesh,1);swapped=true;}
+        if(elapsed<1223){
+          const t=ease((elapsed-773)/450);pose(-distance*(1-t),95*(1-t)-Math.sin(t*Math.PI)*42,-14+10*t);
+        }else if(elapsed<1823){
+          const t=(elapsed-1223)/600;paintPaperFold(mesh,1-t);pose(0,-5*(1-t)-Math.sin(t*Math.PI)*8,-4+2*ease(t));
+        }else{finish();return;}
+      }
+      queueMemoryFrame(frame);
+    }catch(error){console.warn('Photo sequence recovered:',error);finish();}
+  }
+  try{
+    if(albumMotion.matches){finish();return;}
+    mesh=makeFoldingPaper(memories[memoryIndex]);
+    queueMemoryFrame(frame);
+  }catch(error){console.warn('Photo sequence recovered:',error);finish();}
 }
 function startMemory() {
   if (memoryBusy || memoryPlaying) return;
@@ -1262,11 +1252,15 @@ function suspendMemory() {
 document.addEventListener('visibilitychange', () => { if (document.hidden) suspendMemory(); else scheduleMemory(); });
 // Fold coordinates depend on the stage dimensions, including mobile rotation.
 let memoryResizeTimer;
-new ResizeObserver(() => {
-  if (!memoryBusy) return;
-  suspendMemory();
-  clearTimeout(memoryResizeTimer);
-  memoryResizeTimer = setTimeout(scheduleMemory, 150);
+let memoryStageSize='';
+new ResizeObserver(entries=>{
+  const rect=entries[0].contentRect;
+  const size=Math.round(rect.width)+'x'+Math.round(rect.height);
+  if(size===memoryStageSize)return;
+  const previous=memoryStageSize;memoryStageSize=size;
+  if(!previous||!memoryBusy)return;
+  suspendMemory();clearTimeout(memoryResizeTimer);
+  memoryResizeTimer=setTimeout(scheduleMemory,150);
 }).observe(paperStage);
 albumMotion.addEventListener('change', () => { const resume=memoryPlaying; stopMemory(); if(resume){memoryPlaying=true;renderMemory();scheduleMemory();} });
 renderMemory();
@@ -1949,7 +1943,7 @@ setInterval(() => {
 
 window.addEventListener('resize', () => document.querySelectorAll('.campaign-photo-crop').forEach(crop => crop.fitPhoto?.()));
 
-// Reveal the existing orbit with one burst, without changing its motion.
+// The full plane → boom → title → 3D phone reveal runs on every screen size.
 (() => {
  const stage=document.querySelector('.socials-showcase');
  const motion=matchMedia('(prefers-reduced-motion: reduce)');

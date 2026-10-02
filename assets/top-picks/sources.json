@@ -1,0 +1,108 @@
+{
+  "ozuna": {
+    "url": "https://open.spotify.com/artist/1i8SpTcr7yvPOmcqrbnVXY",
+    "image": "https://i.scdn.co/image/ab6761610000e5eb1c4284179078e2529b1630e2",
+    "title": "Ozuna",
+    "artists": [
+      "https://open.spotify.com/artist/1i8SpTcr7yvPOmcqrbnVXY"
+    ]
+  },
+  "bad-bunny": {
+    "url": "https://open.spotify.com/artist/4q3ewBCX7sLwd24euuV69X",
+    "image": "https://i.scdn.co/image/ab6761610000e5eb81f47f44084e0a09b5f0fa13",
+    "title": "Bad Bunny",
+    "artists": [
+      "https://open.spotify.com/artist/4q3ewBCX7sLwd24euuV69X"
+    ]
+  },
+  "el-alfa": {
+    "url": "https://open.spotify.com/artist/2oQX8QiMXOyuqbcZEFsZfm",
+    "image": "https://i.scdn.co/image/ab6761610000e5ebebc38443c371677783ebd465",
+    "title": "El Alfa",
+    "artists": [
+      "https://open.spotify.com/artist/2oQX8QiMXOyuqbcZEFsZfm"
+    ]
+  },
+  "anthony-santos": {
+    "url": "https://open.spotify.com/artist/06TVTkMAOR935MhkjX0i2A",
+    "image": "https://i.scdn.co/image/ab6761610000e5ebb23c527ae49156be72ea0a60",
+    "title": "Anthony Santos",
+    "artists": [
+      "https://open.spotify.com/artist/06TVTkMAOR935MhkjX0i2A"
+    ]
+  },
+  "feel-trip": {
+    "url": "https://open.spotify.com/artist/7ysdcHcrr06qQJ1BL0dKVU",
+    "image": "https://i.scdn.co/image/ab6761610000e5eb18283b2508a8a32f16508379",
+    "title": "feel trip.",
+    "artists": [
+      "https://open.spotify.com/artist/7ysdcHcrr06qQJ1BL0dKVU"
+    ]
+  },
+  "mi-buena-suerte": {
+    "url": "https://open.spotify.com/track/6xVXJynT4L6aPmbI6Rzw5M",
+    "image": "https://i.scdn.co/image/ab67616d0000b2738ed77ec13621e417bca7bdae",
+    "title": "mi buena suerte.",
+    "artists": [
+      "https://open.spotify.com/artist/7ysdcHcrr06qQJ1BL0dKVU"
+    ]
+  },
+  "omega-song": {
+    "url": "https://open.spotify.com/track/6n5AS39NnVJiilJmeNy6jT",
+    "image": "https://i.scdn.co/image/ab67616d0000b2733b28cd610c85f47d891898c2",
+    "title": "Tu No T\u00e1 Pa\u2019 Mi",
+    "artists": [
+      "https://open.spotify.com/artist/1UjxAZqzphB1tsMb1aWBj0"
+    ]
+  },
+  "fran-album": {
+    "url": "https://open.spotify.com/album/6kDtWGJzwOppzm534rqCl1",
+    "image": "https://i.scdn.co/image/ab67616d0000b27359e1287ad7d46eb11276e4eb",
+    "title": "Siempre quiero m\u00e1s - Single by Fran Aliss | Spotify",
+    "artists": [
+      "https://open.spotify.com/artist/3PlgEHWfJplE2qFIVCls6E"
+    ]
+  },
+  "omega": {
+    "url": "https://open.spotify.com/artist/1UjxAZqzphB1tsMb1aWBj0",
+    "image": "https://i.scdn.co/image/ab6761610000e5eb3fc42970629014040f4b57e5",
+    "title": "Omega",
+    "artists": [
+      "https://open.spotify.com/artist/1UjxAZqzphB1tsMb1aWBj0"
+    ]
+  },
+  "fran-aliss": {
+    "url": "https://open.spotify.com/artist/3PlgEHWfJplE2qFIVCls6E",
+    "image": "https://i.scdn.co/image/ab6761610000e5eb5b037868d5889d27fb48c082",
+    "title": "Fran Aliss",
+    "artists": [
+      "https://open.spotify.com/artist/3PlgEHWfJplE2qFIVCls6E"
+    ]
+  },
+  "icarly": {
+    "title": "iCarly",
+    "url": "http://www.nick.com/icarly/",
+    "image": "https://static.tvmaze.com/uploads/images/original_untouched/404/1011740.jpg",
+    "source": "https://www.tvmaze.com/shows/808/icarly"
+  },
+  "spongebob": {
+    "title": "SpongeBob SquarePants",
+    "url": "http://www.nick.com/spongebob-squarepants/",
+    "image": "https://static.tvmaze.com/uploads/images/original_untouched/594/1486607.jpg",
+    "source": "https://www.tvmaze.com/shows/713/spongebob-squarepants"
+  },
+  "the-office": {
+    "title": "The Office",
+    "url": "http://www.nbc.com/the-office",
+    "image": "https://static.tvmaze.com/uploads/images/original_untouched/481/1204342.jpg",
+    "source": "https://www.tvmaze.com/shows/526/the-office"
+  },
+  "hipnotizado": {
+    "url": "https://open.spotify.com/track/2KGSIsAOIyXltuVeOThuch",
+    "image": "https://i.scdn.co/image/ab67616d0000b27397b14660cdd07d23eb5bb18c",
+    "title": "Hipnotizado",
+    "artists": [
+      "https://open.spotify.com/artist/3PlgEHWfJplE2qFIVCls6E"
+    ]
+  }
+}

@@ -51,3 +51,12 @@ Stingray City Antigua logo: official unmodified asset http://www.stingraycityant
 Holding-hands friends: original site-native SVG drawing, with smiling faces and eyes, inspired by the requested hand-drawn style; not a licensed Shutterstock download.
 Passport landscape: travel-photos/Colombia/C022A70B-13EC-489A-BE5C-25301FA23140.JPG, user-supplied personal travel collection; existing optimized preview reused.
 Patagonia jacket: original generic outdoor-jacket SVG illustration for uncommissioned concept only, not an official product photograph.
+
+Patagonia brand concept: assets/mateo-meadow-composite.png — AI-assisted composite based on the user’s Colombia meadow and Mateo’s arms-wide Ireland photograph (80717a74-1c42-4d08-846b-1d987ec23d96.JPG); not documentary location photography or commissioned work.
+
+Directory icons: apple-directory-*.png rendered locally from the installed Apple Color Emoji font, as fixed PNG assets requested for cross-device consistency.
+Photography contact sheet: photography-*.jpg optimized from the four user-provided JPG uploads on September 28, 2026; originals preserved.
+
+Samsonite concept: partner-samsonite-transit.jpg derives from the user photo 8D206D47-FDB5-4350-A402-10051D3B6033_1_105_c.jpeg. SafetyWing concept: partner-safetywing-journey.jpg derives from user photo IMG_2448.JPG. luggage-preview.svg and drone-preview.svg are original illustrative product-category drawings, not photographs of specific branded products.
+
+Samsonite concept updated to user-owned Colombia photograph assets/travel-previews/2f7373996064-cover.jpg, showing John with his backpack on a cobblestone street.
