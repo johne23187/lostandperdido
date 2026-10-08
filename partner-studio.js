@@ -27,6 +27,16 @@
 (() => {
   const prompts=[['Ask a local where they love to eat.','Pregúntale a alguien de aquí dónde le encanta comer.'],['Learn one phrase. Start one conversation.','Aprende una frase. Empieza una conversación.'],['Take the scenic way. Leave room for surprise.','Elige el camino bonito. Deja espacio para la sorpresa.'],["North? We were following the smell of coffee.", "¿El norte? Seguíamos el olor a café."],["Recalculating… our entire itinerary.", "Recalculando… todo el itinerario."],["Wrong turn. Great story.", "Giro equivocado. Buena historia."],["¿Por aquí? Famous last words.", "¿Por aquí? Así empiezan nuestras historias."],["Find a bakery. Call it a landmark.", "Busca una panadería. Ya tienes un punto de referencia."],["Two languages. Still lost.", "Dos idiomas. Igual de perdidos."],["Less scrolling. More strolling.", "Menos pantalla. Más caminata."],["Your next friend might have the directions.", "Tu próximo amigo quizá sepa el camino."],["The map says left. The adventure says vamos.", "El mapa dice izquierda. La aventura dice vamos."],["Take a side street. Bring your curiosity.", "Toma una callecita. Lleva tu curiosidad."],["We packed light. Except for the questions.", "Viajamos ligeros. Menos las preguntas."],["A little lost. Right where we belong.", "Un poco perdidos. Justo donde queremos estar."],["Follow the music for a block.", "Sigue la música una cuadra."],["Today’s destination: a good conversation.", "Destino de hoy: una buena conversación."],["One new word is a pretty good souvenir.", "Una palabra nueva es un buen recuerdo."],["If all else fails, stop for empanadas.", "Si nada funciona, para por unas empanadas."],["Leave a little room for allá.", "Deja un poquito de espacio para allá."],["The best route might come from someone’s abuela.", "La mejor ruta quizá te la cuente una abuela."]];
   prompts.push(...[["Vamos, but first: cafecito.", "Vamos, but first: cafecito."], ["Plot twist: the detour has ocean views.", "Plot twist: el desvío tiene vista al mar."], ["No signal. Sí hay aventura.", "No signal. Sí hay aventura."], ["Ask for directions. Stay for the story.", "Pide indicaciones. Quédate por la historia."], ["Today’s forecast: 90% chance of getting lost.", "Pronóstico: 90% de probabilidad de perdernos."], ["Un pasito más. The view is coming.", "Un pasito más. The view is coming."], ["Take the bus whose name you just learned.", "Súbete al bus cuyo nombre acabas de aprender."], ["Your accent is a souvenir in progress.", "Tu acento es un recuerdo en construcción."], ["The itinerary left the group chat.", "El itinerario salió del grupo."], ["Dale suave. We’re on local time.", "Dale suave. We’re on local time."], ["Find a plaza. Let the afternoon happen.", "Busca una plaza. Deja que pase la tarde."], ["Collect sunsets, not just boarding passes.", "Colecciona atardeceres, no solo pases de abordar."], ["¿Ya llegamos? Emotionally, sí.", "¿Ya llegamos? Emotionally, sí."], ["Try the fruit you can’t pronounce yet.", "Prueba la fruta que todavía no sabes pronunciar."], ["One backpack. Demasiadas historias.", "One backpack. Demasiadas historias."], ["Trade a perfect sentence for a real hello.", "Cambia una frase perfecta por un hola de verdad."], ["The scenic route has entered the chat.", "La ruta bonita entró al chat."], ["Permission to wander: granted. Vámonos.", "Permiso para explorar: concedido. Let’s go."], ["Save room for dessert and a wrong turn.", "Deja espacio para el postre y una vuelta equivocada."], ["If you hear a good song, follow the rhythm.", "Si escuchas una buena canción, sigue el ritmo."]]);
+  prompts.push(
+    ['Catch flights, not feelings.','Atrapa vuelos, no sentimientos.'],
+    ['Catch flights. Miss exits.','Atrapa vuelos. Pásate la salida.'],
+    ['Boarding passes. Zero emotional baggage.','Pases de abordar. Cero equipaje emocional.'],
+    ['Wrong terminal. Right attitude.','Terminal equivocada. Actitud correcta.'],
+    ['Our type? Window seats.','¿Nuestro tipo? Asiento de ventana.'],
+    ['Commitment issues. Nonrefundable tickets.','Miedo al compromiso. Boletos sin reembolso.'],
+    ['Passport full. Plans questionable.','Pasaporte lleno. Planes cuestionables.'],
+    ['Relationship status: in transit.','Estado sentimental: en tránsito.']
+  );
   let phraseBag=[],lastPhrase=-1;
   function nextCompassPhrase(){
     if(!phraseBag.length){
@@ -55,7 +65,7 @@
   if(screen)screen.insertBefore(createDock(),screen.querySelector('.gps-map-status'));
   function mountCompasses(){
     document.querySelectorAll('dialog[open]').forEach(dialog=>{
-      if(['gps-tracker','lp-top-picks'].includes(dialog.id)||dialog.querySelector('.section-compass-dock'))return;
+      if(['gps-tracker','lp-top-picks','lost-after-dark','where-next'].includes(dialog.id)||dialog.querySelector('.section-compass-dock'))return;
       const dock=createDock(true);
       if(dialog.classList.contains('editorial-reader')){
         const leaf=dialog.querySelector('.passport-leaf:last-child');

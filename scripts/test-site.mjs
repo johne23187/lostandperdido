@@ -28,6 +28,11 @@ export async function runChecks() {
   const server = await createSiteServer({ dataDir:directory });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
+  const voiceResponse=await fetch(base+'/assets/audio/social-boom-voice.wav');
+  assert.equal(voiceResponse.status,200,'Local preview must serve the spoken BOOM');
+  assert.equal(voiceResponse.headers.get('content-type'),'audio/wav');
+  const voiceBytes=Buffer.from(await voiceResponse.arrayBuffer());
+  assert.equal(voiceBytes.toString('ascii',0,4),'RIFF','The response must be a WAV, not an error page');
   try {
     const first = await fetch(base + '/api/poll');
     const cookie = first.headers.get('set-cookie').split(';')[0];

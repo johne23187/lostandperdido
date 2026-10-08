@@ -1,0 +1,93 @@
+/* Two quiet discoveries: a moon in orbit and a ship beside the map compass. */
+.satellite-moon-dock{position:relative;display:flex;align-items:center;flex:none}
+.after-dark-moon{position:absolute;right:calc(100% + 12px);top:16px;width:44px;height:44px;padding:8px;border:0;background:none;cursor:pointer;opacity:.72;transition:opacity .25s,filter .25s,transform .25s}
+.after-dark-moon svg{width:100%;height:100%;display:block}.after-dark-moon:hover{opacity:1;filter:drop-shadow(0 0 7px #cfdaff60);transform:rotate(-8deg)}
+.after-dark-moon:focus-visible,.where-next-ship:focus-visible{outline:2px solid #d2bd84;outline-offset:4px;border-radius:8px}
+.space-chapter>.daily-sun{gap:27px;min-height:188px}
+.daily-sun-label{font-weight:800;font-size:12px;letter-spacing:.06em;text-shadow:0 0 8px #ffdb8599,0 0 18px #efb75766;color:#ffe4a5;white-space:nowrap}
+.daily-light-cross{display:inline-block;font:700 17.1px/.7 Georgia,serif;vertical-align:-2px;margin-left:-.5px}
+.gps-compass-dock{max-width:64%}
+.gps-compass-dock .where-next-ship{display:flex;flex-direction:column;align-items:center;justify-content:center;width:85px;height:80px;flex:0 0 85px;border:0;border-radius:0;background:none;padding:0;box-shadow:none;color:#234859}
+.gps-compass-dock .where-next-ship svg{width:64px;height:50px;transition:transform .3s}.where-next-ship:hover svg{transform:translateY(-4px) rotate(-4deg)}
+.where-next-ship span{font:700 10px/1.3 'DM Sans',sans-serif;white-space:nowrap}
+.orbit-secret-dialog{box-sizing:border-box;width:min(820px,calc(100vw - 28px));max-height:90dvh;padding:45px clamp(20px,5vw,56px) 30px;border:1px solid #716d8b77;border-radius:18px;color:#ede7f4;background:radial-gradient(ellipse at 85% 5%,#63507c40,transparent 48%),radial-gradient(ellipse at bottom left,#29494c33,transparent 55%),#0c101b;box-shadow:0 30px 100px #000c;overflow:auto;color-scheme:dark}
+.orbit-secret-dialog::backdrop{background:#030610dd;backdrop-filter:blur(9px)}
+.orbit-secret-dialog[open]{animation:underworld-open .55s ease-out}
+.orbit-close{position:absolute;right:12px;top:10px;width:44px;height:44px;background:none;border:0;color:#d8cee7;font:28px/1 sans-serif;cursor:pointer}
+.secret-coordinate{font:10px/1.6 'DM Sans',sans-serif;letter-spacing:.17em;color:#b8a4c7}
+.underworld-header{text-align:center}.underworld-moon{font:64px/1 Georgia,serif;color:#eee3ca;margin:12px 0;text-shadow:0 0 35px #d8d1ed44}
+.orbit-secret-dialog h2{font:normal clamp(38px,7vw,65px)/1.04 Georgia,serif;margin:20px 0}.underworld-header h2 em{display:block;color:#d0b2d2;font-weight:normal}
+.orbit-secret-dialog p{font:14px/1.75 'DM Sans',sans-serif;color:#bdb9cb}
+.secret-unlocked{display:inline-block;padding:9px 14px;border:1px solid #ae92b440;border-radius:30px;font:9px/1.4 'DM Sans',sans-serif;letter-spacing:.12em;color:#d3becb;margin:12px 0 24px}
+.after-dark-tabs{display:flex;gap:8px;border-bottom:1px solid #ad94bd30;padding-bottom:16px;margin-top:15px}.after-dark-tabs button{flex:1;min-height:45px;background:#ffffff04;border:1px solid #ac97b72b;border-radius:7px;padding:10px;color:#b7aabd;font:600 12px/1.4 'DM Sans',sans-serif;cursor:pointer}.after-dark-tabs button[aria-pressed=true]{color:#f6e4ff;border-color:#be93c980;background:#9c68b122;box-shadow:inset 0 -2px #c49ace}
+.after-dark-room{padding:27px 0 15px}.night-room-number{font:9px/1.5 monospace;letter-spacing:.1em;color:#a699bd}.after-dark-room h3{font:normal clamp(25px,4vw,34px)/1.2 Georgia,serif;margin:13px 0}
+.night-city-label{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font:12px/1.5 'DM Sans',sans-serif;color:#bfb3ca;margin:24px 0}.night-city{background:#1e1d30;border:1px solid #84718d66;padding:10px 14px;color:#f5e6ff;border-radius:6px;font:13px 'DM Sans',sans-serif;max-width:100%}
+.night-empty{position:relative;margin-top:24px;border:1px solid #9b83ac2b;padding:25px 25px 25px 78px;background:linear-gradient(135deg,#9382a412,#15212955);border-radius:10px}.night-empty>span{position:absolute;left:25px;top:25px;color:#bd9dc6;font:30px Georgia,serif}.night-empty strong{font:600 14px/1.5 'DM Sans',sans-serif}.night-empty p{font-size:13px;margin-bottom:0}.underworld-footer{border-top:1px solid #ad94bd25;padding-top:19px;color:#9b91a6;text-align:center;font:italic 13px/1.6 Georgia,serif}
+#where-next{width:min(610px,calc(100vw - 28px));background:radial-gradient(ellipse at top right,#315b694d,transparent 65%),#101d28}#where-next h2{font-size:44px}.destination-form{display:grid;gap:17px;margin:24px 0}.destination-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.destination-form label{display:grid;gap:8px;font:600 12px/1.5 'DM Sans',sans-serif}.destination-form input,.destination-form textarea{box-sizing:border-box;width:100%;min-width:0;padding:12px;border:1px solid #829ea466;border-radius:6px;background:#ffffff08;color:#f1ebdc;font:16px/1.5 'DM Sans',sans-serif}.destination-form textarea{resize:vertical}.destination-form small{font:11px/1.5 'DM Sans',sans-serif;color:#a7b8bf}.destination-form button{padding:13px 18px;background:#d8c18b;border:0;border-radius:6px;color:#192b37;font:700 13px 'DM Sans',sans-serif;cursor:pointer}.destination-form button:disabled{opacity:.6;cursor:wait}.destination-form .destination-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.destination-list{display:grid;gap:10px;font:13px/1.6 'DM Sans',sans-serif}.destination-list article{padding:16px 18px;border:1px solid #86a3af30;border-left:2px solid #c5b180;border-radius:6px;overflow-wrap:anywhere}.destination-list p{margin:6px 0 0;font-size:12px}.destination-refresh{margin-top:18px;padding:10px 0;border:0;background:none;color:#b8ccd2;font:12px 'DM Sans',sans-serif;cursor:pointer}.orbit-secret-dialog :focus-visible{outline:2px solid #e4c898;outline-offset:3px}
+@keyframes underworld-open{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.after-dark-moon{right:calc(100% + 2px);width:40px;height:44px;padding:10px}.space-chapter>.daily-sun{gap:25px;min-height:166px}.daily-sun-label{font-size:11px}.gps-compass-dock{max-width:100%;flex-wrap:wrap}.gps-compass-dock p{flex:1 1 130px}.gps-compass-dock .where-next-ship{width:70px;flex-basis:70px}.after-dark-tabs{gap:5px}.after-dark-tabs button{font-size:11px;padding:9px 6px}.destination-fields{grid-template-columns:1fr}.night-empty{padding:20px 18px 20px 57px}.night-empty>span{left:17px;top:20px;font-size:24px}}
+@media(prefers-reduced-motion:reduce){.orbit-secret-dialog[open]{animation:none}.after-dark-moon,.gps-compass-dock .where-next-ship svg{transition:none}}
+.satellite-moon-dock{margin-left:clamp(12px,8vw,110px)}.satellite-moon-dock .satellite{margin-left:0}
+.night-vibe-filters{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0}.night-vibe-filters button{padding:8px 12px;border:1px solid #9d7ea144;border-radius:30px;background:none;color:#bba9c5;font:11px/1.4 'DM Sans',sans-serif;cursor:pointer}.night-vibe-filters button[aria-pressed=true]{background:#b887b124;color:#f2d3ee;border-color:#b887b199}
+.night-venues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.night-venue{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:190px;padding:25px 20px;border:1px solid #b391b733;border-radius:10px;background:radial-gradient(ellipse at top right,#8e416a26,transparent 75%),#141322;text-decoration:none;color:#f4e9f4;overflow:hidden;transition:transform .2s,border-color .2s}.night-venue:nth-child(3n+2){background:radial-gradient(ellipse at top right,#47738e26,transparent 75%),#141322}.night-venue:hover{transform:translateY(-3px);border-color:#c4a0c777}.night-venue-symbol{position:absolute;right:12px;bottom:12px;font:70px/1 Georgia,serif;opacity:.08;pointer-events:none}.night-venue small{font:10px/1.5 'DM Sans',sans-serif;color:#b7a0bd}.night-venue h4{font:normal 26px/1.13 Georgia,serif;margin:12px 0 17px}.night-venue-tag{font:8px/1.4 'DM Sans',sans-serif;letter-spacing:.1em;color:#d5aac4}.night-venue-link{display:block;margin-top:auto;padding-top:23px;font:600 11px 'DM Sans',sans-serif;color:#d7c5a5}.night-venues>.night-empty{grid-column:1/-1}.night-program-note{font-size:11px!important}
+@media(max-width:700px){.satellite-moon-dock{margin-left:32px}.space-chapter .globe-gps-footer{gap:30px}.night-venue{padding:20px 16px}.night-venue h4{font-size:23px}}@media(max-width:420px){.night-venues{grid-template-columns:1fr}.night-venue{min-height:160px}}
+@media(prefers-reduced-motion:reduce){.night-venue{transition:none}}
+/* A storybook crescent: 3.5 times the previous visible moon size. */
+.after-dark-moon{top:30px;width:114px;height:114px;padding:8px;opacity:.95;filter:drop-shadow(0 0 9px #edc56130)}
+.after-dark-moon:hover{filter:drop-shadow(0 0 14px #f6d97866);transform:rotate(-5deg)}
+@media(max-width:700px){.after-dark-moon{top:30px;right:calc(100% - 28px);width:90px;height:90px;padding:10px}.satellite-moon-dock{margin-left:62px}.space-chapter .globe-gps-footer{padding-bottom:65px;gap:20px}}
+/* Matching warm celestial light, with the moon tucked into the globe chapter corner. */
+.space-chapter>.discover-section{position:relative;padding-bottom:136px}
+.discover-section>.after-dark-moon{left:26px;right:auto;top:auto;bottom:18px;z-index:4;width:114px;height:114px;padding:8px;opacity:1;filter:drop-shadow(0 0 12px #f8d78080) drop-shadow(0 0 26px #edba5045);animation:moonlight-glow 6s ease-in-out infinite}
+.discover-section>.after-dark-moon:hover{transform:rotate(-5deg) scale(1.04)}
+.space-chapter .daily-sun-orb{box-shadow:0 0 24px #ffe7a4bb,0 0 60px #f2c46677,0 0 105px #e7a84738}
+.space-chapter .daily-sun:hover .daily-sun-orb{box-shadow:0 0 30px #ffe7a4dd,0 0 72px #f2c46699,0 0 115px #e7a84744}
+.daily-sun-label{color:#fff0bf;text-shadow:0 0 5px #ffefb9,0 0 15px #ffd06cbb,0 0 28px #ecb05077}
+@keyframes daily-solar-glow{0%,100%{filter:drop-shadow(0 0 8px #f8cc6870)}50%{filter:drop-shadow(0 0 17px #f8cc6899)}}
+@keyframes moonlight-glow{0%,100%{filter:drop-shadow(0 0 12px #f8d78080) drop-shadow(0 0 26px #edba5045)}50%{filter:drop-shadow(0 0 17px #ffe5a1a0) drop-shadow(0 0 36px #edba5060)}}
+.night-area-heading{grid-column:1/-1;font:600 12px/1.5 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#d7bbd9;margin:15px 0 0;padding-bottom:10px;border-bottom:1px solid #b391b733}
+@media(max-width:700px){.space-chapter>.discover-section{padding-bottom:112px}.discover-section>.after-dark-moon{left:12px;right:auto;top:auto;bottom:12px;width:90px;height:90px;padding:10px}.space-chapter .globe-gps-footer{padding-bottom:38px;gap:30px}}
+@media(prefers-reduced-motion:reduce){.discover-section>.after-dark-moon{animation:none}}
+/* Painted crescent below-left of the satellite, above the footprint browser. */
+.space-chapter>.discover-section{padding-bottom:30px}
+.space-chapter .globe-gps-footer{position:relative;align-items:flex-start;padding-bottom:148px}
+.globe-gps-footer>.after-dark-moon{position:absolute;left:18px;right:auto;top:112px;bottom:auto;width:114px;height:114px;padding:8px;z-index:4;opacity:1;filter:drop-shadow(0 0 12px #f8d78080) drop-shadow(0 0 26px #edba5045);animation:moonlight-glow 6s ease-in-out infinite}
+.globe-gps-footer>.after-dark-moon:hover{transform:rotate(-4deg) scale(1.03)}
+@media(max-width:700px){.space-chapter>.discover-section{padding-bottom:16px}.space-chapter .globe-gps-footer{padding-bottom:128px}.globe-gps-footer>.after-dark-moon{left:8px;right:auto;top:108px;bottom:auto;width:90px;height:90px;padding:10px}}
+@media(prefers-reduced-motion:reduce){.globe-gps-footer>.after-dark-moon{animation:none}}
+/* The floating astronaut speaks on activation; the GPS remains its own control. */
+.gps-with-guide{position:relative;min-width:0;max-width:100%;flex:0 1 242px}
+.gps-with-guide .location-gps{width:100%;box-sizing:border-box}
+button.gps-guide{pointer-events:auto;cursor:pointer;background:none;border:0;padding:0;min-width:44px;min-height:44px;justify-content:center}
+.gps-guide>[data-guide-label][hidden]{display:none}
+button.gps-guide:focus-visible{outline:2px solid #f4d995;outline-offset:5px;border-radius:8px}
+.night-adventure h4{font-size:24px;margin-bottom:9px}.night-adventure .adventure-hook{font:italic 15px/1.5 Georgia,serif;color:#e5c8de;margin:0 0 14px}.night-adventure .adventure-detail{font:12px/1.7 'DM Sans',sans-serif;color:#c0baca;margin:0}.night-adventure .night-venue-symbol{opacity:.05}
+/* The orbiting rocket joins the phones after impact, on the same reveal timeline. */
+@media(prefers-reduced-motion:no-preference){
+ .watch-section:has(.socials-showcase.reveal-armed)>.space-plane{opacity:0;visibility:hidden}
+ .watch-section:has(.socials-showcase.reveal-exploding)>.space-plane{visibility:visible;animation:epic-phones-visible 4.2s linear both}
+}
+/* Give the learning conversation more room below the heading and toward the right. */
+.learn-intro .garnish-conversation{margin-top:120px;margin-left:min(192px,max(0px,calc(100% - 230px)))}
+@media(max-width:700px){.learn-intro .garnish-conversation{margin-top:116px;margin-left:min(192px,max(0px,calc(100% - 205px)))}}
+/* A little breathing room for the learning section. */
+.learn-intro #learn-title{padding-top:16px}
+@media(max-width:700px){.learn-intro #learn-title{padding-top:12px}}
+/* Nudge the moon half an inch left and down without changing its glow or hover. */
+.globe-gps-footer>.after-dark-moon{left:-30px;top:160px}
+.space-chapter .globe-gps-footer{padding-bottom:196px}
+@media(max-width:700px){.globe-gps-footer>.after-dark-moon{left:-40px;top:156px}.space-chapter .globe-gps-footer{padding-bottom:176px}}
+
+/* Three home flags share a softly curved travel string above the hosts. */
+.learning-flag-string{position:relative;width:min(340px,100%);height:110px;margin:26px 0 0}
+.flag-string-line{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.learning-flag-string img{position:absolute;top:29px;width:23%;height:auto;aspect-ratio:1.58;object-fit:fill;box-shadow:0 3px 5px #25454918;border-radius:1px;transform-origin:50% 0}
+.learning-flag-string img:nth-of-type(1){left:8%;transform:rotate(10deg)}
+.learning-flag-string img:nth-of-type(2){left:38.5%;top:43px;transform:rotate(-2deg)}
+.learning-flag-string img:nth-of-type(3){right:8%;transform:rotate(-10deg)}
+.learn-intro .garnish-conversation{margin-top:30px}
+@media(max-width:700px){.learning-flag-string{width:min(300px,100%);height:100px}.learning-flag-string img:nth-of-type(2){top:39px}.learn-intro .garnish-conversation{margin-top:28px}}
+/* Lift the moon one inch while retaining its horizontal placement. */
+.globe-gps-footer>.after-dark-moon{top:64px}
+.space-chapter .globe-gps-footer{padding-bottom:100px}
+@media(max-width:700px){.globe-gps-footer>.after-dark-moon{top:60px}.space-chapter .globe-gps-footer{padding-bottom:80px}}

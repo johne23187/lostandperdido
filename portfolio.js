@@ -30,10 +30,11 @@
     const heading=document.createElement('div');heading.className='portfolio-heading';
     const eyebrow=document.createElement('p');eyebrow.textContent='THE PERSONAL COLLECTION / '+place.travelers.map(t=>t==='john'?'JOHN':'MATEO').join(' & ');
     const title=document.createElement('h2');title.id='portfolio-title';title.textContent=place.name;
+    const entryGuide=document.createElement('button');entryGuide.type='button';entryGuide.className='portfolio-entry-guide';entryGuide.textContent=document.documentElement.lang==='es'?'Ingreso · EE. UU. ↗':'U.S. entry guide ↗';entryGuide.setAttribute('aria-haspopup','dialog');entryGuide.addEventListener('click',()=>window.openEntryGuide(place.name,entryGuide));
     const count=document.createElement('p');
     const photos=entries.filter(i=>i.type==='photo').length,videos=entries.length-photos;
     count.textContent=entries.length?photos+' photographs'+(videos?' · '+videos+' films':''):'A chapter waiting to be shared.';
-    const summary=document.createElement('p');summary.className='portfolio-description';summary.textContent=countryDescriptions[place.name]||'A chapter in our shared travel footprint, collected one moment at a time.';heading.append(eyebrow,title,summary,count);hero.append(heading);content.append(hero);
+    const summary=document.createElement('p');summary.className='portfolio-description';summary.textContent=countryDescriptions[place.name]||'A chapter in our shared travel footprint, collected one moment at a time.';heading.append(eyebrow,title,entryGuide,summary,count);hero.append(heading);content.append(hero);
     if(entries.length){
       const intro=document.createElement('div');intro.className='portfolio-intro';intro.innerHTML='<h3>Through our eyes.</h3><p>A collection of moments from the journey. Select a photograph or film to explore it in full.</p>';content.append(intro);
       const grid=document.createElement('div');grid.className='portfolio-grid';

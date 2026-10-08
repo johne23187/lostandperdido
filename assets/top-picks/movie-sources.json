@@ -1,0 +1,62 @@
+﻿{
+    "pulp-fiction":  {
+                         "title":  "Pulp Fiction",
+                         "page":  "https://en.wikipedia.org/wiki/Pulp_Fiction",
+                         "image":  "https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                     },
+    "spider-man":  {
+                       "title":  "Spider-Man: Brand New Day",
+                       "page":  "https://en.wikipedia.org/wiki/Spider-Man%3A_Brand_New_Day",
+                       "image":  "https://upload.wikimedia.org/wikipedia/en/9/9a/Spider-Man_Brand_New_Day_poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                   },
+    "superbad":  {
+                     "title":  "Superbad",
+                     "page":  "https://en.wikipedia.org/wiki/Superbad",
+                     "image":  "https://upload.wikimedia.org/wikipedia/en/8/8b/Superbad_Poster.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                 },
+    "kill-bill":  {
+                      "title":  "Kill Bill: Volume 1",
+                      "page":  "https://en.wikipedia.org/wiki/Kill_Bill%3A_Volume_1",
+                      "image":  "https://upload.wikimedia.org/wikipedia/en/2/2c/Kill_Bill_Volume_1.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                  },
+    "project-x":  {
+                      "title":  "Project X (2012 film)",
+                      "page":  "https://en.wikipedia.org/wiki/Project_X_(2012_film)",
+                      "image":  "https://upload.wikimedia.org/wikipedia/en/0/0a/Project_X_poster.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                  },
+    "the-odyssey":  {
+                        "title":  "The Odyssey (2026 film)",
+                        "page":  "https://en.wikipedia.org/wiki/The_Odyssey_(2026_film)",
+                        "image":  "https://upload.wikimedia.org/wikipedia/en/9/90/The_Odyssey_%282026_film%29_poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                    },
+    "buddy":  {
+                  "title":  "Buddy (2026 film)",
+                  "page":  "https://en.wikipedia.org/wiki/Buddy_(2026_film)",
+                  "image":  "https://upload.wikimedia.org/wikipedia/en/4/4d/Buddy_%282026_film%29_poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+              },
+    "obsession":  {
+                      "title":  "Obsession (2025 film)",
+                      "page":  "https://en.wikipedia.org/wiki/Obsession_(2025_film)",
+                      "image":  "https://upload.wikimedia.org/wikipedia/en/0/05/Obsession_theatrical_poster.jpeg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                  },
+    "kill-bill-2":  {
+                        "title":  "Kill Bill: Volume 2",
+                        "page":  "https://en.wikipedia.org/wiki/Kill_Bill%3A_Volume_2",
+                        "image":  "https://upload.wikimedia.org/wikipedia/en/c/c4/Kill_Bill_Volume_2.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                    },
+    "young-washington":  {
+                             "title":  "Young Washington",
+                             "page":  "https://en.wikipedia.org/wiki/Young_Washington",
+                             "image":  "https://upload.wikimedia.org/wikipedia/en/4/4e/Young_Washington_poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                         },
+    "django":  {
+                   "title":  "Django Unchained",
+                   "page":  "https://en.wikipedia.org/wiki/Django_Unchained",
+                   "image":  "https://upload.wikimedia.org/wikipedia/en/8/8b/Django_Unchained_Poster.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+               },
+    "scarface":  {
+                     "title":  "Scarface (1983 film)",
+                     "page":  "https://en.wikipedia.org/wiki/Scarface_(1983_film)",
+                     "image":  "https://upload.wikimedia.org/wikipedia/en/7/71/Scarface_-_1983_film.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail_unscaled"
+                 }
+}

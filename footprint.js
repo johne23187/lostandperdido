@@ -25,7 +25,7 @@
     ['Ireland','IRL',[-8,53],['mateo']]
   ].map(([name,code,coordinates,travelers])=>({name,code,coordinates,travelers}));
   const colors = {john:'#f1b45f',mateo:'#75d5ca'};
-  let filter = 'both', selected = null, rotation = [55,-12,0], flight, paintFrame, scale=305, cameraControls;
+  let filter = 'both', selected = null, rotation = [55,-12,0], flight, paintFrame, scale=305, cameraControls, introActive=false;
   const projection = d3.geoOrthographic().translate([350,350]).scale(305).clipAngle(90).precision(.35);
   const path = d3.geoPath(projection);
   const defs = svg.append('defs');
@@ -49,7 +49,6 @@
     button.addEventListener('click', event => { event.stopPropagation(); choose(place); });
     place.button = button; markerLayer.append(button);
   });
-  const leaders=d3.select(surface).insert('svg','.footprint-markers').attr('class','globe-leaders').attr('aria-hidden','true');
   function draw() {
     projection.rotate(rotation).scale(scale);water.attr('r',scale);halo.attr('r',scale+6);cameraControls?.sync();
     grid.attr('d',path);
@@ -58,6 +57,9 @@
       const people = place ? travelersFor(place) : [];
       return !people.length ? '#28624e' : people.length===2 ? '#b5c894' : colors[people[0]];
     });
+    // Keep the settled faces still while they fade out for the opening spin.
+    // Re-running collision placement around the moving horizon makes them jump.
+    if(introActive)return;
     const center = projection.invert([350,350]);
     places.forEach(place => {
       const people = travelersFor(place);
@@ -74,7 +76,7 @@
         place.button.dataset.people=signature;
       }
     });
-    LPGlobe.markerLayout(surface,places,leaders);
+    LPGlobe.markerLayout(surface,places);
   }
   function scheduleDraw() { cancelAnimationFrame(paintFrame); paintFrame=requestAnimationFrame(draw); }
   function choose(place, openPortfolio = true) {
@@ -113,7 +115,7 @@
     else { selected=null; selection.textContent='Pick a place. Follow a footprint.'; document.querySelectorAll('.footprint-country').forEach(b=>b.setAttribute('aria-pressed','false')); }
     draw();
   }));
-  cameraControls=LPGlobe.controls({surface,container:surface.parentElement.querySelector('.footprint-globe-controls'),getView:()=>({rotation,scale}),setView:view=>{rotation=view.rotation;scale=view.scale;draw();},stopAnimation:()=>{cancelAnimationFrame(flight);cancelAnimationFrame(paintFrame);}});
+  cameraControls=LPGlobe.controls({surface,container:surface.parentElement.querySelector('.footprint-globe-controls'),getView:()=>({rotation,scale}),setView:view=>{rotation=view.rotation;scale=view.scale;draw();},stopAnimation:()=>{cancelAnimationFrame(flight);cancelAnimationFrame(paintFrame);endIntro();}});
   document.querySelector('.footprint-reset').addEventListener('click',()=>{
     cameraControls.stop();selected=null;scale=305;rotation=[55,-12,0];
     document.querySelectorAll('.footprint-country').forEach(button=>button.setAttribute('aria-pressed','false'));
@@ -124,7 +126,27 @@
     section.classList.toggle('footprint-active',footprint);
     document.querySelectorAll('[data-globe-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
     document.querySelector('.discovery-title').innerHTML=footprint?'Get lost<br><em>with us.</em>':'Unlock the world<br><em>with us.</em>';
-    if(footprint)draw();
+    if(footprint){draw();introduceGlobe();}else {cancelAnimationFrame(flight);endIntro();}
   }));
+  let introduced=false;
+  function endIntro(){
+    if(!introActive)return;
+    introActive=false;draw();surface.classList.remove('globe-introducing');
+  }
+  function introduceGlobe(){
+    if(introduced||!section.classList.contains('footprint-active'))return;
+    introduced=true;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    introActive=true;surface.classList.add('globe-introducing');
+    const from=rotation.slice(),start=performance.now()+200;
+    function tick(now){
+      const progress=Math.max(0,Math.min(1,(now-start)/2800)),ease=(1-Math.cos(Math.PI*progress))/2;
+      rotation=[from[0]+360*ease,from[1],from[2]];
+      if(progress===1)rotation=from;
+      if(progress===1)endIntro();else {draw();flight=requestAnimationFrame(tick);}
+    }
+    flight=requestAnimationFrame(tick);
+  }
+  new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))introduceGlobe();},{threshold:.25}).observe(surface);
   draw();
 })();

@@ -44,61 +44,17 @@
     }
     return groups;
   }
-  function markerLayout(surface,items,lines){
+  function markerLayout(surface,items){
     const width=surface.clientWidth;
     if(!width)return;
     const points=items.filter(item=>!item.button.hidden).map(item=>({item,x:item.point[0]*width/700,y:item.point[1]*width/700,width:item.button.offsetWidth||44,height:item.button.offsetHeight||44}));
     const positions=separate(points,width);
-    lines.attr('viewBox',`0 0 ${width} ${width}`);
-    lines.selectAll('line').data(positions.filter(p=>Math.hypot(p.x-p.item.point[0]*width/700,p.y-p.item.point[1]*width/700)>7)).join('line')
-      .attr('x1',p=>p.item.point[0]*width/700).attr('y1',p=>p.item.point[1]*width/700).attr('x2',p=>p.x).attr('y2',p=>p.y);
     positions.forEach(p=>{p.item.button.style.left=p.x/width*100+'%';p.item.button.style.top=p.y/width*100+'%';});
   }
   function controls({surface,container,getView,setView,stopAnimation,min=305,max=2440}){
-    const bar=document.createElement('div');bar.className='globe-zoom-controls';
-    bar.innerHTML='<button type="button" data-zoom="out" aria-label="Zoom out">−</button><output aria-label="Globe zoom">1×</output><button type="button" data-zoom="in" aria-label="Zoom in">+</button>';
-    container.append(bar);
-    const minus=bar.querySelector('[data-zoom="out"]'),plus=bar.querySelector('[data-zoom="in"]'),output=bar.querySelector('output');
-    const pointers=new Map();let gesture=null,zoomFrame,targetScale=null,suppressUntil=0;
-    function stop(){cancelAnimationFrame(zoomFrame);targetScale=null;stopAnimation();}
-    function sync(){const scale=getView().scale;minus.disabled=scale<=min+.5;plus.disabled=scale>=max-.5;output.textContent=(scale/min).toFixed(1)+'×';}
-    function zoomTo(target){
-      stopAnimation();cancelAnimationFrame(zoomFrame);targetScale=clamp(target,min,max);
-      const start=performance.now(),from=getView().scale,to=targetScale;
-      const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:220;
-      function tick(now){const progress=duration?Math.min(1,(now-start)/duration):1,eased=1-Math.pow(1-progress,3);setView({...getView(),scale:from+(to-from)*eased});if(progress<1)zoomFrame=requestAnimationFrame(tick);else targetScale=null;}
-      zoomFrame=requestAnimationFrame(tick);
-    }
-    minus.addEventListener('click',()=>zoomTo((targetScale??getView().scale)/1.5));plus.addEventListener('click',()=>zoomTo((targetScale??getView().scale)*1.5));
-    surface.addEventListener('wheel',event=>{
-      // Trackpad scrolling belongs to the page. Only a deliberate pinch / Ctrl+wheel zooms.
-      if(!event.ctrlKey)return;
-      const box=surface.getBoundingClientRect(),radius=getView().scale*box.width/700;
-      if(Math.hypot(event.clientX-box.left-box.width/2,event.clientY-box.top-box.height/2)>radius)return;
-      event.preventDefault();
-      const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?surface.clientHeight:1);
-      zoomTo((targetScale??getView().scale)*Math.exp(-clamp(delta,-40,40)*.002));
-    },{passive:false});
-    // Touchscreens: parallel two-finger movement scrolls; changing finger spacing zooms.
-    let touchGesture=null;
-    const touchMetrics=touches=>({y:(touches[0].clientY+touches[1].clientY)/2,distance:Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY)});
-    surface.addEventListener('touchstart',event=>{
-      if(event.touches.length!==2)return;
-      event.preventDefault();stop();pointers.clear();gesture=null;surface.classList.remove('dragging');
-      const metrics=touchMetrics(event.touches);touchGesture={...metrics,lastY:metrics.y,view:getView(),mode:null};
-    },{passive:false});
-    surface.addEventListener('touchmove',event=>{
-      if(!touchGesture||event.touches.length!==2)return;
-      event.preventDefault();const metrics=touchMetrics(event.touches),dy=metrics.y-touchGesture.y,spread=metrics.distance-touchGesture.distance;
-      if(!touchGesture.mode){
-        if(Math.abs(spread)>8&&Math.abs(spread)>Math.abs(dy)*.8)touchGesture.mode='zoom';
-        else if(Math.abs(dy)>8)touchGesture.mode='scroll';
-      }
-      if(touchGesture.mode==='zoom')setView({...touchGesture.view,scale:clamp(touchGesture.view.scale*metrics.distance/Math.max(1,touchGesture.distance),min,max)});
-      else if(touchGesture.mode==='scroll')window.scrollBy({top:touchGesture.lastY-metrics.y,behavior:'instant'});
-      touchGesture.lastY=metrics.y;suppressUntil=performance.now()+350;
-    },{passive:false});
-    ['touchend','touchcancel'].forEach(type=>surface.addEventListener(type,event=>{if(event.touches.length<2)touchGesture=null;},{passive:true}));
+    const pointers=new Map();let gesture=null,suppressUntil=0;
+    function stop(){stopAnimation();}
+    function sync(){}
     function begin(){
       const values=[...pointers.values()],view=getView();
       if(!values.length){gesture=null;surface.classList.remove('dragging');return;}
@@ -117,7 +73,8 @@
       const dx=center.x-gesture.center.x,dy=center.y-gesture.center.y;
       if(event.pointerType==='touch'&&values.length===1&&Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>4)return;
       const distance=values.length>1?Math.hypot(values[0].x-values[1].x,values[0].y-values[1].y):0;
-      const scale=clamp(gesture.distance&&distance?gesture.scale*distance/gesture.distance:gesture.scale,min,max);
+      const scale=min;
+      if(values.length>1)return;
       if(Math.hypot(dx,dy)>4||Math.abs(scale-gesture.scale)>2)gesture.moved=true;
       if(gesture.moved)suppressUntil=performance.now()+350;
       const sensitivity=180/surface.clientWidth*(min/scale);
@@ -128,7 +85,6 @@
     surface.addEventListener('click',event=>{if(performance.now()<suppressUntil){event.preventDefault();event.stopImmediatePropagation();}},true);
     surface.addEventListener('keydown',event=>{
       if(event.target!==surface)return;
-      if(['+','=','-','_'].includes(event.key)){event.preventDefault();zoomTo(getView().scale*(['-','_'].includes(event.key)?1/1.5:1.5));return;}
       if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;
       event.preventDefault();stop();const view=getView(),r=view.rotation.slice(),step=12*min/view.scale;
       if(event.key==='ArrowLeft')r[0]-=step;if(event.key==='ArrowRight')r[0]+=step;if(event.key==='ArrowUp')r[1]+=step;if(event.key==='ArrowDown')r[1]-=step;r[1]=clamp(r[1],-85,85);setView({rotation:r,scale:view.scale});

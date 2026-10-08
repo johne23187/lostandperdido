@@ -115,6 +115,7 @@ const spanish = {
   "Our learning modules are a work in progress. We’re putting them together, one lesson at a time. Nos vemos pronto.": "Nuestros módulos de aprendizaje están en construcción. Los estamos preparando, una lección a la vez. Nos vemos pronto.",
 
   "Socials": "Redes",
+  "Lost and Perdido on Facebook": "Lost and Perdido en Facebook",
   "Learn with us": "Aprende con nosotros",
   "Your story": "Tu historia",
   "1,284 likes": "1.284 Me gusta",
@@ -230,6 +231,7 @@ const spanish = {
   'y español.': 'y español.',
   'We’re getting lost in Latin America—and you’re coming with us.': 'Nos vamos a perder por Latinoamérica, y tú vienes con nosotros.',
   'Come along': 'Acompáñanos',
+  'Get Lost With Us': 'Piérdete con nosotros',
   'Meet Lost & Perdido': 'Conoce Lost & Perdido',
   'hello.': 'hola.',
   '¿cómo estás?': '¿cómo estás?',
@@ -760,7 +762,7 @@ satelliteButton.addEventListener('click', () => {
   const panel = satelliteDialog.querySelector('.satellite-interior');
   let craft = satelliteDialog.querySelector('.satellite-closeup');
   if (!craft) {
-    craft = satelliteButton.querySelector('svg').cloneNode(true);
+    craft = satelliteButton.querySelector(':scope > svg').cloneNode(true);
     craft.classList.add('satellite-closeup');
     craft.setAttribute('preserveAspectRatio', 'none');
     satelliteDialog.prepend(craft);
@@ -833,10 +835,12 @@ function dailyLostValue(date) {
   return (hash >>> 0) % 101;
 }
 function lostDescription(value) {
-  const phrases=['lost, but early','map upside down','¿por aquí?','tiny wrong turn','más o menos','lost-ish','trust the detour','off the script','¿dónde estamos?','ask a local','lost together','scenic, probably','muy perdido','map says maybe','no clue. good crew.','wrong turn club','lost & perdido','compass: nope','send snacks','off the map','we’re so lost'];
-  return phrases[Math.min(20,Math.floor(value/5))];
+  const phrases=['GPS has trust issues','Fluent in wrong turns','Recalculating, en español','Right bus. Wrong country.','No clue. Great company.','Plot lost. Snacks secured.','The map needs a minute.','Professionally off course.'];
+  return phrases[Math.min(phrases.length-1,Math.floor(value/101*phrases.length))];
 }
 let lostMeterTimeout;
+let calibrationFrame;
+let meterCalibrated=false;
 let lostMeterPowered=true;
 try { lostMeterPowered=localStorage.getItem('lp-meter-power')!=='off'; } catch {}
 const meterPower=document.querySelector('.lost-meter-power');
@@ -845,14 +849,32 @@ function syncMeterPower(){
  meterPower.setAttribute('aria-checked',String(lostMeterPowered));
  meterPower.querySelector('span').textContent=lostMeterPowered?'ON':'OFF';
  if(lostMeterPowered)updateLostMeter();
- else {clearTimeout(lostMeterTimeout);document.getElementById('lost-description').textContent='off the radar';}
+ else {clearTimeout(lostMeterTimeout);cancelAnimationFrame(calibrationFrame);document.querySelector('.lost-meter').classList.remove('meter-starting');meterCalibrated=false;document.getElementById('lost-description').textContent='off the radar';}
 }
 meterPower.addEventListener('click',()=>{lostMeterPowered=!lostMeterPowered;try{localStorage.setItem('lp-meter-power',lostMeterPowered?'on':'off');}catch{}syncMeterPower();});
 function updateLostMeter() {
   clearTimeout(lostMeterTimeout);
+  cancelAnimationFrame(calibrationFrame);
   if(!lostMeterPowered)return;
   const now = new Date();
   const value = dailyLostValue(now);
+  if(!meterCalibrated&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    meterCalibrated=true;const start=performance.now();let lastStep=-1;
+    const machine=document.querySelector('.lost-meter');machine.classList.add('meter-starting');
+    function calibrate(time){
+      if(!lostMeterPowered){machine.classList.remove('meter-starting');return;}
+      const progress=Math.min(1,(time-start)/2600),step=Math.floor((time-start)/65);
+      if(step!==lastStep){
+       lastStep=step;
+       const reading=progress<.15?0:progress<.45?Math.round((progress-.15)/.3*100):progress<.65?Math.round(100-(progress-.45)/.2*100):Math.round(value*(1-Math.exp(-(progress-.65)*15))+Math.sin((progress-.65)*65)*9*(1-progress)/.35);
+       const clamped=Math.max(0,Math.min(100,reading));
+       renderShotClock(document.getElementById('lost-percentage'),clamped);document.getElementById('lost-gauge').value=clamped;
+       document.getElementById('lost-description').textContent=progress<.15?'Powering up…':progress<.65?'Checking the instruments…':'Finding our level of lost…';
+      }
+      if(progress<1)calibrationFrame=requestAnimationFrame(calibrate);else {machine.classList.remove('meter-starting');updateLostMeter();}
+    }
+    calibrationFrame=requestAnimationFrame(calibrate);return;
+  }
   renderShotClock(document.getElementById('lost-percentage'), value);
   const gauge = document.getElementById('lost-gauge');
   gauge.value = value;
@@ -965,7 +987,7 @@ function prepareMeetingMusic() {
   });
 }
 musicAction.addEventListener('click', startMeetingMusic);
-window.onYouTubeIframeAPIReady = prepareMeetingMusic;
+window.onYouTubeIframeAPIReady = () => { prepareMeetingMusic(); document.dispatchEvent(new Event('lp:youtube-ready')); };
 function loadMeetingMusicAPI() {
   if (window.YT?.Player || document.getElementById("meeting-youtube-api")) return;
   const api = document.createElement('script'); api.id = "meeting-youtube-api"; api.src = 'https://www.youtube.com/iframe_api'; api.async = true;
@@ -1950,28 +1972,43 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
  if(!motion.matches){
   stage.classList.add('reveal-armed');
   const burst=document.createElement('div');burst.className='social-burst';burst.setAttribute('aria-hidden','true');
-  for(let i=0;i<72;i++){
+  for(let i=0;i<24;i++){
    const spark=document.createElement('i');const a=i*Math.PI/12,r=200+(i%6)*55;
    spark.style.setProperty('--spark-x',Math.cos(a)*r+'px');spark.style.setProperty('--spark-y',Math.sin(a)*r+'px');spark.style.setProperty('--spark-angle',i*15+'deg');spark.style.setProperty('--spark-delay',Math.floor(i/24)*.45+'s');spark.style.setProperty('--spark-color',['#ff5a49','#fff3c4','#75b9ff'][i%3]);burst.append(spark);
   }
   const cloud=document.createElement('img');cloud.className='explosion-cloud';cloud.src='assets/explosion-cloud.png';cloud.alt='';burst.append(cloud);
+  cloud.decode?.().catch(()=>{});
   const shout=document.createElement('strong');shout.className='explosion-shout';shout.textContent='BOOM!';burst.append(shout);
-  const title=document.createElement('strong');title.className='explosion-title';title.textContent='SOCIALS';burst.append(title);
+  const title=document.createElement('strong');title.className='explosion-title';
+  // Letters arrive on separate orbital paths, lock together, then split away.
+  for(const [index,letter] of [...'SOCIALS'].entries()){
+   const glyph=document.createElement('span');glyph.className='social-glyph';glyph.style.setProperty('--glyph',index);
+   glyph.style.setProperty('--entry-x',[-130,-80,-35,0,35,80,130][index]+'px');
+   glyph.style.setProperty('--entry-y',[-70,85,-100,100,-100,85,-70][index]+'px');
+   glyph.style.setProperty('--entry-spin',[-30,24,-18,0,18,-24,30][index]+'deg');
+   for(let depth=3;depth>=0;depth--){const face=document.createElement('span');face.textContent=letter;face.style.setProperty('--depth',depth*2);face.className=depth?'glyph-depth':'glyph-face';glyph.append(face);}
+   title.append(glyph);
+  }
+  burst.append(title);
   stage.append(burst);
-  const observer=new IntersectionObserver(entries=>{
+  const observer=new IntersectionObserver(async entries=>{
    if(!entries.some(e=>e.isIntersecting))return;
    observer.disconnect();
+   await window.LPSocialBoom?.prepare();
+   if(motion.matches)return;
    const plane=document.querySelector('.space-plane').cloneNode(true);
    plane.classList.remove('space-plane');plane.classList.add('explosion-trigger-plane');plane.removeAttribute('style');stage.append(plane);
+   window.LPSocialBoom?.fall(parseFloat(getComputedStyle(plane).animationDuration)||1.1);
    const original=document.querySelector('.space-plane');original.style.visibility='hidden';
-   setTimeout(()=>{
+   plane.addEventListener('animationend',()=>{
     plane.remove();original.style.visibility='';
     if(motion.matches)return;
     stage.classList.add('reveal-exploding');
+    window.LPSocialBoom?.play();
     setTimeout(()=>{stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();},4200);
-   },1500);
+   },{once:true});
   },{threshold:.12});observer.observe(stage);
-  motion.addEventListener('change',e=>{if(e.matches){observer.disconnect();stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();}});
+  motion.addEventListener('change',e=>{if(e.matches){observer.disconnect();stage.querySelector('.explosion-trigger-plane')?.remove();document.querySelector('.space-plane').style.visibility='';stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();}});
  }
  document.querySelectorAll('.socials-click-hint').forEach(hint=>{
   hint.className='social-hype-screen';hint.replaceChildren();
@@ -2034,7 +2071,7 @@ async function sendSkyHearts(){
   return heart.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:0},{offset:.18,transform:'translate(-50%,-50%) scale(1.15)',opacity:1},{offset:.4,transform:'translate('+((x-startX)*.2+(index?20:-20))+'px,'+((y-startY)*.2)+'px) scale(.8)',opacity:1},{transform:'translate('+(x-startX-4)+'px,'+(y-startY-4)+'px) scale(.15)',opacity:0}],{duration,easing:'ease-in-out',fill:'forwards'}).finished.then(()=>heart.remove(),()=>heart.remove());
  });
  await Promise.allSettled(arrivals);
- setTimeout(revealPosterScene,7000);
+ // Keep the final blessing pose, with the Bible and raised cross visible.
 }
 
 // The final beat stops at an invitation: only the visitor opens the poster.

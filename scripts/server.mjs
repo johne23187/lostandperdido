@@ -5,13 +5,18 @@ import { resolve, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { createPollStore } from './poll-store.mjs';
+import { createStoryStore } from './story-store.mjs';
+import { createDestinationsHandler } from '../netlify/lib/destinations.mjs';
+import { createStoriesHandler } from '../netlify/lib/stories.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const types = { '.html':'text/html; charset=utf-8', '.css':'text/css', '.js':'text/javascript', '.json':'application/json', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.mp4':'video/mp4', '.mov':'video/quicktime', '.woff2':'font/woff2' };
+const types = { '.html':'text/html; charset=utf-8', '.css':'text/css', '.js':'text/javascript', '.json':'application/json', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.wav':'audio/wav', '.mp3':'audio/mpeg', '.ogg':'audio/ogg', '.mp4':'video/mp4', '.mov':'video/quicktime', '.woff2':'font/woff2' };
 
 export async function createSiteServer({ dataDir = resolve(root, '.local-data') } = {}) {
   await mkdir(dataDir, { recursive: true });
   const poll = createPollStore(resolve(dataDir, 'daily-poll.sqlite3'));
+  const stories = createStoriesHandler(createStoryStore(resolve(dataDir,'travel-stories.json')));
+  const destinations = createDestinationsHandler(createStoryStore(resolve(dataDir,'destinations.json')));
   const subscribers = new Set();
   const send = (res, code, value) => {
     res.writeHead(code, { 'Content-Type':'application/json', 'Cache-Control':'no-store' });
@@ -20,6 +25,11 @@ export async function createSiteServer({ dataDir = resolve(root, '.local-data') 
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost');
+      if(['/api/stories','/api/destinations'].includes(url.pathname)){
+        const headers=new Headers(req.headers);headers.set('x-nf-client-connection-ip',req.socket.remoteAddress||'local');
+        const request=new Request('http://'+req.headers.host+req.url,{method:req.method,headers,...(!['GET','HEAD'].includes(req.method)?{body:req,duplex:'half'}:{})});
+        const response=await (url.pathname==='/api/destinations'?destinations:stories)(request);res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;
+      }
       if (url.pathname === '/api/poll' || url.pathname === '/api/poll/events') {
         const cookie = req.headers.cookie?.match(/(?:^|;\s*)lp_poll=([a-f0-9-]{36})(?:;|$)/);
         const voter = cookie?.[1] || randomUUID();

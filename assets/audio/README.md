@@ -1,0 +1,1 @@
+Apple Note message alert: https://github.com/extratone/macOSsystemsounds/blob/main/mp3/Note.mp3 — downloaded unchanged. Played quietly after a visitor gesture; stopped when the phone leaves view or a dialog opens.
