@@ -22,6 +22,18 @@
   ['prices','Prices','Lil Uzi Vert','1ddV89RtsGqS375oFK2Boe'],
   ['xtcy','XTCY','Kanye West','64wdPpi4OeCQF4W2oMZ9Wt']
  ].map(([key,name,artist,id])=>({key,name,artist,art:key==='xtcy'?'kanye':key,url:'https://open.spotify.com/track/'+id})));
+ data.songs.push(...[
+  ['la-camisa-negra','La Camisa Negra','Juanes','3hTsTyv23ZQI2cX3kwUEbB'],
+  ['y-como-es-el','¿Y Cómo Es Él?','José Luis Perales','7aSxNjoVoAwNL7HDAKwGtC'],
+  ['la-cancion','LA CANCIÓN','J Balvin · Bad Bunny','0fea68AdmYNygeTGI4RC18'],
+  ['callaita','Callaíta','Bad Bunny · Tainy','2TH65lNHgvLxCKXM3apjxI'],
+  ['dile-que-tu-me-quieres','Dile Que Tú Me Quieres','Ozuna','20ZAJdsKB5IGbGj4ilRt2o'],
+  ['adicto','Adicto','Tainy · Anuel AA · Ozuna','2q50wDLj6op6noAaRsjRMQ'],
+  ['bipolar','Bipolar','Chris Jedi · Ozuna · Brytiago','07Kfdbf4MtfU8A2uGNszf8'],
+  ['adios-amor','Adiós Amor','Christian Nodal','0YqWX5Vddrp61cCn91oFUW'],
+  ['cuando-volveras','Cuándo Volverás','Aventura','2O9lZKmI3tKt3NgUERaGX3'],
+  ['mi-corazoncito','Mi Corazoncito','Aventura','5I76YtdZkFQReVgKppRd78']
+ ].map(([key,name,artist,id])=>({key,name,artist,url:'https://open.spotify.com/track/'+id})));
  data.albums=[
   ['kids-see-ghosts','KIDS SEE GHOSTS','Kanye West & Kid Cudi','1oK1GzEMNDjCt7EYYpomwc'],
   ['so-much-fun','So Much Fun','Young Thug','1bnHPO4dKK7IjvgrtVBcQh'],
@@ -59,7 +71,7 @@
  const lineups={
   ufc:{logo:'ufc',portraits:[['justin-gaethje','Justin Gaethje'],['ilia-topuria','Ilia Topuria'],['waldo-cortes-acosta','Waldo Cortes-Acosta'],['payton-talbott','Payton Talbott'],['carlos-prates','Carlos Prates']]},
   wwe:{logo:'wwe',portraits:[['john-cena','John Cena'],['rey-mysterio','Rey Mysterio'],['undertaker','Undertaker'],['randy-orton','Randy Orton'],['triple-h','Triple H']]},
-  mlb:{logo:'yankees',name:'Yankees',label:['MLB / NEW YORK','MLB / NUEVA YORK'],url:'https://www.mlb.com/yankees',portraits:[['rice','Ben Rice'],['lombard','George Lombard Jr.'],['judge','Aaron Judge'],['chisholm','Jazz Chisholm Jr.'],['stanton','Giancarlo Stanton']]},
+  mlb:{logo:'yankees',name:'Yankees',label:['MLB / NEW YORK','MLB / NUEVA YORK'],url:'https://www.mlb.com/yankees',portraits:[['rice','Ben Rice'],['lombard','George Lombard Jr.'],['judge','Aaron Judge'],['schlittler','Cam Schlittler'],['stanton','Giancarlo Stanton']]},
   nba:{logo:'knicks',name:'Knicks',label:['NBA / NEW YORK','NBA / NUEVA YORK'],url:'https://www.nba.com/knicks',portraits:[['kat','Karl-Anthony Towns'],['brunson','Jalen Brunson'],['anunoby','OG Anunoby'],['hart','Josh Hart'],['bridges','Mikal Bridges']]}
  };
  data.sports.forEach(sport=>{Object.assign(sport,lineups[sport.key]);sport.favorites=sport.portraits.map(([,name])=>name).join(' \u00b7 ');});

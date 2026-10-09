@@ -12,6 +12,7 @@
  const categories=[['Nightlife','Vida nocturna','The city clocks out. We clock in.','La ciudad sale del trabajo. Nosotros salimos a explorar.','Bars, dance floors, live music, and the places worth staying up for.','Bares, baile, música en vivo y lugares que merecen una noche larga.'],['Nighttime adventures','Aventuras nocturnas','Less daylight. More possibility.','Menos luz. Más posibilidades.','Stargazing, night walks, late-night food, and events after sunset.','Estrellas, paseos, comida de madrugada y eventos después del atardecer.'],['Lost Footage','Lost Footage','Some stories miss the final cut.','Algunas historias quedan fuera del montaje.','The candid moments, late-night conversations, and grown-up side of getting lost.','Momentos espontáneos, conversaciones nocturnas y el lado adulto de perderse.']];
  let category=0;
  const nightPicks=[
+  ['The Ripple Room','183 Bowery, Manhattan','bar','https://www.google.com/maps/search/?api=1&query=The+Ripple+Room+183+Bowery+New+York','NYC'],
   ['Abracadabra','English Harbour, Antigua','club','https://www.visitantiguabarbuda.com/culinary/abracadabra-antigua/','AG'],
   ['Shirley Heights','English Harbour, Antigua','sunset','https://www.visitantiguabarbuda.com/things-to-do/shirley-heights-lookout/','AG'],
   ['Loose Cannon','Galleon Beach, Antigua','sunset','https://www.loosecannonbeachbar.com/','AG'],
@@ -58,25 +59,45 @@
   dark.querySelectorAll('[data-night]').forEach(b=>b.onclick=()=>{category=Number(b.dataset.night);dark.querySelectorAll('[data-night]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderRoom();});renderRoom();
  }
  function renderRoom(){if(category===0){renderNightlife();return;}if(category===1){renderAdventures();return;}const c=categories[category];dark.querySelector('.after-dark-room').innerHTML=`<span class="night-room-number">0${category+1} / ${category===2?t('THE PRIVATE CUT · MATURE AUDIENCES','EL OTRO MONTAJE · PÚBLICO ADULTO'):t('FIELD NOTES AFTER SUNSET','NOTAS DESPUÉS DEL ATARDECER')}</span><h3>${t(c[2],c[3])}</h3><p>${t(c[4],c[5])}</p>${category!==2?`<label class="night-city-label">${t('A different city. A different night.','Otra ciudad. Otra noche.')}<select class="night-city"><option>Buenos Aires</option><option>Mendoza</option><option>Santiago</option><option>La Paz</option><option>New York</option></select></label>`:''}<div class="night-empty"><span aria-hidden="true">${category===2?'▤':category===1?'✦':'◒'}</span><strong class="night-empty-title"></strong><p>${category===2?t('Our first Lost Footage drop is still in the vault. Real clips and stories will land here when we’re ready to share them.','El primer Lost Footage sigue en la bóveda. Aquí llegarán nuestros videos e historias cuando estén listos.'):t('Our own recommendations and experiences will appear here after we explore. No borrowed favorites. No invented nights.','Nuestras recomendaciones y experiencias llegarán después de explorar. Sin favoritos prestados ni noches inventadas.')}</p></div>`;const select=dark.querySelector('.night-city');const update=()=>{dark.querySelector('.night-empty-title').textContent=category===2?t('The vault is waiting.','La bóveda espera.'):(select.value+' / '+t('Field notes coming soon','Próximamente'));};if(select)select.onchange=update;update();}
- moon.onclick=()=>{renderDark();dark.showModal();};dark.addEventListener('close',()=>moon.focus({preventScroll:true}));
+ let darkEntranceTimer;
+ moon.onclick=()=>{
+  renderDark();dark.classList.remove('after-dark-entering');
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)dark.classList.add('after-dark-entering');
+  dark.showModal();dark.scrollTop=0;
+  clearTimeout(darkEntranceTimer);
+  darkEntranceTimer=setTimeout(()=>dark.classList.remove('after-dark-entering'),3000);
+ };
+ dark.addEventListener('close',()=>{clearTimeout(darkEntranceTimer);dark.classList.remove('after-dark-entering');moon.focus({preventScroll:true});});
  const next=modal('where-next');next.setAttribute('aria-labelledby','where-next-title');
  const ship=document.createElement('button');ship.type='button';ship.className='where-next-ship';ship.setAttribute('aria-haspopup','dialog');ship.setAttribute('aria-controls','where-next');
  ship.innerHTML='<svg viewBox="0 0 70 55" aria-hidden="true"><path d="M24 26q2-21 11-21t11 21" fill="#9fd4d6" stroke="#315b67" stroke-width="2"/><path d="M8 31q27-19 54 0-27 23-54 0Z" fill="#dfd9c6" stroke="#315b67" stroke-width="2"/><ellipse cx="35" cy="30" rx="27" ry="7" fill="#819eaa" stroke="#315b67" stroke-width="2"/><path d="m24 43-5 7m16-6v8m11-9 5 7" stroke="#d5b36e" stroke-width="2"/><g fill="#ffe5a1"><circle cx="20" cy="30" r="2"/><circle cx="35" cy="32" r="2"/><circle cx="50" cy="30" r="2"/></g></svg><span></span>';
- const compass=document.querySelector('.gps-expanded-screen .gps-compass-dock');if(compass)compass.append(ship);
+ window.LPDestinations={mount(container=document){const dock=container.querySelector('[data-destination-ufo]');if(dock)dock.append(ship);}};
+ window.LPDestinations.mount();
+ const mapShip=ship.cloneNode(true);document.querySelector('.gps-expanded-screen .gps-compass-dock')?.append(mapShip);let activeShip=ship;
  let pending=false,submissionId=null;
  next.innerHTML=`<button class="orbit-close" type="button" aria-label="${t('Close suggestions','Cerrar sugerencias')}">×</button><span class="secret-coordinate">L&amp;P / ${t('MISSION CONTROL','CONTROL DE MISIÓN')}</span><h2 id="where-next-title">${t('Where to next?','¿A dónde vamos?')}</h2><p>${t('Give our questionable sense of direction a new destination.','Dale un nuevo destino a nuestro dudoso sentido de orientación.')}</p><form class="destination-form"><div class="destination-fields"><label>${t('Country','País')}<input name="country" required maxlength="40" autocomplete="country-name"></label><label>${t('City','Ciudad')}<input name="city" required maxlength="60" autocomplete="address-level2"></label></div><label>${t('Why should we get lost there?','¿Por qué deberíamos perdernos allí?')}<textarea name="reason" rows="3" maxlength="500" placeholder="${t('A place, an experience, or simply a very good hunch.','Un lugar, una experiencia o una buena corazonada.')}"></textarea></label><label class="destination-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><small>${t('Your destination and note will appear on this shared list.','Tu destino y nota aparecerán en esta lista compartida.')}</small><button type="submit">${t('Send the coordinates','Enviar las coordenadas')} ↗</button></form><p class="destination-status" role="status"></p><div class="destination-list"></div><button type="button" class="destination-refresh">${t('Refresh destinations','Actualizar destinos')} ↻</button>`;
  const form=next.querySelector('form'),status=next.querySelector('.destination-status'),submit=form.querySelector('[type=submit]');
- next.querySelector('.orbit-close').onclick=()=>next.close();next.addEventListener('close',()=>ship.focus({preventScroll:true}));
- async function request(options){const r=await fetch('/api/destinations',{...options,signal:AbortSignal.timeout(12000)});const data=await r.json();if(!r.ok)throw new Error(r.status===429?t('Let this destination land. Try again in a minute.','Espera un minuto antes de enviar otro destino.'):t('Unable to connect. Please try again.','No se pudo conectar. Inténtalo de nuevo.'));return data;}
+ next.querySelector('.orbit-close').onclick=()=>next.close();next.addEventListener('close',()=>activeShip.focus({preventScroll:true}));
+ async function request(options){
+  const unavailable=()=>new Error(t('Destination suggestions are temporarily unavailable. Please try again shortly.','Las sugerencias no están disponibles por ahora. Inténtalo de nuevo en un momento.'));
+  let r;try{r=await fetch('/api/destinations',{...options,signal:AbortSignal.timeout(12000)});}catch{throw unavailable();}
+  if(r.status===429)throw new Error(t('Let this destination land. Try again in a minute.','Espera un minuto antes de enviar otro destino.'));
+  if(!r.ok)throw unavailable();
+  let data;try{data=await r.json();}catch{throw unavailable();}
+  if(!data||typeof data!=='object'||(options?.method==='POST'?!data.story:!Array.isArray(data.stories)))throw unavailable();
+  return data;
+ }
  function cards(items){const list=next.querySelector('.destination-list');list.replaceChildren();if(!items.length){list.textContent=t('Uncharted territory. Leave the first coordinates.','Territorio nuevo. Deja las primeras coordenadas.');return;}items.forEach(item=>{const card=document.createElement('article'),title=document.createElement('strong'),note=document.createElement('p');title.textContent=item.place+', '+item.name;note.textContent=item.story;card.append(title,note);list.append(card);});}
  let revision=0;
  async function refresh(){const version=revision;try{const data=await request();if(version===revision){cards(data.stories);status.textContent='';}}catch(e){if(version===revision)status.textContent=e.message;}}
- ship.onclick=()=>{next.showModal();refresh();};next.querySelector('.destination-refresh').onclick=refresh;
+ ship.onclick=mapShip.onclick=event=>{activeShip=event.currentTarget;next.showModal();refresh();};next.querySelector('.destination-refresh').onclick=refresh;
  form.addEventListener('input',()=>submissionId=null);
  form.addEventListener('submit',async e=>{e.preventDefault();if(pending||!form.reportValidity())return;const reason=form.elements.reason.value.trim();if(reason.split(/\s+/u).length>100){status.textContent=t('Keep your note to 100 words.','Máximo 100 palabras.');return;}pending=true;submit.disabled=true;submissionId??=crypto.randomUUID();status.textContent=t('Sending coordinates…','Enviando coordenadas…');try{await request({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:submissionId,name:form.elements.country.value,place:form.elements.city.value,story:reason||t('A new place to get lost.','Un nuevo lugar para perdernos.'),website:form.elements.website.value})});revision++;form.reset();submissionId=null;await refresh();status.textContent=t('Coordinates received. Officially on our radar.','Coordenadas recibidas. Ya está en nuestro radar.');}catch(error){status.textContent=error.message;}finally{pending=false;submit.disabled=false;}});
  function labels(){moon.setAttribute('aria-label',t('Discover Lost After Dark','Descubre Lost After Dark'));moon.title=t('Lost After Dark','Lost After Dark');ship.querySelector('span').textContent=t('Where to next?','¿A dónde vamos?');ship.setAttribute('aria-label',t('Suggest where we should travel next','Sugiere nuestro próximo destino'));}
- labels();document.addEventListener('lp:languagechange',()=>{labels();if(dark.open)renderDark();});
+ const labelBoth=()=>{labels();mapShip.querySelector('span').textContent=ship.querySelector('span').textContent;mapShip.setAttribute('aria-label',ship.getAttribute('aria-label'));};
+ labelBoth();document.addEventListener('lp:languagechange',()=>{labelBoth();if(dark.open)renderDark();});
 })();
+
 
 
 

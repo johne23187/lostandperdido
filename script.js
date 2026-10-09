@@ -1303,7 +1303,7 @@ function pourWordDust() {
   const bounds = learnMotto.getBoundingClientRect();
   const canvas = document.createElement('canvas');
   canvas.className = 'seasoning-dust'; canvas.setAttribute('aria-hidden', 'true');
-  const paddingX = 80, paddingY = 170;
+  const paddingX = Math.max(0, Math.min(80, bounds.left, innerWidth - bounds.right)), paddingY = 170;
   const width = bounds.width + paddingX * 2, height = bounds.height + paddingY + 90;
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
   canvas.width = Math.ceil(width * ratio); canvas.height = Math.ceil(height * ratio);
@@ -1867,18 +1867,18 @@ setInterval(() => {
   const dialog = document.getElementById('service-details');
   let timer;
   const features = [
-    ['Restaurants', 'assets/latin-campaigns.png', 'Sabores worth sharing.', 'Argentine empanadas campaign concept'],
-    ['Ziplining', 'assets/latin-campaigns.png', 'A new perspective. A little courage.', 'Costa Rican rainforest ziplining campaign concept'],
-    ['Water sports', 'assets/latin-campaigns.png', 'Find your next adventure on the water.', 'Colombian Caribbean paddleboarding campaign concept'],
-    ['Wine tours', 'assets/latin-campaigns.png', 'A taste of Mendoza. A story to share.', 'Mendoza wine tour campaign concept'],
-    ['Community stays', 'assets/hostel-community-concept.png', 'Arrive as travelers. Leave as friends.', 'Hostel community concept']
+    ['Restaurants', 'assets/latin-campaigns.webp', 'Sabores worth sharing.', 'Argentine empanadas campaign concept'],
+    ['Ziplining', 'assets/latin-campaigns.webp', 'A new perspective. A little courage.', 'Costa Rican rainforest ziplining campaign concept'],
+    ['Water sports', 'assets/latin-campaigns.webp', 'Find your next adventure on the water.', 'Colombian Caribbean paddleboarding campaign concept'],
+    ['Wine tours', 'assets/latin-campaigns.webp', 'A taste of Mendoza. A story to share.', 'Mendoza wine tour campaign concept'],
+    ['Community stays', 'assets/hostel-community-concept.webp', 'Arrive as travelers. Leave as friends.', 'Hostel community concept']
   ];
   const brands = [
     ['Skool.com', '', 'Find your people. Find your words.'],
-    ['DJI', 'assets/partner-campaigns.png', 'Every journey has a story worth capturing.'],
-    ['Airalo', 'assets/partner-campaigns.png', 'New destination. Stay connected.', '▣', 'eSIM / ON THE GO'],
-    ['World Nomads', 'assets/partner-campaigns.png', 'For the journeys beyond the familiar.'],
-    ['Samsonite', 'assets/partner-campaigns.png', 'Packed for the next chapter.', '🧳', 'READY FOR DEPARTURE']
+    ['DJI', 'assets/partner-campaigns.webp', 'Every journey has a story worth capturing.'],
+    ['Airalo', 'assets/partner-campaigns.webp', 'New destination. Stay connected.', '▣', 'eSIM / ON THE GO'],
+    ['World Nomads', 'assets/partner-campaigns.webp', 'For the journeys beyond the familiar.'],
+    ['Samsonite', 'assets/partner-campaigns.webp', 'Packed for the next chapter.', '🧳', 'READY FOR DEPARTURE']
   ];
   function start() {
     clearInterval(timer);
@@ -1976,7 +1976,7 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
    const spark=document.createElement('i');const a=i*Math.PI/12,r=200+(i%6)*55;
    spark.style.setProperty('--spark-x',Math.cos(a)*r+'px');spark.style.setProperty('--spark-y',Math.sin(a)*r+'px');spark.style.setProperty('--spark-angle',i*15+'deg');spark.style.setProperty('--spark-delay',Math.floor(i/24)*.45+'s');spark.style.setProperty('--spark-color',['#ff5a49','#fff3c4','#75b9ff'][i%3]);burst.append(spark);
   }
-  const cloud=document.createElement('img');cloud.className='explosion-cloud';cloud.src='assets/explosion-cloud.png';cloud.alt='';burst.append(cloud);
+  const cloud=document.createElement('img');cloud.className='explosion-cloud';cloud.src='assets/explosion-cloud.webp';cloud.alt='';burst.append(cloud);
   cloud.decode?.().catch(()=>{});
   const shout=document.createElement('strong');shout.className='explosion-shout';shout.textContent='BOOM!';burst.append(shout);
   const title=document.createElement('strong');title.className='explosion-title';
@@ -2136,7 +2136,7 @@ const smallLens=document.createElement('span');smallLens.className='perspective-
 (() => {
  const scene=document.querySelector('.closing');
  const tree=document.createElement('button');tree.type='button';tree.className='meadow-tree';tree.setAttribute('aria-label','Zoom in to the missing poster on the tree');tree.setAttribute('aria-haspopup','dialog');
- tree.innerHTML='<img src="assets/meadow-poster-tree.png" alt="A leafy tree with a Lost & Perdido missing poster on its trunk"><span class="poster-arrow" aria-hidden="true">←</span>';
+ tree.innerHTML='<img src="assets/meadow-poster-tree.webp" alt="A leafy tree with a Lost & Perdido missing poster on its trunk"><span class="poster-arrow" aria-hidden="true">←</span>';
  scene.prepend(tree);
  const detail=document.createElement('dialog');detail.className='tree-poster-dialog';detail.setAttribute('aria-label','Lost & Perdido missing poster');
  detail.innerHTML='<button class="tree-poster-close" type="button" aria-label="Return to the mountain view">×</button><div class="tree-poster-crop"><img src="assets/b4f2e6d3-2524-4479-addd-5a5b8b3daad9.JPG" alt="Missing: Lost & Perdido. Have you seen us? Probably exploring somewhere in Latin America, or just lost again."></div><p>Lost & Perdido · Have you seen us?</p>';

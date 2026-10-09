@@ -91,3 +91,227 @@ button.gps-guide:focus-visible{outline:2px solid #f4d995;outline-offset:5px;bord
 .globe-gps-footer>.after-dark-moon{top:64px}
 .space-chapter .globe-gps-footer{padding-bottom:100px}
 @media(max-width:700px){.globe-gps-footer>.after-dark-moon{top:60px}.space-chapter .globe-gps-footer{padding-bottom:80px}}
+/* A destination invitation on the passport's What are we looking for? page. */
+.passport-ufo-dock{display:flex;justify-content:center;margin:22px 0 18px}
+.passport-ufo-dock .where-next-ship{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 20px;background:none;border:0;color:#284b56;cursor:pointer;min-height:90px}
+.passport-ufo-dock .where-next-ship svg{display:block;width:88px;height:69px;transition:transform .3s}
+.passport-ufo-dock .where-next-ship span{font:700 15px/1.4 'DM Sans',sans-serif}
+@media(prefers-reduced-motion:reduce){.passport-ufo-dock .where-next-ship svg{transition:none}}
+/* A couple of familiar table-side details beneath the flags. */
+.learning-flag-string{height:188px}
+.learning-flag-string .flag-string-line{height:110px}
+.learning-keepsakes{position:absolute;left:20px;bottom:0;width:180px;height:78px;pointer-events:none}
+.learning-keepsakes svg{display:block;width:100%;height:100%}
+@media(max-width:700px){.learning-flag-string{height:172px}.learning-flag-string .flag-string-line{height:100px}.learning-keepsakes{left:12px;width:164px;height:71px}}
+/* Culture, passed back and forth: one small keepsake per throw. */
+.learn-intro .garnish-conversation{width:min(360px,100%);height:auto;aspect-ratio:340/180;margin:28px 0 0;color:#284447}
+.learning-flag-string{height:110px}
+.culture-flight{opacity:0;animation:culture-catch 24s ease-in-out infinite both;animation-delay:var(--catch-delay)}
+.culture-flight.culture-return{animation-name:culture-catch-back}
+@keyframes culture-catch{0%{opacity:0;transform:translate(0,0)}1%{opacity:1;transform:translate(0,0)}6.5%{opacity:1;transform:translate(86px,-76px)}12%{opacity:1;transform:translate(172px,4px)}14%,100%{opacity:0;transform:translate(172px,4px)}}
+@keyframes culture-catch-back{0%{opacity:0;transform:translate(172px,4px)}1%{opacity:1;transform:translate(172px,4px)}6.5%{opacity:1;transform:translate(86px,-76px)}12%{opacity:1;transform:translate(0,0)}14%,100%{opacity:0;transform:translate(0,0)}}
+@media(max-width:700px){.learning-flag-string{height:100px}.learn-intro .garnish-conversation{width:min(340px,100%);height:auto;margin:24px 0 0}}
+@media(prefers-reduced-motion:reduce){.culture-flight{animation:none;opacity:0}.culture-flight.culture-baseball{opacity:1;transform:translate(86px,-65px)}}
+
+.learning-catch-arm{animation:learning-toss 8s ease-in-out infinite;transform-box:view-box}
+.catch-arm-left{transform-origin:54px 84px}
+.catch-arm-right{transform-origin:161px 84px;animation-name:learning-toss-right;animation-delay:4s}
+@keyframes learning-toss{0%,15%,100%{transform:rotate(0deg)}5%{transform:rotate(-17deg)}40%{transform:rotate(-8deg)}48%{transform:rotate(0deg)}}
+@keyframes learning-toss-right{0%,15%,100%{transform:rotate(0deg)}5%{transform:rotate(17deg)}40%{transform:rotate(8deg)}48%{transform:rotate(0deg)}}
+@media(prefers-reduced-motion:reduce){.learning-catch-arm{animation:none}}
+/* A closer, gentler game of catch, with conversation outside the flight path. */
+.learn-intro .garnish-conversation{width:min(430px,100%);aspect-ratio:430/180;margin-left:0}
+.culture-flight{animation-duration:50.4s}
+@keyframes culture-catch{0.0000%{opacity:0;transform:translate(0,0)}0.3857%{opacity:1;transform:translate(0,0)}3.2143%{opacity:1;transform:translate(76px,var(--culture-arc-y,-30px))}5.7857%{opacity:1;transform:translate(152px,4px)}6.4286%,100%{opacity:0;transform:translate(152px,4px)}}
+@keyframes culture-catch-back{0.0000%{opacity:0;transform:translate(152px,4px)}0.3857%{opacity:1;transform:translate(152px,4px)}3.2143%{opacity:1;transform:translate(76px,var(--culture-arc-y,-30px))}5.7857%{opacity:1;transform:translate(0,0)}6.4286%,100%{opacity:0;transform:translate(0,0)}}
+.learning-catch-arm{animation-duration:7.2s}.catch-arm-right{animation-delay:3.6s}
+.culture-chat{opacity:0;pointer-events:none;animation:culture-chat-left 50.4s ease-in-out infinite both;animation-delay:var(--catch-delay)}
+.culture-chat.chat-right{animation-name:culture-chat-right}
+@keyframes culture-chat-left{0.0000%,0.1929%,3.5357%,100%{opacity:0}0.7714%,2.8929%{opacity:1}}
+@keyframes culture-chat-right{0.0000%,3.0857%,6.7500%,100%{opacity:0}3.7286%,6.0429%{opacity:1}}
+@media(max-width:700px){.learn-intro .garnish-conversation{width:100%;height:auto;aspect-ratio:430/180}}
+@media(prefers-reduced-motion:reduce){.culture-chat{animation:none;opacity:0}.culture-chat[style="--catch-delay:0s"]{opacity:1}.culture-flight.culture-baseball{transform:translate(76px,var(--culture-arc-y,-30px))}}
+/* Keep the original image positioning; links do not introduce layout boxes. */
+.learning-country-flag{display:contents}
+.learning-flag-string .learning-country-flag img{position:absolute;top:29px;left:8%;right:auto;width:23%;height:auto;transform:rotate(10deg)}
+.learning-flag-string .learning-country-flag:nth-of-type(2) img{left:38.5%;top:43px;transform:rotate(-2deg)}
+.learning-flag-string .learning-country-flag:nth-of-type(3) img{left:auto;right:8%;transform:rotate(-10deg)}
+.learning-country-flag:hover img{filter:brightness(1.08)}
+.learning-country-flag:focus-visible img{outline:2px solid #284b56;outline-offset:4px}
+@media(max-width:700px){.learning-flag-string .learning-country-flag:nth-of-type(2) img{top:39px}}
+
+.discovery-title .discovery-lost{display:inline-block;color:#d7353d;transform-origin:50% 50%}
+/* The free astronaut drifts toward the GPS, then eases back into space. */
+.gps-with-guide>.gps-guide{animation:gps-inviting-drift 6s ease-in-out infinite}
+@keyframes gps-inviting-drift{
+  0%,100%{transform:translate(-22px,-7px) rotate(-5deg)}
+  48%,56%{transform:translate(0,1px) rotate(3deg)}
+}
+@media(max-width:700px){
+  @keyframes gps-inviting-drift{
+    0%,100%{transform:translate(-14px,-6px) rotate(-5deg)}
+    48%,56%{transform:translate(0,1px) rotate(3deg)}
+  }
+}
+@media(prefers-reduced-motion:reduce){.gps-with-guide>.gps-guide{animation:none;transform:none}}
+
+/* A three-second descent into shadow, followed by the room's warm lights. */
+#lost-after-dark.after-dark-entering{animation:night-room-arrival 3s ease both}
+#lost-after-dark.after-dark-entering::after{content:'';position:fixed;inset:0;z-index:8;pointer-events:none;background:radial-gradient(ellipse at 50% 15%,#110e1b 0%,#020207 65%);animation:night-shadow-curtain 3s ease both}
+#lost-after-dark.after-dark-entering>.orbit-close{z-index:10}
+#lost-after-dark.after-dark-entering>.underworld-header,
+#lost-after-dark.after-dark-entering>.after-dark-tabs,
+#lost-after-dark.after-dark-entering>.after-dark-room,
+#lost-after-dark.after-dark-entering>.underworld-footer{animation:night-lights-on 3s ease both}
+#lost-after-dark.after-dark-entering .underworld-header h2{animation:night-title-glow 3s ease both}
+@keyframes night-shadow-curtain{0%{opacity:0;transform:translateY(-15%)}28%,52%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(0)}}
+@keyframes night-room-arrival{0%{opacity:0}25%,100%{opacity:1}}
+@keyframes night-lights-on{0%,52%{opacity:0;filter:brightness(.2);transform:translateY(6px)}76%{opacity:.85;filter:brightness(.8);transform:translateY(1px)}100%{opacity:1;filter:brightness(1);transform:translateY(0)}}
+@keyframes night-title-glow{0%,55%{text-shadow:none}80%{text-shadow:0 0 20px #dab4ef99,0 0 50px #b68bd955}100%{text-shadow:none}}
+@media(prefers-reduced-motion:reduce){#lost-after-dark.after-dark-entering,#lost-after-dark.after-dark-entering>*,#lost-after-dark.after-dark-entering .underworld-header h2{animation:none}#lost-after-dark.after-dark-entering::after{display:none}}
+
+.photography-watermarked{position:relative;display:block;width:fit-content;max-width:100%;margin:auto}
+.photography-contact-sheet .photography-watermarked img{width:auto;max-width:100%}
+.photography-watermark{position:absolute;right:5px;bottom:5px;pointer-events:none;color:#fff9;font:600 7px/1.2 'DM Sans',sans-serif;letter-spacing:.15px;text-shadow:0 1px 2px #0009}
+
+.garnish-conversation.graphics-paused,.garnish-conversation.graphics-paused *{animation-play-state:paused!important}
+/* Keep the room visible when its entrance class is removed; do not replay the old fade. */
+#lost-after-dark[open]:not(.after-dark-entering){animation:none}
+/* A moving cue settles when someone aims at it or uses the keyboard. */
+.gps-with-guide>.gps-guide:hover,.gps-with-guide>.gps-guide:focus-visible{animation-play-state:paused}
+/* Keep the camp cue readable inside the narrow book page. */
+@media(max-width:700px){.camp-guide>span{position:absolute;top:calc(100% + 3px);left:50%;transform:translateX(-50%);font-size:12px}}
+
+/* Match Cam's wider source image to the other Yankees' portrait framing. */
+.picks-sport-mlb .sport-portrait img[alt="Cam Schlittler"]{object-fit:cover;object-position:50% 0;transform:scale(1.2);transform-origin:50% 0}
+
+.lets-talk-plane{display:inline-block;width:16px;height:16px;flex:0 0 16px;background:currentColor;-webkit-mask:url('assets/directory-plane.svg') center/contain no-repeat;mask:url('assets/directory-plane.svg') center/contain no-repeat;vertical-align:middle}
+/* Neutralize the warm orange lighting in Triple H's portrait. */
+.picks-sport-wwe .sport-portrait img[alt="Triple H"]{filter:saturate(.65) hue-rotate(4deg) brightness(1.04)}
+/* A small golden discovery below the orbiting phones. */
+.watch-section>.little-detour-star{position:absolute;left:max(22px,5vw);bottom:65px;z-index:3;display:grid;place-items:center;width:52px;height:52px;padding:8px;background:none;border:0;cursor:pointer;border-radius:50%;outline-offset:5px}
+.little-detour-star svg{width:36px;height:36px;overflow:visible;filter:drop-shadow(0 0 8px #f9cf5966);animation:little-star-float 5.5s ease-in-out infinite}
+.little-detour-star:hover svg{filter:drop-shadow(0 0 12px #ffe895aa)}
+.little-detour-star:focus-visible{outline:2px solid #ffe69a}
+.little-detour-star.star-resting svg{animation-play-state:paused}
+@keyframes little-star-float{0%,100%{transform:translate(0,0) rotate(-7deg)}50%{transform:translate(4px,-6px) rotate(7deg)}}
+.watch-section:has(.socials-showcase.reveal-armed)>.little-detour-star{visibility:hidden;opacity:0;pointer-events:none}
+.watch-section:has(.socials-showcase.reveal-exploding)>.little-detour-star{visibility:visible;pointer-events:auto;animation:epic-phones-visible 4.2s linear both}
+.lost-star-aside{position:absolute;left:calc(max(22px,5vw) + 55px);bottom:78px;z-index:3;max-width:min(220px,calc(100vw - 110px));padding:8px 12px;border:1px solid #f5d35444;border-radius:12px 12px 12px 2px;background:#151d2bea;color:#ffe59b;font:600 12px/1.4 'DM Sans',sans-serif;pointer-events:none;opacity:0;transform:translateY(5px);transition:opacity .25s,transform .25s}
+.lost-star-aside.is-visible{opacity:1;transform:translateY(0)}
+@media(max-width:700px){.watch-section>.little-detour-star{left:20px;bottom:48px}.lost-star-aside{left:75px;bottom:60px}}
+@media(prefers-reduced-motion:reduce){.little-detour-star svg,.watch-section>.little-detour-star{animation:none!important}.watch-section>.little-detour-star{visibility:visible!important;opacity:1!important}}
+
+/* A warm, cinematic reveal for the social calendar. */
+.star-schedule{box-sizing:border-box;width:min(460px,calc(100vw - 28px));max-height:90dvh;overflow:auto;padding:32px 25px 22px;border:1px solid #d9b95870;border-radius:22px;background:radial-gradient(ellipse at 50% 0,#65501f55,transparent 65%),#101923;color:#fff2d3;text-align:center;box-shadow:0 25px 100px #000b}
+.star-schedule::backdrop{background:#050a13de;backdrop-filter:blur(7px)}
+.star-schedule-close{position:absolute;top:8px;right:8px;width:44px;height:44px;border:0;background:none;color:#f7dfa1;font-size:26px;cursor:pointer;z-index:2}
+.star-schedule-glow{font-size:58px;line-height:1.2;color:#ffdb65;text-shadow:0 0 20px #efc54da0,0 0 65px #efc54d60;animation:schedule-star-arrival 2.2s ease-out both}
+.star-schedule-intro h2{margin:16px 0 8px;font:italic 36px/1.1 Georgia,serif;color:#fff2d3}.star-schedule-intro>p{margin:0 0 20px;font:14px/1.5 'DM Sans',sans-serif;color:#dbca9d}
+.star-schedule-content{opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .65s,transform .65s,visibility .65s}.schedule-ready .star-schedule-content{opacity:1;visibility:visible;transform:none}
+.star-schedule-eyebrow{font:9px/1.5 'DM Sans',sans-serif;letter-spacing:.18em;color:#cbb77f;margin:5px 0 16px}
+.star-schedule-premiere{display:grid;gap:6px;padding:23px 15px;border:1px solid #c9a74a66;border-radius:12px;background:#eed17b0a}.star-schedule-premiere>span{color:#ff8275;font:700 13px/1.4 'DM Sans',sans-serif}.star-schedule-premiere strong{font:28px/1.2 Georgia,serif}.star-schedule-premiere b{font:800 26px/1.3 'DM Sans',sans-serif;color:#ffdc7a}.star-schedule-premiere small{font:12px/1.5 'DM Sans',sans-serif;color:#d2c8b0}
+.star-schedule-daily{padding:22px 0 17px;border-bottom:1px solid #c9a74a33}.star-schedule-daily strong{font:italic 20px/1.3 Georgia,serif}.star-schedule-daily p{font:12px/1.6 'DM Sans',sans-serif;margin:10px 0 4px}.star-schedule-daily>span{font:600 11px/1.5 'DM Sans',sans-serif;color:#ebc974}.star-schedule-footer{font:italic 12px/1.6 Georgia,serif;color:#c0b59d;margin:16px 0 0}
+.star-schedule :focus-visible{outline:2px solid #ffdb65;outline-offset:3px}
+@keyframes schedule-star-arrival{0%{opacity:0;transform:scale(.35) rotate(-35deg);filter:blur(7px)}55%{opacity:1;transform:scale(1.2) rotate(5deg);filter:blur(0)}100%{transform:scale(1) rotate(0)}}
+@media(prefers-reduced-motion:reduce){.star-schedule-glow{animation:none}.star-schedule-content{transition:none}}
+
+/* The culture exchange now belongs to the bodega frontage. */
+.learn-copy .learn-word-lost{color:#cf2929;font-weight:700}.learn-copy .learn-word-find{color:#23763d;font-weight:700}
+@media(min-width:1051px){.learn-section{grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr);gap:40px}}
+.learn-intro .garnish-conversation{position:relative;width:780px;max-width:100%;aspect-ratio:430/180;margin:22px 0 0}
+.garnish-conversation>.learning-flag-string{position:absolute;left:27%;top:35%;width:42%;height:auto;aspect-ratio:340/100;margin:0}
+.garnish-conversation .learning-flag-string .flag-string-line{width:100%;height:100%;position:absolute;inset:0}
+.garnish-conversation .learning-flag-string .learning-country-flag img{top:29%;width:23%}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(2) img{top:43%}
+@media(max-width:700px){.learn-intro .garnish-conversation{width:100%;margin-top:18px}.garnish-conversation .culture-flight>g>g{transform:scale(1.8)}.garnish-conversation .culture-guira>g>g{transform:scale(1.548)}}
+/* Give the star its own moment before the calendar arrives. */
+.star-schedule{position:fixed;isolation:isolate}
+.star-schedule::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;background:conic-gradient(from 15deg,transparent 0deg,#ffe7a51a 12deg,transparent 25deg,transparent 60deg,#ffe7a51a 72deg,transparent 85deg,transparent 120deg,#ffe7a51a 132deg,transparent 145deg,transparent 180deg,#ffe7a51a 192deg,transparent 205deg,transparent 240deg,#ffe7a51a 252deg,transparent 265deg,transparent 300deg,#ffe7a51a 312deg,transparent 325deg);animation:none;mask-image:radial-gradient(ellipse,#000,transparent 65%)}
+.star-schedule-glow{font-size:82px;animation:schedule-star-arrival 3.2s ease-out both;text-shadow:0 0 12px #fff4c8,0 0 36px #ffd25dcc,0 0 80px #efc54d99}
+.star-schedule-intro h2{font-size:clamp(36px,7vw,46px);font-weight:700;text-shadow:0 0 18px #ffd87988;animation:schedule-title-shine 3.2s ease-out both}
+.star-schedule-intro>p{font-size:15px;color:#f2deaa}
+.star-schedule:not(.schedule-ready) .star-schedule-intro{transform:translateY(45px) scale(1.06)}
+.star-schedule:not(.schedule-ready) .star-schedule-glow{margin-top:45px}
+.star-schedule-intro{transition:transform .8s ease}.star-schedule-glow{transition:margin .8s ease}
+@keyframes schedule-rays{to{transform:rotate(360deg)}}
+@keyframes schedule-title-shine{0%{opacity:0;filter:blur(5px);transform:translateY(12px)}25%{opacity:1;filter:blur(0);transform:none}55%{text-shadow:0 0 8px #fff6cc,0 0 30px #ffd879,0 0 55px #f4c65c}100%{text-shadow:0 0 18px #ffd87988}}
+@media(prefers-reduced-motion:reduce){.star-schedule::before,.star-schedule-intro h2,.star-schedule-glow{animation:none}.star-schedule-intro,.star-schedule-glow{transition:none}}
+.star-schedule{overflow-x:hidden}
+/* Enlarge the actual storefront, without an empty sizing frame. */
+@media(min-width:1051px){.learn-section{grid-template-columns:minmax(0,2.3fr) minmax(280px,1fr);gap:32px}}
+.learn-intro .garnish-conversation{width:920px;max-width:100%;aspect-ratio:430/280;margin:22px 0 0;position:relative}
+.learn-intro .garnish-conversation>svg{display:block;width:100%;height:auto;aspect-ratio:430/280}
+.garnish-conversation>.learning-flag-string{top:37%;left:27%;width:42%}
+.learn-copy .learn-word-maybe{color:#c99b16;font-weight:700}
+
+/* Five flags hang from their top centers along the curved storefront cord. */
+.garnish-conversation>.learning-flag-string{left:18%;width:60%;top:37%}
+.garnish-conversation .learning-flag-string .learning-country-flag img{width:14.5%;right:auto;transform-origin:50% 0}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(1) img{left:2.75%;top:22.3%;transform:rotate(14deg)}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(2) img{left:22.75%;top:35.6%;transform:rotate(7deg)}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(3) img{left:42.75%;right:auto;top:40%;transform:rotate(0deg)}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(4) img{left:62.75%;top:35.6%;transform:rotate(-7deg)}
+.garnish-conversation .learning-flag-string .learning-country-flag:nth-of-type(5) img{left:82.75%;top:22.3%;transform:rotate(-14deg)}
+
+/* Hang bunting just below the awning; keep the toss in the open space beneath it. */
+.garnish-conversation>.learning-flag-string{top:27%}
+.garnish-conversation{--culture-arc-y:-25px}
+@media(max-width:700px){.garnish-conversation{--culture-arc-y:-6px}}
+
+.garnish-conversation>.learning-flag-string{top:30%}
+.mountain-friend .paraglider-canopy{bottom:calc(100% - 13px)}
+/* Photography: a quiet, cinematic portfolio rather than stacked scrapbook cards. */
+#service-details[data-service="4"]{background:#111916;color:#f5edda;border:1px solid #77857566;width:min(1100px,calc(100vw - 24px));padding:clamp(20px,4vw,42px);border-radius:16px}
+#service-details[data-service="4"]>h2{color:#f5edda;font-size:clamp(25px,4vw,40px);margin-bottom:24px}
+#service-details[data-service="4"]>.eyebrow{color:#b8bf9e}
+#service-details[data-service="4"] .service-close{color:#f5edda;background:#27322d;border-radius:50%;z-index:5}
+#service-details[data-service="4"] .photo-picture-book{padding:0;background:none;color:#f5edda}
+#service-details[data-service="4"] .photo-picture-book header{max-width:none;text-align:left;margin:0 0 30px;padding:24px 0;border-top:1px solid #bfc8ae33;border-bottom:1px solid #bfc8ae33}
+#service-details[data-service="4"] .photo-picture-book header .editorial-kicker{color:#c6b882;font-size:10px;letter-spacing:.16em}
+#service-details[data-service="4"] .photo-picture-book h3{font:italic 500 clamp(32px,5vw,60px)/1.08 Georgia,serif;letter-spacing:-.035em;color:#f5edda;max-width:750px;margin:16px 0}
+#service-details[data-service="4"] .photo-picture-book header>p:last-child{color:#aab7aa;font:14px/1.7 'DM Sans',sans-serif}
+#service-details[data-service="4"] .photo-book-spread{padding:0;background:none;box-shadow:none;border-radius:0}
+#service-details[data-service="4"] .photography-contact-sheet{gap:30px 24px;align-items:start;max-width:none}
+#service-details[data-service="4"] .photography-contact-sheet figure{display:block;grid-row:auto;padding:0;background:none;box-shadow:none;border:0}
+#service-details[data-service="4"] .photography-watermarked{width:100%;background:#080d0b;border:1px solid #a5b19d33;overflow:hidden}
+#service-details[data-service="4"] .photography-contact-sheet figure img{width:100%;max-width:100%;height:clamp(230px,31vw,365px);object-fit:contain;background:#080d0b;transition:filter .35s ease}
+#service-details[data-service="4"] .photography-contact-sheet figure:hover img{filter:brightness(1.08)}
+#service-details[data-service="4"] .photography-contact-sheet figcaption{display:flex;align-items:baseline;gap:13px;margin:0;padding:13px 0 0;color:#e9e5d6;font:17px/1.4 Georgia,serif}
+#service-details[data-service="4"] .photography-contact-sheet figcaption b{font:10px/1.4 monospace;color:#c6b882;letter-spacing:.1em}
+#service-details[data-service="4"] .photography-watermark{bottom:9px;right:9px;font-size:8px}
+#service-details[data-service="4"] .photo-book-credit{position:static;margin:30px 0 0;padding:18px 0;border-top:1px solid #bfc8ae33;color:#aab7aa;font:11px/1.7 'DM Sans',sans-serif;text-align:left}
+#service-details[data-service="4"] .service-inquiry{margin-top:16px;background:#e8d8a5;color:#15251d;border-radius:4px}
+@media(max-width:550px){#service-details[data-service="4"] .photography-contact-sheet{grid-template-columns:minmax(0,1fr);gap:25px}#service-details[data-service="4"] .photography-contact-sheet figure img{height:310px}#service-details[data-service="4"] .photo-picture-book header{padding:14px 0;margin-bottom:22px}}
+@media(prefers-reduced-motion:reduce){#service-details[data-service="4"] .photography-contact-sheet figure img{transition:none}}
+/* Six editorial voices, one consistent hierarchy. */
+#service-details,.magazine-feature{--service-accent:#a63d2c;--service-wash:#a63d2c0c}
+#service-details[data-service="1"],.feature-destination{--service-accent:#246957;--service-wash:#2469570d}
+#service-details[data-service="2"],.feature-partnership{--service-accent:#345d91;--service-wash:#345d910c}
+#service-details[data-service="3"],.feature-social{--service-accent:#9c4938;--service-wash:#9c49380c}
+#service-details[data-service="4"],.feature-photography{--service-accent:#92703a;--service-wash:#92703a0d}
+#service-details[data-service="5"],.feature-packages{--service-accent:#6e537e;--service-wash:#6e537e0c}
+#service-details :is(.ugc-kicker,.studio-feature-copy>.editorial-kicker),.magazine-feature .feature-copy>.editorial-kicker{display:inline-block;width:fit-content;max-width:100%;padding:7px 10px;border:1px solid color-mix(in srgb,var(--service-accent) 25%,transparent);border-radius:3px;background:var(--service-wash);color:var(--service-accent);font:700 10px/1.6 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+#service-details :is(.ugc-editorial,.studio-feature-copy,.package-studio)>h3{color:#203934;font-weight:600;letter-spacing:-.045em;text-wrap:balance;margin:20px 0 22px}
+#service-details :is(.ugc-editorial,.studio-feature-copy)>h3::after,#service-details .package-studio>h3::after{content:"";display:block;width:46px;height:3px;background:var(--service-accent);margin-top:20px}
+#service-details :is(.ugc-editorial,.studio-feature-copy)>p:not(.editorial-kicker):not(.ugc-footnote):not(.feature-terms),#service-details .package-intro{padding:17px 19px;margin:20px 0;border-left:3px solid var(--service-accent);background:var(--service-wash);color:#354b48;font:15px/1.8 'DM Sans',sans-serif;border-radius:0 8px 8px 0}
+#service-details .ugc-deliverables{display:grid;gap:10px;margin:26px 0;border:0}
+#service-details .ugc-deliverables>div{padding:17px 16px;gap:14px;background:#fffdf7;border:1px solid #274b3920;border-radius:8px;box-shadow:0 4px 12px #263d3505;align-items:flex-start}
+#service-details .ugc-deliverables b{display:grid;place-items:center;flex:0 0 30px;height:30px;padding:0;background:var(--service-wash);border-radius:50%;color:var(--service-accent);font:600 11px monospace}
+#service-details .ugc-deliverables strong{font:700 16px/1.35 'DM Sans',sans-serif;color:#203934;margin:2px 0 6px}
+#service-details .ugc-deliverables small{color:#596961;font:13px/1.7 'DM Sans',sans-serif}
+#service-details .studio-feature-copy>ul{list-style:none;padding:0;margin:25px 0;display:grid;gap:10px;counter-reset:service-points}
+#service-details .studio-feature-copy>ul>li{position:relative;counter-increment:service-points;padding:17px 17px 17px 58px;margin:0;border:1px solid #274b3920;border-radius:8px;background:#fffdf7;color:#304c44;font:600 14px/1.65 'DM Sans',sans-serif}
+#service-details .studio-feature-copy>ul>li::before{content:counter(service-points,decimal-leading-zero);position:absolute;left:15px;top:17px;display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:var(--service-wash);color:var(--service-accent);font:600 11px monospace}
+#service-details :is(.ugc-footnote,.feature-terms,.package-terms){padding:14px 16px;border:1px dashed #78877d70;border-radius:6px;color:#627168;font:12px/1.7 'DM Sans',sans-serif;background:#f1f0e850}
+#service-details .package-card{border-radius:8px;box-shadow:0 8px 22px #203b4210;border-top:3px solid #8ba7ae}
+#service-details .package-gold{border-top-color:#b38635}#service-details .package-platinum{border-top-color:#90b4c6}
+#service-details .package-card h4{font-size:34px}#service-details .package-card li{font-size:13px;line-height:1.6}#service-details .package-card li b{font-size:23px;min-width:24px}
+#service-details .media-gear-heading h4{color:#203934}#service-details .media-gear-grid strong{font-size:12px}#service-details .media-gear-grid figcaption span{font-size:11px;line-height:1.6}
+.magazine-feature .feature-copy>p:not(.editorial-kicker):not(.feature-terms){padding:15px 16px;border-left:3px solid var(--service-accent);border-radius:0 7px 7px 0;background:var(--service-wash);color:#354b48;line-height:1.8}
+.magazine-feature .feature-copy>h3{color:var(--service-accent);font:700 11px/1.6 'DM Sans',sans-serif;letter-spacing:.13em;margin:25px 0 13px}
+.magazine-feature .feature-deliverables{display:grid;gap:9px}
+.magazine-feature .feature-deliverables li{padding:13px 14px;border:1px solid #29483620;border-radius:6px;background:#fffaf2;color:#354b48;font-size:13px;line-height:1.65}
+.magazine-feature .feature-deliverables b{color:var(--service-accent)}
+.magazine-feature .feature-copy .feature-terms{padding:12px 14px;border-top:1px dashed #78877d70;color:#66756a;font-size:11px;line-height:1.7}
+@media(max-width:550px){#service-details .ugc-deliverables>div{padding:14px 12px;gap:10px}#service-details :is(.ugc-editorial,.studio-feature-copy)>p:not(.editorial-kicker):not(.ugc-footnote):not(.feature-terms),#service-details .package-intro{padding:14px;font-size:14px}#service-details .studio-feature-copy>ul>li{padding:14px 12px 14px 53px;font-size:13px}}

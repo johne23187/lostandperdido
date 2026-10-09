@@ -1456,8 +1456,8 @@ body:has(.service-dialog[open]) { overflow: hidden; }
 @media(max-width: 600px) { .service-tiers { grid-template-columns: 1fr; } }
 
 .perspective-heading { position: relative; isolation: isolate; }
-.perspective-lens { position: absolute; z-index: 3; width: 100px; height: 100px; border: 5px solid #ac663d; border-radius: 50%; background: #fff8; box-shadow: inset 0 0 0 2px #f3d6aa, 3px 5px 12px #243d4326; pointer-events: none; transform-origin: center; }
-.perspective-lens::after { content: ''; position: absolute; top: 88%; left: 11%; width: 12px; height: 56px; border-radius: 6px; background: linear-gradient(90deg, #333e43, #647378, #26343b); transform: rotate(15deg); transform-origin: top; }
+.perspective-lens { position: absolute; z-index: 3; width: 100px; height: 100px; border: 5px solid #080808; border-radius: 50%; background: #fff8; box-shadow: inset 0 0 0 2px #242424, 3px 5px 12px #243d4326; pointer-events: none; transform-origin: center; }
+.perspective-lens::after { content: ''; position: absolute; top: 88%; left: 11%; width: 12px; height: 56px; border-radius: 6px; background: #080808; transform: rotate(15deg); transform-origin: top; }
 .perspective-glass { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; background: #faf7ef; }
 .perspective-glass::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(125deg, #fff7, transparent 38%, #a8cfdd18); box-shadow: inset 0 0 12px #83a6b040; }
 .perspective-copy { position: absolute; margin: 0 !important; max-width: none !important; pointer-events: none; }
@@ -1552,7 +1552,7 @@ body:has(.service-dialog[open]) { overflow: hidden; }
 .ugc-editorial .ugc-footnote { font-size: 12px; }
 .service-dialog-ugc .service-inquiry { margin-top: 26px; }
 .services button { position: relative; min-height: 85px; justify-content: flex-start; padding: 20px 30px 20px 18px; text-align: left; background: #ffffff70; border-radius: 12px; box-shadow: 0 3px 12px #16283305; }
-.services button::after { content: '↗'; position: absolute; right: 12px; top: 12px; font-size: 16px; color: var(--orange); }
+.services button::after { content: ''; position: absolute; right: 12px; top: 12px; width: 16px; height: 16px; background: var(--orange); -webkit-mask: url('assets/directory-plane.svg') center/contain no-repeat; mask: url('assets/directory-plane.svg') center/contain no-repeat; pointer-events: none; }
 .services button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #16283310; }
 @media(max-width: 650px) { .ugc-showcase { grid-template-columns: 1fr; } .ugc-device-stage { padding: 22px; } .ugc-phone-wrap { width: 210px; } }
 .ugc-phone .app-ui.feed-app { display: flex; flex-direction: column; }
@@ -2155,7 +2155,7 @@ body:has(.country-portfolio[open]) { overflow:hidden; }
 .meadow-tree {right:calc(var(--seated-right) - 5px);}
 /* Only the poster sits above speech bubbles; the rest of the tree stays behind. */
 .meadow-tree {z-index:auto;}
-.meadow-tree::after {content:"";position:absolute;inset:0;z-index:3;background:url('assets/meadow-poster-tree.png') center/100% 100% no-repeat;clip-path:polygon(40% 46%,60% 46%,65% 72%,39% 72%);filter:saturate(.38) brightness(.83) contrast(.8);pointer-events:none;}
+.meadow-tree::after {content:"";position:absolute;inset:0;z-index:3;background:url('assets/meadow-poster-tree.webp') center/100% 100% no-repeat;clip-path:polygon(40% 46%,60% 46%,65% 72%,39% 72%);filter:saturate(.38) brightness(.83) contrast(.8);pointer-events:none;}
 @media(max-width:700px) {
   .meadow-tree {right:calc(var(--seated-right) + 1px);}
   .host-flags {right:0;}
@@ -2203,7 +2203,7 @@ body:has(.country-portfolio[open]) { overflow:hidden; }
 }
 .meadow-tree::before {
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:url('assets/meadow-poster-tree.png') center/100% 100% no-repeat;
+  background:url('assets/meadow-poster-tree.webp') center/100% 100% no-repeat;
   filter:saturate(.18) hue-rotate(15deg) brightness(.62) contrast(.85);
   -webkit-mask-image:linear-gradient(to bottom,transparent 76%,#000 84%,#000 88%,transparent 100%);
   mask-image:linear-gradient(to bottom,transparent 76%,#000 84%,#000 88%,transparent 100%);

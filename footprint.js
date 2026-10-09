@@ -42,7 +42,7 @@
   });
   let suppressClick=false;
   function travelersFor(place) { return place.travelers.filter(t => filter === 'both' || filter === t); }
-  function person(t) { return `<img class="traveler-head traveler-head-${t}" src="assets/${t === 'john' ? 'john-yankees-smiling' : 'mateo-yankees-head'}.png" alt="${t === 'john' ? 'John' : 'Mateo'} wearing a blue Yankees cap" width="48" height="48" draggable="false">`; }
+  function person(t) { return `<img class="traveler-head traveler-head-${t}" src="assets/${t === 'john' ? 'john-yankees-smiling' : 'mateo-yankees-head'}-192.webp" alt="${t === 'john' ? 'John' : 'Mateo'} wearing a blue Yankees cap" width="48" height="48" draggable="false">`; }
   places.forEach(place => {
     const button = document.createElement('button'); button.type = 'button'; button.className = 'footprint-marker';
     button.title = place.name; button.setAttribute('aria-label', place.name + ', visited by ' + place.travelers.join(' and '));
@@ -125,7 +125,7 @@
     const footprint=button.dataset.globeMode==='footprint';
     section.classList.toggle('footprint-active',footprint);
     document.querySelectorAll('[data-globe-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    document.querySelector('.discovery-title').innerHTML=footprint?'Get lost<br><em>with us.</em>':'Unlock the world<br><em>with us.</em>';
+    document.querySelector('.discovery-title').innerHTML=footprint?'Get <span class="discovery-lost">lost</span><br><em>with us.</em>':'Unlock the world<br><em>with us.</em>';
     if(footprint){draw();introduceGlobe();}else {cancelAnimationFrame(flight);endIntro();}
   }));
   let introduced=false;

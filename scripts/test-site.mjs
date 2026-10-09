@@ -46,7 +46,9 @@ export async function runChecks() {
     assert.equal((await fetch(base + '/.local-data/daily-poll.sqlite3')).status, 404);
     const range = await fetch(base + '/index.html', {headers:{Range:'bytes=0-19'}});
     assert.equal(range.status, 206);
-    assert.equal((await range.text()).length, 20);
+    const rangeBytes=Buffer.from(await range.arrayBuffer());
+    assert.equal(rangeBytes.length,20,'Range responses count bytes, including a UTF-8 BOM');
+    assert.deepEqual(rangeBytes,(await readFile(new URL('../index.html',import.meta.url))).subarray(0,20));
     const eventsAbort = new AbortController();
     const events = await fetch(base + '/api/poll/events', {headers:{Cookie:cookie}, signal:eventsAbort.signal});
     const reader = events.body.getReader();

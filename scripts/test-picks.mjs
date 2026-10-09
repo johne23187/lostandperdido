@@ -15,7 +15,7 @@ const scope={document,window:{},Math};vm.runInNewContext(source,scope);
 const dialog=body.children[0],players=[];
 const api={createController(mount,options,callback){const player={options,events:{},plays:0,destroyed:false,addListener(name,fn){this.events[name]=fn;},play(){this.plays++;},destroy(){this.destroyed=true;}};players.push(player);callback(player);}};
 opener.events.click();assert.equal(dialog.open,true);assert.ok(host.children[0].innerHTML.includes('open.spotify.com/embed/track/'));
-assert.match(dialog.innerHTML, /12 songs · 16 artists · 10 albums<\/span>/);
+assert.match(dialog.innerHTML, /22 songs · 16 artists · 10 albums<\/span>/);
 for(const name of ['Friday Night Lights','Revenge of the Dreamers III','Waldo Cortes-Acosta','Payton Talbott','Undertaker','Triple H','George Lombard Jr.','Karl-Anthony Towns','Mikal Bridges']) assert.ok(dialog.innerHTML.includes(name),name);
 for(const match of dialog.innerHTML.matchAll(/src="(assets\/[^"]+)"/g)) assert.ok(fs.existsSync(new URL('../'+match[1],import.meta.url)),`Missing artwork: ${match[1]}`);
 assert.equal((dialog.innerHTML.match(/class="sport-portrait"/g)||[]).length,20);
@@ -36,6 +36,6 @@ assert.ok(!button.innerHTML.includes('picks-show-grid'),'Movies filter excludes 
 const firstUri='spotify:track:'+host.children[0].innerHTML.match(/embed\/track\/([^?]+)/)[1];
 dialog.close();scope.window.onSpotifyIframeApiReady(api);assert.equal(players.length,0,'Late API load cannot play after closing');
 const uris=[firstUri];
-for(let i=0;i<11;i++){opener.events.click();const player=players.at(-1);player.events.ready();assert.equal(player.plays,1);uris.push(player.options.uri);dialog.close();assert.equal(player.destroyed,true);assert.equal(host.children.length,0);player.events.ready();assert.equal(player.plays,1,'Late ready cannot restart closed player');}
-assert.equal(new Set(uris).size,12,'Shuffle plays every featured track once before repeating');
+for(let i=0;i<21;i++){opener.events.click();const player=players.at(-1);player.events.ready();assert.equal(player.plays,1);uris.push(player.options.uri);dialog.close();assert.equal(player.destroyed,true);assert.equal(host.children.length,0);player.events.ready();assert.equal(player.plays,1,'Late ready cannot restart closed player');}
+assert.equal(new Set(uris).size,22,'Shuffle plays every featured track once before repeating');
 console.log('Spotify shuffle passed: complete queue, fallback embed, close cleanup and delayed API/ready isolation.');

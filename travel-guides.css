@@ -518,3 +518,15 @@ dialog.country-entry{width:min(560px,calc(100vw - 28px));max-height:85dvh;margin
 @keyframes daily-solar-glow{0%,100%{filter:drop-shadow(0 0 5px #f8cc6840)}50%{filter:drop-shadow(0 0 12px #f8cc6870)}}
 @keyframes daily-solar-glimmer{0%,65%,100%{opacity:0;transform:scale(.45) rotate(0deg)}76%{opacity:.9;transform:scale(1) rotate(12deg)}88%{opacity:0;transform:scale(.65) rotate(24deg)}}
 @media(prefers-reduced-motion:reduce){.daily-sun-orb,.daily-sun-orb::after{animation:none}.daily-sun-orb::after{opacity:.45}}
+
+/* The van speaks from just above its front bumper and carries its bubble along. */
+.van-art>.van-click{position:absolute;right:0;top:36%;z-index:2;margin:0;padding:5px 10px;border-radius:12px;transform:rotate(-5deg);white-space:nowrap;pointer-events:none}
+.van-art>.van-click::after{content:'';position:absolute;right:14px;bottom:-5px;width:8px;height:8px;background:#fffdf5;border-right:1px solid #263b56;border-bottom:1px solid #263b56;transform:skewY(25deg) rotate(25deg)}
+
+/* A small speech bubble beside the hinged hood. */
+.soundtrack-page .memory-van{max-width:min(270px,calc(100% - 44px))}
+.van-art>.van-click{left:94%;right:auto;top:49%;padding:3px 7px;font-size:10px;line-height:1.2;transform:rotate(-4deg)}
+.van-art>.van-click::after{left:-4px;right:auto;top:8px;bottom:auto;width:6px;height:6px;border-right:0;border-bottom:1px solid #263b56;border-left:1px solid #263b56;transform:rotate(45deg)}
+
+/* Speech comes from the front bumper mouth. */
+.van-art>.van-click{top:67%}

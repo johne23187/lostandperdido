@@ -1,1 +1,2 @@
 Apple Note message alert: https://github.com/extratone/macOSsystemsounds/blob/main/mp3/Note.mp3 — downloaded unchanged. Played quietly after a visitor gesture; stopped when the phone leaves view or a dialog opens.
+Boom / Socials sequence: boom-socials-voice.wav preserves the existing social-boom-voice.wav word, followed by a 180ms gap and Microsoft David Desktop saying Socials at rate -3. Both words share the existing browser pitch, bass and reverb processing. socials-word.wav retains the new source recording.

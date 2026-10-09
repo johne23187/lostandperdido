@@ -2,7 +2,7 @@
 (() => {
  let context, voice, voiceReady, played=false, lastClick=-Infinity;
  const active=new Set();
- const bytes=fetch('assets/audio/social-boom-voice.wav').then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
+ const bytes=fetch('assets/audio/boom-socials-voice.wav').then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
  async function unlock(){
   try{
    const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
