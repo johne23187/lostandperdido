@@ -1,0 +1,154 @@
+{
+    "lujan":  {
+                  "author":  "Silviaanac",
+                  "source":  "https://commons.wikimedia.org/wiki/File:Plaza_de_Luj%C3%A1n_de_Cuyo%2C_Mendoza%2C_Argentina.jpg",
+                  "src":  "assets/city-headers/lujan.jpg",
+                  "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                  "title":  "Luján de Cuyo",
+                  "license":  "CC BY-SA 4.0"
+              },
+    "frutillar":  {
+                      "author":  "Montaje realizado por Wikiedro.",
+                      "source":  "https://commons.wikimedia.org/wiki/File:Montaje_de_Frutillar.jpg",
+                      "src":  "assets/city-headers/frutillar.jpg",
+                      "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                      "title":  "Frutillar",
+                      "license":  "CC BY-SA 4.0"
+                  },
+    "sucre":  {
+                  "author":  "Parallelepiped09",
+                  "source":  "https://commons.wikimedia.org/wiki/File:Sucre%2C_Capital_de_Bolivia.jpg",
+                  "src":  "assets/city-headers/sucre.jpg",
+                  "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                  "title":  "Sucre",
+                  "license":  "CC BY-SA 4.0"
+              },
+    "santiago":  {
+                     "author":  "Miguel hernandez",
+                     "source":  "https://commons.wikimedia.org/wiki/File:Palacio_de_La_Moneda_-_miguelreflex.jpg",
+                     "src":  "assets/city-headers/santiago.jpg",
+                     "licenseUrl":  "https://creativecommons.org/licenses/by-sa/2.0",
+                     "title":  "Santiago",
+                     "license":  "CC BY-SA 2.0"
+                 },
+    "lapaz":  {
+                  "author":  "Parallelepiped09",
+                  "source":  "https://commons.wikimedia.org/wiki/File:Vista_del_centro_de_La_Paz.jpg",
+                  "src":  "assets/city-headers/lapaz.jpg",
+                  "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                  "title":  "La Paz",
+                  "license":  "CC BY-SA 4.0"
+              },
+    "mendoza":  {
+                    "author":  "CavernSaga",
+                    "source":  "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Mendoza.png",
+                    "src":  "assets/city-headers/mendoza.png",
+                    "licenseUrl":  "https://creativecommons.org/licenses/by/3.0",
+                    "title":  "Mendoza, Argentina",
+                    "license":  "CC BY 3.0"
+                },
+    "osorno":  {
+                   "author":  "Montaje realizado por Açipni-Lovrij.",
+                   "source":  "https://commons.wikimedia.org/wiki/File:Montaje_de_Osorno%2C_versi%C3%B3n_2.jpg",
+                   "src":  "assets/city-headers/osorno.jpg",
+                   "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                   "title":  "Osorno, Chile",
+                   "license":  "CC BY-SA 4.0"
+               },
+    "coroico":  {
+                    "author":  "Fernando Jauregui, Canon20d, [www.hotelesemeralda.com],",
+                    "source":  "https://commons.wikimedia.org/wiki/File:Coroico_town.jpg",
+                    "src":  "assets/city-headers/coroico.jpg",
+                    "licenseUrl":  null,
+                    "title":  "Coroico",
+                    "license":  "Public domain"
+                },
+    "puertomontt":  {
+                        "author":  "Montaje realizado por Wikiedro.",
+                        "source":  "https://commons.wikimedia.org/wiki/File:Montaje_de_Puerto_Montt.jpg",
+                        "src":  "assets/city-headers/puertomontt.jpg",
+                        "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                        "title":  "Puerto Montt",
+                        "license":  "CC BY-SA 4.0"
+                    },
+    "cochabamba":  {
+                       "author":  "Parallelepiped09",
+                       "source":  "https://commons.wikimedia.org/wiki/File:Cochabamba_City.jpg",
+                       "src":  "assets/city-headers/cochabamba.jpg",
+                       "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                       "title":  "Cochabamba",
+                       "license":  "CC BY-SA 4.0"
+                   },
+    "uyuni":  {
+                  "author":  "Jaimalalatete",
+                  "source":  "https://commons.wikimedia.org/wiki/File:Uyuni_Potosi_Ave_Aerial.jpg",
+                  "src":  "assets/city-headers/uyuni.jpg",
+                  "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                  "title":  "Uyuni",
+                  "license":  "CC BY-SA 4.0"
+              },
+    "vina":  {
+                 "author":  "Carlos Figueroa",
+                 "source":  "https://commons.wikimedia.org/wiki/File:Palacio_Vergara%2C_Vi%C3%B1a_del_Mar_20210725_16.jpg",
+                 "src":  "assets/city-headers/vina.jpg",
+                 "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                 "title":  "Viña del Mar",
+                 "license":  "CC BY-SA 4.0"
+             },
+    "maipo":  {
+                  "author":  "Osmar Valdebenito",
+                  "source":  "https://commons.wikimedia.org/wiki/File:Provincia_de_Maipo.svg",
+                  "src":  "assets/city-headers/maipo.png",
+                  "licenseUrl":  "https://creativecommons.org/licenses/by-sa/2.5",
+                  "title":  "Maipo Valley",
+                  "license":  "CC BY-SA 2.5"
+              },
+    "bariloche":  {
+                      "author":  "enzofloyd",
+                      "source":  "https://commons.wikimedia.org/wiki/File:Catedral_desde_el_Lago_Nahuel_Huapi_-_panoramio.jpg",
+                      "src":  "assets/city-headers/bariloche.jpg",
+                      "licenseUrl":  "https://creativecommons.org/licenses/by-sa/3.0",
+                      "title":  "Bariloche",
+                      "license":  "CC BY-SA 3.0"
+                  },
+    "potrerillos":  {
+                        "author":  "Pablo Flores",
+                        "source":  "https://commons.wikimedia.org/wiki/File:Potrerillos%2C_Mendoza_(1).jpg",
+                        "src":  "assets/city-headers/potrerillos.jpg",
+                        "licenseUrl":  "http://creativecommons.org/licenses/sa/1.0/",
+                        "title":  "Potrerillos, Mendoza",
+                        "license":  "CC SA 1.0"
+                    },
+    "santacruz":  {
+                      "author":  "Parallelepiped09",
+                      "source":  "https://commons.wikimedia.org/wiki/File:Santa_Cruz_de_la_Sierra_3.jpg",
+                      "src":  "assets/city-headers/santacruz.jpg",
+                      "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                      "title":  "Santa Cruz de la Sierra",
+                      "license":  "CC BY-SA 4.0"
+                  },
+    "aconcagua":  {
+                      "author":  "Bjørn Christian Tørrissen",
+                      "source":  "https://commons.wikimedia.org/wiki/File:Aconcagua2016.jpg",
+                      "src":  "assets/city-headers/aconcagua.jpg",
+                      "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                      "title":  "Aconcagua",
+                      "license":  "CC BY-SA 4.0"
+                  },
+    "potosi":  {
+                   "author":  "Parallelepiped09",
+                   "source":  "https://commons.wikimedia.org/wiki/File:Vista_de_la_Villa_Imperial_de_Potos%C3%AD.jpg",
+                   "src":  "assets/city-headers/potosi.jpg",
+                   "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                   "title":  "Potosí",
+                   "license":  "CC BY-SA 4.0"
+               },
+    "puertovaras":  {
+                        "author":  "Alexmrz",
+                        "source":  "https://commons.wikimedia.org/wiki/File:Panoramica_Puerto_Varas_2023.jpg",
+                        "src":  "assets/city-headers/puertovaras.jpg",
+                        "licenseUrl":  "https://creativecommons.org/licenses/by-sa/4.0",
+                        "title":  "Puerto Varas",
+                        "license":  "CC BY-SA 4.0"
+                    }
+}

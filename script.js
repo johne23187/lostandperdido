@@ -254,6 +254,7 @@ const spanish = {
   'Starting in Argentina.': 'Empezamos en Argentina.',
   'Food, wine country and a first taste of the road. Valle de Uco and thermal springs are on our radar.': 'Comida, tierra de vinos y una primera probada de la ruta. El Valle de Uco y las aguas termales están en nuestro radar.',
   'Arriving': 'Llegamos el',
+  'Lost in…': 'Perdidos en…',
   'October 18, 2026': '18 de octubre de 2026',
   'Counting down to the journey.': 'Cuenta regresiva para el viaje.',
   'Enable JavaScript to see the live countdown.': 'Activa JavaScript para ver la cuenta regresiva.',
@@ -506,9 +507,8 @@ function updateCountdowns() {
     }
 
     const values = countdownParts(timestamp, now);
-    element.innerHTML = values.map((value, index) =>
-      `<span class="countdown-unit"><strong>${String(value).padStart(2, '0')}</strong><small>${labels[index]}</small></span>`
-    ).join('');
+    if(element.querySelectorAll('.countdown-unit').length!==4)element.innerHTML=values.map(()=>'<span class="countdown-unit"><strong></strong><small></small></span>').join('');
+    element.querySelectorAll('.countdown-unit').forEach((unit,index)=>{unit.querySelector('strong').textContent=String(values[index]).padStart(2,'0');unit.querySelector('small').textContent=labels[index];});
 
     element.setAttribute('aria-label', currentLanguage === 'es'
       ? `${country}: ${values.map((value, index) => `${value} ${labels[index]}`).join(', ')} para la llegada`
@@ -648,6 +648,11 @@ cityPins.forEach(pin => pin.addEventListener('click', () => {
   document.querySelectorAll('.map-stop').forEach(panel => {
     panel.hidden = panel.id !== `stop-${pin.dataset.stop}`;
   });
+  const header=document.querySelector(`#stop-${pin.dataset.stop} .city-photo-header`),photo=window.LPCityHeaders?.[pin.dataset.stop];
+  if(photo&&header){
+    header.style.backgroundImage=`linear-gradient(180deg,rgba(8,19,25,.16),rgba(8,19,25,.84)),url("${photo.src}")`;
+    if(!header.querySelector('.city-photo-credit')){const credit=document.createElement('a');credit.className='city-photo-credit';credit.href='city-photo-credits.html#'+pin.dataset.stop;credit.target='_blank';credit.rel='noopener noreferrer';credit.textContent='Photo / '+(photo.author||'Wikimedia Commons');header.append(credit);}
+  }
   renderCityGallery(pin.dataset.stop);
   loadCityWeather(pin.dataset.stop);
   cityPopup.setAttribute('aria-labelledby', `city-title-${pin.dataset.stop}`);
@@ -897,11 +902,6 @@ function openMeetingStory(opener) {
   meetingNavigate = false;
   meetingStory.showModal();
   meetingStory.scrollTop = 0;
-  const lens = meetingStory.querySelector(".camp-magnifier > .perspective-lens");
-  if (lens && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    lens.getAnimations().forEach(animation => animation.cancel());
-    lens.animate([{ transform: "scale(.65)" }, { transform: "scale(.24)" }], { duration: 1100, easing: "cubic-bezier(.22,1,.36,1)" });
-  }
   startMeetingMusic();
 }
 // Load the player in the open dialog; failed players can be rebuilt on retry.
@@ -1596,22 +1596,29 @@ function preparePerspective() {
     copy.style.transform = `translate(${45 - x * zoom}px, ${45 - y * zoom}px) scale(${zoom})`;
   }
   function flyLensToBook(){
-    const lens=perspectiveLens, book=document.querySelector('.how-we-met-link');
+    const lens=perspectiveLens, figure=document.querySelector('.shelf-guide .guide-figure');
+    if(!figure){finishPerspective();return;}
     const origin=lens.getBoundingClientRect();
-    document.body.append(lens);
-    Object.assign(lens.style,{position:'fixed',left:origin.left+'px',top:origin.top+'px',width:origin.width+'px',height:origin.height+'px',transform:'none',zIndex:'1000'});
-    copy.style.transition='opacity .25s';copy.style.opacity='0';
+    const glass='<g fill="none" stroke="#152b35" stroke-width="1.7" stroke-linecap="round"><path d="M0 2.5V-5.5"/><circle cx="0" cy="-10" r="4.5" fill="#dff4ee88"/></g>';
+    document.body.append(lens);lens.className='hand-lens-flight';
+    lens.innerHTML='<svg viewBox="-16 -24 32 32" aria-hidden="true"><g class="flight-lens-grip">'+glass+'</g></svg>';
+    lens.removeAttribute('style');
     const started=performance.now();
     function travel(now){
       if(perspectiveMotion.matches){finishPerspective();return;}
-      const t=Math.min(1,(now-started)/1350),e=t*t*(3-2*t),target=book.getBoundingClientRect();
-      const x=target.left+target.width/2-origin.width/2,y=target.top+target.height/2-origin.height/2;
-      lens.style.left=origin.left+(x-origin.left)*e+'px';
-      lens.style.top=origin.top+(y-origin.top)*e-Math.sin(t*Math.PI)*45+'px';
-      lens.style.transform='scale('+(1-.7*e)+') rotate('+(-18*e)+'deg)';
-      lens.style.opacity=String(t>.85?(1-t)/.15:1);
+      const t=Math.min(1,(now-started)/1550),ease=t*t*(3-2*t),matrix=figure.getScreenCTM();
+      const hand=new DOMPoint(7,15).matrixTransform(matrix);
+      const finalSize=32*Math.hypot(matrix.a,matrix.b),size=origin.width+(finalSize-origin.width)*ease;
+      const x=origin.left+origin.width/2+(hand.x-origin.left-origin.width/2)*ease;
+      const y=origin.top+origin.height*.75+(hand.y-origin.top-origin.height*.75)*ease-Math.sin(t*Math.PI)*34;
+      Object.assign(lens.style,{left:(x-size/2)+'px',top:(y-size*.75)+'px',width:size+'px',height:size+'px'});
+      lens.querySelector('.flight-lens-grip').setAttribute('transform','rotate('+(-12+57*ease)+')');
       if(t<1)perspectiveFrame=requestAnimationFrame(travel);
-      else {book.classList.add('book-attention');setTimeout(()=>book.classList.remove('book-attention'),1200);finishPerspective();}
+      else {
+        figure.insertAdjacentHTML('beforeend','<g class="caught-magnifier" transform="translate(7 15)"><g transform="rotate(45)">'+glass+'<path d="M-1.8 .2Q0-1 1.8 .2" fill="none" stroke="#faf1dd" stroke-width="1.5" stroke-linecap="round"/></g></g>');
+        figure.classList.add('catching-lens');
+        setTimeout(()=>figure.classList.remove('catching-lens'),600);finishPerspective();
+      }
     }
     perspectiveFrame=requestAnimationFrame(travel);
   }
@@ -2127,10 +2134,6 @@ async function revealPosterScene(){
  const repost='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 15V6h13m-4-4 4 4-4 4M20 9v9H7m4-4-4 4 4 4"/></svg>';
  document.querySelectorAll('.watch-section .ig-post-actions,.watch-section .tiktok-feed-actions').forEach(actions=>{const icon=document.createElement('span');icon.className='post-repost';icon.setAttribute('role','img');icon.setAttribute('aria-label','Repost');icon.innerHTML=repost;actions.append(icon);});
 })();
-
-// A pointer over the camp photograph invites the first paper-plane launch.
-const campPointer=document.createElement('span');campPointer.className='camp-pointer camp-magnifier';campPointer.setAttribute('aria-hidden','true');
-const smallLens=document.createElement('span');smallLens.className='perspective-lens';smallLens.innerHTML='<span class="perspective-glass"></span>';campPointer.append(smallLens);memoryLaunch.append(campPointer);
 
 // The tree is its own detail view; the friends and their timeline stay in place.
 (() => {

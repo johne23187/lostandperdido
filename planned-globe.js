@@ -105,7 +105,7 @@
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   surface.classList.add('globe-introducing');const from=rotation.slice(),start=performance.now()+200;
   function spin(now){
-   const progress=Math.max(0,Math.min(1,(now-start)/2800)),ease=(1-Math.cos(Math.PI*progress))/2;
+   const progress=Math.max(0,Math.min(1,(now-start)/2500)),ease=(1-Math.cos(Math.PI*progress))/2;
    rotation=[from[0]+360*ease,from[1],from[2]];
    if(progress===1)rotation=from;
    draw();if(progress<1)frame=requestAnimationFrame(spin);else surface.classList.remove('globe-introducing');

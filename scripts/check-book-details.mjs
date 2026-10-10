@@ -1,0 +1,35 @@
+import {pathToFileURL} from 'node:url';
+import {join} from 'node:path';
+import {homedir} from 'node:os';
+import {createSiteServer} from './server.mjs';
+const {chromium}=await import(pathToFileURL(join(homedir(),'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs')).href);
+const server=await createSiteServer({dataDir:'.local-data/room-audit'});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
+try{
+ browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:'+server.address().port,{waitUntil:'domcontentloaded'});
+ await page.locator('.perspective-heading').scrollIntoViewIfNeeded();await page.waitForTimeout(5500);
+ if(await page.locator('.shelf-guide .caught-magnifier').count()!==1)throw Error('Magnifier did not land in hand');
+ if(await page.locator('.camp-magnifier').count())throw Error('Photo magnifier still present');
+ if(await page.locator('.caught-magnifier').getAttribute('transform')!=='translate(7 15)')throw Error('Hand grip angle');
+ if(await page.locator('.caught-magnifier circle').getAttribute('r')!=='4.5')throw Error('Hand lens size');
+ await page.locator('.shelf-guide').screenshot({path:'.local-data/room-audit/magnifier-hand.png'});
+ if(!await page.locator('.route-divider').evaluateAll(nodes=>nodes.length===5&&nodes.some(e=>e.previousElementSibling.id==='contact'&&e.nextElementSibling.id==='learn')&&document.querySelector('#watch').previousElementSibling?.className!=='route-divider'))throw Error('Route stripe order');
+ await page.locator('.how-we-met-link').click();await page.waitForTimeout(1100);
+ await page.screenshot({path:'.local-data/room-audit/book-before.png'});
+ if(!await page.locator('#meeting-title .camp-bear-icon').evaluate(e=>e.complete&&e.naturalWidth>0))throw Error('Bear icon missing');
+ const guide=page.locator('.camp-guide');if(!await guide.isVisible())throw Error('Camp passenger not visible');
+ await page.locator('.memory-launch').click();await page.waitForTimeout(480);await page.screenshot({path:'.local-data/room-audit/book-departing.png'});await page.waitForTimeout(4200);
+ if(await guide.isVisible())throw Error('Passenger returned after first plane');
+ await page.keyboard.press('Escape');await page.locator('.how-we-met-link').click();if(await guide.isVisible())throw Error('Passenger returned on reopen');await page.keyboard.press('Escape');
+ await page.locator('.daily-sun').scrollIntoViewIfNeeded();await page.locator('.daily-sun').click();await page.waitForTimeout(500);await page.screenshot({path:'.local-data/room-audit/sun-burst.png'});await page.waitForTimeout(2100);
+ if(!await page.locator('#daily-verse').isVisible())throw Error('Scripture did not open');
+ if(!await page.locator('.verse-fine-links a').last().getAttribute('href').then(h=>h==='scripture-credits.html'))throw Error('Credit link missing');
+ await page.keyboard.press('Escape');
+ await page.evaluate(()=>window.openCountryPortfolio({name:'Bolivia',travelers:['mateo']}));
+ if(await page.locator('.portfolio-tile').count()!==25)throw Error('Expected 25 Bolivia pictures');
+ await page.locator('.portfolio-tile').first().click();await page.locator('.lightbox-media img').evaluate(img=>img.decode());await page.keyboard.press('Escape');
+ await page.screenshot({path:'.local-data/room-audit/bolivia-gallery.png'});await page.keyboard.press('Escape');
+ await page.locator('.daily-sun').evaluate(e=>e.click());await page.waitForTimeout(2400);
+ await page.emulateMedia({reducedMotion:'reduce'});await page.keyboard.press('Escape');await page.locator('.daily-sun').click();if(!await page.locator('#daily-verse').isVisible())throw Error('Reduced motion opening failed');
+ if(errors.length)throw Error(errors.join('; '));console.log('Hand landing, section order, passenger first-flight exit, scripture burst/credits and reduced motion passed.');
+}finally{await browser?.close();server.closeAllConnections();await new Promise(r=>server.close(r));}

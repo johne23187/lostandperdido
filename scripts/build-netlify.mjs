@@ -6,7 +6,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const output=join(root,'dist');
 await mkdir(output,{recursive:true});
 for(const name of await readdir(root)){
-  if(['index.html','404.html','robots.txt'].includes(name)||/\.(css|js)$/.test(name)||['assets','travel-photos'].includes(name)){
+  if(['index.html','404.html','scripture-credits.html', 'city-photo-credits.html','robots.txt'].includes(name)||/\.(css|js)$/.test(name)||['assets','travel-photos'].includes(name)){
     await cp(join(root,name),join(output,name),{recursive:true,filter:source=>!source.endsWith('.DS_Store')});
   }
 }

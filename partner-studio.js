@@ -65,7 +65,7 @@
   if(screen)screen.insertBefore(createDock(),screen.querySelector('.gps-map-status'));
   function mountCompasses(){
     document.querySelectorAll('dialog[open]').forEach(dialog=>{
-      if(['gps-tracker','lp-top-picks','lost-after-dark','where-next','little-detour'].includes(dialog.id)||dialog.querySelector('.section-compass-dock'))return;
+      if(['gps-tracker','lp-top-picks','lost-after-dark','daily-verse','where-next','little-detour'].includes(dialog.id)||dialog.querySelector('.section-compass-dock'))return;
       const dock=createDock(true);
       if(dialog.classList.contains('editorial-reader')){
         const leaf=dialog.querySelector('.passport-leaf:last-child');

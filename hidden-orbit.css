@@ -315,3 +315,263 @@ button.gps-guide:focus-visible{outline:2px solid #f4d995;outline-offset:5px;bord
 .magazine-feature .feature-deliverables b{color:var(--service-accent)}
 .magazine-feature .feature-copy .feature-terms{padding:12px 14px;border-top:1px dashed #78877d70;color:#66756a;font-size:11px;line-height:1.7}
 @media(max-width:550px){#service-details .ugc-deliverables>div{padding:14px 12px;gap:10px}#service-details :is(.ugc-editorial,.studio-feature-copy)>p:not(.editorial-kicker):not(.ugc-footnote):not(.feature-terms),#service-details .package-intro{padding:14px;font-size:14px}#service-details .studio-feature-copy>ul>li{padding:14px 12px 14px 53px;font-size:13px}}
+.picks-track[hidden]{display:none!important}.picks-show-more{display:block;margin:18px auto 0;padding:11px 23px;min-height:44px;border:1px solid #86a39377;border-radius:24px;background:#203b30;color:#ecf6eb;font:700 13px/1.4 'DM Sans',sans-serif;cursor:pointer}.picks-show-more:hover{background:#2d5141}
+/* Stable geometry: light, message, reply, then the schedule. */
+.star-schedule:not(.schedule-ready) .star-schedule-intro,.star-schedule .star-schedule-intro{transform:none;transition:none}
+.star-schedule:not(.schedule-ready) .star-schedule-glow,.star-schedule .star-schedule-glow{margin-top:0;transition:none;animation:star-warm-arrival 1.6s ease-out both}
+.star-schedule-intro h2{animation:star-message-arrival 1.2s ease-out both}
+.star-schedule-intro>p{opacity:0;transform:translateY(5px);transition:opacity .7s ease,transform .7s ease}
+.star-schedule.subtitle-ready .star-schedule-intro>p{opacity:1;transform:none}
+.star-schedule-content{transition:opacity .8s ease,transform .8s ease,visibility .8s}
+@keyframes star-warm-arrival{from{opacity:0;transform:scale(.8);text-shadow:0 0 10px #fff1b2}to{opacity:1;transform:scale(1);text-shadow:0 0 15px #fff4c8,0 0 45px #ffd25dcc,0 0 90px #efc54d99}}
+@keyframes star-message-arrival{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.route-photo-frame .arrival-date{text-align:center;animation:none!important}.arrival-lost-label{display:block;font:700 15px/1.4 'DM Sans',sans-serif;margin-bottom:3px}.arrival-date time{font-size:10px;opacity:.8}
+.countdown-unit strong{animation:countdown-number-blink 2s steps(1,end) infinite}
+@keyframes countdown-number-blink{0%,100%{opacity:1}50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.countdown-unit strong,.star-schedule .star-schedule-glow,.star-schedule-intro h2{animation:none!important}.star-schedule-intro>p,.star-schedule-content{transition:none}}
+/* Move both books and their guide down together, retaining their internal spacing. */
+#about .about-copy .story-object-shelf{padding-top:calc(24px + clamp(72px,9vw,120px))}
+.route-chapter-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-top:20px}
+.route-chapter-meta .route-label{margin:0}
+.route-arrival-date{font:500 10px/1.5 'DM Sans',sans-serif;color:#6f766e;letter-spacing:.01em}
+.route-arrival-date time{font:inherit}
+.route-card.chile .route-chapter-meta{flex-direction:column;align-items:flex-start;gap:4px}
+/* Clear, centered directory labels stay readable on hover and keyboard focus. */
+.partner-directory-panel .services button,.services button{justify-content:center;align-items:center;text-align:center;padding:24px 22px;min-height:100px;font:750 clamp(14px,1.2vw,17px)/1.4 'DM Sans',sans-serif;letter-spacing:-.015em;color:#203934;border-color:#47605244;border-radius:8px}
+.services .service-label{display:block;width:100%;text-align:center;text-wrap:balance;opacity:1!important}
+.services button:hover .service-icon,.services button:focus-visible .service-icon{opacity:0}
+.services button:hover,.services button:focus-visible{border-color:#bc6543;background:#fffaf0}
+/* Fine print remains secondary but no longer faint or hairline. */
+:is(.route-arrival-date,.route-label,.learn-status,.learn-progress,.photo-book-credit,.picks-small,.picks-radio-status,.country-entry,.entry-guide-link,.compact-attribution,.cover-credit,.editorial-credit,.feature-terms,.ugc-footnote,.package-terms){font-weight:600!important}
+:is(.route-arrival-date,.compact-attribution,.editorial-credit,.picks-small,.picks-radio-status){font-size:12px;line-height:1.6}
+#service-details :is(.ugc-footnote,.feature-terms,.package-terms,.photo-book-credit){font-size:13px;font-weight:600;line-height:1.7}
+#service-details :is(.ugc-deliverables small,.media-gear-grid figcaption span){font-weight:600}
+.distant-saturn{position:relative;height:0;pointer-events:none;z-index:2}.distant-saturn svg{position:absolute;left:3%;top:25px;width:76px;height:auto;opacity:.82;filter:drop-shadow(0 0 9px #e3ca7930);transform:rotate(-5deg)}
+@media(max-width:700px){.distant-saturn svg{width:49px;left:0;top:34px}.partner-directory-panel .services button{font-size:14px;padding:23px 15px;min-height:100px}}
+.night-party-shadow{display:none;pointer-events:none}
+#lost-after-dark.after-dark-entering>.night-party-shadow{display:grid;place-items:center;position:fixed;inset:0;z-index:9;animation:party-shadow-form 3s ease both}
+.night-party-shadow svg{width:min(190px,42vw);height:280px;color:#030408;fill:currentColor;filter:drop-shadow(0 0 20px #b797d37a) drop-shadow(0 0 65px #c3a2d555)}
+.night-dancer{transform-origin:90px 160px;animation:party-shadow-dance 3s ease both}
+@keyframes party-shadow-form{0%,10%{opacity:0;filter:blur(24px);transform:scale(.7)}30%{opacity:1;filter:blur(2px);transform:scale(1)}48%,60%{opacity:1;filter:blur(0);transform:scale(1)}77%,100%{opacity:0;filter:blur(15px);transform:scale(1.12)}}
+@keyframes party-shadow-dance{0%,30%{transform:rotate(-9deg)}44%{transform:rotate(8deg) translateY(-5px)}57%{transform:rotate(-6deg)}75%,100%{transform:rotate(5deg)}}
+@keyframes night-lights-on{0%,72%{opacity:0;transform:translateY(5px)}100%{opacity:1;transform:none}}
+@keyframes night-shadow-curtain{0%{opacity:0}25%,62%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){#lost-after-dark.after-dark-entering>.night-party-shadow{display:none}.night-dancer{animation:none}}
+/* Lower the invitation within the existing gap without moving the books. */
+#about .about-copy>p.lost-invitation{position:relative;top:clamp(48px,6.7vw,96px)}
+/* Quiet, viewport-contained scripture and destination rooms. */
+body:has(#daily-verse[open],#where-next[open]){overflow:hidden}
+#daily-verse{width:min(650px,calc(100vw - 28px));max-height:calc(100dvh - 28px);padding:clamp(20px,4vh,42px) clamp(24px,5vw,64px);overflow:hidden;border:1px solid #dcc58d77;background:radial-gradient(ellipse at 50% 0,#a2823c35,transparent 65%),#142321;box-shadow:0 30px 120px #000b,inset 0 0 0 7px #eacb8220;isolation:isolate}
+#daily-verse .verse-sun-seal{font:38px/1 Georgia,serif;color:#ffe5a4;margin:0 0 16px;text-shadow:0 0 26px #ffd57899}
+#daily-verse h2{font-size:clamp(27px,4vw,38px);letter-spacing:-.035em;margin:10px 0}
+#daily-verse blockquote{font-size:clamp(18px,2.7vh,25px);line-height:1.55;margin:clamp(16px,3vh,30px) 0;white-space:normal;text-wrap:pretty;color:#fff5df}
+#daily-verse .daily-verse-eyebrow{font-size:10px;letter-spacing:.19em}
+#daily-verse .daily-verse-note{margin:18px 0 10px;padding-top:14px;font-size:12px}
+.verse-source{display:inline-block;color:#eed495;font:600 12px/1.5 'DM Sans',sans-serif;text-underline-offset:4px}
+.verse-copyright{display:block;margin:16px auto 0;max-width:460px;font:10px/1.5 'DM Sans',sans-serif;color:#a9b5a9}
+#daily-verse[open]{animation:scripture-arrive 1.6s cubic-bezier(.16,1,.3,1) both}
+#daily-verse[open]::backdrop{animation:sacred-backdrop 1.6s ease both}
+#daily-verse::before{content:'';position:absolute;z-index:-1;inset:-100%;pointer-events:none;background:repeating-conic-gradient(from 0deg at 50% 40%,transparent 0deg 15deg,#ffe8ac14 17deg 20deg,transparent 23deg 40deg);animation:sacred-rays 50s linear infinite}
+#daily-verse[open]::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 20%,#fff8d8,#f8dda7cc 30%,transparent 75%);animation:sacred-reveal 1.8s ease-out both}
+@keyframes scripture-arrive{0%{opacity:0;transform:translate(var(--sun-x,0px),var(--sun-y,0px)) scale(.08);filter:brightness(3)}40%{opacity:1}100%{opacity:1;transform:none;filter:brightness(1)}}
+@keyframes sacred-backdrop{from{background:#eacc8766;backdrop-filter:blur(0)}to{background:#030b12dc;backdrop-filter:blur(9px)}}
+@keyframes sacred-reveal{0%,20%{opacity:1}100%{opacity:0}}
+@keyframes sacred-rays{to{transform:rotate(360deg)}}
+#where-next{width:min(880px,calc(100vw - 28px));max-height:calc(100dvh - 28px);padding:32px;overflow:hidden}
+#where-next[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);column-gap:30px;align-content:center}
+#where-next>.secret-coordinate,#where-next>h2,#where-next>p:not(.destination-status){grid-column:1/-1}
+#where-next h2{font-size:clamp(30px,4vw,44px);margin:10px 0}
+#where-next>p{margin:0 0 14px;font-size:13px;line-height:1.5}
+#where-next .destination-form{grid-column:1;grid-row:4/8;margin:4px 0 0;gap:12px}
+#where-next .destination-fields{grid-template-columns:1fr 1fr;gap:10px}
+#where-next .destination-form label{gap:5px}
+#where-next input,#where-next textarea{padding:9px}
+#where-next textarea{height:82px;resize:none}
+#where-next .destination-status{grid-column:2;margin:4px 0 8px;font-size:12px}
+#where-next .destination-status:empty{display:none}
+#where-next .destination-list{grid-column:2;align-self:start;line-height:1.5;min-width:0}
+#where-next .destination-list article{padding:16px;background:#ffffff05}
+#where-next .destination-list p{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.destination-pager{grid-column:2;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;font:11px 'DM Sans',sans-serif}
+.destination-pager:empty{display:none}.destination-pager button{padding:8px 10px;border:1px solid #86a3af44;border-radius:5px;background:#ffffff08;color:#e8dfc5;cursor:pointer}.destination-pager button:disabled{opacity:.35;cursor:default}
+#where-next .destination-refresh{grid-column:2;margin:8px 0 0;text-align:left}
+#lost-after-dark.after-dark-entering>.night-party-shadow{animation:party-shadow-form 4.2s ease both;background:radial-gradient(ellipse at center,#0d203a88,transparent 60%)}
+.night-party-shadow svg{width:min(300px,65vw);height:min(470px,75dvh);filter:drop-shadow(0 0 9px #56d7ffbb) drop-shadow(0 0 45px #1976df88)}
+.night-dancer{transform-origin:150px 390px;animation:dance-bounce 1.05s ease-in-out infinite}
+.dancer-upper{transform-origin:143px 225px;animation:dance-torso 1.05s ease-in-out infinite}
+.dancer-arm-left{transform-origin:101px 111px;animation:dance-left-arm 1.05s ease-in-out infinite}
+.dancer-arm-right{transform-origin:175px 108px;animation:dance-right-arm 1.05s ease-in-out infinite}
+.dancer-leg-left{transform-origin:127px 229px;animation:dance-left-leg 1.05s ease-in-out infinite}
+.dancer-leg-right{transform-origin:157px 231px;animation:dance-right-leg 1.05s ease-in-out infinite}
+@keyframes dance-bounce{0%,100%{transform:translate(-9px,0) rotate(-3deg)}50%{transform:translate(9px,8px) rotate(3deg)}}
+@keyframes dance-torso{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg) translateY(3px)}}
+@keyframes dance-left-arm{0%,100%{transform:rotate(15deg)}50%{transform:rotate(-38deg)}}
+@keyframes dance-right-arm{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(29deg)}}
+@keyframes dance-left-leg{0%,100%{transform:rotate(0)}50%{transform:rotate(9deg) translateY(-5px)}}
+@keyframes dance-right-leg{0%,100%{transform:rotate(-7deg) translateY(-4px)}50%{transform:rotate(0)}}
+@media(max-width:600px){
+ #where-next{padding:24px 20px}#where-next[open]{display:block}#where-next h2{margin:7px 0}#where-next>p{font-size:12px;margin-bottom:10px}#where-next .destination-form{gap:8px;margin:8px 0 12px}#where-next textarea{height:60px}#where-next .destination-list article{padding:10px 12px}#where-next .destination-list p{font-size:11px;line-height:1.45;margin-top:4px}#where-next .destination-list strong{font-size:12px}#where-next .destination-refresh{padding:5px 0;font-size:11px}.destination-pager{margin-top:6px}#daily-verse{padding:24px}#daily-verse blockquote{font-size:20px}#daily-verse .verse-sun-seal{margin-bottom:12px}
+}
+@media(max-height:700px){#daily-verse{padding:20px 24px}#daily-verse .verse-sun-seal{font-size:27px;margin:0 0 8px}#daily-verse blockquote{font-size:18px;line-height:1.45;margin:14px 0}#daily-verse h2{font-size:28px}#daily-verse .daily-verse-note{margin:12px 0 7px;padding-top:10px}.verse-copyright{margin-top:10px;font-size:9px}#where-next{padding:20px}#where-next .destination-form{gap:6px}#where-next input,#where-next textarea{padding:6px}#where-next .destination-form button{padding:10px}}
+@media(prefers-reduced-motion:reduce){#daily-verse[open],#daily-verse[open]::backdrop,#daily-verse::before{animation:none}#daily-verse[open]::after{display:none}.night-dancer,.night-dancer g{animation:none}}
+#daily-verse::before{inset:0;animation:sacred-rays-breathe 12s ease-in-out infinite;background:repeating-conic-gradient(from -15deg at 50% 0,transparent 0deg 17deg,#ffe8ac09 19deg 21deg,transparent 24deg 43deg)}
+@keyframes sacred-rays-breathe{0%,100%{opacity:.35}50%{opacity:.8}}
+#daily-verse .daily-verse-close:focus-visible{outline:1px solid #ecd396;outline-offset:-7px;border-radius:50%}
+@media(max-height:700px) and (max-width:600px){#where-next .destination-list article{padding:8px 10px}#where-next .destination-form small{font-size:10px}#where-next .destination-form{margin-bottom:8px}#where-next>p{margin-bottom:6px}#where-next .destination-form label{font-size:11px}}
+@media(max-height:480px) and (min-width:601px){
+ #daily-verse{width:min(800px,calc(100vw - 28px));padding:18px 28px;display:none;column-gap:28px}
+ #daily-verse[open]{display:grid;grid-template-columns:1fr 1.3fr;align-content:center}
+ #daily-verse .verse-sun-seal,#daily-verse .daily-verse-eyebrow,#daily-verse h2,#daily-verse time{grid-column:1}
+ #daily-verse h2{font-size:26px}#daily-verse .daily-verse-eyebrow{margin:6px 0;font-size:9px}
+ #daily-verse blockquote{grid-column:2;grid-row:1/6;font-size:17px;line-height:1.4;margin:12px 0;align-self:center}
+ #daily-verse .daily-verse-reference{grid-column:1;margin:8px 0 3px}#daily-verse .daily-verse-translation{grid-column:1}
+ #daily-verse .daily-verse-note{grid-column:2;grid-row:6;margin:0;padding:0;border:0;font-size:10px}
+ #daily-verse .verse-source{grid-column:1;margin:8px 0;font-size:11px}#daily-verse .verse-copyright{grid-column:1/-1;max-width:none;font-size:9px;margin:5px 0 0}
+ #where-next{padding:15px 24px}#where-next h2{font-size:28px;margin:4px 0}#where-next>p{margin-bottom:5px;font-size:11px}#where-next .destination-form{gap:5px}#where-next textarea{height:48px}#where-next input{padding:5px}#where-next .destination-form label{font-size:10px}#where-next .destination-form small{font-size:10px}#where-next .destination-form button{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){#daily-verse::before{animation:none}}
+/* Discreet source links, with the complete notice on its own credit page. */
+#daily-verse .verse-fine-links{grid-column:1/-1;margin:14px 0 0;font:10px/1.6 'DM Sans',sans-serif;color:#a5aea4}
+.verse-fine-links a{color:inherit;text-decoration:none;text-underline-offset:3px}.verse-fine-links a:hover,.verse-fine-links a:focus-visible{text-decoration:underline;color:#eed495}
+#daily-verse .verse-source{font-size:11px;font-weight:500}
+.sun-light-burst{position:fixed;inset:0;z-index:2147483646;pointer-events:none;background:radial-gradient(circle at var(--flare-x) var(--flare-y),#fffdf1 0,#fff4d2 12%,#ffe3a0cc 30%,#e8ac4733 58%,transparent 75%);clip-path:circle(0 at var(--flare-x) var(--flare-y));animation:sun-supernova 1.1s cubic-bezier(.3,0,.2,1) both}
+.sun-light-burst::before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(from 12deg at var(--flare-x) var(--flare-y),transparent 0deg 13deg,#fff9df88 15deg 17deg,transparent 21deg 33deg);mix-blend-mode:screen}
+.sun-light-burst.burst-clearing{animation:sun-afterglow 1.1s ease-out both;clip-path:circle(150vmax at var(--flare-x) var(--flare-y))}
+.sun-igniting .daily-sun-orb{animation:solar-ignition .85s cubic-bezier(.2,.7,.3,1) both!important}
+@keyframes solar-ignition{0%{transform:scale(1);filter:brightness(1)}35%{transform:scale(.94);filter:brightness(1.7)}100%{transform:scale(1.6);filter:brightness(4);box-shadow:0 0 80px 50px #fff3c9,0 0 180px 100px #ffc962}}
+@keyframes sun-supernova{0%{clip-path:circle(35px at var(--flare-x) var(--flare-y));opacity:0}20%{opacity:1}100%{clip-path:circle(150vmax at var(--flare-x) var(--flare-y));opacity:1}}
+@keyframes sun-afterglow{from{opacity:1}to{opacity:0}}
+#daily-verse[open]{animation:scripture-from-light 1.5s cubic-bezier(.16,1,.3,1) both}
+#daily-verse[open]::after{animation:sacred-reveal 1.65s ease-out both;background:radial-gradient(ellipse at 50% 12%,#fffdf1,#fff1cf 38%,#ffe9bccc 75%)}
+@keyframes scripture-from-light{from{opacity:0;transform:translateY(14px) scale(.97);filter:brightness(1.8)}to{opacity:1;transform:none;filter:brightness(1)}}
+/* A continuous backwards glide, with alternating heel lifts and a quiet upper body. */
+#lost-after-dark.after-dark-entering,#lost-after-dark.after-dark-entering::after,#lost-after-dark.after-dark-entering>.underworld-header,#lost-after-dark.after-dark-entering>.after-dark-tabs,#lost-after-dark.after-dark-entering>.after-dark-room,#lost-after-dark.after-dark-entering>.underworld-footer,#lost-after-dark.after-dark-entering .underworld-header h2{animation-duration:4.2s}
+.night-dancer{animation:moonwalk-glide 4.2s linear both;transform-origin:150px 390px}
+.dancer-upper{animation:moonwalk-shoulders 1.4s ease-in-out infinite}
+.dancer-arm-left{animation:moonwalk-arm-left 1.4s ease-in-out infinite}
+.dancer-arm-right{animation:moonwalk-arm-right 1.4s ease-in-out infinite}
+.dancer-leg-left{animation:moonwalk-step-left 1.4s cubic-bezier(.45,0,.55,1) infinite}
+.dancer-leg-right{animation:moonwalk-step-right 1.4s cubic-bezier(.45,0,.55,1) infinite}
+.night-party-shadow svg{filter:drop-shadow(0 0 5px #7de4ff88) drop-shadow(0 0 26px #348edb66)}
+@keyframes moonwalk-glide{from{transform:translateX(65px) scale(.96)}to{transform:translateX(-65px) scale(.96)}}
+@keyframes moonwalk-shoulders{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-3px) rotate(-3deg)}}
+@keyframes moonwalk-arm-left{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(-22deg)}}
+@keyframes moonwalk-arm-right{0%,100%{transform:rotate(43deg)}50%{transform:rotate(35deg)}}
+@keyframes moonwalk-step-left{0%,100%{transform:translateX(9px) rotate(-5deg)}45%{transform:translate(-12px,-5px) rotate(9deg)}60%{transform:translate(-10px,-8px) rotate(12deg)}}
+@keyframes moonwalk-step-right{0%,100%{transform:translate(-12px,-6px) rotate(5deg)}45%{transform:translateX(12px) rotate(-8deg)}60%{transform:translateX(10px) rotate(-7deg)}}
+@keyframes party-shadow-form{0%{opacity:0;filter:blur(5px);transform:scale(.98)}15%,70%{opacity:1;filter:blur(0);transform:scale(1)}100%{opacity:0;filter:blur(4px);transform:scale(1.015)}}
+/* Black ink and a stronger reading weight in the personal story. */
+.host-details dt{font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:700;line-height:1.5;letter-spacing:.13em;text-transform:uppercase;color:#735039;margin-top:15px}.host-details dd{font-weight:650;color:#111;line-height:1.65;margin-top:4px}.host-hometown{font-weight:650;color:#111}
+#how-we-met :is(h2,h3,p,a,button,span,small,figcaption),#passport-reader :is(h2,h3,p,a,button,span,small,dt,dd){color:#000!important}
+#how-we-met .meeting-page p{font-weight:550}#how-we-met .memory-click{background:#fff5dfd9;text-shadow:none}
+#passport-reader .passport-finale{background:#f1e4c8}#passport-reader .passport-finale::before{opacity:.12}
+.caught-magnifier{animation:none;transform-origin:0 0}
+@keyframes lens-catch{0%{opacity:.3}100%{opacity:1}}
+/* The balloon passenger explores the photograph, then rides its first departure. */
+#how-we-met .camp-guide{left:38%;top:24%;width:62px;flex-direction:column;gap:0;animation:camp-photo-orbit 7s ease-in-out infinite;z-index:5}
+#how-we-met .camp-guide .guide-figure{width:49px;height:66px;transform:rotate(-12deg);filter:drop-shadow(0 1px 1px #fff)}
+#how-we-met .camp-guide>span{font-size:15px;background:#fff4dce8;padding:2px 6px;border-radius:5px;position:static;transform:none}
+#how-we-met .camp-guide.camp-departing>span{display:none}
+@keyframes camp-photo-orbit{0%,100%{transform:translate(-45px,8px) rotate(-8deg)}25%{transform:translate(45px,-38px) rotate(8deg)}50%{transform:translate(90px,18px) rotate(15deg)}75%{transform:translate(5px,45px) rotate(-10deg)}}
+/* The full star message is sized to its viewport, including landscape phones. */
+body:has(#little-detour[open]){overflow:hidden}
+#little-detour{max-height:calc(100dvh - 24px);overflow:hidden;padding:24px;width:min(460px,calc(100vw - 24px))}
+#little-detour .star-schedule-glow{font-size:clamp(44px,10vh,74px)}
+#little-detour .star-schedule-intro h2{font-size:clamp(30px,5vh,42px);margin:10px 0 6px}
+#little-detour .star-schedule-intro>p{margin-bottom:14px}
+#little-detour .star-schedule-premiere{padding:16px 12px}
+#little-detour .star-schedule-daily{padding:16px 0 12px}
+@media(max-height:700px){#little-detour{padding:18px 22px}#little-detour .star-schedule-glow{font-size:44px}#little-detour .star-schedule-intro h2{font-size:30px}#little-detour .star-schedule-premiere{padding:10px;gap:4px}#little-detour .star-schedule-eyebrow{margin:4px 0 10px}#little-detour .star-schedule-daily{padding:12px 0 10px}#little-detour .star-schedule-footer{margin-top:10px}}
+@media(max-height:480px) and (min-width:601px){#little-detour{width:min(740px,calc(100vw - 24px));padding:20px 28px}#little-detour[open]{display:grid;grid-template-columns:.8fr 1.2fr;column-gap:28px;align-items:center}#little-detour .star-schedule-glow{grid-column:1;grid-row:1;font-size:70px;align-self:end}#little-detour .star-schedule-intro{grid-column:1;grid-row:2;align-self:start}#little-detour .star-schedule-content{grid-column:2;grid-row:1/3}#little-detour .star-schedule-intro h2{font-size:32px}#little-detour .star-schedule-daily strong{font-size:18px}}
+@media(prefers-reduced-motion:reduce){#daily-verse[open],.caught-magnifier,#how-we-met .camp-guide,.night-dancer,.night-dancer g{animation:none!important}.sun-light-burst{display:none}}
+/* Keep black labels readable on the book's controls and photograph overlays. */
+#how-we-met .meeting-close{background:#f8efd9;border:1px solid #b6a77f}
+#how-we-met .meeting-video-preview>span{background:#fff3dce8;text-shadow:none}
+#passport-reader .reader-directory button[aria-current=true],#passport-reader .reader-directory button[aria-selected=true],#passport-reader .reader-directory button.active{background:#dfcda7}
+#little-detour .star-schedule-close:focus-visible{outline:1px solid #ecd396;outline-offset:-7px;border-radius:50%}
+.hand-lens-flight{position:fixed;z-index:1000;pointer-events:none;display:block}.hand-lens-flight svg{display:block;width:100%;height:100%;overflow:visible}
+.shelf-guide .guide-figure.catching-lens{animation:human-lens-catch .6s cubic-bezier(.2,.7,.3,1) both;transform-origin:50% 85%}
+.caught-magnifier{animation:none}
+@keyframes human-lens-catch{0%{transform:rotate(0) translateY(0)}30%{transform:rotate(1.5deg) translateY(1.5px)}65%{transform:rotate(-.4deg) translateY(-.3px)}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.shelf-guide .guide-figure.catching-lens{animation:none}}
+/* Small chapter cues and a clearer, unhurried reading rhythm. */
+.chapter-title-icon{display:inline-block;width:1em;height:1em;margin-left:.3em;vertical-align:-.06em;font-family:'Segoe UI Emoji','Apple Color Emoji',sans-serif;font-size:.55em;line-height:1;letter-spacing:0;white-space:nowrap}.chapter-title-icon img{display:block;width:100%;height:100%;object-fit:contain}
+#meeting-title .camp-bear-icon{width:30px;height:30px;margin-left:10px;vertical-align:baseline;object-fit:contain}
+#how-we-met .meeting-page>p:not(.eyebrow){font-family:Georgia,'Times New Roman',serif;font-size:clamp(16px,1.25vw,18px);font-weight:400;line-height:1.8;letter-spacing:.005em;text-wrap:pretty;margin:0 0 1.35em;color:#000}
+#how-we-met .meeting-page-left>p:not(.eyebrow){font-weight:500}
+#how-we-met .meeting-page-right>p:last-child{margin-bottom:0}
+#how-we-met .meeting-page .eyebrow{font-size:10px;font-weight:750;letter-spacing:.16em;margin-bottom:16px}
+#how-we-met #meeting-title{letter-spacing:-.035em;line-height:1.12;margin-bottom:22px}
+@media(max-width:700px){#how-we-met .meeting-page>p:not(.eyebrow){font-size:16px;line-height:1.75}#meeting-title .camp-bear-icon{width:25px;height:25px;margin-left:7px}}
+/* Illustrated chapter markers, sized to read as miniature objects. */
+#passport-reader .chapter-title-icon{width:42px;height:42px;font-size:inherit;margin-left:12px;vertical-align:-5px;line-height:0;filter:drop-shadow(1px 2px 1px #56422818)}
+#meeting-title .camp-bear-icon{width:36px;height:36px;vertical-align:-1px}
+/* One clear invitation on a complete notebook cover. */
+#passport-reader .travel-journal>summary{display:flex;align-items:center;gap:20px;padding:14px 18px 14px 8px;border:1px solid #baaa8555;border-left:0;border-radius:12px;background:linear-gradient(135deg,#fff8e8,#eee0c2);box-shadow:0 8px 22px #463c2510;list-style:none;cursor:pointer;min-height:190px}
+.travel-journal>summary::-webkit-details-marker{display:none}
+#passport-reader .travel-journal>summary::after{display:none}
+.story-notebook-art{width:135px;height:160px;flex:0 0 135px;object-fit:contain;transition:transform .4s cubic-bezier(.2,.8,.3,1)}
+.travel-journal>summary:hover .story-notebook-art{transform:rotate(-3deg) translateY(-3px)}
+.story-notebook-invite{display:grid;gap:12px;min-width:0}
+.story-notebook-invite strong{font:600 24px/1.15 Georgia,serif}
+.story-notebook-invite>span{font:14px/1.6 'DM Sans',sans-serif}
+.story-notebook-invite b{font:700 13px/1.5 'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:4px}
+#passport-reader .passport-stories{margin-top:20px}
+#passport-reader .passport-story-form{padding:22px 0 4px}
+#passport-reader .passport-story-form button{background:#e2c58b;border-color:#a9905b}
+#passport-reader .passport-stories .journal-help{font-size:12px!important;line-height:1.5;margin:8px 0 16px}
+.story-status:empty{display:none}.story-empty{font:italic 14px/1.5 Georgia,serif!important;margin:12px 0 0}
+.story-postcards:has(.story-empty){padding:0;max-height:none}
+#passport-reader .passport-ufo-dock{margin:24px 0 0;padding-top:14px;border-top:1px solid #b9a98055}
+#passport-reader .passport-looking .editorial-kicker{display:none}
+/* A fast, fluid silhouette crossing a softly lit stage. */
+#lost-after-dark.after-dark-entering,#lost-after-dark.after-dark-entering::after,#lost-after-dark.after-dark-entering>.underworld-header,#lost-after-dark.after-dark-entering>.after-dark-tabs,#lost-after-dark.after-dark-entering>.after-dark-room,#lost-after-dark.after-dark-entering>.underworld-footer,#lost-after-dark.after-dark-entering .underworld-header h2,#lost-after-dark.after-dark-entering>.night-party-shadow{animation-duration:3s}
+#lost-after-dark.after-dark-entering>.night-party-shadow{background:radial-gradient(ellipse at 50% 45%,#aaa6ae55,transparent 62%)}
+.night-party-shadow svg{filter:drop-shadow(0 12px 12px #0009);overflow:visible}
+.night-dancer{fill:#050609;animation:shadow-crossing 3s cubic-bezier(.2,.1,.8,.9) both}
+.dancer-upper{animation:shadow-body 1s cubic-bezier(.45,0,.55,1) infinite}
+.dancer-arm-left{animation:moonwalk-arm-left 1s ease-in-out infinite}
+.dancer-arm-right{animation:moonwalk-arm-right 1s ease-in-out infinite;animation-delay:-.12s}
+.dancer-leg-left{animation:moonwalk-step-left 1s cubic-bezier(.45,0,.55,1) infinite}
+.dancer-leg-right{animation:moonwalk-step-right 1s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes shadow-crossing{from{transform:translateX(150px) scale(.96)}to{transform:translateX(-150px) scale(.96)}}
+@keyframes shadow-body{0%,100%{transform:translate(0,0) rotate(-4deg)}25%{transform:translate(2px,-3px) rotate(-2deg)}50%{transform:translate(0,-1px) rotate(-4deg)}75%{transform:translate(-2px,-4px) rotate(-6deg)}}
+@media(max-width:700px){#passport-reader .chapter-title-icon{width:36px;height:36px;margin-left:9px}#passport-reader .travel-journal>summary{gap:10px;padding:12px 10px 12px 0}.story-notebook-art{width:100px;height:136px;flex-basis:100px}.story-notebook-invite strong{font-size:21px}.story-notebook-invite>span{font-size:13px}.story-notebook-invite b{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.night-dancer,.night-dancer g{animation:none!important}.story-notebook-art{transition:none}}
+#passport-reader .passport-looking .passport-stories{margin-top:0;border-top:0;padding-top:0}
+#passport-reader .passport-looking .leaf-number{display:none}
+#passport-reader .passport-looking .story-postcards:empty{display:none}
+#passport-reader .passport-looking .story-refresh{font-size:12px;margin:10px 0 0}
+#passport-reader .reader-top{background:#e3dbc7}
+/* A single ink silhouette: heel-toe glide, hat tip, then one quick turn. */
+#lost-after-dark.after-dark-entering,#lost-after-dark.after-dark-entering::after,#lost-after-dark.after-dark-entering>.underworld-header,#lost-after-dark.after-dark-entering>.after-dark-tabs,#lost-after-dark.after-dark-entering>.after-dark-room,#lost-after-dark.after-dark-entering>.underworld-footer,#lost-after-dark.after-dark-entering .underworld-header h2,#lost-after-dark.after-dark-entering>.night-party-shadow{animation-duration:2.6s}
+.night-dancer{animation:shadow-crossing 2.6s linear both;transform-origin:150px 400px}
+.dancer-spin{transform-origin:145px 245px;animation:shadow-spin 2.6s cubic-bezier(.45,0,.25,1) both}
+.dancer-upper{transform-origin:140px 240px;animation:shadow-body .62s ease-in-out infinite}
+.dancer-arm-left{transform-origin:115px 139px;animation:shadow-hand .62s ease-in-out infinite}
+.dancer-arm-right{transform-origin:165px 138px;animation:shadow-hat-tip 2.6s ease-in-out both}
+.dancer-leg-left{transform-origin:126px 238px;animation:shadow-heel .62s cubic-bezier(.45,0,.55,1) infinite}
+.dancer-leg-right{transform-origin:154px 238px;animation:shadow-heel .62s cubic-bezier(.45,0,.55,1) infinite reverse}
+@keyframes shadow-crossing{0%{transform:translateX(160px) rotate(-5deg)}60%{transform:translateX(-30px) rotate(-5deg)}78%{transform:translateX(-65px) rotate(0)}100%{transform:translateX(-170px) rotate(-7deg)}}
+@keyframes shadow-spin{0%,55%{transform:scaleX(1)}64%{transform:scaleX(.1)}70%{transform:scaleX(-1)}77%{transform:scaleX(.1)}84%,100%{transform:scaleX(1)}}
+@keyframes shadow-heel{0%,100%{transform:translateX(0) rotate(-8deg)}45%{transform:translate(0,-2px) rotate(8deg)}55%{transform:translate(0,-7px) rotate(9deg)}80%{transform:translate(0,-4px) rotate(-3deg)}}
+@keyframes shadow-hand{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
+@keyframes shadow-hat-tip{0%,43%{transform:rotate(0)}54%{transform:rotate(-9deg)}67%,82%{transform:rotate(-17deg)}100%{transform:rotate(0)}}
+/* Photo-led city field notes, with warm paper below the skyline. */
+.city-popup{width:min(620px,calc(100vw - 28px));padding:0;background:#f1e8d7;border:0;border-radius:16px;max-height:88dvh}
+.city-popup-close{z-index:3;top:12px;right:12px;color:white;background:#10212688;backdrop-filter:blur(8px)}
+.city-popup-close:hover{background:#102126;color:white}
+.city-photo-header{position:relative;isolation:isolate;min-height:290px;padding:40px 28px 25px;background-color:#344d52;background-position:center 42%;background-size:cover;color:#fff}
+.city-popup .city-photo-header .eyebrow{color:#ffe0a9;letter-spacing:.16em;font-weight:700}
+.city-popup .city-photo-header h3{color:#fff;font-size:clamp(32px,5vw,46px);line-height:1.05;margin:12px 0;text-shadow:0 2px 20px #0007}
+.city-photo-header .city-synopsis{color:#fff;max-width:440px;line-height:1.5;text-shadow:0 1px 8px #0009}
+.city-photo-header .city-quick-facts{margin:27px 0 12px;gap:8px}
+.city-photo-header .city-quick-facts>div,.city-photo-header .city-quick-facts .city-weather{background:#101e29a3;border:1px solid #ffffff26;backdrop-filter:blur(8px);padding:12px;border-radius:8px}
+.city-photo-header .city-quick-facts dt{color:#eee5d5;letter-spacing:.08em;font-size:9px}
+.city-photo-header .city-quick-facts dd{color:#fff;font-size:14px;line-height:1.5}
+.city-photo-header .city-quick-facts small{color:#eee5d5;font-size:10px}
+.city-photo-credit{display:block;width:fit-content;max-width:100%;margin-left:auto;font:9px/1.4 system-ui;color:#eee5d5;text-underline-offset:2px}
+.city-overview-body{padding:24px 28px 28px;background:#f1e8d7;color:#233333}
+.city-overview-body .city-overview{font:16px/1.8 Georgia,serif}
+.city-overview-body .city-highlights{margin-top:0}
+@media(max-width:540px){.city-photo-header{padding:38px 18px 18px}.city-overview-body{padding:22px 20px}.city-photo-header .city-quick-facts{grid-template-columns:1fr 1fr}.city-photo-header .city-weather{grid-column:1/-1}.city-photo-header .city-weather dd{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}.city-photo-header .city-weather small{margin:0}.city-photo-header .city-weather small:last-child{margin-left:auto}}

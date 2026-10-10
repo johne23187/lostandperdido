@@ -140,7 +140,7 @@
     introActive=true;surface.classList.add('globe-introducing');
     const from=rotation.slice(),start=performance.now()+200;
     function tick(now){
-      const progress=Math.max(0,Math.min(1,(now-start)/2800)),ease=(1-Math.cos(Math.PI*progress))/2;
+      const progress=Math.max(0,Math.min(1,(now-start)/2500)),ease=(1-Math.cos(Math.PI*progress))/2;
       rotation=[from[0]+360*ease,from[1],from[2]];
       if(progress===1)rotation=from;
       if(progress===1)endIntro();else {draw();flight=requestAnimationFrame(tick);}

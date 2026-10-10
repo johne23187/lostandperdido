@@ -34,8 +34,20 @@
   astronaut.addEventListener('click',()=>{astronaut.querySelector('[data-guide-label]').hidden=false;astronaut.setAttribute('aria-expanded','true');astronaut.setAttribute('aria-label','yo no sabo');});
   cue(document.querySelector('.satellite'),'point',true,'satellite-guide');
   const campGuide=cue(document.querySelector('.paper-card-wrap'),'point',false,'camp-guide');
+  campGuide.querySelector('.guide-nodding-head circle[r="10"]').setAttribute('fill','#fff');
   campGuide.querySelector('svg').insertAdjacentHTML('beforeend','<g class="camp-balloon"><path d="M12 43Q-3 20 1-8" fill="none" stroke="#8a6259" stroke-width="1"/><ellipse cx="1" cy="-22" rx="11" ry="15" fill="#d73a3e" stroke="#a52a32" stroke-width="1"/><path d="m1-7-2 3h4Z" fill="#a52a32"/><path d="M-5-29q-3 4-2 8" fill="none" stroke="#ffb4a5" stroke-width="2" stroke-linecap="round"/></g>');
-  document.querySelector('.memory-launch').addEventListener('click',()=>{campGuide.hidden=true;});
+  let campDeparted=false;
+  document.querySelector('.memory-launch').addEventListener('click',()=>{
+   if(campDeparted)return;campDeparted=true;
+   if(matchMedia('(prefers-reduced-motion: reduce)').matches){campGuide.hidden=true;return;}
+   // Hold the passenger on the first plane; its parent retains the original flight path.
+   const box=campGuide.getBoundingClientRect(),parent=campGuide.parentElement.getBoundingClientRect();
+   campGuide.style.animation='none';campGuide.style.left='45%';campGuide.style.top='20%';
+   const landing=campGuide.getBoundingClientRect();
+   campGuide.animate([{transform:`translate(${box.left-landing.left}px,${box.top-landing.top}px) rotate(-12deg)`},{transform:'translate(0,0) rotate(-12deg)'}],{duration:420,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+   campGuide.classList.add('camp-departing');
+   setTimeout(()=>{campGuide.hidden=true;},760);
+  });
   const van=document.querySelector('.memory-van');
   const vanArt=document.createElement('span');vanArt.className='van-art';const vanImage=van.querySelector('img');vanImage.before(vanArt);vanArt.append(vanImage);
   const vanBubble=van.querySelector('.van-click');if(vanBubble)vanArt.append(vanBubble);

@@ -7,7 +7,7 @@
 
  const dialog=document.createElement('dialog');dialog.id='little-detour';dialog.className='star-schedule';dialog.setAttribute('aria-labelledby','star-schedule-title');document.body.append(dialog);
  star.setAttribute('aria-haspopup','dialog');star.setAttribute('aria-controls',dialog.id);
- let timer;
+ let timer,subtitleTimer;
  function render(){
   star.setAttribute('aria-label',t('Our posting schedule','Nuestro calendario de publicaciones'));star.title=t('See you under the stars.','Nos vemos bajo las estrellas.');
   dialog.innerHTML=`<button class="star-schedule-close" type="button" aria-label="${t('Close','Cerrar')}" autofocus>×</button><div class="star-schedule-glow" aria-hidden="true">★</div><div class="star-schedule-intro"><h2 id="star-schedule-title">${t('You are a star.','Eres una estrella.')}</h2><p>${t('We’re reaching for ours.','Vamos por la nuestra.')}</p></div><div class="star-schedule-content"><p class="star-schedule-eyebrow">${t('SAME DREAM. NEW EPISODES.','MISMO SUEÑO. NUEVOS EPISODIOS.')}</p><div class="star-schedule-premiere"><span>YouTube</span><strong>${t('Every Sunday','Cada domingo')}</strong><b>8 PM EST</b><small>${t('Starting November 1, 2026','Desde el 1 de noviembre de 2026')}</small></div><div class="star-schedule-daily"><strong>${t('A little lost. Every day.','Un poquito perdidos. Cada día.')}</strong><p>Instagram Reels · Facebook · TikTok</p><span>${t('New posts daily','Publicaciones todos los días')}</span></div><p class="star-schedule-footer">${t('Come for the journey. Stay for the plot twists.','Ven por el viaje. Quédate por los giros inesperados.')}</p></div>`;
@@ -15,11 +15,11 @@
  }
  render();document.addEventListener('lp:languagechange',render);
  star.addEventListener('click',()=>{
-  clearTimeout(timer);dialog.classList.remove('schedule-ready');render();dialog.showModal();dialog.scrollTop=0;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)dialog.classList.add('schedule-ready');
-  else timer=setTimeout(()=>dialog.classList.add('schedule-ready'),3200);
+  clearTimeout(timer);clearTimeout(subtitleTimer);dialog.classList.remove('schedule-ready','subtitle-ready');render();dialog.showModal();dialog.scrollTop=0;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)dialog.classList.add('schedule-ready','subtitle-ready');
+  else{subtitleTimer=setTimeout(()=>dialog.classList.add('subtitle-ready'),1800);timer=setTimeout(()=>dialog.classList.add('schedule-ready'),2800);}
  });
- dialog.addEventListener('close',()=>{clearTimeout(timer);star.focus({preventScroll:true});});
+ dialog.addEventListener('close',()=>{clearTimeout(timer);clearTimeout(subtitleTimer);star.focus({preventScroll:true});});
  dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();});
  let visible=false;const sync=()=>star.classList.toggle('star-resting',!visible||document.hidden);
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();}).observe(star);document.addEventListener('visibilitychange',sync);sync();
