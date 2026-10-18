@@ -1,0 +1,144 @@
+/* A photographic invitation and a compact, industry-specific creative brief. */
+.collab-hub{grid-column:1/-1;width:100%;min-width:0;padding-top:28px;border-top:1px solid #213e3026}
+.collab-hub-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:25px}
+.collab-eyebrow{margin:0 0 10px;font:700 10px/1.4 'DM Sans',sans-serif;letter-spacing:.13em;color:#b45130}
+.collab-hub h3{margin:0;font:600 clamp(26px,3vw,40px)/1.15 'Playfair Display',serif;letter-spacing:-.035em;color:#21372f;text-transform:none}
+.collab-hub-heading>p{max-width:290px;margin:0;color:#5a675e;font:400 14px/1.6 'DM Sans',sans-serif}
+.collab-hub-heading>.collab-invite{display:flex;align-items:flex-start;gap:10px}
+.collab-invite>span{min-width:0;display:grid;gap:4px}
+.collab-invite strong{position:relative;width:max-content;max-width:100%;color:#294737;font-weight:600}
+.collab-invite strong:after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:linear-gradient(90deg,#cb6e43,transparent);transform-origin:left}
+.collab-invite-rocket{flex:0 0 23px;width:23px;height:28px;color:#b35c37;overflow:visible}
+.collab-in-view .collab-invite>span{animation:collab-invite-arrive .65s .1s both}
+.collab-in-view .collab-invite strong:after{animation:collab-invite-line .8s .3s both}
+.collab-in-view .collab-invite-rocket{animation:collab-rocket-drift 3.4s ease-in-out infinite}
+.collab-in-view .collab-rocket-flame{animation:collab-rocket-flame 1.7s ease-in-out infinite}
+@keyframes collab-invite-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes collab-invite-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes collab-rocket-drift{0%,100%{transform:translate(0,1px) rotate(-4deg)}50%{transform:translate(2px,-3px) rotate(3deg)}}
+@keyframes collab-rocket-flame{0%,100%{opacity:.4}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.collab-in-view .collab-invite>span,.collab-in-view .collab-invite strong:after,.collab-in-view .collab-invite-rocket,.collab-in-view .collab-rocket-flame{animation:none}}
+.collab-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.collab-card{position:relative;isolation:isolate;overflow:hidden;min-height:300px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;background:#19382f;border:0;border-radius:12px;color:#fff9ed;cursor:pointer;font-family:'DM Sans',sans-serif}
+.collab-card:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#071e3245 0%,transparent 22%,#061a2055 44%,#071b20f5 100%)}
+.collab-card>img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.collab-card:hover>img{transform:scale(1.045)}
+.collab-card-number{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.12em;text-shadow:0 1px 5px #000}
+.collab-card-number svg{width:24px;height:24px}
+.collab-card-copy{width:100%;display:grid;gap:9px}
+.collab-card-copy>strong{font:600 clamp(20px,2vw,27px)/1.12 'Playfair Display',serif;max-width:240px;text-wrap:balance}
+.collab-card-copy>small{font-size:12px;line-height:1.5;color:#e1e5dd}
+.collab-card-copy>span{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #fff4;padding-top:12px;font-size:11px;font-weight:600;color:#ffd4a2}
+.collab-card-copy b{font-size:22px;line-height:1;font-weight:400}
+.collab-hub-note{margin:18px 0 0;text-align:center;font:500 12px/1.5 'DM Sans',sans-serif;color:#526154}
+.collab-dialog{box-sizing:border-box;width:min(1160px,94vw);max-width:1160px;max-height:94dvh;margin:auto;padding:0;border:1px solid #48645b;border-radius:18px;background:#112b27;color:#f7f1e5;overflow:auto;overscroll-behavior:contain;box-shadow:0 30px 110px #0008;font-family:'DM Sans',sans-serif}
+.collab-dialog::backdrop{background:#071512bd;backdrop-filter:blur(8px)}
+.collab-dialog[open]{animation:collab-open .3s ease-out}
+.collab-topbar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:10px 22px 10px 28px;border-bottom:1px solid #ffffff18;background:#112b27;gap:12px}
+.collab-topbar>span{font-size:10px;letter-spacing:.13em;font-weight:600;color:#c5d7c9}
+.collab-close{width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;border:1px solid #c7d6c940;border-radius:50%;background:transparent;color:#fff4df;cursor:pointer;font:400 25px/1 Arial,sans-serif}
+.collab-title-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 28px}
+.collab-title-row h2{margin:0;max-width:none;color:#fff5e5;font:600 clamp(23px,3vw,34px)/1.15 'Playfair Display',serif;letter-spacing:-.03em}
+.collab-title-row>span{white-space:nowrap;font:600 10px/1.5 'DM Sans',sans-serif;letter-spacing:.08em;color:#c0d0c3}
+.collab-title-row i{font-style:normal;margin:0 8px;color:#edb47a}
+.collab-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0 28px;gap:10px;background:#112b27}
+.collab-tabs button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:12px 8px;border:1px solid #547165;border-bottom:0;border-radius:8px 8px 0 0;color:#d2dfd2;background:#1c3932;font:500 12px/1.4 'DM Sans',sans-serif;cursor:pointer}
+.collab-tabs button[aria-selected=true]{background:#f4efe5;border-color:#f4efe5;color:#263d32;box-shadow:inset 0 3px #ce6e44}
+.collab-tabs svg{width:22px;height:22px;flex-shrink:0}
+.collab-panel{display:grid;grid-template-columns:1fr 1fr;min-width:0;background:#f4efe5;color:#21372f}
+.collab-gallery{min-width:0;background:#122a25;display:flex;flex-direction:column}
+.collab-hero{position:relative;isolation:isolate;min-height:370px;flex:1;margin:0;overflow:hidden;background:#203e36}
+.collab-hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#091c2438,transparent 26%,transparent 45%,#061c25de 100%)}
+.collab-hero>img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;animation:collab-photo-in .35s ease-out}
+.collab-frame-label{position:absolute;top:18px;left:20px;padding:7px 10px;border:1px solid #fff5;border-radius:4px;background:#0d2e2a66;color:#fff5e6;font-size:8px;font-weight:600;letter-spacing:.12em;backdrop-filter:blur(5px)}
+.collab-hero figcaption{position:absolute;bottom:26px;left:28px;right:24px;color:#fff8e9;background:none;padding:0}
+.collab-hero figcaption>span{display:block;margin-bottom:12px;font-size:10px;line-height:1.4;letter-spacing:.1em;text-transform:uppercase}
+.collab-hero figcaption i{margin:0 7px;font-style:normal;color:#f6c190}
+.collab-hero figcaption>strong{display:block;max-width:340px;font:600 clamp(28px,3.3vw,42px)/1.05 'Playfair Display',serif;letter-spacing:-.025em;text-shadow:0 2px 20px #0826266b}
+.collab-thumbnails{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px}
+.collab-thumbnails button{position:relative;min-width:0;padding:0;border:2px solid transparent;border-radius:5px;background:#193b31;color:#fff6e4;cursor:pointer;overflow:hidden;text-align:left}
+.collab-thumbnails button[aria-pressed=true]{border-color:#eeb57c}
+.collab-thumbnails img{display:block;width:100%;height:58px;object-fit:cover;opacity:.75;transition:opacity .2s}
+.collab-thumbnails button[aria-pressed=true] img,.collab-thumbnails button:hover img{opacity:1}
+.collab-thumbnails span{display:block;padding:6px 5px;font:500 9px/1.35 'DM Sans',sans-serif}
+.collab-direction{padding:28px 30px 24px;min-width:0}
+.collab-direction h3{margin:0 0 12px;font:600 clamp(25px,2.7vw,34px)/1.1 'Playfair Display',serif;letter-spacing:-.025em;color:#203b30}
+.collab-intro{margin:0 0 20px;font-size:13px;line-height:1.65;color:#59645a}
+.collab-storyboard{list-style:none;margin:0;padding:0;display:grid;gap:17px}
+.collab-storyboard li{display:grid;grid-template-columns:26px 1fr;gap:12px}
+.collab-storyboard li>span{padding-top:2px;font-size:10px;line-height:1.5;color:#b05b38;font-weight:700}
+.collab-storyboard strong{font-size:13px;line-height:1.4;font-weight:700}
+.collab-storyboard p{margin:4px 0 0;font-size:12px;line-height:1.55;color:#586156}
+.collab-delivery{margin-top:23px;padding-top:16px;border-top:1px solid #2b463027}
+.collab-delivery>span{font-size:9px;letter-spacing:.12em;font-weight:700;color:#a14f2f}
+.collab-delivery p{margin:7px 0;font-size:12px;line-height:1.55;font-weight:600;color:#263c30}
+.collab-delivery small{font-size:10px;line-height:1.5;color:#60695e;display:block}
+.collab-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 28px;background:#e8e6d8;color:#283b2e}
+.collab-footer strong{font:600 16px/1.3 'Playfair Display',serif}
+.collab-footer p{margin:5px 0 0;max-width:450px;font-size:10px;line-height:1.6;color:#596355}
+.collab-inquiry{display:flex;align-items:center;justify-content:center;gap:20px;max-width:100%;padding:15px 20px;background:#b94d2b;color:#fff9e8;border:1px solid #a44b2b;border-radius:6px;text-decoration:none;font:700 12px/1.4 'DM Sans',sans-serif;transition:background .2s;flex-shrink:0}
+.collab-inquiry:hover{background:#913e25}
+.collab-plane{width:22px;height:22px;flex:none;vertical-align:middle;transition:transform .2s ease}
+.collab-card:hover .collab-plane,.collab-inquiry:hover .collab-plane{transform:translate(2px,-2px)}
+.collab-inquiry{cursor:pointer}
+.collab-form-dialog{width:min(620px,94vw);max-width:620px;background:#f4efe5;color:#21372f}
+.collab-form-content{padding:25px 30px 24px}
+.collab-form-heading{position:relative;padding-right:58px;margin-bottom:22px}
+.collab-form-heading h2{margin:0;color:#21372f;font:600 clamp(28px,5vw,37px)/1.12 'Playfair Display',serif;letter-spacing:-.03em;text-transform:none}
+.collab-form-heading>p:last-child{margin:10px 0 0;font:400 13px/1.5 'DM Sans',sans-serif;color:#5b655b}
+.collab-form-mark{position:absolute;right:0;top:8px;display:grid;place-items:center;width:44px;height:44px;border:1px solid #b4513055;border-radius:50%;color:#b45130;transform:rotate(-10deg)}
+.collab-form-mark svg{width:27px;height:27px}
+.collab-form fieldset{margin:0;padding:0;border:0;min-width:0}
+.collab-form-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.collab-field{display:flex;flex-direction:column;gap:6px;min-width:0;font:600 12px/1.4 'DM Sans',sans-serif;color:#293e32}
+.collab-field-wide{grid-column:1/-1}
+.collab-field small{font-weight:400;color:#687063;font-size:10px}
+.collab-field input,.collab-field select,.collab-field textarea{box-sizing:border-box;display:block;width:100%;min-width:0;min-height:44px;margin:0;padding:10px 11px;border:1px solid #b8bfb0;border-radius:6px;background:#fffdf7;color:#24392f;font:400 16px/1.4 'DM Sans',sans-serif;box-shadow:none}
+.collab-field select{font-size:13px;padding-right:20px}
+.collab-field textarea{resize:vertical;min-height:93px;max-height:260px}
+.collab-field textarea::placeholder{color:#7b8175;font-size:13px}
+.collab-field input:focus,.collab-field textarea:focus,.collab-field select:focus{outline:2px solid #b45130;outline-offset:2px;border-color:#b45130}
+.collab-form-note{margin:16px 0 13px;font:400 10px/1.5 'DM Sans',sans-serif;color:#64705f}
+.collab-form .collab-form-send{width:100%;max-width:none;box-sizing:border-box}
+.collab-form fieldset:disabled{opacity:.65}
+.collab-form fieldset:disabled button{cursor:wait}
+.collab-form-status{margin:13px 0 0;font:500 12px/1.5 'DM Sans',sans-serif;color:#9d3927}
+.collab-form-status:empty{display:none}
+.collab-form-email{display:block;width:fit-content;margin:13px auto 0;color:#53604e;text-underline-offset:3px;font:400 11px/1.5 'DM Sans',sans-serif;overflow-wrap:anywhere}
+.collab-form-success{padding:10px 0 20px;font:400 14px/1.6 'DM Sans',sans-serif}
+.collab-form-success>strong{font:600 25px/1.2 'Playfair Display',serif}
+.collab-form-back{margin-top:24px}
+.collab-form-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:600px){.collab-form-content{padding:22px 18px}.collab-form-heading{padding-right:45px}.collab-form-heading h2{font-size:30px}.collab-form-mark{width:34px;height:34px}.collab-form-mark svg{width:22px;height:22px}.collab-form-grid{gap:13px 10px}.collab-form-note{font-size:10px}}
+@media(max-width:380px){.collab-form-grid{grid-template-columns:minmax(0,1fr)}.collab-form-heading h2{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.collab-plane{transition:none}.collab-card:hover .collab-plane,.collab-inquiry:hover .collab-plane{transform:none}}
+.collab-inquiry>span{font-size:22px;line-height:1}
+.collab-disclosure{margin:0;padding:12px 28px;font:400 10px/1.5 'DM Sans',sans-serif;color:#c3d1c4;background:#112b27}
+.collab-card:focus-visible,.collab-dialog button:focus-visible,.collab-dialog a:focus-visible,.collab-panel:focus-visible{outline:3px solid #df945c;outline-offset:3px}
+@keyframes collab-open{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes collab-photo-in{from{opacity:.4;transform:scale(1.02)}to{opacity:1;transform:scale(1)}}
+@media(max-width:850px){
+ .collab-hub-heading{display:block}.collab-hub-heading>p{margin-top:12px;max-width:460px}
+ .collab-card{padding:18px;min-height:280px}.collab-card-copy>strong{font-size:24px}
+ .collab-dialog{width:96vw}.collab-title-row>span{display:none}
+ .collab-direction{padding:22px}.collab-title-row,.collab-footer{padding:20px}
+ .collab-footer{align-items:stretch}.collab-inquiry{max-width:44%;flex-shrink:1}
+}
+@media(max-width:600px){
+ .collab-cards{grid-template-columns:1fr;gap:12px}.collab-card{min-height:220px;padding:20px}.collab-card>img{object-position:50% 45%!important}
+ .collab-card-copy>strong{font-size:27px;max-width:260px}.collab-card-copy>small{font-size:12px}.collab-card-copy>span{padding-top:8px}
+ .collab-hub{padding-top:24px}.collab-hub-note{font-size:11px}
+ .collab-dialog{width:96vw;max-height:96dvh;border-radius:12px}
+ .collab-topbar{padding:8px 12px 8px 16px}.collab-topbar>span{font-size:8px;letter-spacing:.09em}
+ .collab-title-row{padding:17px 16px}.collab-title-row h2{font-size:25px}
+ .collab-tabs{padding:0 10px;gap:5px}.collab-tabs button{flex-direction:column;gap:5px;padding:9px 4px;font-size:10px;line-height:1.25;min-height:76px}.collab-tabs svg{width:19px;height:19px}
+ .collab-panel{grid-template-columns:1fr}.collab-hero{min-height:255px}
+ .collab-hero figcaption{left:20px;bottom:20px;right:20px}.collab-hero figcaption>strong{font-size:29px;max-width:260px}.collab-hero figcaption>span{margin-bottom:7px}
+ .collab-frame-label{top:13px;left:16px;font-size:7px}
+ .collab-thumbnails{padding:9px;gap:6px}.collab-thumbnails img{height:46px}.collab-thumbnails span{font-size:8px;min-height:30px}
+ .collab-direction{padding:22px 20px}.collab-direction h3{font-size:28px}.collab-intro{font-size:12px;margin-bottom:18px}
+ .collab-storyboard{gap:15px}.collab-storyboard li{gap:9px;grid-template-columns:22px 1fr}.collab-storyboard p{font-size:12px}
+ .collab-footer{display:grid;gap:14px;padding:20px}.collab-inquiry{max-width:none;width:100%;box-sizing:border-box}.collab-footer strong{font-size:17px}.collab-footer p{font-size:11px}
+ .collab-disclosure{padding:12px 20px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.collab-dialog[open],.collab-hero>img{animation:none}.collab-card>img,.collab-thumbnails img,.collab-inquiry{transition:none}}

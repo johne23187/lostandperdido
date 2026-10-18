@@ -1,0 +1,28 @@
+/* The logo is the link. Transparent padding keeps the touch target usable. */
+a.destination-mark{position:absolute;top:10px;right:10px;bottom:auto;left:auto;z-index:5;display:flex;align-items:center;justify-content:center;width:82px;min-height:44px;padding:4px;border:0;border-radius:0;background:transparent;box-shadow:none;color:inherit;text-decoration:none;opacity:.88;filter:none;transition:opacity .2s,transform .2s}
+a.destination-mark:hover{background:transparent;opacity:1;transform:translateY(-1px)}
+a.destination-mark:focus-visible{outline:2px solid #f4b87e;outline-offset:2px;border-radius:3px;opacity:1}
+a.destination-mark>img{display:block!important;position:static!important;inset:auto!important;width:74px!important;height:36px!important;min-height:0!important;max-width:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important;animation:none!important;background:none!important;border:0!important;box-shadow:none!important;filter:drop-shadow(0 1px 2px #071a23aa)}
+a.destination-mark-yosemite{width:44px}
+a.destination-mark-yosemite>img{width:27px!important;height:36px!important}
+a.destination-mark-stingray>img{filter:drop-shadow(0 0 1px #fff) drop-shadow(0 1px 2px #071a2380)}
+.collab-card-holder>a.destination-mark-regioni,.collab-hero>a.destination-mark-regioni{width:84px;padding:2px}
+.collab-card-holder>a.destination-mark-regioni>img,.collab-hero>a.destination-mark-regioni>img{width:80px!important;height:76px!important;filter:drop-shadow(0 1px 2px #1a100de6)}
+.studio-post-visual>a.destination-mark,.ugc-personal-gallery>a.destination-mark{width:65px;right:7px;top:7px;padding:3px}
+.studio-post-visual>a.destination-mark>img,.ugc-personal-gallery>a.destination-mark>img{width:59px!important;height:31px!important}
+.studio-platform-tiktok .studio-post-visual>a.destination-mark{top:86px;left:9px;right:auto}
+.ugc-personal-gallery>a.destination-mark{top:auto;bottom:32px;left:8px;right:auto}
+.studio-platform-dji .studio-product{left:10px;right:auto;top:100px;bottom:auto;width:64px;height:44px!important;transform:none}
+.experience-frame.is-active{pointer-events:auto}
+.experience-selectors{flex-wrap:wrap;gap:6px}
+.experience-selectors button{padding:7px 10px;font-size:10px;min-height:36px}
+.experience-caption small{line-height:1.6;letter-spacing:.04em}
+.portfolio-tile-holder,.collab-card-holder{position:relative;min-width:0;break-inside:avoid}
+.portfolio-tile-holder{margin-bottom:16px}
+.portfolio-tile-holder>.portfolio-tile{margin-bottom:0}
+.portfolio-tile-holder[hidden]{display:none}
+.collab-card-holder>.collab-card{width:100%;height:100%}
+.portfolio-hero,.lightbox-media{position:relative}
+.lightbox-media>a.destination-mark{top:auto;bottom:10px;right:12px}
+@media(max-width:600px){a.destination-mark{top:8px;right:8px;width:70px;padding:4px}a.destination-mark>img{width:62px!important;height:31px!important}a.destination-mark-yosemite{width:44px}a.destination-mark-yosemite>img{width:24px!important;height:32px!important}.portfolio-tile-holder{margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){a.destination-mark{transition:none}}

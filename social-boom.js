@@ -1,12 +1,16 @@
 /* Camera shutters, cartoon falling whistle, and a cinematic crash sequence. */
 (() => {
- let context, voice, voiceReady, played=false, lastClick=-Infinity;
+ let context, voice, shoutVoice, voiceReady, played=false, lastClick=-Infinity;
  const active=new Set();
+ // A rounded opening, a small upward lift, then a relaxed downward finish.
+ const shoutContour=[[0,.82],[.14,.90],[.52,.89],[.82,.86],[1,.83]];
+ const shoutMeanRate=shoutContour.slice(1).reduce((sum,[time,rate],index)=>sum+(time-shoutContour[index][0])*(rate+shoutContour[index][1])/2,0);
  const bytes=fetch('assets/audio/boom-socials-voice.wav').then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
+ const shoutBytes=fetch('assets/audio/oh-yeah.wav').then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
  async function unlock(){
   try{
    const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
-   if(!context){context=new Audio();voiceReady=bytes.then(data=>data&&context.decodeAudioData(data)).then(buffer=>{voice=buffer;}).catch(()=>{});}
+   if(!context){context=new Audio();voiceReady=Promise.all([bytes.then(data=>data&&context.decodeAudioData(data)).then(buffer=>{voice=buffer;}),shoutBytes.then(data=>data&&context.decodeAudioData(data)).then(buffer=>{shoutVoice=buffer;})]).catch(()=>{});}
    await context.resume();
   }catch{}
  }
@@ -36,7 +40,7 @@
   if(!control||control.disabled||control.getAttribute('aria-disabled')==='true')return;
   await unlock();shutter();
  },{capture:true});
- window.LPSocialBoom={async prepare(){
+ window.LPSocialBoom={shoutDelay(){return (.55+(voice?.duration??1.878)/.84+.08)*1000;},shoutDuration(){return (shoutVoice?.duration??2.178)/shoutMeanRate*1000;},ohYeah(onEnd){return this.play(true,onEnd);},async prepare(){
   // Resume the already-unlocked context after browser suspension and decode the voice before impact.
   await Promise.race([unlock(),new Promise(resolve=>setTimeout(resolve,350))]);
   if(context?.state==='running')await Promise.race([voiceReady,new Promise(resolve=>setTimeout(resolve,800))]);
@@ -57,21 +61,22 @@
   gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.16,now+length*.055);gain.gain.setValueAtTime(.16,now+length*.9);gain.gain.exponentialRampToValueAtTime(.0001,end);
   overtoneGain.gain.value=.012;overtone.connect(overtoneGain);overtoneGain.connect(gain);
   whistle.connect(gain);gain.connect(context.destination);shortSound([[whistle,now,end],[wobble,now,end],[overtone,now,end]],[gain,depth,overtoneGain]);
- },play(){
-  if(played)return;
+ },play(onlyShout=false,onEnd){
+  if(played&&!onlyShout)return;
   if(document.hidden||context?.state!=='running')return;
-  played=true;
+  if(!onlyShout)played=true;
   const now=context.currentTime;
   const master=context.createGain();master.gain.value=.95;
   const limiter=context.createDynamicsCompressor();limiter.threshold.value=-8;limiter.ratio.value=8;
   master.connect(limiter);limiter.connect(context.destination);
   const connections=[master,limiter];
   let remaining=0;
-  function run(source,start,end){
+  function run(source,start,end,finished){
    remaining++;active.add(source);
-   source.onended=()=>{active.delete(source);source.disconnect();if(!--remaining)connections.forEach(n=>n.disconnect());};
+   source.onended=()=>{active.delete(source);source.disconnect();if(!--remaining)connections.forEach(n=>n.disconnect());finished?.();};
    source.start(start);source.stop(end);
   }
+  if(!onlyShout){
   // A descending sub hit and filtered noise make an impact without a harsh crack.
   const sub=context.createOscillator(),subGain=context.createGain();
   sub.frequency.setValueAtTime(100,now);sub.frequency.exponentialRampToValueAtTime(28,now+1.6);
@@ -88,27 +93,41 @@
   shock.type='triangle';shock.frequency.setValueAtTime(210,now);shock.frequency.exponentialRampToValueAtTime(48,now+.38);
   shockGain.gain.setValueAtTime(.0001,now);shockGain.gain.exponentialRampToValueAtTime(.7,now+.01);shockGain.gain.exponentialRampToValueAtTime(.0001,now+.43);
   shock.connect(shockGain);shockGain.connect(master);connections.push(shockGain);run(shock,now,now+.45);
-  if(voice){
-   // Keep the direct word dominant; a delayed room tail adds scale without repeated syllables.
+  }
+  const spoken=onlyShout?shoutVoice:voice;
+  if(spoken){
+   // Keep the recorded performance forward; a short room adds body without washing out the phrase.
    const speech=context.createBufferSource(),gain=context.createGain(),bass=context.createBiquadFilter(),room=context.createConvolver(),wet=context.createGain();
-   const rate=.84,tail=3.4,start=now+.55;
-   speech.buffer=voice;speech.playbackRate.value=rate;gain.gain.value=1.6;wet.gain.value=.52;
-   bass.type='lowshelf';bass.frequency.value=220;bass.gain.value=6;
+   const rate=onlyShout?shoutMeanRate:.84,tail=onlyShout?1.05:3.4,start=now+(onlyShout?0:.55),spokenLength=spoken.duration/rate;
+   speech.buffer=spoken;speech.playbackRate.value=rate;
+   if(onlyShout){
+    speech.playbackRate.setValueAtTime(shoutContour[0][1],start);
+    for(const [fraction,pitch] of shoutContour.slice(1))speech.playbackRate.linearRampToValueAtTime(pitch,start+fraction*spokenLength);
+   }
+   gain.gain.value=onlyShout?1.7:1.6;wet.gain.value=onlyShout?.16:.52;
+   bass.type='lowshelf';bass.frequency.value=220;bass.gain.value=onlyShout?4.5:6;
    const impulse=context.createBuffer(2,Math.ceil(context.sampleRate*tail),context.sampleRate);
    for(let channel=0;channel<2;channel++){
     const samples=impulse.getChannelData(channel);let smooth=0;
     for(let i=0;i<samples.length;i++){
-     const elapsed=i/context.sampleRate-.18;if(elapsed<0)continue;
+     const elapsed=i/context.sampleRate-(onlyShout?.055:.18);if(elapsed<0)continue;
      smooth=.72*smooth+.28*(Math.random()*2-1);
-     samples[i]=smooth*Math.exp(-elapsed*1.8);
+     samples[i]=smooth*Math.exp(-elapsed*(onlyShout?5.5:1.8));
     }
    }
    room.buffer=impulse;
-   speech.connect(bass);bass.connect(gain);gain.connect(master);bass.connect(room);room.connect(wet);wet.connect(master);
-   connections.push(gain,bass,room,wet);run(speech,start,start+voice.duration/rate+.05);
+   if(onlyShout){
+    const lowCut=context.createBiquadFilter(),presence=context.createBiquadFilter();
+    lowCut.type='highpass';lowCut.frequency.value=65;lowCut.Q.value=.7;
+    presence.type='peaking';presence.frequency.value=1800;presence.Q.value=.8;presence.gain.value=2.2;
+    speech.connect(lowCut);lowCut.connect(presence);presence.connect(bass);connections.push(lowCut,presence);
+   }else speech.connect(bass);
+   bass.connect(gain);gain.connect(master);bass.connect(room);room.connect(wet);wet.connect(master);
+   connections.push(gain,bass,room,wet);run(speech,start,start+spokenLength+.05,onlyShout?onEnd:undefined);
    // Retain the graph until the complete reverberation has faded, even after speech ends.
-   const tailKeeper=context.createBufferSource();tailKeeper.buffer=context.createBuffer(1,Math.ceil(context.sampleRate*(voice.duration/rate+tail)),context.sampleRate);
-   tailKeeper.connect(master);run(tailKeeper,start,start+voice.duration/rate+tail);
+   const tailKeeper=context.createBufferSource();tailKeeper.buffer=context.createBuffer(1,Math.ceil(context.sampleRate*(spokenLength+tail)),context.sampleRate);
+   tailKeeper.connect(master);run(tailKeeper,start,start+spokenLength+tail);
+   return true;
   }
  }};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)quiet();});

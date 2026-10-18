@@ -34,6 +34,20 @@ window.matchMedia('(min-width: 1001px)').addEventListener('change', closeMenu);
 // The HTML remains readable without JavaScript. English is the source language;
 // this dictionary swaps visible copy into neutral Latin American Spanish.
 const spanish = {
+  'LET’S CREATE TOGETHER': 'CREEMOS JUNTOS',
+  'DESTINATIONS / STAYS / EXPERIENCES': 'DESTINOS / ALOJAMIENTOS / EXPERIENCIAS',
+  'Make your place': 'Que tu lugar sea',
+  'the next chapter.': 'el próximo capítulo.',
+  'Restaurants & experiences': 'Restaurantes y experiencias',
+  'Put the people, dishes, and moments that define your offering at the center.': 'Ponemos en el centro a las personas, los platos y los momentos que definen tu propuesta.',
+  'Future hosted journeys': 'Futuros viajes en grupo',
+  'We’re developing group tours led by us, with opportunities for selected local partners.': 'Estamos desarrollando viajes en grupo guiados por nosotros, con oportunidades para colaboradores locales.',
+  'Group tours are in development. Partner opportunities, itineraries, and dates will be agreed as the program takes shape.': 'Los viajes en grupo están en desarrollo. Acordaremos colaboraciones, itinerarios y fechas a medida que el programa tome forma.',
+
+  'The places draw us in. The people stay with us. We follow the conversations, cultures, and unexpected encounters that turn a destination into a story worth sharing.': 'Los lugares nos atraen. Las personas dejan huella. Seguimos las conversaciones, las culturas y los encuentros inesperados que convierten un destino en una historia que merece contarse.',
+  'Culture & connection': 'Cultura y conexión',
+  'Local voices, shared traditions, and moments of connection that bring your destination to life.': 'Voces locales, tradiciones compartidas y encuentros que dan vida a tu destino.',
+
   "CITY STREETS TO PATAGONIA": "DE LA CIUDAD A LA PATAGONIA",
   "Next stop: Patagonia, too.": "Próxima parada: también Patagonia.",
   "Santiago’s city streets, the Maipo Valley, a little Pacific air—and now Patagonia, too. We’re heading south for mountain trails, wide-open landscapes, and the kind of detours that make us glad we got lost.": "Las calles de Santiago, el Valle del Maipo, un poco de brisa del Pacífico y, ahora, también Patagonia. Vamos al sur en busca de senderos de montaña, paisajes abiertos y esos desvíos que nos hacen agradecer habernos perdido.",
@@ -496,13 +510,25 @@ function updateCountdowns() {
 
   arrivals.forEach(({ element, timestamp }) => {
     const country = element.dataset.country;
+    const arrived = now >= timestamp;
+    element.classList.toggle('is-arrived', arrived);
+    element.closest('.arrival')?.classList.toggle('is-arrived', arrived);
     if (now >= timestamp) {
-      element.textContent = currentLanguage === 'es'
-        ? 'Fecha de llegada alcanzada — ¡vamos!'
-        : 'Arrival date reached — ¡vamos!';
+      if (!element.querySelector('.arrival-officially-lost')) {
+        element.innerHTML = '<strong class="arrival-officially-lost"></strong><time class="arrival-reached-date"></time>';
+      }
+      const heading = currentLanguage === 'es' ? 'OFICIALMENTE PERDIDOS' : 'OFFICIALLY LOST';
+      element.querySelector('.arrival-officially-lost').textContent = heading;
+      const date = element.dataset.arrival.slice(0, 10);
+      const dateLabel = new Intl.DateTimeFormat(currentLanguage === 'es' ? 'es' : 'en', {
+        month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+      }).format(new Date(date + 'T12:00:00Z'));
+      const time = element.querySelector('.arrival-reached-date');
+      time.dateTime = date;
+      time.textContent = dateLabel;
       element.setAttribute('aria-label', currentLanguage === 'es'
-        ? `${country}: fecha de llegada alcanzada`
-        : `${country}: arrival date reached`);
+        ? `${country}: oficialmente perdidos, ${dateLabel}`
+        : `${country}: officially lost, ${dateLabel}`);
       return;
     }
 
@@ -943,18 +969,18 @@ function startMeetingMusic() {
   } else { setMusicNotice('Loading music…'); }
 }
 function prepareMeetingMusic() {
-  if (!meetingStory.open || !meetingMusicWanted || meetingMusicPlayer || !window.YT?.Player) return;
+  if (meetingMusicPlayer || !window.YT?.Player) return;
   if (location.protocol === 'file:') return;
   const holder = document.createElement('iframe'); holder.id = 'meeting-youtube-player';
   holder.title = 'mi buena suerte. — feel trip.';
   holder.allow = 'autoplay; encrypted-media; picture-in-picture';
   holder.referrerPolicy = 'strict-origin-when-cross-origin';
-  holder.src = 'https://www.youtube.com/embed/DckpfFeSfyc?enablejsapi=1&playsinline=1&autoplay=1&rel=0&origin=' + encodeURIComponent(location.origin);
+  holder.src = 'https://www.youtube.com/embed/DckpfFeSfyc?enablejsapi=1&playsinline=1&autoplay=' + (meetingMusicWanted ? '1' : '0') + '&rel=0&origin=' + encodeURIComponent(location.origin);
   document.getElementById('meeting-music').replaceChildren(holder);
   meetingMusicPlayer = new YT.Player(holder, {
     host: 'https://www.youtube.com',
     width: 360, height: 203, videoId: 'DckpfFeSfyc',
-    playerVars: { autoplay: 1, playsinline: 1, rel: 0, ...(location.protocol.startsWith('http') ? { origin: location.origin } : {}) },
+    playerVars: { autoplay: meetingMusicWanted ? 1 : 0, playsinline: 1, rel: 0, ...(location.protocol.startsWith('http') ? { origin: location.origin } : {}) },
     events: {
       onReady: event => {
         meetingMusicReady = true;
@@ -994,6 +1020,9 @@ function loadMeetingMusicAPI() {
   api.onerror = () => { api.remove(); meetingMusicFailure = 'YouTube is blocked or unavailable. Use Listen on YouTube below.'; musicAction.hidden = true; setMusicNotice(meetingMusicFailure); };
   document.head.append(api);
 }
+// Warm the player near the book so the opening click can start a ready player.
+const meetingWarmup=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){loadMeetingMusicAPI();prepareMeetingMusic();meetingWarmup.disconnect();}},{rootMargin:'600px'});meetingWarmup.observe(meetingLink);
+meetingLink.addEventListener('pointerenter',()=>{loadMeetingMusicAPI();prepareMeetingMusic();},{once:true});
 meetingLink.addEventListener('click', () => openMeetingStory(meetingLink));
 meetingStory.addEventListener('click', event => {
   if (event.target !== meetingStory) return;
@@ -1545,7 +1574,7 @@ document.querySelectorAll('[data-service]').forEach(button => {
     serviceDialog.querySelector('h2').textContent = content.dataset.title;
     serviceDialog.querySelector('.service-body').replaceChildren(content.content.cloneNode(true));
     serviceDialog.querySelector('.service-inquiry').textContent = ['Create with us ↗', 'Explore a destination partnership ↗', 'Build a partnership ↗', 'Plan your recurring feature ↗', 'Plan your shoot ↗', 'Build your media package ↗'][Number(button.dataset.service)];
-    serviceDialog.querySelector('.service-inquiry').href = `mailto:hola@lostandperdido.com?subject=${encodeURIComponent(content.dataset.title + ' — Lost & Perdido')}`;
+    serviceDialog.querySelector('.service-inquiry').href = '#collaboration-inquiry';
     serviceDialog.showModal();
     serviceDialog.scrollTop = 0;
   });
@@ -1599,7 +1628,7 @@ function preparePerspective() {
     const lens=perspectiveLens, figure=document.querySelector('.shelf-guide .guide-figure');
     if(!figure){finishPerspective();return;}
     const origin=lens.getBoundingClientRect();
-    const glass='<g fill="none" stroke="#152b35" stroke-width="1.7" stroke-linecap="round"><path d="M0 2.5V-5.5"/><circle cx="0" cy="-10" r="4.5" fill="#dff4ee88"/></g>';
+    const glass='<g fill="none" stroke="#080808" stroke-width="1.7" stroke-linecap="round"><path d="M0 2.5V-5.5"/><circle cx="0" cy="-10" r="4.5" fill="#dff4ee88"/></g>';
     document.body.append(lens);lens.className='hand-lens-flight';
     lens.innerHTML='<svg viewBox="-16 -24 32 32" aria-hidden="true"><g class="flight-lens-grip">'+glass+'</g></svg>';
     lens.removeAttribute('style');
@@ -1787,31 +1816,45 @@ setInterval(() => {
   const flyer = document.querySelector('.mountain-paraglider');
   const friend = document.querySelector('.mountain-sitter');
   if (!flyer || !friend) return;
-  let started = false;
-  flyer.addEventListener('click', () => {
+  let started = false,pending=false;
+  function fly(){
     if (started) return;
     started = true;
     flyer.setAttribute('aria-disabled', 'true');
     flyer.classList.add('is-flying');
     const seated = friend.querySelector('svg').cloneNode(true);
+    seated.dataset.host='john';
+    seated.querySelectorAll('.host-outfit [fill="#e4aa55"]').forEach(part=>part.setAttribute('fill','#58a6b5'));
+    const seatedPhoto=seated.querySelector('.illustrated-host-portrait');
+    if(seatedPhoto){
+      seatedPhoto.setAttribute('href','assets/john-yankees-smiling-192.webp');
+      seatedPhoto.setAttribute('transform','translate(0 1) rotate(15 26 34)');
+      seatedPhoto.dataset.host='john';
+      seatedPhoto.closest('.guide-nodding-head').dataset.portrait='john';
+    }
     seated.setAttribute('aria-label', 'Smiling stick figure sitting beside his friend');
     const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 2800;
+    // Measure the actual CSS landing anchor, independent of scrolling or SVG bounds.
+    const anchor=document.createElement('div');
+    anchor.className='mountain-friend mountain-paraglider has-landed flight-anchor';
+    anchor.setAttribute('aria-hidden','true');flyer.parentElement.append(anchor);
+    let dx=0,dy=0;
+    const measure=()=>{dx=anchor.offsetLeft-flyer.offsetLeft;dy=anchor.offsetTop-flyer.offsetTop;};
+    measure();
+    const resize=new ResizeObserver(measure);resize.observe(flyer.parentElement);
     const start = performance.now();
     function frame(now) {
       const progress = duration ? Math.min((now - start) / duration, 1) : 1;
       const ease = progress * progress * (3 - 2 * progress);
-      // Read the untransformed position so resizing during flight stays accurate.
-      flyer.style.transform = 'none';
-      const origin = flyer.getBoundingClientRect();
-      const target = friend.getBoundingClientRect();
-      const x = (target.left - (38 + 96 / 2.54 * .5) - origin.left) * ease;
-      const y = (target.top - origin.top) * ease - Math.sin(Math.PI * progress) * 65;
-      const bank = Math.sin(progress * Math.PI * 2) * 12;
+      const x = dx * ease;
+      const y = dy * ease - Math.sin(Math.PI * progress) ** 2 * 65;
+      const bank = Math.sin(progress * Math.PI * 2) * Math.sin(progress * Math.PI) * 10;
       flyer.style.transform = `translate(${x}px, ${y}px) rotate(${bank}deg)`;
       if (progress > .84) flyer.classList.add('is-landing');
       if (progress < 1) {
         requestAnimationFrame(frame);
       } else {
+        resize.disconnect();anchor.remove();
         flyer.querySelector('svg:not(.paraglider-canopy)').replaceWith(seated);
         flyer.querySelector('.paraglider-canopy').remove();
         flyer.classList.remove('is-flying');
@@ -1821,7 +1864,26 @@ setInterval(() => {
       }
     }
     requestAnimationFrame(frame);
-  });
+  }
+  function begin({scroll=false}={}){
+    const scene=flyer.closest('.closing'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    prepareBlessingAudio();
+    if(scroll)scene.scrollIntoView({behavior:reduced?'instant':'smooth',block:'center'});
+    if(started||pending)return;pending=true;
+    const question=()=>{
+      scene.classList.add('figures-engaged','closing-question');
+      scene.querySelectorAll('.figure-click-arrow').forEach(cue=>cue.remove());
+      friend.querySelector('span').textContent=document.documentElement.lang==='es'?'\u00bfYa est\u00e1s perdido?':'Are you lost yet?';
+      flyer.querySelector('span').textContent=document.documentElement.lang==='es'?'No, solo estoy perdido.':"No, I'm just perdido.";
+      setTimeout(()=>{
+        scene.classList.remove('closing-question');scene.classList.add('closing-answer');
+        setTimeout(()=>{pending=false;fly();},reduced?0:1400);
+      },reduced?0:900);
+    };
+    setTimeout(question,scroll&&!reduced?700:0);
+  }
+  window.LPStartClosingSequence=begin;
+  flyer.addEventListener('click',()=>begin());
 })();
 
 // Both travelers can start the scene; each has a different gesture after landing.
@@ -1997,14 +2059,26 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
    title.append(glyph);
   }
   burst.append(title);
+  const ohYeah=document.createElement('strong');ohYeah.className='social-smoke-shout';
+  const intact=document.createElement('span');intact.className='oh-yeah-intact';intact.textContent='OH YEAH!';ohYeah.append(intact);
+  burst.append(ohYeah);
+  const electric=document.createElement('div');electric.className='oh-yeah-electric';
+  electric.innerHTML='<div class="electro-glow"></div><svg viewBox="0 0 900 220" fill="none" aria-hidden="true"><path class="electro-bolt" pathLength="1" d="M22 110 130 110 157 94 178 125 209 105 300 110 338 80 366 132 402 103 471 110 508 84 537 126 569 107 665 110 703 95 726 120 760 110 878 110"/><path class="electro-branch" pathLength="1" d="m338 80-23-25-35 5-23-23m251 47 24-35 32 4 21-18m195 75 26 37 34-6 29 29"/></svg><span class="electro-beam"></span>';
+  burst.append(electric);
   stage.append(burst);
+  const timers=new Set();
+  const later=(fn,delay)=>{const timer=setTimeout(()=>{timers.delete(timer);fn();},delay);timers.add(timer);};
+  const cleanup=()=>{
+   timers.forEach(clearTimeout);timers.clear();
+   stage.classList.remove('reveal-armed','reveal-exploding','oh-yeah-active','oh-yeah-departing','phones-revealing');burst.remove();
+  };
   const observer=new IntersectionObserver(async entries=>{
    if(!entries.some(e=>e.isIntersecting))return;
    observer.disconnect();
    await window.LPSocialBoom?.prepare();
    if(motion.matches)return;
    const plane=document.querySelector('.space-plane').cloneNode(true);
-   plane.classList.remove('space-plane');plane.classList.add('explosion-trigger-plane');plane.removeAttribute('style');stage.append(plane);
+   plane.classList.remove('space-plane');plane.classList.add('explosion-trigger-plane');plane.removeAttribute('style');plane.removeAttribute('role');plane.removeAttribute('tabindex');plane.removeAttribute('aria-pressed');plane.removeAttribute('aria-label');plane.setAttribute('aria-hidden','true');stage.append(plane);
    window.LPSocialBoom?.fall(parseFloat(getComputedStyle(plane).animationDuration)||1.1);
    const original=document.querySelector('.space-plane');original.style.visibility='hidden';
    plane.addEventListener('animationend',()=>{
@@ -2012,10 +2086,23 @@ window.addEventListener('resize', () => document.querySelectorAll('.campaign-pho
     if(motion.matches)return;
     stage.classList.add('reveal-exploding');
     window.LPSocialBoom?.play();
-    setTimeout(()=>{stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();},4200);
+    later(()=>{
+     stage.classList.add('oh-yeah-active');
+     let finished=false;
+     const revealPhones=()=>{
+      if(finished||!stage.classList.contains('reveal-armed'))return;finished=true;
+      stage.classList.remove('oh-yeah-active');stage.classList.add('oh-yeah-departing');
+      // A single electric sweep clears the lettering, then reveals the phones.
+      later(()=>stage.classList.add('phones-revealing'),300);
+      later(cleanup,950);
+     };
+     window.LPSocialBoom?.ohYeah();
+     // The title holds for two seconds, independently of the recorded voice's tail.
+     later(revealPhones,2000);
+    },window.LPSocialBoom?.shoutDelay()??2865);
    },{once:true});
   },{threshold:.12});observer.observe(stage);
-  motion.addEventListener('change',e=>{if(e.matches){observer.disconnect();stage.querySelector('.explosion-trigger-plane')?.remove();document.querySelector('.space-plane').style.visibility='';stage.classList.remove('reveal-armed','reveal-exploding');burst.remove();}});
+  motion.addEventListener('change',e=>{if(e.matches){observer.disconnect();stage.querySelector('.explosion-trigger-plane')?.remove();document.querySelector('.space-plane').style.visibility='';cleanup();}});
  }
  document.querySelectorAll('.socials-click-hint').forEach(hint=>{
   hint.className='social-hype-screen';hint.replaceChildren();
@@ -2058,11 +2145,13 @@ document.querySelectorAll('.host-card').forEach((card,index)=>{
  button.addEventListener('click',()=>{bubble.hidden=!bubble.hidden;cue.hidden=!bubble.hidden;button.setAttribute('aria-expanded',String(!bubble.hidden));});
 });
 (() => {
- const left=document.querySelector('.mountain-paraglider');
- const hand=document.createElement('i');hand.className='first-figure-hand';hand.setAttribute('aria-hidden','true');
- hand.innerHTML='<svg viewBox="0 0 48 60"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';
- left.append(hand);
- new MutationObserver(()=>{if(left.classList.contains('is-flying')||left.classList.contains('has-landed'))hand.remove();}).observe(left,{attributes:true,attributeFilter:['class']});
+ const scene=document.querySelector('.closing');
+ scene.querySelectorAll('.mountain-friend').forEach(figure=>{
+  const cue=document.createElement('i');cue.className='figure-click-arrow';cue.setAttribute('aria-hidden','true');cue.innerHTML='<svg viewBox="0 0 48 60" aria-hidden="true"><path d="M18 31V9a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 7 0v17c0 10-5 15-14 15-7 0-11-4-15-10L4 34c-3-5 3-9 7-5l7 7Z" fill="white" stroke="#20352f" stroke-width="2"/></svg>';figure.append(cue);
+  const reveal=()=>{scene.classList.add('figures-engaged');scene.querySelectorAll('.figure-click-arrow').forEach(el=>el.remove());};
+  figure.addEventListener('click',reveal,{capture:true});
+  figure.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')reveal();});
+ });
 })();
 
 async function sendSkyHearts(){
@@ -2097,11 +2186,13 @@ async function revealPosterScene(){
   svg.setAttribute('viewBox','0 0 60 80');svg.setAttribute('aria-hidden','true');svg.classList.add('poster-traveler');
   svg.innerHTML='<g stroke="#fff8e5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle r="9"/><path class="poster-body"/><path class="poster-legs"/><path class="poster-arms"/><g class="poster-face"><path d="M22 25Q26 30 30 25" stroke-width="1.4"/><circle cx="23" cy="21" r="1.3" fill="#fff8e5"/><circle cx="29" cy="21" r="1.3" fill="#fff8e5"/></g></g>';
   old.replaceWith(svg);
+  const portrait=document.createElementNS('http://www.w3.org/2000/svg','image');portrait.setAttribute('href','assets/'+(index===0?'john-yankees-smiling':'mateo-yankees-head')+'-192.webp');portrait.setAttribute('width','26');portrait.setAttribute('height','32');svg.append(portrait);svg.style.overflow='visible';svg.querySelector('circle').style.visibility='hidden';svg.querySelector('.poster-face').style.visibility='hidden';
   const head=svg.querySelector('circle'),body=svg.querySelector('.poster-body'),legs=svg.querySelector('.poster-legs'),arms=svg.querySelector('.poster-arms'),face=svg.querySelector('.poster-face');
+  body.setAttribute('stroke',index===0?'#58a6b5':'#e4aa55');body.setAttribute('stroke-width','9');legs.setAttribute('stroke','#37516c');legs.setAttribute('stroke-width','6');arms.setAttribute('stroke',index===0?'#58a6b5':'#e4aa55');arms.setAttribute('stroke-width','4');
   function pose(t){
    const mix=(a,b)=>a+(b-a)*t;
    const point=(a,b)=>mix(a[0],b[0])+','+mix(a[1],b[1]);
-   head.setAttribute('cx',mix(26,30));head.setAttribute('cy',mix(22,8));
+   head.setAttribute('cx',mix(26,30));head.setAttribute('cy',mix(22,8));portrait.setAttribute('x',mix(13,17));portrait.setAttribute('y',mix(4,-10));if(index===0)portrait.setAttribute('transform','rotate(15 '+mix(26,30)+' '+mix(34,20)+')');
    body.setAttribute('d','M'+point([26,31],[30,17])+'L'+point([24,53],[30,42]));
    legs.setAttribute('d','M'+point([24,53],[30,42])+'L'+point([40,53],[39,55])+'L49,67M'+point([24,53],[30,42])+'L'+point([16,64],[22,55])+'L'+point([33,67],[17,67]));
    arms.setAttribute('d','M'+point([25,37],[30,24])+'L'+point([36,45],[40,33])+'L'+point([40,53],[48,28])+'M'+point([25,37],[30,24])+'L'+point([13,47],[21,35])+'L'+point([9,61],[19,44]));

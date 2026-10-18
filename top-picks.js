@@ -29,7 +29,8 @@
   ['callaita','Callaíta','Bad Bunny · Tainy','2TH65lNHgvLxCKXM3apjxI'],
   ['dile-que-tu-me-quieres','Dile Que Tú Me Quieres','Ozuna','20ZAJdsKB5IGbGj4ilRt2o'],
   ['adicto','Adicto','Tainy · Anuel AA · Ozuna','2q50wDLj6op6noAaRsjRMQ'],
-  ['bipolar','Bipolar','Chris Jedi · Ozuna · Brytiago','07Kfdbf4MtfU8A2uGNszf8'],
+  ['bipolar-peso-pluma','BIPOLAR','Peso Pluma · Jasiel Nuñez · Junior H','3wlIAXSDtlD9iU8ysld06Z'],
+  ['el-farsante','El Farsante','Ozuna','5EId1m4DNwTf3at31w8bPJ'],
   ['adios-amor','Adiós Amor','Christian Nodal','0YqWX5Vddrp61cCn91oFUW'],
   ['cuando-volveras','Cuándo Volverás','Aventura','2O9lZKmI3tKt3NgUERaGX3'],
   ['mi-corazoncito','Mi Corazoncito','Aventura','5I76YtdZkFQReVgKppRd78']

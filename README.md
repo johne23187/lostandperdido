@@ -12,7 +12,7 @@ The first season is presented as upcoming. Arrival dates are October 18, 2026 (A
 
 Social handles were not supplied. The content section describes the planned channels without linking to unverified accounts. Add the real channel URLs and published episodes when the relaunch is ready. Replace upcoming notebook rows with article links as guides are published.
 
-The contact address `info@lostandperdido.com` is preserved from the original website. Confirm that this inbox is active before launch. Contact buttons open the visitor’s email app; there is no form backend or mailing-list integration.
+The contact address `info@lostandperdido.com` is preserved from the original website. Confirm that this inbox is active before launch. Work-with-us calls to action open the shared Netlify inquiry form; see the setup section below.
 
 The hero uses externally hosted Unsplash photography as mood imagery, not original expedition footage. Google Fonts also requires internet access; local fallback fonts and a dark hero background remain available offline. Destination photos are stored in `assets/` and work offline. Wikimedia Commons source and license credits appear below each image. Mendoza and Chile photos are resized; all photos are visually cropped to fit the cards. The Chile card features a daylight photograph of Santiago’s Metropolitan Cathedral and Plaza de Armas by Rjcastillo (CC BY-SA 4.0), resized locally with its source and license linked in the caption. Replace the hero with your own footage or photography when available.
 
@@ -48,6 +48,16 @@ Validation: automated checks cover persistence, UTC rollover, concurrent duplica
 
 
 ## Netlify deployment
+
+### Collaboration inquiries
+
+The three collaboration categories open a bilingual inquiry form. The static `collaboration` form schema in `index.html` lets Netlify discover every field during deployment; `collaboration-inquiry.js` submits URL-encoded data to `/`. A honeypot filters simple bot submissions. The visitor's `email` field becomes the Reply-To address in Netlify email notifications. Drafts stay in memory while the page remains open, including after a failed request; they are not stored in browser storage.
+
+**Hosting setup still required:** In this site's Netlify dashboard, enable **Forms > Enable form detection**, then deploy the rebuilt site. Once `collaboration` appears, open **Forms > Submission notifications > Add notification > Email notification**, choose this form, and set the recipient to `hola@lostandperdido.com`. Confirm that inbox is monitored. No notification was created and no email delivery was verified from the local workspace. The local Node preview deliberately rejects submissions rather than claiming to send email; its error state preserves the entered details for another attempt.
+
+After enabling notifications, submit a real inquiry on the deployed site and verify both the Forms entry and inbox delivery before launch. Frontend checks use intercepted responses and do not send external messages.
+
+Reference: [Netlify form setup](https://docs.netlify.com/manage/forms/setup/) and [email notifications](https://docs.netlify.com/manage/forms/notifications/).
 
 Netlify now uses netlify.toml: install the package dependencies, run npm run build, publish dist, and bundle netlify/functions. The poll is handled at /api/poll by a Netlify Function using site-wide Netlify Blobs with strong consistency. Conditional writes save the total and browser eligibility atomically; votes persist across production deploys. No separate Node server or database secret is needed on Netlify. The local Node preview still uses SQLite. Its existing votes are separate from the production Blobs store.
 

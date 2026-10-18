@@ -14,7 +14,7 @@
     element.src=url(item.src);
     if(item.type==='video'){if(item.poster)element.poster=url(item.poster);element.controls=true;element.playsInline=true;element.preload='metadata';}
     else {element.alt=(item.location||placeName)+' — travel photograph '+(current+1);element.decoding='async';}
-    media.append(element);
+    media.append(element);media.insertAdjacentHTML('beforeend',window.LPDestinationMarks.render(window.LPDestinationMarks.forPhoto(entries[current].src)));
     viewer.querySelector('.lightbox-count').textContent=(item.location?item.location+' · '+placeName:placeName)+' · '+(visibleIndices.indexOf(current)+1)+' / '+visibleIndices.length;
   }
   function movePhoto(step){current=visibleIndices[(visibleIndices.indexOf(current)+step+visibleIndices.length)%visibleIndices.length];display();}
@@ -25,7 +25,7 @@
     visibleIndices=entries.map((_,index)=>index);
     content.replaceChildren();
     const hero=document.createElement('div');hero.className='portfolio-hero';
-    if(entries.length){const cover=document.createElement('img');const curated=window.travelPortfolioCovers?.[place.name];cover.src=url(curated?.src||entries[0].preview||entries[0].src);if(curated?.position)cover.style.objectPosition=curated.position;cover.alt=place.name+' travel portfolio cover';hero.append(cover);}
+    if(entries.length){const cover=document.createElement('img');const curated=window.travelPortfolioCovers?.[place.name];cover.src=url(curated?.src||entries[0].preview||entries[0].src);if(curated?.position)cover.style.objectPosition=curated.position;cover.alt=place.name+' travel portfolio cover';hero.append(cover);hero.insertAdjacentHTML('beforeend',window.LPDestinationMarks.render(window.LPDestinationMarks.forPhoto(cover.src)));}
     else hero.classList.add('portfolio-empty-hero');
     const heading=document.createElement('div');heading.className='portfolio-heading';
     const eyebrow=document.createElement('p');eyebrow.textContent='THE PERSONAL COLLECTION / '+place.travelers.map(t=>t==='john'?'JOHN':'MATEO').join(' & ');
@@ -48,7 +48,7 @@
           const filter=document.createElement('button');filter.type='button';filter.textContent=label;filter.setAttribute('aria-pressed',String(!value));
           filter.addEventListener('click',()=>{
             filters.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button===filter)));
-            let visible=0;visibleIndices=[];grid.querySelectorAll('.portfolio-tile').forEach((tile,index)=>{tile.hidden=!!value&&(value==='__other'?!!entries[index].location:entries[index].location!==value);if(!tile.hidden){visible++;visibleIndices.push(index);}});
+            let visible=0;visibleIndices=[];grid.querySelectorAll('.portfolio-tile').forEach((tile,index)=>{tile.hidden=!!value&&(value==='__other'?!!entries[index].location:entries[index].location!==value);if(tile.parentElement.classList.contains('portfolio-tile-holder'))tile.parentElement.hidden=tile.hidden;if(!tile.hidden){visible++;visibleIndices.push(index);}});
             status.textContent=visible+' moments · '+label;
           });filters.append(filter);
         });content.append(filters,status);
@@ -59,7 +59,7 @@
           const image=document.createElement('img');image.src=url(item.preview);image.alt=(item.location||place.name)+' — photograph '+(index+1);image.loading='lazy';image.decoding='async';button.append(image);
         }else{if(item.poster){const poster=document.createElement('img');poster.src=url(item.poster);poster.alt='';poster.loading='lazy';poster.decoding='async';button.append(poster);button.classList.add('has-film-poster');}const label=document.createElement('div');label.className='portfolio-film';label.innerHTML='<span aria-hidden="true">▷</span><strong>From the journey</strong><small>PLAY FILM</small>';button.append(label);}
         const caption=document.createElement('span');caption.className='portfolio-tile-caption';caption.textContent=(item.location?item.location+' · ':String(index+1).padStart(2,'0')+' / ')+(item.type==='video'?'FILM':'VIEW PHOTO');button.append(caption);
-        button.addEventListener('click',()=>openPhoto(index,button));grid.append(button);
+        button.addEventListener('click',()=>openPhoto(index,button));const mark=window.LPDestinationMarks.render(window.LPDestinationMarks.forPhoto(item.src));if(mark){const holder=document.createElement('div');holder.className='portfolio-tile-holder';holder.append(button);holder.insertAdjacentHTML('beforeend',mark);grid.append(holder);}else grid.append(button);
       });content.append(grid);
     }else{const note=document.createElement('p');note.className='portfolio-empty';note.textContent='This place is part of our footprint. Photos will join this collection soon.';content.append(note);}
     dialog.showModal();dialog.scrollTop=0;

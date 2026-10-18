@@ -209,7 +209,11 @@ html[lang=en] .watch-section .socials-title,.watch-section .socials-title{font-f
 .studio-platform-samsonite .studio-scene{object-position:40% 30%;}
 .studio-platform-safetywing .studio-scene{object-position:35% 55%;}
 .studio-platform-samsonite .studio-luggage{width:74px;height:120px!important;right:10px;bottom:57px;filter:drop-shadow(0 4px 9px #0006);}
-.studio-platform-dji .studio-product{width:120px;height:80px!important;right:9px;bottom:58px;filter:drop-shadow(0 4px 9px #0006);}
+.studio-platform-dji .studio-product{width:100px;height:67px!important;right:7px;bottom:47px;filter:drop-shadow(0 4px 9px #0006);}
+.studio-platform-dji .studio-scene{object-position:50% 35%;}
+.destination-visual.destination-personal{padding:0;min-height:0;aspect-ratio:3/2;align-self:center;overflow:hidden;background:#152b29;border-radius:8px;}
+.destination-visual.destination-personal::after{display:none;}
+.destination-visual.destination-personal>img{object-fit:cover;object-position:50% 50%;}
 .studio-insurance-note{position:absolute;right:10px;top:94px;display:grid;justify-items:center;gap:5px;width:78px;padding:10px 6px;border:1px solid #ffffffa0;border-radius:9px;background:#f5f7eced;color:#204f58;transform:rotate(4deg);}
 .studio-insurance-note svg{width:30px;height:34px;fill:none;stroke:currentColor;stroke-width:1.7;}
 .studio-insurance-note span{font:700 7px/1.5 "DM Sans",sans-serif;text-align:center;letter-spacing:.07em;}

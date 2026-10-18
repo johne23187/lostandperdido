@@ -1,0 +1,28 @@
+.experience-gallery{width:100%;min-width:0;align-self:center;color:#233b32;font-family:'DM Sans',sans-serif}
+.experience-eyebrow{margin:0 0 12px;font:700 9px/1.5 'DM Sans',sans-serif;letter-spacing:.14em;color:#a15235}
+.experience-stage{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:3/2;background:#21372f;border-radius:8px;box-shadow:0 10px 30px #172f2514}
+.experience-frame{position:absolute;inset:0;margin:0;opacity:0;transform:scale(1.025);transition:opacity .65s ease,transform .8s cubic-bezier(.2,.7,.3,1);pointer-events:none}
+.experience-frame.is-active{opacity:1;transform:scale(1);z-index:1}
+.experience-frame>img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.experience-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 2px 12px}
+.experience-caption strong{display:block;font:600 15px/1.4 'Playfair Display',serif;color:#213b31}
+.experience-caption small{display:block;margin-top:3px;font:500 9px/1.4 'DM Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#72705e}
+.experience-pause{display:grid;place-items:center;width:34px;height:34px;flex:none;padding:0;border:1px solid #213b3133;border-radius:50%;background:transparent;color:#213b31;cursor:pointer;font:600 16px/1 Arial,sans-serif}
+.experience-selectors{display:flex;gap:8px;border-top:1px solid #213b3126;padding-top:12px}
+.experience-selectors button{display:flex;align-items:center;gap:10px;min-height:38px;padding:8px 14px;border:1px solid #213b3126;border-radius:24px;color:#556255;background:transparent;font:500 11px/1.3 'DM Sans',sans-serif;cursor:pointer}
+.experience-selectors button[aria-pressed=true]{background:#213b31;border-color:#213b31;color:#fff8e9}
+.experience-selectors button span{font-size:8px;opacity:.75}
+.experience-gallery button:focus-visible{outline:3px solid #bf6f44;outline-offset:3px}
+.feature-destination .experience-gallery{padding:12px 0 40px}
+.studio-location-caption{position:absolute;bottom:10px;left:12px;z-index:2;padding:5px 8px;border-radius:3px;background:#142e2bb5;color:#fff6e8;font:500 9px/1.4 'DM Sans',sans-serif;letter-spacing:.06em;pointer-events:none}
+.modern-phone-stage[data-studio-kind="3"] .studio-scene{object-position:55% 50%}
+.modern-phone-stage[data-studio-kind="3"] .studio-platform-tiktok .studio-location-caption{top:12px;bottom:auto}
+.collab-card[data-collab="1"]>img{object-position:48% 50%!important}
+@media(max-width:600px){.experience-caption strong{font-size:14px}.experience-eyebrow{font-size:8px}.feature-destination .experience-gallery{padding-bottom:28px}.collab-card[data-collab="1"]{min-height:280px}}
+@media(prefers-reduced-motion:reduce){.experience-frame{transition:none;transform:none}}
+
+/* Preserve the dome and foreground in the selected Taj Mahal portrait. */
+.modern-phone-stage[data-scene="taj"] .studio-scene{object-position:50% 50%}
+.feature-destination .feature-visual{flex-direction:column;justify-content:center;align-items:stretch}
+.feature-destination .experience-gallery{padding-bottom:12px}
+.feature-destination .feature-visual>.editorial-note{position:static;align-self:flex-end;margin:8px 16px 24px;flex:none}
