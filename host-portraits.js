@@ -34,12 +34,12 @@
    const paths=svg.querySelectorAll('path');if(paths[0])paths[0].setAttribute('d','M20 22l1 17m0-13L9 32l-5-5m17-1 17 8 19-8m0-4 1 17m-1-13 12 6 4-5M21 39l-8 13m8-13 8 13m29-13-8 13m8-13 9 13');paths[1]?.remove();
    svg.append(portrait('john',8,-2,24,28),portrait('mateo',46,-2,24,28));
   });
-  document.querySelectorAll('.gps-travelers>svg:not([data-portrait])').forEach(svg=>{
+  document.querySelectorAll('.gps-travelers>svg:not([data-portrait]):not([data-stick-figures])').forEach(svg=>{
    svg.dataset.portrait='both';svg.querySelectorAll('.yankees-cap,circle:not([cy="95"])').forEach(el=>el.remove());
    svg.querySelector('path[d^="M23 30"]')?.remove();limbs(svg,'M28 45 12 56 7 48M28 45 44 56M72 45 56 56M72 45 88 56 93 48',[[7,48,165],[44,56,0],[56,56,0],[93,48,195]]);svg.append(portrait('john',12,3,32,39),portrait('mateo',56,3,32,39));
   });
   document.querySelectorAll('.storybook-friends[data-portrait]:not(.storybook-cover .storybook-friends)').forEach(svg=>outfit(svg,[20,58].map((x,i)=>`<path d="M${x-5} 24h10l2 15H${x-6}Z" fill="${i?'#d8a54f':'#54a3b3'}"/><path d="M${x} 39l-8 13m8-13 9 13" fill="none" stroke="#314b68" stroke-width="4"/>`).join('')));
-  document.querySelectorAll('.gps-travelers>svg[data-portrait]').forEach(svg=>outfit(svg,[28,72].map((x,i)=>`<path d="M${x} 64l-11 22m11-22 11 22" fill="none" stroke="#344b60" stroke-width="7" stroke-linecap="round"/><path d="M${x-6} 40h12l1 24H${x-7}Z" fill="${i?'#dfb46e':'#598d89'}"/><path d="M${x} 45l-9 6m9-6 9 6" fill="none" stroke="${i?'#dfb46e':'#598d89'}" stroke-width="8" stroke-linecap="butt"/><path d="M${x-4} 40q4 4 8 0M${x-5} 62h10" fill="none" stroke="#263d43" stroke-width=".7"/><path d="M${x-14} 86h6m16 0h6" stroke="#f5ecd9" stroke-width="4" stroke-linecap="round"/>`).join(''),false));
+  document.querySelectorAll('.gps-travelers>svg[data-portrait]:not([data-stick-figures])').forEach(svg=>outfit(svg,[28,72].map((x,i)=>`<path d="M${x} 64l-11 22m11-22 11 22" fill="none" stroke="#344b60" stroke-width="7" stroke-linecap="round"/><path d="M${x-6} 40h12l1 24H${x-7}Z" fill="${i?'#dfb46e':'#598d89'}"/><path d="M${x} 45l-9 6m9-6 9 6" fill="none" stroke="${i?'#dfb46e':'#598d89'}" stroke-width="8" stroke-linecap="butt"/><path d="M${x-4} 40q4 4 8 0M${x-5} 62h10" fill="none" stroke="#263d43" stroke-width=".7"/><path d="M${x-14} 86h6m16 0h6" stroke="#f5ecd9" stroke-width="4" stroke-linecap="round"/>`).join(''),false));
  }
  decorate();let queued=false;
  new MutationObserver(records=>{

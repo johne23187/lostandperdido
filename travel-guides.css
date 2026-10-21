@@ -530,3 +530,168 @@ dialog.country-entry{width:min(560px,calc(100vw - 28px));max-height:85dvh;margin
 
 /* Speech comes from the front bumper mouth. */
 .van-art>.van-click{top:67%}
+
+/* A choreographed premiere: velvet, brass, moving light, and a photographic arrival. */
+.hall-rollout,.hall-paparazzi,.premiere-controls{display:none}
+.top-picks-dialog[data-hall-active=true]{width:min(1160px,96vw);max-width:96vw;background:#080b10;border:1px solid #9b7c46;box-shadow:0 40px 150px #000b}
+.top-picks-dialog[data-hall-active=true]>.picks-topbar{background:#080b10;border-color:#c2a16822}
+[data-hall-active=true] .hall-of-lost{position:relative;padding:20px 36px 44px;background:radial-gradient(ellipse at 50% 8%,#63482b22,transparent 50%),#090d13;border:0;border-radius:0;box-shadow:none}
+[data-hall-active=true] .hall-of-lost::before{background:linear-gradient(#080c1244,#080c12c9 450px,#080c12 750px),url('assets/hall-red-carpet.png') center top/100% auto no-repeat;mask-image:none;opacity:.75}
+[data-hall-active=true] .hall-ceremony{position:relative;padding:35px 10px 35px;z-index:1}.hall-crest{width:65px;height:78px;margin-bottom:22px;border-radius:40px 40px 3px 3px}.hall-crest svg{width:45px;height:38px}.hall-crest>span{font-size:8px;margin-bottom:7px}
+[data-hall-active=true] .hall-ceremony h3{font-size:clamp(48px,7vw,88px);margin:16px 0 22px;letter-spacing:-.055em;color:#f6e5be;text-shadow:0 0 55px #ebcd8922}.hall-vow{font-size:clamp(20px,2.4vw,28px)}.hall-rule{margin:20px auto}.hall-dedication{font-size:13px;line-height:1.8;max-width:480px}.hall-signature{margin-top:18px}
+[data-hall-active=true] .hall-paparazzi{display:block;position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.hall-paparazzi i{position:absolute;left:var(--px);top:var(--py);width:120px;height:120px;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,#fff 0 1%,#ecf6ffc0 2%,#badcff45 9%,transparent 52%);animation:premiere-shutter var(--cycle) var(--delay) infinite}
+.hall-paparazzi i::before,.hall-paparazzi i::after{content:'';position:absolute;top:50%;left:10%;width:80%;height:1px;background:linear-gradient(90deg,transparent,#f8fbff,transparent)}.hall-paparazzi i::after{transform:rotate(90deg)}.hall-paparazzi i b{position:absolute;inset:26%;border-radius:50%;box-shadow:0 0 45px 5px #d7e9ff35}
+.premiere-beam{position:absolute;top:-100px;width:40%;height:720px;opacity:.2;background:linear-gradient(#f8e6ba60,transparent 90%);clip-path:polygon(48% 0,52% 0,100% 100%,0 100%);transform-origin:50% 0;filter:blur(8px);animation:premiere-searchlight 12s ease-in-out infinite alternate;mix-blend-mode:screen}.beam-left{left:-10%;--beam-from:-32deg;--beam-to:35deg}.beam-right{right:-10%;--beam-from:32deg;--beam-to:-35deg;animation-delay:-6s}
+@keyframes premiere-searchlight{from{transform:rotate(var(--beam-from))}to{transform:rotate(var(--beam-to))}}
+@keyframes premiere-shutter{0%,9%,100%{opacity:0}2%{opacity:.85}4%{opacity:.1}6%{opacity:.45}8%{opacity:0}}
+[data-hall-active=true][data-hall-entrance=true] .hall-rollout{display:block;position:absolute;inset:0;min-height:680px;z-index:6;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,#403023,#090c12 65%);animation:premiere-finish 3.8s cubic-bezier(.4,0,.2,1) both}
+.premiere-corridor{position:absolute;top:0;left:0;width:100%;height:min(780px,95dvh);transform-origin:50% 35%;animation:premiere-dolly 3.8s cubic-bezier(.25,.1,.2,1) both}
+.premiere-velvet{clip-path:inset(0 0 100% 0);animation:premiere-unroll 2.6s .25s cubic-bezier(.3,.05,.2,1) forwards}.premiere-carpet-edge{stroke-dasharray:650;stroke-dashoffset:650;animation:premiere-gold-edge 2.6s .25s cubic-bezier(.3,.05,.2,1) forwards}
+.hall-rollout-light{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,#f4db982a,transparent 55%);animation:premiere-haze 3.8s both}
+.premiere-opening-doors{position:absolute;top:0;bottom:0;width:50%;z-index:2;background:repeating-linear-gradient(90deg,#140c10 0,#29151b 7%,#110a0e 12%);box-shadow:inset 0 0 90px #000;animation:premiere-door 2.1s cubic-bezier(.35,0,.2,1) both}.door-left{left:0;--door-travel:-102%;border-right:1px solid #c6a66377}.door-right{right:0;--door-travel:102%;border-left:1px solid #c6a66377}
+[data-hall-active=true] .premiere-controls{display:flex;justify-content:flex-end;position:relative;z-index:8;margin-bottom:-42px;pointer-events:none}.premiere-controls button{pointer-events:auto;min-height:44px;background:#090e17b0;border:0;padding:8px 14px;color:#d3bc8c;font:10px/1.5 'DM Sans',sans-serif;cursor:pointer;backdrop-filter:blur(8px)}.premiere-controls button:focus-visible{outline:1px solid #e8ce91;outline-offset:2px}
+[data-hall-skip]{display:none}[data-hall-entrance=true] [data-hall-skip]{display:block;animation:premiere-skip-away 3.8s forwards}[data-hall-entrance=true] [data-hall-replay]{animation:premiere-replay-in 3.8s both}
+[data-hall-active=true][data-hall-entrance=true] .hall-ceremony{animation:premiere-reveal 1.4s 2.85s cubic-bezier(.22,.6,.3,1) both}
+[data-hall-active=true][data-hall-entrance=true] .hall-gallery-heading{animation:premiere-reveal 1.3s 3.2s cubic-bezier(.22,.6,.3,1) both}
+[data-hall-active=true][data-hall-entrance=true] .picks-travel-card{animation:premiere-reveal 1.4s 3.45s cubic-bezier(.22,.6,.3,1) both}
+[data-hall-active=true][data-hall-entrance=true] .hall-restaurants .hall-honoree-photo>img{animation:premiere-photo 2.4s 3.45s cubic-bezier(.22,.6,.3,1) both}
+@keyframes premiere-door{to{transform:translateX(var(--door-travel))}}
+@keyframes premiere-unroll{to{clip-path:inset(0 0 0 0)}}
+@keyframes premiere-gold-edge{to{stroke-dashoffset:0}}
+@keyframes premiere-dolly{from{transform:scale(.93) translateY(-12px)}to{transform:scale(1.24) translateY(35px)}}
+@keyframes premiere-finish{0%,70%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+@keyframes premiere-haze{from{opacity:0}45%{opacity:1}to{opacity:.2}}
+@keyframes premiere-reveal{from{opacity:0;transform:translateY(12px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes premiere-photo{from{transform:scale(1.13);filter:brightness(.6)}to{transform:scale(1);filter:brightness(1)}}
+@keyframes premiere-skip-away{0%,90%{visibility:visible}100%{visibility:hidden;pointer-events:none}}
+@keyframes premiere-replay-in{0%,90%{visibility:hidden}100%{visibility:visible}}
+/* One signature restaurant takes center stage. */
+[data-hall-active=true] .picks-travel-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+[data-hall-active=true] .picks-travel-grid:has(>.picks-travel-card:only-child){grid-template-columns:minmax(0,1fr)}
+[data-hall-active=true] .hall-restaurants{grid-column:1/-1;border-radius:3px!important;padding:26px!important;background:linear-gradient(140deg,#201b1c,#11151b)!important}
+[data-hall-active=true] .hall-restaurants>.hall-emblem{width:75px;margin:0 auto 12px}.hall-restaurants>.hall-emblem svg{height:68px}
+[data-hall-active=true] .hall-restaurants>p{min-height:0;margin:5px 0 22px}
+[data-hall-active=true] .hall-restaurant{display:grid;grid-template-columns:1.15fr 1fr;width:100%;margin-top:0;border-radius:1px;border:1px solid #c6a66a;background:#10161c;color:#f5e2bc;box-shadow:0 18px 40px #0005;text-decoration:none}
+.hall-honoree-photo{position:relative;min-height:390px;overflow:hidden}.hall-honoree-photo>img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .7s}.hall-honoree-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 60%,#050b1277)}
+.hall-honoree-seal{position:absolute;left:22px;bottom:24px;z-index:1;display:grid;justify-items:center;padding:12px 16px;border:1px solid #e6c88a;background:#0c1720e8;outline:1px solid #e6c88a55;outline-offset:4px;color:#eed49b}.hall-honoree-seal svg{width:42px;height:35px;stroke:currentColor;fill:#b89b5522;stroke-width:1.4}.hall-honoree-seal b{font:18px Georgia,serif}.hall-honoree-seal small{font:6px/2 'DM Sans',sans-serif;letter-spacing:.2em;color:#eed49b}
+[data-hall-active=true] .hall-restaurant>.hall-honoree-copy{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;padding:35px 28px;text-align:center;background:radial-gradient(ellipse at top,#b1924b14,transparent 70%)}
+[data-hall-active=true] .hall-honoree-copy>small{font:8px/1.8 'DM Sans',sans-serif;letter-spacing:.16em;color:#d7b87c}.hall-honoree-location{font:8px/1.8 'DM Sans',sans-serif;letter-spacing:.17em;color:#b0ada4}
+[data-hall-active=true] .hall-honoree-copy>strong{font:normal clamp(30px,4vw,48px)/1.07 Georgia,serif;letter-spacing:-.04em;color:#f4e4c0}.hall-honoree-rule{color:#c9a86d;font-size:13px}
+[data-hall-active=true] .hall-honoree-copy>p{font:italic 16px/1.7 Georgia,serif;color:#d1c9b8;margin:0}.hall-honoree-signature{font:8px/1.7 'DM Sans',sans-serif;color:#aaa393}.hall-honoree-signature em{display:block;font:italic 21px/1.6 Georgia,serif;color:#e1c994}
+[data-hall-active=true] .hall-honoree-copy>b{display:flex;align-items:center;justify-content:space-between;gap:32px;margin-top:5px;padding:12px 0;border-bottom:1px solid #c4a46a;font:11px 'DM Sans',sans-serif;text-decoration:none;color:#edd5a6}.hall-honoree-copy>b>span{font-size:20px}
+.hall-restaurant:hover .hall-honoree-photo>img{transform:scale(1.04)}
+@media(max-width:700px){[data-hall-active=true] .hall-of-lost{padding:15px 16px 28px}[data-hall-active=true] .picks-travel-grid{grid-template-columns:1fr;gap:20px}[data-hall-active=true] .hall-restaurants{padding:20px 14px!important}[data-hall-active=true] .hall-restaurant{grid-template-columns:1fr}.hall-honoree-photo{min-height:270px}[data-hall-active=true] .hall-restaurant>.hall-honoree-copy{padding:28px 22px}.hall-honoree-photo>img{height:100%}.hall-paparazzi i{width:75px;height:75px}}
+@media(prefers-reduced-motion:reduce){[data-hall-active=true][data-hall-entrance=true] .hall-rollout{display:none}.hall-paparazzi i{animation:none}[data-hall-active=true][data-hall-entrance=true] .hall-ceremony,[data-hall-active=true][data-hall-entrance=true] .hall-gallery-heading,[data-hall-active=true][data-hall-entrance=true] .picks-travel-card{animation:none}.hall-honoree-photo>img{transition:none}}
+.hall-restaurant .hall-honoree-seal b{color:#eed49b;text-decoration:none}
+
+/* The featured name gets the room's clearest light. */
+[data-hall-active=true] .hall-restaurants{padding:0!important;border:0!important;background:none!important;box-shadow:none}
+[data-hall-active=true] .hall-restaurants>.hall-emblem,[data-hall-active=true] .hall-restaurants>small,[data-hall-active=true] .hall-restaurants>h4,[data-hall-active=true] .hall-restaurants>p{display:none}
+[data-hall-active=true] .hall-restaurant{grid-template-columns:1.25fr 1fr;border-color:#d7b26e66;box-shadow:0 25px 70px #0006;background:#0b1119;overflow:hidden}
+.hall-honoree-photo{min-height:480px}.hall-honoree-photo::after{background:linear-gradient(90deg,transparent 65%,#0b111955),linear-gradient(transparent 60%,#050b1277)}
+[data-hall-active=true] .hall-restaurant>.hall-honoree-copy{padding:42px 34px;gap:20px}.hall-honoree-copy::before{content:'';width:35px;height:1px;background:#c9a96a;margin-bottom:5px}
+[data-hall-active=true] .hall-honoree-copy>strong{font-size:clamp(37px,4.8vw,61px);line-height:1;letter-spacing:-.045em}.hall-honoree-seal{left:28px;bottom:30px;padding:16px 20px}
+[data-hall-active=true] .hall-gallery-heading{padding-top:22px}.hall-gallery-heading .hall-categories{margin:18px 0}.hall-categories button{border-radius:2px;border-color:#b5955744;background:#10151c;color:#ddc89e;transition:background .25s,border-color .25s,transform .25s}.hall-categories button:hover{transform:translateY(-2px);border-color:#e4c78a}
+@media(max-width:700px){[data-hall-active=true] .hall-of-lost{padding:15px 16px 28px}.hall-honoree-photo{min-height:310px}[data-hall-active=true] .hall-restaurant{grid-template-columns:1fr}[data-hall-active=true] .hall-restaurant>.hall-honoree-copy{padding:32px 24px;gap:17px}.premiere-controls button{padding-inline:8px;font-size:9px}.premiere-corridor{height:680px;width:150%;left:-25%}.hall-paparazzi i{width:85px;height:85px}.premiere-beam{height:600px;width:65%}}
+@media(prefers-reduced-motion:reduce){[data-hall-active=true][data-hall-entrance=true] .hall-rollout{display:none}.hall-paparazzi i,.premiere-beam{animation:none;opacity:0}[data-hall-active=true][data-hall-entrance=true] .hall-ceremony,[data-hall-active=true][data-hall-entrance=true] .hall-gallery-heading,[data-hall-active=true][data-hall-entrance=true] .picks-travel-card,[data-hall-active=true][data-hall-entrance=true] .hall-restaurants .hall-honoree-photo>img{animation:none}.premiere-controls [data-hall-skip]{display:none}.premiere-controls [data-hall-replay]{animation:none}.hall-categories button{transition:none}.hall-categories button:hover{transform:none}}
+[data-hall-active=true] .hall-paparazzi{z-index:7}
+.top-picks-dialog[data-hall-active=true]>.picks-topbar>span{font-size:0}
+.top-picks-dialog[data-hall-active=true]>.picks-topbar>span::after{content:'LOST & PERDIDO / THE HONORS';font:9px/1.6 monospace;letter-spacing:.14em}
+html[lang=es] .top-picks-dialog[data-hall-active=true]>.picks-topbar>span::after{content:'LOST & PERDIDO / LOS HONORES'}
+
+/* Equal honors: an editorial pair, with a shared photographic rhythm. */
+[data-hall-active=true] .picks-travel-grid{align-items:start}
+[data-hall-active=true] .hall-restaurants,[data-hall-active=true] .hall-excursions{grid-column:auto;grid-row:1;padding:0!important;border:0!important;border-radius:2px!important;background:none!important;box-shadow:none;width:100%;min-width:0;display:block}
+[data-hall-active=true] .hall-excursions>.hall-emblem,[data-hall-active=true] .hall-excursions>small,[data-hall-active=true] .hall-excursions>h4,[data-hall-active=true] .hall-excursions>p{display:none}
+[data-hall-active=true] .hall-feature{display:flex;flex-direction:column;min-width:0;height:100%;border:1px solid #d7b26e55;border-radius:2px;background:#10161b;overflow:hidden}
+[data-hall-active=true] .hall-feature .hall-honoree-photo{min-height:0;aspect-ratio:4/3;width:100%}
+[data-hall-active=true] .hall-feature>.hall-honoree-copy{box-sizing:border-box;min-height:405px;padding:30px 24px;gap:16px;flex:1}
+[data-hall-active=true] .hall-feature .hall-honoree-copy>strong{font-size:clamp(30px,3.4vw,43px);min-height:2.05em;display:flex;align-items:center;justify-content:center}
+[data-hall-active=true] .hall-feature .hall-honoree-copy>p{font:15px/1.8 'DM Sans',sans-serif;max-width:33ch;min-height:5.4em}
+.hall-honoree-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 24px;margin-top:auto}
+.hall-honoree-links a{padding:10px 0;color:#f2d6a0;border-bottom:1px solid #c4a46a80;font:11px/1.6 'DM Sans',sans-serif;text-decoration:none}
+.hall-honoree-links a:hover{color:#fff4d8;border-color:currentColor}
+.hall-photo-collection{width:100%;border-top:1px solid #d7b26e33;background:#0b1117}
+.hall-photo-collection .hall-gallery-launch{display:flex;justify-content:space-between;gap:12px;cursor:pointer;padding:20px;color:#e6d2aa;font:12px/1.6 'DM Sans',sans-serif;list-style:none}
+.hall-photo-collection .hall-gallery-launch span{font-size:10px;color:#b2aa99}.hall-photo-collection .hall-gallery-launch::-webkit-details-marker{display:none}
+.hall-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:0 10px 10px}
+.hall-photo-grid a{display:block;aspect-ratio:1;overflow:hidden}.hall-photo-grid img{width:100%;height:100%;object-fit:cover;transition:transform .3s}.hall-photo-grid a:hover img{transform:scale(1.06)}
+.hall-photo-collection .hall-gallery-launch:focus-visible,.hall-photo-grid a:focus-visible,.hall-honoree-links a:focus-visible{outline:2px solid #e8ce91;outline-offset:3px}
+[data-hall-active=true] .hall-hotels{grid-column:1/-1;grid-row:2;border-radius:2px;padding:25px;opacity:.85}
+.hall-international{font:11px/1.7 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.16em;color:#e1c994;margin:0 auto 18px;max-width:40ch}
+.premiere-beam{opacity:.32;animation-duration:9s}.hall-paparazzi i{filter:drop-shadow(0 0 12px #e5f1ff88)}
+@media(max-width:700px){[data-hall-active=true] .hall-restaurants,[data-hall-active=true] .hall-excursions,[data-hall-active=true] .hall-hotels{grid-row:auto;grid-column:1}[data-hall-active=true] .hall-feature>.hall-honoree-copy{min-height:0;padding:30px 22px}[data-hall-active=true] .hall-feature .hall-honoree-copy>strong,[data-hall-active=true] .hall-feature .hall-honoree-copy>p{min-height:0}.hall-photo-collection .hall-gallery-launch{padding:18px 14px}.hall-honoree-seal{transform:scale(.8);transform-origin:bottom left;left:20px;bottom:20px}}
+@media(prefers-reduced-motion:reduce){.hall-photo-grid img{transition:none}.hall-photo-grid a:hover img{transform:none}.premiere-beam{animation:none;opacity:0}}
+
+/* Invitations with presence, followed by a gentle photographic reveal. */
+.hall-gallery-heading .hall-categories{gap:14px;flex-wrap:wrap}
+.hall-gallery-heading .hall-categories button{position:relative;overflow:hidden;min-width:180px;min-height:58px;padding:17px 32px;border:1px solid #c6a56b88;border-radius:4px;background:linear-gradient(120deg,#25262a,#171d25);font:500 14px/1.5 'DM Sans',sans-serif;letter-spacing:.04em;box-shadow:0 8px 24px #0003;transition:transform .3s,box-shadow .3s,border-color .3s}
+.hall-gallery-heading .hall-categories button::after,.hall-photo-collection .hall-gallery-launch::after{content:'';position:absolute;pointer-events:none;inset:-80% -45%;background:linear-gradient(110deg,transparent 40%,#ffeacb25 50%,transparent 60%);transform:translateX(-70%);animation:hall-invitation-shine 5.5s ease-in-out infinite}
+.hall-gallery-heading .hall-categories button:nth-child(2)::after{animation-delay:.6s}.hall-gallery-heading .hall-categories button:nth-child(3)::after{animation-delay:1.2s}
+.hall-gallery-heading .hall-categories button:hover,.hall-gallery-heading .hall-categories button[aria-pressed=true]{transform:translateY(-3px);border-color:#f0cf92;background:linear-gradient(120deg,#55412b,#25252a);box-shadow:0 10px 28px #c9973d24}
+.hall-honoree-links{width:100%;gap:12px}
+.hall-honoree-links a{display:flex;align-items:center;justify-content:center;flex:1;min-width:115px;min-height:50px;box-sizing:border-box;padding:12px 18px;border:1px solid #c4a46a88;border-radius:3px;background:#c4a46a0d;font-size:12px;transition:background .3s,transform .3s,box-shadow .3s}
+.hall-honoree-links a:hover{background:#c4a46a25;transform:translateY(-3px);box-shadow:0 6px 22px #c4a46a20}
+.hall-photo-collection{border-top:1px solid #e2bd7d88;background:#0e141c}
+.hall-photo-collection .hall-gallery-launch{position:relative;overflow:hidden;align-items:center;padding:28px 24px;min-height:125px;box-sizing:border-box;background:radial-gradient(ellipse at 0 0,#c8a36530,transparent 75%),linear-gradient(115deg,#302a24,#151e2b);text-align:left;transition:background .3s}
+.hall-photo-collection .hall-gallery-launch:hover{background:radial-gradient(ellipse at 0 0,#d4ad7045,transparent 85%),#1a2430}
+.hall-photo-collection .hall-gallery-launch .hall-reveal-copy{display:grid;gap:10px;position:relative;z-index:1}
+.hall-photo-collection .hall-gallery-launch .hall-reveal-copy small{font:8px/1.5 'DM Sans',sans-serif;letter-spacing:.2em;color:#d8b77f}
+.hall-photo-collection .hall-gallery-launch .hall-reveal-copy strong{font:normal clamp(23px,2.6vw,31px)/1.15 Georgia,serif;letter-spacing:-.025em;color:#fff0d0}
+.hall-photo-collection .hall-gallery-launch .hall-reveal-copy>span{font:11px/1.7 'DM Sans',sans-serif;color:#c5bcac}
+.hall-photo-collection .hall-gallery-launch .hall-reveal-icon{display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;border:1px solid #d3b37a88;border-radius:50%;font:25px/1 Georgia,serif;color:#f4d399;box-shadow:0 0 22px #d6ae6322;transition:transform .5s,background .3s}
+.hall-photo-collection[open] .hall-reveal-icon{transform:rotate(45deg);background:#d3b37a20}
+.hall-photo-grid{gap:8px;padding:14px}
+.hall-photo-collection[open] .hall-photo-grid a{animation:hall-photo-arrive .65s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.1s + var(--photo-order)*45ms)}
+@keyframes hall-invitation-shine{0%,55%{transform:translateX(-70%)}85%,100%{transform:translateX(70%)}}
+@keyframes hall-photo-arrive{from{opacity:0;transform:translateY(18px) scale(.96);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@media(max-width:700px){.hall-gallery-heading .hall-categories{display:grid;grid-template-columns:1fr;width:100%}.hall-gallery-heading .hall-categories button{width:100%;min-height:56px}.hall-photo-collection .hall-gallery-launch{padding:25px 20px;gap:14px}.hall-photo-collection .hall-gallery-launch .hall-reveal-copy strong{font-size:25px}.hall-honoree-links a{min-height:52px}}
+@media(prefers-reduced-motion:reduce){.hall-gallery-heading .hall-categories button::after,.hall-photo-collection .hall-gallery-launch::after,.hall-photo-collection[open] .hall-photo-grid a{animation:none}.hall-gallery-heading .hall-categories button,.hall-honoree-links a,.hall-photo-collection .hall-gallery-launch,.hall-photo-collection .hall-gallery-launch .hall-reveal-icon{transition:none}.hall-gallery-heading .hall-categories button:hover,.hall-honoree-links a:hover{transform:none}}
+.hall-gallery-launch{display:flex;width:100%;border:0;color:inherit;cursor:pointer;font:inherit}
+.hall-experience-dialog{box-sizing:border-box;width:min(1060px,94vw);max-width:94vw;max-height:90dvh;padding:0;border:1px solid #d7b26e88;border-radius:8px;background:#0e141c;color:#f6e5be;box-shadow:0 30px 120px #000b;overflow:auto;overscroll-behavior:contain}
+.hall-experience-dialog::backdrop{background:#03070de0;backdrop-filter:blur(12px)}
+.hall-experience-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:32px;background:radial-gradient(ellipse at top left,#c8a36525,transparent 80%),#101720;border-bottom:1px solid #d7b26e33}
+.hall-experience-header small{font:9px/1.6 'DM Sans',sans-serif;letter-spacing:.18em;color:#d8b77f}.hall-experience-header h2{font:normal clamp(30px,5vw,52px)/1.1 Georgia,serif;letter-spacing:-.035em;margin:12px 0;color:#fff0d0}.hall-experience-header p{font:12px/1.6 'DM Sans',sans-serif;color:#c5bcac;margin:0}
+.hall-experience-header button{display:grid;place-items:center;flex-shrink:0;width:46px;height:46px;border:1px solid #d3b37a88;border-radius:50%;background:#d3b37a12;color:#f4d399;font-size:28px;cursor:pointer}
+.hall-experience-dialog .hall-photo-grid{padding:20px;gap:12px}.hall-experience-dialog .hall-photo-grid a{border-radius:3px;background:#19212c}
+.hall-experience-dialog[open]{animation:hall-gallery-enter .45s cubic-bezier(.22,1,.36,1) both}.hall-experience-dialog[open] .hall-photo-grid a{animation:hall-photo-arrive .6s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.12s + var(--photo-order)*35ms)}
+.hall-experience-header button:focus-visible{outline:2px solid #e8ce91;outline-offset:4px}
+@keyframes hall-gallery-enter{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:700px){.hall-experience-header{padding:24px 20px}.hall-experience-dialog .hall-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px;gap:8px}}
+@media(prefers-reduced-motion:reduce){.hall-experience-dialog[open],.hall-experience-dialog[open] .hall-photo-grid a{animation:none}}
+
+/* An intimate field journal: one moment in the spotlight, a contact sheet beside it. */
+.hall-experience-dialog{width:min(1180px,96vw);max-width:96vw;background:radial-gradient(ellipse at top left,#aa82491a,transparent 60%),#0c1219}
+.hall-experience-header{padding:26px 30px;background:transparent}.hall-experience-header p span{margin:0 12px;color:#d4b477}
+.hall-gallery-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px;padding:24px 30px 30px}
+.hall-gallery-viewer{min-width:0}.hall-gallery-stage{position:relative;touch-action:pan-y}
+.hall-gallery-image{position:relative;height:clamp(260px,48vh,520px);background:#060a0f;overflow:hidden;border:1px solid #b9996040}
+.hall-gallery-image>img{display:block;width:100%;height:100%;object-fit:contain;animation:hall-frame-in .55s cubic-bezier(.22,1,.36,1) both}
+.hall-gallery-stamp{position:absolute;left:18px;bottom:18px;padding:10px 12px;background:#070c12b8;border:1px solid #e0bd7f55;color:#e4c78f;font:8px/1.7 monospace;letter-spacing:.13em;pointer-events:none}
+.hall-gallery-caption{display:flex;align-items:baseline;gap:20px;padding:20px 0;min-height:65px;box-sizing:border-box}.hall-gallery-caption>span{white-space:nowrap;color:#c7a773;font:11px monospace}.hall-gallery-caption h3{font:normal clamp(20px,2.5vw,29px)/1.2 Georgia,serif;color:#f5e4c0;margin:0;animation:hall-photo-arrive .4s both}
+.hall-gallery-progress{height:2px;background:#d8b67820}.hall-gallery-progress::before{content:'';display:block;height:100%;width:var(--progress);background:#d8b678;transition:width .4s}
+.hall-gallery-controls{display:flex;align-items:center;gap:12px;padding-top:16px}.hall-gallery-controls button{width:48px;height:48px;border:1px solid #c8a56977;border-radius:50%;background:#c8a5690d;color:#eed3a0;font-size:24px;cursor:pointer;transition:transform .2s,background .2s}.hall-gallery-controls button:hover{transform:scale(1.08);background:#c8a56930}.hall-gallery-controls>span{font:italic 15px Georgia,serif;color:#d7c5a3}.hall-gallery-controls a{margin-left:auto;color:#d7bc87;text-decoration:none;border-bottom:1px solid #d7bc8755;padding:10px 0;font:11px 'DM Sans',sans-serif}
+.hall-gallery-contact{min-width:0;border-left:1px solid #d0ad702b;padding-left:24px}.hall-gallery-contact>p{font:9px/1.8 'DM Sans',sans-serif;letter-spacing:.13em;color:#cbb17f;margin:0 0 14px}.hall-gallery-thumbnails{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:450px;overflow:auto;padding:4px;scrollbar-width:thin;scrollbar-color:#b99960 #141b25}
+.hall-gallery-thumbnails button{position:relative;display:block;aspect-ratio:1;padding:0;background:#101720;border:1px solid transparent;border-radius:2px;overflow:hidden;cursor:pointer;opacity:.6;transition:opacity .25s,border-color .25s,transform .25s}
+.hall-gallery-thumbnails img{width:100%;height:100%;object-fit:cover}.hall-gallery-thumbnails button span{position:absolute;bottom:5px;left:5px;background:#050a10c9;color:#f3dcaf;padding:3px 6px;font:9px monospace}.hall-gallery-thumbnails button:hover,.hall-gallery-thumbnails button[aria-pressed=true]{opacity:1;border-color:#e2c083;transform:translateY(-2px)}
+.hall-gallery-contact .hall-gallery-hint{letter-spacing:0;color:#9f9b92;font-size:10px;margin-top:16px}
+.hall-gallery-controls button:focus-visible,.hall-gallery-thumbnails button:focus-visible,.hall-gallery-controls a:focus-visible{outline:2px solid #f0cf92;outline-offset:2px}
+@keyframes hall-frame-in{from{opacity:.2;transform:scale(1.035);filter:blur(3px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{animation:hall-premiere-burst 3.8s var(--burst-delay) both,premiere-shutter var(--cycle) calc(3.8s + var(--delay)) infinite}
+@keyframes hall-premiere-burst{0%,12%,38%,65%,100%{opacity:0}3%{opacity:1}6%{opacity:.12}9%{opacity:.7}30%{opacity:.85}34%{opacity:.1}58%{opacity:.7}61%{opacity:.1}}
+@media(max-width:700px){.hall-gallery-layout{grid-template-columns:1fr;padding:16px;gap:20px}.hall-gallery-contact{border-left:0;border-top:1px solid #d0ad702b;padding:20px 0 0}.hall-gallery-thumbnails{display:flex;max-height:none;overflow-x:auto}.hall-gallery-thumbnails button{flex:0 0 76px;height:76px}.hall-gallery-image{height:45dvh;min-height:250px}.hall-gallery-controls{gap:10px}.hall-gallery-controls>span{font-size:13px}.hall-gallery-caption{gap:12px}}
+@media(prefers-reduced-motion:reduce){.hall-gallery-image>img,.hall-gallery-caption h3,[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{animation:none}.hall-gallery-progress::before,.hall-gallery-controls button,.hall-gallery-thumbnails button{transition:none}.hall-gallery-controls button:hover,.hall-gallery-thumbnails button:hover,.hall-gallery-thumbnails button[aria-pressed=true]{transform:none}}
+/* Camera banks fire along both sides as the carpet appears. */
+[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{width:145px;height:145px;animation:hall-premiere-burst 3.8s var(--burst-delay) both,premiere-shutter var(--cycle) calc(3.8s + var(--delay)) infinite}
+@keyframes hall-premiere-burst{0%,13%,28%,46%,68%,88%,100%{opacity:0}3%{opacity:1}6%{opacity:.15}9%{opacity:.8}23%{opacity:.95}25%{opacity:.2}40%{opacity:.9}43%{opacity:.15}61%{opacity:.85}64%{opacity:.1}82%{opacity:.65}}
+@media(max-width:700px){[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{width:95px;height:95px}}
+@media(prefers-reduced-motion:reduce){[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{animation:none;opacity:0}}
+/* A photographic flash: compact white core, lens bloom and a brief light spill. */
+.hall-paparazzi i{background:radial-gradient(ellipse at center,#fff 0 2%,#f4f8ffe6 3%,#d9e8ff80 7%,#b6d1ff1c 18%,transparent 48%);filter:blur(.4px);mix-blend-mode:screen}
+.hall-paparazzi i::before{top:49%;left:22%;width:56%;height:2%;background:#fff;filter:blur(2px);transform:rotate(-12deg);box-shadow:0 0 18px 5px #eef5ff}
+.hall-paparazzi i::after{inset:30%;width:auto;height:auto;border-radius:50%;background:#eaf2ff44;filter:blur(12px);transform:none}
+.hall-paparazzi i b{inset:-65%;border-radius:50%;background:radial-gradient(ellipse,#d8eaff18,transparent 65%);box-shadow:none;filter:blur(18px)}
+@keyframes hall-premiere-burst{0%,5%,25%,44%,64%,85%,100%{opacity:0}1%{opacity:1}2.5%{opacity:.2}21%{opacity:.85}22.5%{opacity:.1}40%{opacity:.95}41.5%{opacity:.12}60%{opacity:.8}61.5%{opacity:.08}81%{opacity:.6}82%{opacity:.1}}
+.hall-paparazzi i,[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{width:var(--flash-size);height:var(--flash-size)}
+@media(max-width:700px){.hall-paparazzi i,[data-hall-active=true][data-hall-entrance=true] .hall-paparazzi i{width:calc(var(--flash-size)*.65);height:calc(var(--flash-size)*.65)}}

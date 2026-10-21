@@ -2520,3 +2520,25 @@ body:has(.top-picks-dialog[open]){overflow:hidden;}
 .watch-section .phone-size-frame .tiktok-feed-caption{bottom:64px;right:25%;}
 .watch-section .phone-size-frame .social-hype-screen>b{font-size:17px;line-height:1.4;}
 @media(prefers-reduced-motion:reduce){.book-type-cursor{animation:none;}}
+
+.hall-restaurant{display:block;margin-top:24px;overflow:hidden;border:1px solid #c6ac72;border-radius:10px;text-align:left;color:inherit;text-decoration:none;background:#fffaf0}.hall-restaurant>img{display:block;width:100%;height:240px;object-fit:cover}.hall-restaurant>span{display:grid;gap:12px;padding:22px}.hall-restaurant small{font-size:10px;letter-spacing:.12em}.hall-restaurant strong{font:28px Georgia,serif}.hall-restaurant p{margin:0;line-height:1.6}.hall-restaurant b{font-size:12px;text-decoration:underline;text-underline-offset:4px}.hall-restaurant:hover{box-shadow:0 8px 24px #142e3220}.hall-restaurant:focus-visible{outline:3px solid #b47b30;outline-offset:4px}
+.hall-restaurant,.hall-restaurant strong,.hall-restaurant p,.hall-restaurant b{color:#243d3c}.hall-restaurant small{color:#78603b}.hall-restaurant>span>strong{display:block;font-size:26px;line-height:1.2}.hall-restaurant>span>p{color:#425653}.hall-restaurant>span>b{display:block;color:#243d3c}
+.trip-stat-note{display:block;color:#c9bea8;font:11px/1.7 'DM Sans',sans-serif;margin-top:8px;letter-spacing:0}
+.gps-traveler-faces{display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 4px 4px #0004)}.gps-traveler-faces img{width:65%;height:auto;object-fit:contain}.gps-traveler-faces img+img{margin-left:-20%}
+.gps-readout .gps-lost{font-size:clamp(8px,1.1vw,12px)}
+.satellite-readouts .distance-board{display:flex;height:30px;gap:2px;max-width:100%;margin-bottom:10px}.satellite-readouts .distance-board svg{width:17px;min-width:0}.distance-board .board-space{width:7px;flex-shrink:0}
+.gps-travelers>svg{scale:1;transform-origin:50% 100%}
+@media(max-width:700px){.satellite-readouts .distance-board{height:24px;gap:1px}.satellite-readouts .distance-board svg{width:13px}.distance-board .board-space{width:4px}}
+/* Shared baselines and fully spelled units in the same segmented lettering. */
+.satellite-readouts>div:first-child{grid-column:1/-1}
+.satellite-readouts dd{min-height:42px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+.satellite-readouts .distance-board{display:grid;grid-template-columns:145px minmax(0,1fr);align-items:center;width:100%;height:42px;margin:0 0 12px;gap:20px}
+.distance-board .board-number,.distance-board .board-unit{display:flex;align-items:center;height:100%;gap:4px}
+.satellite-readouts .distance-board .board-number svg{width:25px;height:42px;flex:0 0 25px}
+.satellite-readouts .distance-board .board-unit{gap:3px;height:20px}
+.satellite-readouts .distance-board .board-unit svg{width:11px;height:20px;flex:0 0 11px}
+@media(max-width:700px){.satellite-readouts dd{min-height:28px}.satellite-readouts .distance-board{grid-template-columns:98px minmax(0,1fr);height:28px;gap:12px}.distance-board .board-number{gap:2px}.satellite-readouts .distance-board .board-number svg{width:17px;height:28px;flex-basis:17px}.satellite-readouts .distance-board .board-unit{gap:2px;height:15px}.satellite-readouts .distance-board .board-unit svg{width:8px;height:15px;flex-basis:8px}}
+/* Right-align the figures; unit labels share a fixed left edge. */
+.satellite-readouts .distance-board .board-number{justify-content:flex-end;width:100%;gap:4px}
+.satellite-readouts .distance-board .board-unit{justify-content:flex-start;align-self:center}
+@media(max-width:700px){.satellite-readouts .distance-board .board-number{gap:2px}}

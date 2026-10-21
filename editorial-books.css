@@ -276,3 +276,61 @@ html[lang=en] .watch-section .socials-title,.watch-section .socials-title{font-f
 @keyframes film-route-travel{to{stroke-dashoffset:-40;}}
 @media(max-width:600px){.film-intro-card h3{font-size:43px;}.film-intro-card{margin-bottom:25px;}}
 @media(prefers-reduced-motion:reduce){.film-camera-reel,.film-intro-route path:first-child{animation:none;}}
+
+#creator-studio{scroll-margin-top:110px}
+.studio-hall-entry{display:flex;align-items:center;gap:20px;width:100%;padding:25px;margin:0 0 26px;text-align:left;border:1px solid #c6ac72;border-radius:14px;background:linear-gradient(125deg,#142e32,#28474a);color:#f8efd9;cursor:pointer;box-shadow:0 10px 30px #142e3218;transition:transform .2s,box-shadow .2s}
+.studio-hall-entry:hover{transform:translateY(-3px);box-shadow:0 14px 32px #142e3230}.studio-hall-entry:focus-visible{outline:3px solid #b47b30;outline-offset:4px}.studio-hall-entry>span:nth-child(2){display:grid;gap:9px;flex:1}.studio-hall-entry small{font-size:9px;letter-spacing:.15em;color:#dfc48b}.studio-hall-entry strong{font-family:Georgia,serif;font-size:clamp(26px,3vw,38px);font-weight:400}.studio-hall-entry span span{font-size:12px;line-height:1.6}.studio-hall-star{font-size:36px;color:#dfc48b}.studio-hall-entry>b{font-size:26px;color:#dfc48b}
+@media(max-width:500px){.studio-hall-entry{padding:20px 15px;gap:12px}.studio-hall-star{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.studio-hall-entry{transition:none}}
+
+
+
+
+/* A cinematic, invitation-sized red carpet. */
+.studio-hall-entry{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr;place-items:center;min-height:365px;width:100%;padding:34px 24px 28px;gap:0;overflow:hidden;border:1px solid #b59a68;border-radius:10px;background:#080c12;text-align:center;box-shadow:0 18px 35px #10222c35,inset 0 0 0 5px #090d12;transition:transform .3s,box-shadow .3s}
+.studio-hall-entry::after{content:'';position:absolute;inset:9px;border:1px solid #dec49130;border-radius:5px;pointer-events:none;z-index:3}
+.hall-premiere-scene{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#03070c25,#03070c05 62%,#06080d30),url('assets/hall-red-carpet.png') center 62%/cover no-repeat;transition:transform 1s cubic-bezier(.2,.7,.3,1)}
+.hall-premiere-scene::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#050810bb,#05081055 40%,transparent 72%)}
+.studio-hall-entry .hall-premiere-copy{position:relative;display:grid;justify-items:center;gap:12px;align-self:start;padding-top:4px;max-width:100%;flex:none}
+.studio-hall-entry .hall-premiere-copy small{color:#ead6aa;font:8px/1.8 'DM Sans',sans-serif;letter-spacing:.27em;text-shadow:0 2px 8px #000}
+.studio-hall-entry .hall-premiere-ornament{font:15px/1 Georgia,serif;letter-spacing:.3em;color:#d8b575}
+.studio-hall-entry .hall-premiere-copy strong{font:normal clamp(34px,3.7vw,53px)/1.05 Georgia,serif;letter-spacing:-.045em;color:#ffe8b5;text-shadow:0 2px 12px #000,0 0 24px #f2c57422;max-width:100%}
+.studio-hall-entry .hall-premiere-subtitle{font:italic 15px/1.6 Georgia,serif;color:#e1dbcf;max-width:270px;text-shadow:0 2px 8px #000}
+.hall-premiere-copy em{display:flex;align-items:center;gap:20px;padding:11px 19px;margin-top:8px;border:1px solid #e9c884aa;background:#080d15b5;box-shadow:0 4px 14px #0004;font:normal 11px/1.5 'DM Sans',sans-serif;color:#f9e2b2;backdrop-filter:blur(5px);transition:background .25s,box-shadow .25s}.hall-premiere-copy em b{font-size:20px}
+.studio-hall-entry .hall-premiere-footnote{align-self:end;margin-top:75px;font:7px/1.8 'DM Sans',sans-serif;letter-spacing:.17em;color:#ffecd0;text-shadow:0 1px 8px #000}
+.studio-hall-entry:hover{transform:translateY(-3px);box-shadow:0 22px 40px #10222c45}.studio-hall-entry:hover .hall-premiere-scene{transform:scale(1.045)}.studio-hall-entry:hover em{background:#45202cce;box-shadow:0 0 25px #cda56f35}
+.hall-premiere-scene i{position:absolute;z-index:2;left:8%;top:40%;width:80px;height:80px;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,#fff 0 2%,#e9f4ffb0 3%,#c7dfff40 8%,transparent 50%);animation:hall-camera-flash 7s var(--flash-delay,0s) infinite;pointer-events:none}.hall-premiere-scene i::before,.hall-premiere-scene i::after{content:'';position:absolute;top:50%;left:15%;width:70%;height:1px;background:linear-gradient(90deg,transparent,#fff,transparent)}.hall-premiere-scene i::after{transform:rotate(90deg)}
+.hall-premiere-scene i:nth-child(2){left:88%;top:28%;--flash-delay:1.2s}.hall-premiere-scene i:nth-child(3){left:17%;top:72%;--flash-delay:2.8s}.hall-premiere-scene i:nth-child(4){left:92%;top:80%;--flash-delay:4.1s}.hall-premiere-scene i:nth-child(5){left:64%;top:9%;--flash-delay:5.4s}.hall-premiere-scene i:nth-child(6){left:4%;top:17%;--flash-delay:6.1s}
+@keyframes hall-camera-flash{0%,3%,8%,100%{opacity:0}1%,5%{opacity:.8}2%,6%{opacity:.15}}
+@media(max-width:500px){.studio-hall-entry{min-height:355px;padding:30px 22px 24px}.studio-hall-entry .hall-premiere-copy strong{font-size:39px}.studio-hall-entry .hall-premiere-subtitle{font-size:14px}.studio-hall-entry .hall-premiere-footnote{font-size:6px;letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){.hall-premiere-scene i{animation:none}.hall-premiere-scene,.studio-hall-entry,.hall-premiere-copy em{transition:none}.studio-hall-entry:hover,.studio-hall-entry:hover .hall-premiere-scene{transform:none}}
+
+/* Let the premiere artwork float on the page instead of enclosing it in a card. */
+.studio-hall-entry{min-height:340px;margin:0 0 14px;padding:28px 20px 22px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.studio-hall-entry::after{display:none}
+.hall-premiere-scene{inset:-8px -12px 0;border-radius:48% 48% 12% 12% / 23% 23% 8% 8%;overflow:hidden;background-position:center 66%;mask-image:radial-gradient(ellipse 68% 76% at 50% 40%,#000 53%,#000c 68%,transparent 97%)}
+.studio-hall-entry .hall-premiere-copy{gap:9px;padding-top:4px}.studio-hall-entry .hall-premiere-copy strong{font-size:clamp(35px,3.8vw,53px)}
+.hall-premiere-copy em{border:0;border-bottom:1px solid #f0cf8c;background:transparent;backdrop-filter:none;box-shadow:none;padding:9px 0;margin-top:3px;text-shadow:0 2px 5px #000}
+.studio-hall-entry .hall-premiere-footnote{margin-top:60px;color:#fff1d5;font-size:7px;letter-spacing:.1em}
+.studio-hall-entry:hover{box-shadow:none;transform:translateY(-2px)}.studio-hall-entry:hover em{background:transparent;box-shadow:none;color:#fff3cd}
+/* Keep the studio's publications, directory, and contact links in two compact rows. */
+#contact{row-gap:24px;padding-bottom:48px}
+#creator-studio{align-items:start;gap:24px clamp(24px,3vw,44px)}
+#creator-studio .partner-cover{grid-column:1;grid-row:1;margin:8px 0 0;min-height:0;align-self:start}
+#creator-studio .partner-directory-panel{grid-column:2;grid-row:1}
+#creator-studio .editorial-end-cta{grid-column:1;grid-row:2;align-self:center;margin:0 auto;font-size:clamp(24px,2.6vw,34px)}
+#creator-studio .contact-followers-bottom{grid-column:2;grid-row:2;align-self:center;gap:8px}
+#creator-studio .editorial-index-label{padding-top:14px;font-size:10px}
+#creator-studio .services{gap:10px;margin:14px 0}
+#creator-studio .services button{min-height:92px;padding:16px 20px 16px 14px}
+#creator-studio .partner-route-line{margin:12px 0 0;padding-top:12px}
+@media(max-width:700px){#creator-studio{grid-template-columns:minmax(0,1fr);gap:24px}#creator-studio .partner-cover{grid-column:1;grid-row:1;width:min(80%,380px);margin:0 auto}#creator-studio .partner-directory-panel{grid-column:1;grid-row:2}#creator-studio .editorial-end-cta{grid-column:1;grid-row:3}#creator-studio .contact-followers-bottom{grid-column:1;grid-row:4}#contact{row-gap:20px;padding-bottom:32px}.studio-hall-entry{min-height:325px;margin-bottom:8px;padding-top:27px}.studio-hall-entry .hall-premiere-footnote{margin-top:55px}.hall-premiere-scene{inset:0 -6px}.studio-hall-entry .hall-premiere-copy strong{font-size:clamp(35px,8vw,48px)}}
+@media(prefers-reduced-motion:reduce){.studio-hall-entry:hover{transform:none}}
+
+/* Classic premiere invitation; retain the carpet's original perspective. */
+.studio-hall-entry{min-height:310px;padding:26px 22px 20px;border:1px solid #ac8c58;border-radius:3px;background:#080c12;overflow:hidden;box-shadow:0 12px 30px #152e322b}
+.studio-hall-entry::after{display:block;inset:8px;border:1px solid #d6b77a44;border-radius:0}
+.hall-premiere-scene{inset:0;border-radius:0;mask-image:none;background-position:center 65%}
+.studio-hall-entry .hall-premiere-copy{gap:8px}.studio-hall-entry .hall-premiere-copy strong{font-size:clamp(35px,3.5vw,49px)}
+.studio-hall-entry .hall-premiere-footnote{margin-top:40px}.studio-hall-entry:hover{box-shadow:0 16px 34px #152e323b}
+@media(max-width:500px){.studio-hall-entry{min-height:310px;padding:25px 20px 20px}.hall-premiere-scene{inset:0}.studio-hall-entry .hall-premiere-footnote{margin-top:42px}}

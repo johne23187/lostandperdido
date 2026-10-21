@@ -6,6 +6,7 @@
   const markerLayer = document.querySelector('.footprint-markers');
   const selection = document.querySelector('.footprint-selection');
   const places = [
+    ['Argentina','ARG',[-65,-35],['john','mateo']],
     ['USA','USA',[-98,38],['john','mateo']],
     ['England',null,[-1.5,52.5],['john']],
     ['Italy','ITA',[12.5,42.5],['john']],

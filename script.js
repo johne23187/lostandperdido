@@ -193,6 +193,12 @@ const spanish = {
 
   'Osorno Volcano': 'Volcán Osorno',
   'Miles traveled': 'Millas recorridas',
+  'Mendoza, Argentina': 'Mendoza, Argentina',
+  'Mendoza · 1 city': 'Mendoza · 1 ciudad',
+  'Combined distance · 10,944 km': 'Distancia combinada · 10.944 km',
+  'John: 5,300 mi / 8,530 km': 'John: 5.300 mi / 8.530 km',
+  'Mateo: 1,500 mi / 2,414 km': 'Mateo: 1.500 mi / 2.414 km',
+  'CURRENT CHAPTER: MENDOZA': 'CAPÍTULO ACTUAL: MENDOZA',
   'Cities visited': 'Ciudades visitadas',
   'Flights taken': 'Vuelos tomados',
   'Buses taken': 'Buses tomados',
@@ -781,7 +787,14 @@ function renderShotClock(element, value) {
   element.setAttribute('aria-label', String(value));
   element.innerHTML = String(value).split('').map(digit => `<svg viewBox="-2 -1 24 44" aria-hidden="true">${clockSegments.map((points, i) => `<polygon points="${points}" fill="currentColor" opacity="${clockDigits[Number(digit)][i] === '1' ? 1 : .07}"/>`).join('')}</svg>`).join('');
 }
-document.querySelectorAll('[data-digits]').forEach(element => renderShotClock(element, element.dataset.digits));
+document.querySelectorAll('[data-digits]').forEach(element => {
+ if(!element.dataset.display){renderShotClock(element,element.dataset.digits);return;}
+ const letters={M:'M1 40V2L10 20 19 2V40',I:'M3 2H17M10 2V40M3 40H17',K:'M2 2V40M18 2 2 21 18 40',L:'M2 2V40H18',E:'M18 2H2V40H18M2 21H16',S:'M18 2H2V21H18V40H2',O:'M2 2H18V40H2Z',T:'M1 2H19M10 2V40',R:'M2 40V2H18V21H2M10 21 18 40'};
+ element.setAttribute('role','img');
+ const boardGlyphs=[...element.dataset.display].map(c=>c===' '?'<span class="board-space"></span>':letters[c]?`<svg viewBox="-2 -1 24 44" aria-hidden="true"><path d="${letters[c]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="bevel"/></svg>`:`<svg viewBox="-2 -1 24 44" aria-hidden="true">${clockSegments.map((points,i)=>`<polygon points="${points}" fill="currentColor" opacity="${clockDigits[Number(c)][i]==='1'?1:.07}"/>`).join('')}</svg>`).join('');
+ const [number,unit]=boardGlyphs.split('<span class="board-space"></span>');
+ element.innerHTML='<span class="board-number">'+number+'</span><span class="board-unit">'+unit+'</span>';
+});
 const satelliteButton = document.querySelector('.satellite');
 const satelliteDialog = document.getElementById('satellite-stats');
 let satelliteZoomAnimations = [];
@@ -820,7 +833,7 @@ satelliteButton.addEventListener('click', () => {
 });
 satelliteDialog.addEventListener('close', () => { satelliteZoomAnimations.forEach(animation => animation.cancel()); satelliteButton.style.animationPlayState = ''; satelliteButton.focus({ preventScroll: true }); });
 // Edit these coordinates when our location changes; never use the visitor's location.
-const gpsLocation = { latitude: 40.7128, longitude: -74.0060, label: 'NEW YORK · USA' };
+const gpsLocation = { latitude: -32.8895, longitude: -68.8458, label: 'MENDOZA · ARGENTINA' };
 const gpsButton = document.querySelector('.location-gps');
 gpsButton.addEventListener('keydown', event => {
   if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); gpsButton.click(); }
@@ -1822,6 +1835,7 @@ setInterval(() => {
     started = true;
     flyer.setAttribute('aria-disabled', 'true');
     flyer.classList.add('is-flying');
+    window.LPEffects?.fly();
     const seated = friend.querySelector('svg').cloneNode(true);
     seated.dataset.host='john';
     seated.querySelectorAll('.host-outfit [fill="#e4aa55"]').forEach(part=>part.setAttribute('fill','#58a6b5'));
